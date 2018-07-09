@@ -23,10 +23,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::resource('adminUser', 'AdminUsuariosController');
 
-
-
-Route::group([ 'middleware' => ['role:Admin','role:Admin' ]], function() {
- Route::resource('adminUser', 'AdminUsuariosController');
-});
+Route::put('/adminUser/add-rol/{usuario}', ['as' => 'adminUser.role.add', 'uses' => 'AdminUsuariosController@agregarRol']);
+Route::put('/adminUser/del-rol/{usuario}', ['as' => 'adminUser.role.del', 'uses' => 'AdminUsuariosController@eliminarRol']);
 
