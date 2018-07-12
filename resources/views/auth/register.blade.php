@@ -7,12 +7,55 @@
   <form action="{{ route('register') }}" method="POST">
     {{ csrf_field() }}
     <div class="form-group has-feedback{{ $errors->has('name') ? ' has-error' : '' }}">
-      <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Full name" required autofocus>
+      <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Primer Nombre" >
       <span class="glyphicon glyphicon-user form-control-feedback"></span>
       @if ($errors->has('name'))
       <span class="help-block">{{ $errors->first('name') }}</span>
       @endif
     </div>
+    <div class="form-group has-feedback{{ $errors->has('segundoNombre') ? ' has-error' : '' }}">
+      <input id="segundoNombre" type="text" class="form-control" name="segundoNombre" value="{{ old('segundoNombre') }}" placeholder="Segundo Nombre" >
+      <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      @if ($errors->has('segundoNombre'))
+      <span class="help-block">{{ $errors->first('segundoNombre') }}</span>
+      @endif
+    </div>
+    <div class="form-group has-feedback{{ $errors->has('primerApellido') ? ' has-error' : '' }}">
+      <input id="primerApellido" type="text" class="form-control" name="primerApellido" value="{{ old('primerApellido') }}" placeholder="Primer Apellido" >
+      <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      @if ($errors->has('primerApellido'))
+      <span class="help-block">{{ $errors->first('primerApellido') }}</span>
+      @endif
+    </div>
+    <div class="form-group has-feedback{{ $errors->has('segundoApellido') ? ' has-error' : '' }}">
+      <input id="segundoApellido" type="text" class="form-control" name="segundoApellido" value="{{ old('segundoApellido') }}" placeholder="Segundo Apellido" >
+      <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      @if ($errors->has('segundoApellido'))
+      <span class="help-block">{{ $errors->first('segundoApellido') }}</span>
+      @endif
+    </div>
+    <div class="form-group">
+    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+    <select  class="form-control" name="sexo" id="sexo" value="{{ old('sexo') }}">
+        <option value="F">Femenino</option>
+        <option value="M">Masculino</option>
+    </select>
+    </div>
+     <div class="form-group">
+    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+    <select  class="form-control" name="codigoArea" id="codigoArea" value="{{ old('codigoArea') }}">
+        <option value="502">502</option>
+        <option value="503">503</option>
+    </select>
+    </div>
+    <div class="form-group has-feedback{{ $errors->has('telefono') ? ' has-error' : '' }}">
+      <input id="telefono" type="text" class="form-control" name="telefono" value="{{ old('telefono') }}" placeholder="Telefono" >
+      <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+      @if ($errors->has('telefono'))
+      <span class="help-block">{{ $errors->first('telefono') }}</span>
+      @endif
+    </div>
+
     <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
       <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email" required>
       <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
