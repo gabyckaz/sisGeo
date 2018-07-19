@@ -19,43 +19,43 @@
   <li class="active">
     <a href="{{ route('home') }}">
       <i class="fa fa-home"></i>
-      <span>Home</span>      
+      <span>Home</span>
     </a>
   </li>
   <li class="active">
     <a href="{{ route('adminUser.index') }}">
       <i class="fa fa-home"></i>
-      <span>Usuarios</span>      
+      <span>Usuarios</span>
     </a>
   </li>
   <li class="active">
     <a href="{{ route('home') }}">
       <i class="fa fa-home"></i>
-      <span>Home</span>      
+      <span>Paqutes</span>
+    </a>
+  </li>
+  <li class="active">
+    <a href="{{ route('adminTransporte.index') }}">
+      <i class="fa fa-home"></i>
+      <span>Transporte</span>
     </a>
   </li>
   <li class="active">
     <a href="{{ route('home') }}">
       <i class="fa fa-home"></i>
-      <span>Home</span>      
+      <span>Home</span>
     </a>
   </li>
   <li class="active">
     <a href="{{ route('home') }}">
       <i class="fa fa-home"></i>
-      <span>Home</span>      
+      <span>Home</span>
     </a>
   </li>
   <li class="active">
     <a href="{{ route('home') }}">
       <i class="fa fa-home"></i>
-      <span>Home</span>      
-    </a>
-  </li>
-  <li class="active">
-    <a href="{{ route('home') }}">
-      <i class="fa fa-home"></i>
-      <span>Home</span>      
+      <span>Home</span>
     </a>
   </li>
 </ul>

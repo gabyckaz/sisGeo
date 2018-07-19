@@ -28,3 +28,4 @@ Route::resource('adminUser', 'AdminUsuariosController');
 Route::put('/adminUser/add-rol/{usuario}', ['as' => 'adminUser.role.add', 'uses' => 'AdminUsuariosController@agregarRol']);
 Route::put('/adminUser/del-rol/{usuario}', ['as' => 'adminUser.role.del', 'uses' => 'AdminUsuariosController@eliminarRol']);
 
+Route::resource('adminTransporte', 'EmpresaAlquilerTransporteController');
