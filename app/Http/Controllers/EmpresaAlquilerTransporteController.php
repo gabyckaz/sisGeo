@@ -15,7 +15,8 @@ class EmpresaAlquilerTransporteController extends Controller
      */
     public function index()
     {
-        //
+      $empresasTransporte = EmpresaAlquilerTransporte::all();
+      return view('adminTransporte.index', compact('empresasTransporte'));
     }
 
     /**
@@ -37,7 +38,29 @@ class EmpresaAlquilerTransporteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validando la informacion
+      $this->validate($request,array(
+       'nombreempresa' => 'required|max:80',
+       'nombrecontacto' => 'required|max:40',
+       'numerotelefono'=>'required|size:8',
+       'emailempresa'=>'required|max:30',
+       'observacionesempresa'=>'required|max:255',
+
+     ));
+
+     //Guardar en la BD
+
+     //Relacionando campo de BD con formulario
+     //campo de BD -> campo del formulario
+     $empresalquiler=new EmpresaAlquilerTransporte;
+     $empresalquiler->NombreEmpresaTransporte=$request->nombreempresa;
+     $empresalquiler->NombreContacto=$request->nombrecontacto;
+     $empresalquiler->NumeroTelefonoContacto=$request->numerotelefono;
+     $empresalquiler->EmailEmpresaTransporte=$request->emailempresa;
+     $empresalquiler->ObservacionesEmpresaTransporte=$request->observacionesempresa;
+
+     $empresalquiler->save();
+        return redirect('adminTransporte')->with('status', "Guardado con éxito. ");
     }
 
     /**

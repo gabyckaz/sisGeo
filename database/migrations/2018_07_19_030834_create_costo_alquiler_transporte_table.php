@@ -13,7 +13,7 @@ class CreateCostoAlquilerTransporteTable extends Migration
      */
     public function up()
     {
-      Schema::create('CostoAlquilerTransporte', function (Blueprint $table) {
+      Schema::create('EmpresaAlquilerTransporte', function (Blueprint $table) {
           $table->increments('IdEmpresaTransporte');
           $table->string('NombreEmpresaTransporte',80);
           $table->string('NombreContacto',40);
@@ -30,6 +30,6 @@ class CreateCostoAlquilerTransporteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('CostoAlquilerTransporte');
+        Schema::dropIfExists('EmpresaAlquilerTransporte');
     }
 }
