@@ -79,6 +79,8 @@ class RegisterController extends Controller
             'sexo' => $data['sexo'],
             'codigoArea' => $data['codigoArea'],
             'telefono' => $data['telefono'],
+            'notificacion' => $data['notificacion'],
+            'estado' => '1',
         ]);
     }
 

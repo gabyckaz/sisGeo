@@ -14,6 +14,7 @@
 @endsection
 
 @section('sidebar-menu')
+kkk
 <ul class="sidebar-menu">
   <li class="header">MAIN NAVIGATOR</li>
   <li class="active">

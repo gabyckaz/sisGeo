@@ -71,14 +71,14 @@ class AdminUsuariosController extends Controller
      */
     public function edit($id)
     {
-       /* $usuario = User::findOrFail($id);
+        $usuario = User::findOrFail($id);
         $roles = Role::All();
         return view("adminUser.edit",compact("usuario","roles"));//$usuario;
-        */
-      $var = 4;
-      $data = DB::select('select proc_AgregarPais(?) ', [$var]  );
+        
+     // $var = 4;
+    //  $data = DB::select('select proc_AgregarPais(?) ', [$var]  );
      // $data =DB::statement('SELECT proc_AgregarPais(?)', [$var]);
-      return $data;
+     // return $data;
     
     }
 
@@ -132,4 +132,28 @@ class AdminUsuariosController extends Controller
       }
 
     }
+
+     public function cambiarEstado(User $usuario){
+        if($usuario->estado === '0'){
+        DB::table('users')->where('id', $usuario->id)->update([
+            "estado" => '1',    
+            
+
+        ]);
+      return redirect()->route('adminUser.index');
+     }
+        if(($usuario->estado === '1')){
+           DB::table('users')->where('id', $usuario->id)->update([
+            "estado" => '0',
+            
+
+        ]);
+           return redirect()->route('adminUser.index');
+            
+         //  return "Hola mundo - ".$usuario->estado;
+    } 
+
+     
+
+     }
 }

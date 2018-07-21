@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="login-box-body">
-  <p class="login-box-msg">Register a new membership</p>
+  <p class="login-box-msg" >Formulario de Registro</p>
 
   <form action="{{ route('register') }}" method="POST">
     {{ csrf_field() }}
@@ -63,6 +63,18 @@
       <span class="help-block">{{ $errors->first('email') }}</span>
       @endif
     </div>
+     <div class="form-group ">
+     <label class="custom-control custom-radio">
+  <input id="radio1" name="notificacion" value="1" type="radio" class="custom-control-input">
+  <span class="custom-control-indicator"></span>
+  <span class="custom-control-description">Recibir Notificaciones</span>
+</label>
+<label class="custom-control custom-radio">
+  <input id="radio2" name="notificacion" value="2" type="radio" class="custom-control-input">
+  <span class="custom-control-indicator"></span>
+  <span class="custom-control-description">No recibir Notificaciones</span>
+</label>
+     </div>
     <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
       <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
       <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -76,7 +88,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+        <button type="submit" class="btn btn-primary btn-block btn-flat">Registrarme</button>
       </div>
       <!-- /.col -->
     </div>
@@ -90,7 +102,7 @@
     Google+</a>
   </div> --}}
 
-  <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
+  <a href="{{ route('login') }}" class="text-center">Ya tengo una cuenta de usuario!!</a>
 </div>
 <!-- /.form-box -->
 @endsection

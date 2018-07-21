@@ -53,20 +53,42 @@ endrole -->
  <table class="table table-striped table-bordered" >
  	<thead class="thead-dark">
  		<tr>
- 		<th>id</th>
- 		<th>Nombre</th>
- 		<th>Email</th>
- 		<th>Rol</th>
- 		<th>Opciones</th>
+ 		<th class="text-center">id</th>
+ 		<th class="text-center">Nombre</th>
+ 		<th class="text-center">Email</th>
+    <th class="text-center">Estado</th>
+ 		<th class="text-center">Rol</th>
+ 		<th class="text-center">Opciones</th>
  		
  		</tr>
  	</thead>
  	<tbody>
  		@foreach($usuarios as $usuario)
- 		 <tr>
+ 		 <tr class="text-center">
  		  <td>{{ $usuario->id }}</td>
            <td>{{ $usuario->name }}</td>
            <td>{{ $usuario->email }}</td>
+           <td>
+              <form class="form-horizontal" role="form" method="POST" action="{{route('adminUser.state.change', $usuario->id) }}">
+        {!! method_field('PUT') !!}
+        {{ csrf_field()  }}
+
+         @if($usuario->estado === '1' )
+             <div class="form-group">
+            <div>
+             <button type="submit"  class="btn btn-primary btn-block"><p>Activo</p></button>               
+           </div>
+          </div>
+            @else
+              <div class="form-group">
+            <div>
+             <button type="submit" class="btn btn-danger b"><p>Inactivo</p></button>               
+           </div>
+          </div>
+            @endif
+        </form>
+
+              </td>
             <td>
             @foreach($usuario->roles as $role )
             {{ $role->display_name }}<br>
@@ -85,7 +107,7 @@ endrole -->
                       <a class="btn btn-primary btn-sm glyphicon glyphicon-pencil btn-block" title="Editarar usuario" 
                       href="{{ route('adminUser.edit', $usuario )}}"></a>
                       
-                      </td>
+            </td>
           
          </tr>
  		@endforeach
