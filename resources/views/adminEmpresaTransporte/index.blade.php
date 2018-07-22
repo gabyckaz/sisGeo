@@ -1,17 +1,18 @@
 @extends('layouts.app')
 
-@section('content-title', 'Home')
-@section('content-subtitle', 'Dashboard')
+@section('content-title', 'Transporte')
+@section('content-subtitle', 'Empresas')
 
 @section('content')
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="box box-primary">
+
+  <div class="col-md-5 ">
+    <div class="box box-info">
       <div class="box-header">
         <h3 class="box-title">Registrar empresa de transporte</h3>
               <div class="box-body">
 
-                <form action="{{ route('adminTransporte.store') }}" method="POST">
+                <form action="{{ route('adminEmpresaTransporte.store') }}" method="POST">
                   {{ csrf_field() }}
                   <div class="form-group has-feedback{{ $errors->has('nombreempresa') ? ' has-error' : '' }}">
                     <input id="nombreempresa" type="text" class="form-control" name="nombreempresa" value="{{ old('nombreempresa') }}" placeholder="Nombre de la empresa" required autofocus>
@@ -51,11 +52,62 @@
 
                   <div class="row">
                     <div class="col-md-12">
-                      <button type="submit" class="btn btn-primary btn-block btn-flat">Registrar</button>
+                      <button type="submit" class="btn btn-info btn-block btn-flat">Registrar</button>
                     </div>
+
                     <!-- /.col -->
                   </div>
+                  @if(session('status'))
+                    <br>
+                      <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                      </div>
+                  @endif
                 </form>
+
+
+              </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-7">
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">Empresas</h3>
+              <div class="box-body">
+
+                <table class="table table-striped table-bordered" >
+                	<thead class="thead-dark">
+                		<tr>
+
+                		<th>Nombre</th>
+                		<th>NombreContacto</th>
+                		<th>NumeroTelefonoContacto</th>
+                		<th>Opciones</th>
+
+                		</tr>
+                	</thead>
+                	<tbody>
+              		@foreach($empresalquiler as $empresa)
+                		 <tr>
+                       <td>{{ $empresa->NombreEmpresaTransporte }}</td>
+                       <td>{{ $empresa->NombreContacto }}</td>
+                       <td>{{ $empresa->NumeroTelefonoContacto }}</td>
+                           <td>
+
+                                     <a class="btn btn-primary btn-sm glyphicon glyphicon-pencil btn-block" title="Editar"
+                                     href="{{ route('adminEmpresaTransporte.edit', $empresa )}}"></a>
+
+                                     </td>
+
+                        </tr>
+                		@endforeach
+
+                	</tbody>
+                </table>
+
+
 
 
               </div>

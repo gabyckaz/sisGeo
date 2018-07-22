@@ -15,8 +15,8 @@ class EmpresaAlquilerTransporteController extends Controller
      */
     public function index()
     {
-      $empresasTransporte = EmpresaAlquilerTransporte::all();
-      return view('adminTransporte.index', compact('empresasTransporte'));
+      $empresalquiler = EmpresaAlquilerTransporte::all();
+      return view('adminEmpresaTransporte.index', compact('empresalquiler'));
     }
 
     /**
@@ -26,7 +26,7 @@ class EmpresaAlquilerTransporteController extends Controller
      */
     public function create()
     {
-      return view('adminTransporte.create');
+      return view('adminEmpresaTransporte.create');
 
     }
 
@@ -60,7 +60,7 @@ class EmpresaAlquilerTransporteController extends Controller
      $empresalquiler->ObservacionesEmpresaTransporte=$request->observacionesempresa;
 
      $empresalquiler->save();
-        return redirect('adminTransporte')->with('status', "Guardado con éxito. ");
+        return redirect('adminEmpresaTransporte')->with('status', "Guardado con éxito. ");
     }
 
     /**
@@ -80,9 +80,10 @@ class EmpresaAlquilerTransporteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($IdEmpresaAlquilerTransporte)
     {
-        //
+       $empresalquiler = EmpresaAlquilerTransporte::find($IdEmpresaAlquilerTransporte);
+       return view('adminEmpresaTransporte.edit',compact('empresalquiler','IdEmpresaAlquilerTransporte'));
     }
 
     /**
