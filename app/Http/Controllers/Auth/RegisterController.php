@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Persona;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -52,12 +53,12 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'segundoNombre' => 'string|max:255',
+            /*'segundoNombre' => 'string|max:255',
             'primerApellido' => 'required|string|max:255',
             'segundoApellido' => 'string|max:255',
             'codigoArea' => 'required|string',
             'sexo' => 'required|string',
-            'telefono' => 'required|string|max:255',
+            'telefono' => 'required|string|max:255',*/
         ]);
     }
 
@@ -69,18 +70,29 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $persona = Persona::create([
+          'PrimerNombrePersona'=>$data['name'],
+          'SegundoNombrePersona'=>$data['SegundoNombrePersona'],
+          'PrimerApellidoPersona'=>$data['PrimerApellidoPersona'],
+          'SegundoApellidoPersona'=>$data['SegundoApellidoPersona'],
+          'Genero'=>$data['Genero'],
+          'AreaTelContacto'=>$data['AreaTelContacto'],
+          'TelefonoContacto'=>$data['TelefonoContacto']
+        ]);
+       // dd($persona->IdPersona);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'segundoNombre' => $data['segundoNombre'],
+            'IdPersona' => $persona->IdPersona,
+            /*'segundoNombre' => $data['segundoNombre'],
             'primerApellido' => $data['primerApellido'],
             'segundoApellido' => $data['segundoApellido'],
             'sexo' => $data['sexo'],
             'codigoArea' => $data['codigoArea'],
-            'telefono' => $data['telefono'],
-            'notificacion' => $data['notificacion'],
-            'estado' => '1',
+            'telefono' => $data['telefono'],*/
+            'RecibirNotificacion' => $data['RecibirNotificacion'],
+            'EstadoUsuario' => '1',
         ]);
     }
 

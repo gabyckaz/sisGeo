@@ -13,46 +13,46 @@
       <span class="help-block">{{ $errors->first('name') }}</span>
       @endif
     </div>
-    <div class="form-group has-feedback{{ $errors->has('segundoNombre') ? ' has-error' : '' }}">
-      <input id="segundoNombre" type="text" class="form-control" name="segundoNombre" value="{{ old('segundoNombre') }}" placeholder="Segundo Nombre" >
+    <div class="form-group has-feedback{{ $errors->has('SegundoNombrePersona') ? ' has-error' : '' }}">
+      <input id="SegundoNombrePersona" type="text" class="form-control" name="SegundoNombrePersona" value="{{ old('SegundoNombrePersona') }}" placeholder="Segundo Nombre" >
       <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      @if ($errors->has('segundoNombre'))
-      <span class="help-block">{{ $errors->first('segundoNombre') }}</span>
+      @if ($errors->has('SegundoNombrePersona'))
+      <span class="help-block">{{ $errors->first('SegundoNombrePersona') }}</span>
       @endif
     </div>
-    <div class="form-group has-feedback{{ $errors->has('primerApellido') ? ' has-error' : '' }}">
-      <input id="primerApellido" type="text" class="form-control" name="primerApellido" value="{{ old('primerApellido') }}" placeholder="Primer Apellido" >
+    <div class="form-group has-feedback{{ $errors->has('PrimerApellidoPersona') ? ' has-error' : '' }}">
+      <input id="PrimerApellidoPersona" type="text" class="form-control" name="PrimerApellidoPersona" value="{{ old('PrimerApellidoPersona') }}" placeholder="Primer Apellido" >
       <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      @if ($errors->has('primerApellido'))
-      <span class="help-block">{{ $errors->first('primerApellido') }}</span>
+      @if ($errors->has('PrimerApellidoPersona'))
+      <span class="help-block">{{ $errors->first('PrimerApellidoPersona') }}</span>
       @endif
     </div>
-    <div class="form-group has-feedback{{ $errors->has('segundoApellido') ? ' has-error' : '' }}">
-      <input id="segundoApellido" type="text" class="form-control" name="segundoApellido" value="{{ old('segundoApellido') }}" placeholder="Segundo Apellido" >
+    <div class="form-group has-feedback{{ $errors->has('SegundoApellidoPersona') ? ' has-error' : '' }}">
+      <input id="SegundoApellidoPersona" type="text" class="form-control" name="SegundoApellidoPersona" value="{{ old('SegundoApellidoPersona') }}" placeholder="Segundo Apellido" >
       <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      @if ($errors->has('segundoApellido'))
-      <span class="help-block">{{ $errors->first('segundoApellido') }}</span>
+      @if ($errors->has('SegundoApellidoPersona'))
+      <span class="help-block">{{ $errors->first('SegundoApellidoPersona') }}</span>
       @endif
     </div>
     <div class="form-group">
     <span class="glyphicon glyphicon-user form-control-feedback"></span>
-    <select  class="form-control" name="sexo" id="sexo" value="{{ old('sexo') }}">
+    <select  class="form-control" name="Genero" id="Genero" value="{{ old('Genero') }}">
         <option value="F">Femenino</option>
         <option value="M">Masculino</option>
     </select>
     </div>
      <div class="form-group">
     <span class="glyphicon glyphicon-user form-control-feedback"></span>
-    <select  class="form-control" name="codigoArea" id="codigoArea" value="{{ old('codigoArea') }}">
+    <select  class="form-control" name="AreaTelContacto" id="AreaTelContacto" value="{{ old('AreaTelContacto') }}">
         <option value="502">502</option>
         <option value="503">503</option>
     </select>
     </div>
-    <div class="form-group has-feedback{{ $errors->has('telefono') ? ' has-error' : '' }}">
-      <input id="telefono" type="text" class="form-control" name="telefono" value="{{ old('telefono') }}" placeholder="Telefono" >
+    <div class="form-group has-feedback{{ $errors->has('TelefonoContacto') ? ' has-error' : '' }}">
+      <input id="TelefonoContacto" type="text" class="form-control" name="TelefonoContacto" value="{{ old('TelefonoContacto') }}" placeholder="Telefono" >
       <span class="glyphicon glyphicon-phone form-control-feedback"></span>
-      @if ($errors->has('telefono'))
-      <span class="help-block">{{ $errors->first('telefono') }}</span>
+      @if ($errors->has('TelefonoContacto'))
+      <span class="help-block">{{ $errors->first('TelefonoContacto') }}</span>
       @endif
     </div>
 
@@ -65,12 +65,12 @@
     </div>
      <div class="form-group ">
      <label class="custom-control custom-radio">
-  <input id="radio1" name="notificacion" value="1" type="radio" class="custom-control-input">
+  <input id="radio1" name="RecibirNotificacion" value="1" type="radio" class="custom-control-input">
   <span class="custom-control-indicator"></span>
   <span class="custom-control-description">Recibir Notificaciones</span>
 </label>
 <label class="custom-control custom-radio">
-  <input id="radio2" name="notificacion" value="2" type="radio" class="custom-control-input">
+  <input id="radio2" name="RecibirNotificacion" value="2" type="radio" class="custom-control-input">
   <span class="custom-control-indicator"></span>
   <span class="custom-control-description">No recibir Notificaciones</span>
 </label>

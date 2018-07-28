@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class AdminUsuariosController extends Controller
 {
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -134,17 +139,17 @@ class AdminUsuariosController extends Controller
     }
 
      public function cambiarEstado(User $usuario){
-        if($usuario->estado === '0'){
+        if($usuario->EstadoUsuario === '0'){
         DB::table('users')->where('id', $usuario->id)->update([
-            "estado" => '1',    
+            "EstadoUsuario" => '1',    
             
 
         ]);
       return redirect()->route('adminUser.index');
      }
-        if(($usuario->estado === '1')){
+        if(($usuario->EstadoUsuario === '1')){
            DB::table('users')->where('id', $usuario->id)->update([
-            "estado" => '0',
+            "EstadoUsuario" => '0',
             
 
         ]);

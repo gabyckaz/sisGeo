@@ -30,9 +30,9 @@ kkk
     </a>
   </li>
   <li class="active">
-    <a href="{{ route('home') }}">
+    <a href="/user/{{ auth()->user()->id }}/edit">
       <i class="fa fa-home"></i>
-      <span>Home</span>      
+      <span>Mi Cuenta</span>      
     </a>
   </li>
   <li class="active">

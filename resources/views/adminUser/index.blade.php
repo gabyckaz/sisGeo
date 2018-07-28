@@ -73,16 +73,16 @@ endrole -->
         {!! method_field('PUT') !!}
         {{ csrf_field()  }}
 
-         @if($usuario->estado === '1' )
+         @if($usuario->EstadoUsuario === '1' )
              <div class="form-group">
             <div>
-             <button type="submit"  class="btn btn-primary btn-block"><p>Activo</p></button>               
+             <button type="submit"  class="btn btn-primary "><p>Activo</p></button>               
            </div>
           </div>
             @else
               <div class="form-group">
             <div>
-             <button type="submit" class="btn btn-danger b"><p>Inactivo</p></button>               
+             <button type="submit" class="btn btn-danger"><p>Inactivo</p></button>               
            </div>
           </div>
             @endif
@@ -93,6 +93,10 @@ endrole -->
             @foreach($usuario->roles as $role )
             {{ $role->display_name }}<br>
             @endforeach
+            -
+           
+            {{ $usuario->persona->AreaTelContacto }}<br>
+            
              </td>
             <td>
                         <form action="#" method="POST">
@@ -113,12 +117,58 @@ endrole -->
  		@endforeach
  	</tbody>
  </table>
+
+          
+
+ <caption>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo">
+        Agregar nuevo 
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+    </caption>
+
+<div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Agrega nueva persona</h4>
+      </div>
+      <div class="modal-body">
+          <label>Nombre</label>
+          <input type="text" name="" id="nombre" class="form-control input-sm">
+          <label>Apellido</label>
+          <input type="text" name="" id="apellido" class="form-control input-sm">
+          <label>Email</label>
+          <input type="text" name="" id="email" class="form-control input-sm">
+          <label>telefono</label>
+          <input type="text" name="" id="telefono" class="form-control input-sm">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="guardarnuevo">
+        Agregar
+        </button>
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
       </div>
       </div>
     </div>
   </div>
 </div>
 @endsection
+<script type="text/javascript">
+$(document).ready(function() {   
+    setTimeout(function() {
+        $(".content2").fadeIn(1500);
+    },3000);
+});
+</script>
 <script type="text/javascript">
 $(document).ready(function() {   
     setTimeout(function() {
