@@ -44,7 +44,7 @@ class EmpresaAlquilerTransporteController extends Controller
        'nombrecontacto' => 'required|max:40',
        'numerotelefono'=>'required|size:8',
        'emailempresa'=>'required|max:30',
-       'observacionesempresa'=>'required|max:255',
+       'observacionesempresa'=>'max:255',
 
      ));
 
@@ -95,7 +95,30 @@ class EmpresaAlquilerTransporteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      //validando la informacion
+     $this->validate($request,array(
+
+       'nombreempresa' => 'required|max:80',
+       'nombrecontacto' => 'required|max:40',
+       'numerotelefono'=>'required|size:8',
+       'emailempresa'=>'required|max:30',
+       'observacionesempresa'=>'max:255',
+        ));
+
+      //guardar en la bd
+
+      $empresalquiler = EmpresaAlquilerTransporte::find($id);
+
+      $empresalquiler->NombreEmpresaTransporte=$request->input('nombreempresa');
+      $empresalquiler->NombreContacto=$request->input('nombrecontacto');
+      $empresalquiler->NumeroTelefonoContacto=$request->input('numerotelefono');
+      $empresalquiler->EmailEmpresaTransporte=$request->input('emailempresa');
+      $empresalquiler->ObservacionesEmpresaTransporte=$request->input('observacionesempresa');
+
+      $empresalquiler->save();
+
+
+      return redirect('adminEmpresaTransporte');
     }
 
     /**

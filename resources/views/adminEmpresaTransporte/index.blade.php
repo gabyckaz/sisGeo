@@ -5,11 +5,20 @@
 
 @section('content')
 <div class="row">
-
-  <div class="col-md-5 ">
-    <div class="box box-info">
-      <div class="box-header">
+  <div class="col-md-8 col-md-offset-2">
+    @if(session('status'))
+      <br>
+        <div class="alert alert-success" role="alert">
+          {{ session('status') }}
+        </div>
+    @endif
+    <div class="box box-info collapsed-box">
+      <div class="box-header with-border">
         <h3 class="box-title">Registrar empresa de transporte</h3>
+        <div class="box-tools pull-right">
+          <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+        </div><!-- /.box-tools -->
+        </div>
               <div class="box-body">
 
                 <form action="{{ route('adminEmpresaTransporte.store') }}" method="POST">
@@ -29,7 +38,7 @@
                     @endif
                   </div>
                   <div class="form-group has-feedback{{ $errors->has('numerotelefono') ? ' has-error' : '' }}">
-                    <input id="numerotelefono" type="numerotelefono" class="form-control" name="numerotelefono" placeholder="Teléfono de contacto" required>
+                    <input id="numerotelefono" type="number"  class="form-control" name="numerotelefono" placeholder="Teléfono de contacto" required>
                     <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
                     @if ($errors->has('numerotelefono'))
                     <span class="help-block">{{ $errors->first('numerotelefono') }}</span>
@@ -43,7 +52,7 @@
                     @endif
                   </div>
                   <div class="form-group has-feedback{{ $errors->has('observacionesempresa') ? ' has-error' : '' }}">
-                    <input id="observacionesempresa" type="observacionesempresa" class="form-control" name="observacionesempresa" placeholder="Observaciones" required>
+                    <textarea id="observacionesempresa" type="observacionesempresa" class="form-control" name="observacionesempresa" placeholder="Observaciones" required></textarea>
                     <span class="glyphicon glyphicon-bookmark form-control-feedback"></span>
                     @if ($errors->has('observacionesempresa'))
                     <span class="help-block">{{ $errors->first('observacionesempresa') }}</span>
@@ -66,15 +75,16 @@
                 </form>
 
 
-              </div>
+
       </div>
     </div>
   </div>
 
-  <div class="col-md-7">
+  <div class="col-md-8  col-md-offset-2">
     <div class="box box-primary">
       <div class="box-header">
         <h3 class="box-title">Empresas</h3>
+        </div>
               <div class="box-body">
 
                 <table class="table table-striped table-bordered" >
@@ -82,9 +92,10 @@
                 		<tr>
 
                 		<th>Nombre</th>
-                		<th>NombreContacto</th>
-                		<th>NumeroTelefonoContacto</th>
-                		<th>Opciones</th>
+                		<th>Nombre de Contacto</th>
+                		<th>Teléfono</th>
+                    <th>Email</th>
+                		<th></th>
 
                 		</tr>
                 	</thead>
@@ -94,25 +105,21 @@
                        <td>{{ $empresa->NombreEmpresaTransporte }}</td>
                        <td>{{ $empresa->NombreContacto }}</td>
                        <td>{{ $empresa->NumeroTelefonoContacto }}</td>
+                        <td>{{ $empresa->EmailEmpresaTransporte }}</td>
                            <td>
-
-                                     <a class="btn btn-primary btn-sm glyphicon glyphicon-pencil btn-block" title="Editar"
+                             <a class="btn btn-primary btn-sm glyphicon glyphicon-pencil btn-block" title="Editar"
                                      href="{{ route('adminEmpresaTransporte.edit', $empresa )}}"></a>
-
-                                     </td>
-
+                            </td>
                         </tr>
                 		@endforeach
 
                 	</tbody>
                 </table>
 
-
-
-
               </div>
       </div>
     </div>
-  </div>
+
+
 </div>
 @endsection
