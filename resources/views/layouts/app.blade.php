@@ -51,7 +51,7 @@
                 <li><a href="{{ route('adminTipoTransporte.index') }}">
                   <i class="fa fa-circle-o"></i>
                   Transportes y Conductores</a></li>
-                <li><a href="{{ route('adminTipoTransporte.index') }}">
+                <li><a href="{{ route('adminTransporte.index') }}">
                   <i class="fa fa-circle-o"></i>
                     Transporte</a></li>
       </ul>

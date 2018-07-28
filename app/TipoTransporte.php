@@ -14,4 +14,11 @@ class TipoTransporte extends Model
 
   //Cambiando el campo por defecto id a uno personalizado
   protected $primaryKey = 'IdTipoTransporte';
+
+  public function transportes()
+{
+  //  return $this->hasOne('App\Transporte','IdTipoTransporte','IdTipoTransporte');
+    //return $this->hasOne(Transporte::class);
+}
+
 }

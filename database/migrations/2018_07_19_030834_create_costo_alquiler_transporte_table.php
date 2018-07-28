@@ -19,7 +19,7 @@ class CreateCostoAlquilerTransporteTable extends Migration
           $table->string('NombreContacto',40);
           $table->string('NumeroTelefonoContacto',8);
           $table->string('EmailEmpresaTransporte',30)->unique();
-          $table->string('ObservacionesEmpresaTransporte',256);
+          $table->string('ObservacionesEmpresaTransporte',256)->nullable();
       });
     }
 
