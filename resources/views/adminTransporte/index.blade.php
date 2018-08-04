@@ -5,16 +5,24 @@
 
 @section('content')
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-md-8 col-md-offset-2"><!-- Vista create -->
     @if(session('status'))
       <br>
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success alert-dismissible fade in" role="alert">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
           {{ session('status') }}
         </div>
     @endif
+    @if(session('fallo'))
+      <br>
+        <div class="alert alert-danger  alert-dismissible fade in" role="alert">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
+          {{ session('fallo') }}
+      </div>
+    @endif
     <div class="box box-primary collapsed-box">
       <div class="box-header with-border">
-        <h3 class="box-title">Transporte</h3>
+        <h3 class="box-title">Agregar Transporte</h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
         </div><!-- /.box-tools -->
@@ -42,53 +50,72 @@
                 </div>
 
                   <div class="col-sm-6 form-group has-feedback{{ $errors->has('marca') ? ' has-error' : '' }}">
-                    <input id="marca" type="text" class="col-sm-6 form-control" name="marca" placeholder="Marca" required>
+                    <label for="marca">Marca</label>
+                    <input id="marca" type="text" class=" form-control" name="marca" placeholder="Ej: Mercedes Benz" required>
                     @if ($errors->has('marca'))
                     <span class="help-block">{{ $errors->first('marca') }}</span>
                     @endif
                   </div>
 
                   <div class="col-sm-6 form-group has-feedback{{ $errors->has('modelo') ? ' has-error' : '' }}">
-                    <input id="modelo" type="text" class="col-sm-6 form-control" name="modelo" placeholder="Modelo" required>
+                    <label for="modelo">Modelo</label>
+                    <input id="modelo" type="text" class=" form-control" name="modelo" placeholder="Ej: Citaro K" required>
                     @if ($errors->has('modelo'))
                     <span class="help-block">{{ $errors->first('modelo') }}</span>
                     @endif
                   </div>
 
-                  <div class="col-sm-4 form-group has-feedback{{ $errors->has('color') ? ' has-error' : '' }}">
-                    <input id="color" type="text" class="form-control" name="color" placeholder="Color" required>
-                    @if ($errors->has('color'))
-                    <span class="help-block">{{ $errors->first('color') }}</span>
-                    @endif
-                  </div>
+                   <div class="col-sm-4 form-group has-feedback{{ $errors->has('color') ? ' has-error' : '' }}">
+                    <label for="color">Color</label>
+                    <select  class="form-control" name="color">
+                      <option value="Negro" style="background-color: Black;color: #FFFFFF;">Negro</option>
+                      <option value="Gris" style="background-color: Gray;">Gris</option>
+                      <option value="Blanco" style="background-color: White;">Blanco</option>
+                      <option value="Aqua" style="background-color: Aquamarine;">Aqua</option>
+                      <option value="Azul" style="background-color: Navy;color: #FFFFFF;">Azul</option>
+                      <option value="Verde" style="background-color: DarkGreen;color: #FFFFFF;">Verde</option>
+                      <option value="Amarillo" style="background-color: Yellow;">Amarillo</option>
+                      <option value="Anaranjado" style="background-color: Orange;">Anaranjado</option>
+                      <option value="Rojo" style="background-color: Red;">Rojo</option>
+                      <option value="Café" style="background-color: #aa6e28	;">Café</option>
+                      <option value="Beige" style="background-color: Beige;">Beige</option>
+                    </select>
+                   </div>
 
                   <div class="col-sm-4 form-group has-feedback{{ $errors->has('placa') ? ' has-error' : '' }}">
-                    <input id="placa" type="text" class="form-control" name="placa" placeholder="No. Placa" required>
+                    <label for="placa">Placa</label>
+                    <input id="placa" type="text" class="form-control" name="placa" placeholder="Ej: B776123" size="7" required>
                     @if ($errors->has('placa'))
                     <span class="help-block">{{ $errors->first('placa') }}</span>
                     @endif
                   </div>
 
                   <div class="col-sm-4 form-group has-feedback{{ $errors->has('numeroasientos') ? ' has-error' : '' }}">
-                    <input id="numeroasientos" type="number" class="form-control" name="numeroasientos" placeholder="No. de asientos" required>
+                    <label for="numeroasientos">No. Asientos</label>
+                    <input id="numeroasientos" type="number" min="1" class="form-control" name="numeroasientos" placeholder="No. de asientos" required>
                     @if ($errors->has('numeroasientos'))
                     <span class="help-block">{{ $errors->first('numeroasientos') }}</span>
+                    <span class="help-block">Tiene que ser de 1 a más asientos</span>
                     @endif
                   </div>
+                </br >
 
                   <div class="form-group">
+                    <label class="">
                     <input class="form-group" name="ac" type="checkbox" value="si">
-                    <label class="form-group" for="ac">Aire Acondicionado</label>
+                    <i class="fa fa-thermometer-half"></i> Aire Acondicionado</label>
                   </div>
 
                   <div class="form-group">
+                    <label class="" >
                     <input class="form-group" name="tv" type="checkbox" value="si">
-                    <label class="form-group" for="tv">TV</label>
+                    <i class="fa fa-television"></i> TV</label>
                   </div>
 
                   <div class="form-group">
+                    <label  class=" form-group">
                     <input  class="form-group" name="wifi" type="checkbox" value="si">
-                    <label  class="form-group" for="wifi">Wifi</label>
+                    <i class="fa fa-wifi"  title="Wifi"></i> Wifi</label>
                   </div>
 
                   <div class="form-group has-feedback{{ $errors->has('observacionestransporte') ? ' has-error' : '' }}">
@@ -111,12 +138,12 @@
 
               </div>
       </div>
-    </div>
+    </div>      <!-- Fin de vista create -->
 
-    <div class="col-md-8  col-md-offset-2">
+    <div class="col-md-8  col-md-offset-2"><!-- Vista index -->
       <div class="box box-primary">
         <div class="box-header">
-          <h3 class="box-title">Empresas</h3>
+          <h3 class="box-title"></h3>
           </div>
                 <div class="box-body">
 
@@ -126,12 +153,12 @@
 
                       <th>Tipo</th>
                       <th>Empresa</th>
-                      <th>Info</th>
-                      <th>Matrícula</th>
+                  <!--    <th>Info</th> -->
+                  <!--    <th>Matrícula</th>-->
                       <th>No. asientos</th>
                       <th>Extras</th>
                       <th>Observaciones</th>
-                      <th>Conductor</th>
+                <!--  <th>Conductor</th> -->
                       <th>Opciones</th>
 
                       </tr>
@@ -141,16 +168,18 @@
                     @foreach($transportes as $transporte)
                        <tr>
                          <td>{{ $transporte->tipotransporte->NombreTipoTransporte}}</td>
-                         <td>{{ $transporte->IdEmpresaTransporte }} </td>
-                         <td>{{ $transporte->Marca }} {{ $transporte->Modelo }} {{ $transporte->Color }} </td>
-                         <td>{{ $transporte->Placa_Matricula }}</td>
+                         <td>{{ $transporte->empresaalquilertransporte->NombreEmpresaTransporte }} </td>
+                    <!--        <td>{{ $transporte->Marca }} {{ $transporte->Modelo }} {{ $transporte->Color }} </td>-->
+                    <!--     <td>{{ $transporte->Placa_Matricula }}</td>-->
                          <td>{{ $transporte->NumeroAsientos }}</td>
-                         <td>{{ $transporte->TieneAC }} {{ $transporte->TieneTV }} {{ $transporte->TieneWifi }}</td>
+                         <td>@if($transporte->TieneAC=='si') <i class="fa fa-thermometer-half" aria-hidden="true" title="Aire acondicionado" ></i>@endif @if($transporte->TieneTV=='si') <i class="fa fa-television" aria-hidden="true" title="TV"></i>@endif @if($transporte->TieneWifi=='si') <i class="fa fa-wifi" aria-hidden="true" title="Wifi"></i>@endif</td>
                          <td>{{ $transporte->ObservacionesTransporte }}</td>
-                         <td>   @foreach($conductores as $conductor)
+                      <!--      <td>   @foreach($conductores as $conductor)
                                <option>{{ $conductor->NombreConductor }}</option>
                            @endforeach </td>
+                              -->
                              <td>
+
                                <a class="btn btn-primary btn-sm glyphicon glyphicon-pencil btn-block" title="Editar"
                                        href="{{ route('adminTransporte.edit', $transporte )}}"></a>
                               </td>
@@ -163,7 +192,7 @@
 
                 </div>
         </div>
-      </div>
+      </div><!-- Fin de vista index -->
 
   </div>
 

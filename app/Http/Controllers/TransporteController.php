@@ -17,8 +17,17 @@ class TransporteController extends Controller
      */
     public function index()
     {
-      return view('adminTransporte.index',['transportes'=> Transporte::all(),'tipotransportes'=> TipoTransporte::all(),
-      'conductores' => Conductor::all(),'empresalquiler' => EmpresaAlquilerTransporte::all()]);
+  //    return view('adminTransporte.index',['transportes'=> Transporte::all(),'tipotransportes'=> TipoTransporte::all(),
+    //  'conductores' => Conductor::all(),'empresalquiler' => EmpresaAlquilerTransporte::all()]);
+    $transportes = Transporte::all();
+    $tipotransportes= TipoTransporte::all();
+    $empresalquiler = EmpresaAlquilerTransporte::all();
+    $conductores= Conductor::all();
+    return view('adminTransporte.index', compact('transportes','tipotransportes','empresalquiler','conductores'));
+    //
+    // view('welcome')->with('pagetitle',$pagetitle)
+		// 		->with('username',$username)
+		// 		->with('fullname',$fullname);
     }
 
     /**
@@ -39,41 +48,45 @@ class TransporteController extends Controller
      */
     public function store(Request $request)
     {
-      //validando la informacion
-    $this->validate($request,array(
-     'tipotransporte' => 'required',
-     'empresalquiler' => 'required',
-     'marca'=>'required|max:25',
-     'modelo'=>'required|max:30',
-     'color'=>'required|max:25',
-     'placa'=>'required|max:7',
-     'numeroasientos'=>'required|size:2',
-     'ac'=>'size:2',
-     'tv'=>'size:2',
-     'wifi'=>'size:2',
-     'observacionestransporte'=>'max:250',
+      try{
+            //validando la informacion
+          $this->validate($request,array(
+           'tipotransporte' => 'required',
+           'empresalquiler' => 'required',
+           'marca'=>'required|max:25',
+           'modelo'=>'required|max:30',
+           'color'=>'required|max:25',
+           'placa'=>'required|max:7',
+           'numeroasientos'=>'required|max:2',
+           'ac'=>'size:2',
+           'tv'=>'size:2',
+           'wifi'=>'size:2',
+           'observacionestransporte'=>'max:250',
 
-   ));
+         ));
 
-   //Guardar en la BD
+         //Guardar en la BD
 
-   //Relacionando campo de BD con formulario
-   //campo de BD -> campo del formulario
-   $transporte=new Transporte;
-   $transporte->IdTipoTransporte=$request->tipotransporte;
-   $transporte->IdEmpresaTransporte=$request->empresalquiler;
-   $transporte->Marca=$request->marca;
-   $transporte->Modelo=$request->modelo;
-   $transporte->Color=$request->color;
-   $transporte->Placa_Matricula=$request->placa;
-   $transporte->NumeroAsientos=$request->numeroasientos;
-   $transporte->TieneAC=$request->ac;
-   $transporte->TieneTV=$request->tv;
-   $transporte->TieneWifi=$request->wifi;
-   $transporte->ObservacionesTransporte=$request->observacionestransporte;
+         //Relacionando campo de BD con formulario
+         //campo de BD -> campo del formulario
+         $transporte=new Transporte;
+         $transporte->IdTipoTransporte=$request->tipotransporte;
+         $transporte->IdEmpresaTransporte=$request->empresalquiler;
+         $transporte->Marca=$request->marca;
+         $transporte->Modelo=$request->modelo;
+         $transporte->Color=$request->color;
+         $transporte->Placa_Matricula=$request->placa;
+         $transporte->NumeroAsientos=$request->numeroasientos;
+         $transporte->TieneAC=$request->ac;
+         $transporte->TieneTV=$request->tv;
+         $transporte->TieneWifi=$request->wifi;
+         $transporte->ObservacionesTransporte=$request->observacionestransporte;
 
-   $transporte->save();
-      return redirect('adminTransporte')->with('status', "Guardado con éxito. ");
+         $transporte->save();
+            return redirect('adminTransporte')->with('status', "Guardado con éxito. ");
+      }catch(\Exception $e) {
+            return redirect('adminTransporte')->with('fallo', "Error al guardar.");
+      }
     }
 
     /**
@@ -96,7 +109,12 @@ class TransporteController extends Controller
     public function edit($IdTransporte)
     {
       $transporte = Transporte::find($IdTransporte);
-      return view('adminTransporte.edit',[compact('empresalquiler','IdEmpresaAlquilerTransporte'),'tipotransportes'=> TipoTransporte::all(),'conductores' => Conductor::all(),'empresalquiler' => EmpresaAlquilerTransporte::all()]);
+  //    $selectedTipo = Transporte::find(1);
+  //    $selectedEmpresa= Transporte::find(1);
+      $tipotransportes= TipoTransporte::all();
+      $empresalquiler = EmpresaAlquilerTransporte::all();
+      $conductores= Conductor::all();
+      return view('adminTransporte.edit', compact('transporte',/*'selectedTipo','selectedEmpresa',*/'$IdTransporte','tipotransportes','empresalquiler','conductores'));
     }
 
     /**
@@ -108,40 +126,44 @@ class TransporteController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $this->validate($request,array(
+      try{
+          $this->validate($request,array(
 
-        'tipotransporte' => 'required',
-        'empresalquiler' => 'required',
-        'marca'=>'required|max:25',
-        'modelo'=>'required|max:30',
-        'color'=>'required|max:25',
-        'placa'=>'required|max:7',
-        'numeroasientos'=>'required|size:2',
-        'ac'=>'size:2',
-        'tv'=>'size:2',
-        'wifi'=>'size:2',
-        'observacionestransporte'=>'max:250',
-         ));
+            'tipotransporte' => 'required',
+            'empresalquiler' => 'required',
+            'marca'=>'required|max:25',
+            'modelo'=>'required|max:30',
+            'color'=>'required|max:25',
+            'placa'=>'required|max:7',
+            'numeroasientos'=>'required|max:2',
+            'ac'=>'size:2',
+            'tv'=>'size:2',
+            'wifi'=>'size:2',
+            'observacionestransporte'=>'max:250',
+             ));
 
-       //guardar en la bd
+           //guardar en la bd
 
-       $transporte = Transporte::find($id);
+           $transporte = Transporte::find($id);
 
-       $transporte->IdTipoTransporte=$request->input('tipotransporte');
-       $transporte->IdEmpresaTransporte=$request->input('empresalquiler');
-       $transporte->Marca=$request->input('marca');
-       $transporte->Modelo=$request->input('modelo');
-       $transporte->Color=$request->input('color');
-       $transporte->Placa_Matricula=$request->input('placa');
-       $transporte->NumeroAsientos=$request->input('numeroasientos');
-       $transporte->TieneAC=$request->input('ac');
-       $transporte->TieneTV=$request->input('tv');
-       $transporte->TieneWifi=$request->input('wifi');
-       $transporte->ObservacionesTransporte=$request->input('observacionestransporte');
+           $transporte->IdTipoTransporte=$request->input('tipotransporte');
+           $transporte->IdEmpresaTransporte=$request->input('empresalquiler');
+           $transporte->Marca=$request->input('marca');
+           $transporte->Modelo=$request->input('modelo');
+           $transporte->Color=$request->input('color');
+           $transporte->Placa_Matricula=$request->input('placa');
+           $transporte->NumeroAsientos=$request->input('numeroasientos');
+           $transporte->TieneAC=$request->input('ac');
+           $transporte->TieneTV=$request->input('tv');
+           $transporte->TieneWifi=$request->input('wifi');
+           $transporte->ObservacionesTransporte=$request->input('observacionestransporte');
 
-       $transporte->save();
+           $transporte->save();
 
-       return redirect('adminTransporte');
+           return redirect('adminTransporte')->with('status', "Gardado con éxito");
+      }catch(\Exception $e) {
+           return redirect('adminTransporte')->with('fallo', "Error al guardar.");
+         }
     }
 
     /**

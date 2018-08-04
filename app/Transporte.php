@@ -15,14 +15,14 @@ class Transporte extends Model
   //Cambiando el campo por defecto id a uno personalizado
   protected $primaryKey = 'IdTransporte';
 
-  public function EmpresaAlquilerTransportes()
+  public function empresaalquilertransporte()
   {
-      return $this->belongsTo('App\EmpresaAlquilerTransporte');
+      return $this->belongsTo('App\EmpresaAlquilerTransporte', 'IdEmpresaTransporte');
   }
 
   public function tipotransporte()
   {
-      return $this->belongsTo('App\TipoTransporte','IdTipoTransporte');
+      return $this->belongsTo('App\TipoTransporte','IdTipoTransporte');//Modelo y llave foránea
        //return $this->belongsTo(TipoTransporte::class);
   }
 

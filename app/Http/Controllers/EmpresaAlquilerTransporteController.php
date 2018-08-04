@@ -26,7 +26,7 @@ class EmpresaAlquilerTransporteController extends Controller
      */
     public function create()
     {
-      return view('adminEmpresaTransporte.create');
+  //    return view('adminEmpresaTransporte.create');
 
     }
 
@@ -38,29 +38,33 @@ class EmpresaAlquilerTransporteController extends Controller
      */
     public function store(Request $request)
     {
-        //validando la informacion
-      $this->validate($request,array(
-       'nombreempresa' => 'required|max:80',
-       'nombrecontacto' => 'required|max:40',
-       'numerotelefono'=>'required|size:8',
-       'emailempresa'=>'required|max:30',
-       'observacionesempresa'=>'max:255',
+      try{
+            //validando la informacion
+          $this->validate($request,array(
+           'nombreempresa' => 'required|max:80',
+           'nombrecontacto' => 'required|max:40',
+           'numerotelefono'=>'required|size:8',
+           'emailempresa'=>'required|max:30',
+           'observacionesempresa'=>'max:255',
 
-     ));
+         ));
 
-     //Guardar en la BD
+         //Guardar en la BD
 
-     //Relacionando campo de BD con formulario
-     //campo de BD -> campo del formulario
-     $empresalquiler=new EmpresaAlquilerTransporte;
-     $empresalquiler->NombreEmpresaTransporte=$request->nombreempresa;
-     $empresalquiler->NombreContacto=$request->nombrecontacto;
-     $empresalquiler->NumeroTelefonoContacto=$request->numerotelefono;
-     $empresalquiler->EmailEmpresaTransporte=$request->emailempresa;
-     $empresalquiler->ObservacionesEmpresaTransporte=$request->observacionesempresa;
+         //Relacionando campo de BD con formulario
+         //campo de BD -> campo del formulario
+         $empresalquiler=new EmpresaAlquilerTransporte;
+         $empresalquiler->NombreEmpresaTransporte=$request->nombreempresa;
+         $empresalquiler->NombreContacto=$request->nombrecontacto;
+         $empresalquiler->NumeroTelefonoContacto=$request->numerotelefono;
+         $empresalquiler->EmailEmpresaTransporte=$request->emailempresa;
+         $empresalquiler->ObservacionesEmpresaTransporte=$request->observacionesempresa;
 
-     $empresalquiler->save();
-        return redirect('adminEmpresaTransporte')->with('status', "Guardado con éxito. ");
+         $empresalquiler->save();
+          return redirect('adminEmpresaTransporte')->with('status', "Guardado con éxito. ");
+      }catch(\Exception $e) {
+         return redirect('adminEmpresaTransporte')->with('fallo', "Error al guardar.");
+       }
     }
 
     /**
@@ -95,30 +99,35 @@ class EmpresaAlquilerTransporteController extends Controller
      */
     public function update(Request $request, $id)
     {
-      //validando la informacion
-     $this->validate($request,array(
+      try{
+          //validando la informacion
+         $this->validate($request,array(
 
-       'nombreempresa' => 'required|max:80',
-       'nombrecontacto' => 'required|max:40',
-       'numerotelefono'=>'required|size:8',
-       'emailempresa'=>'required|max:30',
-       'observacionesempresa'=>'max:255',
-        ));
+           'nombreempresa' => 'required|max:80',
+           'nombrecontacto' => 'required|max:40',
+           'numerotelefono'=>'required|size:8',
+           'emailempresa'=>'required|max:30',
+           'observacionesempresa'=>'max:255',
+            ));
 
-      //guardar en la bd
+          //guardar en la bd
 
-      $empresalquiler = EmpresaAlquilerTransporte::find($id);
+          $empresalquiler = EmpresaAlquilerTransporte::find($id);
 
-      $empresalquiler->NombreEmpresaTransporte=$request->input('nombreempresa');
-      $empresalquiler->NombreContacto=$request->input('nombrecontacto');
-      $empresalquiler->NumeroTelefonoContacto=$request->input('numerotelefono');
-      $empresalquiler->EmailEmpresaTransporte=$request->input('emailempresa');
-      $empresalquiler->ObservacionesEmpresaTransporte=$request->input('observacionesempresa');
+          $empresalquiler->NombreEmpresaTransporte=$request->input('nombreempresa');
+          $empresalquiler->NombreContacto=$request->input('nombrecontacto');
+          $empresalquiler->NumeroTelefonoContacto=$request->input('numerotelefono');
+          $empresalquiler->EmailEmpresaTransporte=$request->input('emailempresa');
+          $empresalquiler->ObservacionesEmpresaTransporte=$request->input('observacionesempresa');
 
-      $empresalquiler->save();
+          $empresalquiler->save();
 
 
-      return redirect('adminEmpresaTransporte');
+          return redirect('adminEmpresaTransporte')->with('status', "Cambios guardados con éxito. ");
+        }catch(\Exception $e) {
+           return redirect('adminEmpresaTransporte')->with('fallo', "Error al guardar.");
+         }
+
     }
 
     /**

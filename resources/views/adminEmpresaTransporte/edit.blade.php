@@ -21,7 +21,7 @@
                     @endif
                   </div>
                   <div class="form-group has-feedback{{ $errors->has('nombrecontacto') ? ' has-error' : '' }}">
-                    <input id="nombrecontacto" value="{{ $empresalquiler->NombreContacto }}" placeholder="{{ $empresalquiler->NombreContacto }}" type="nombrecontacto" class="form-control" name="nombrecontacto" value="{{ old('nombrecontacto') }}" required>
+                    <input id="nombrecontacto" value="{{ $empresalquiler->NombreContacto }}" placeholder="{{ $empresalquiler->NombreContacto }}" type="nombrecontacto" class="form-control" name="nombrecontacto" value="{{ old('nombrecontacto') }}" >
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     @if ($errors->has('nombrecontacto'))
                     <span class="help-block">{{ $errors->first('nombrecontacto') }}</span>
@@ -35,14 +35,14 @@
                     @endif
                   </div>
                   <div class="form-group has-feedback{{ $errors->has('emailempresa') ? ' has-error' : '' }}">
-                    <input id="emailempresa" value="{{ $empresalquiler->EmailEmpresaTransporte }}" placeholder="{{ $empresalquiler->EmailEmpresaTransporte }}" type="emailempresa" class="form-control" name="emailempresa"  required>
+                    <input id="emailempresa" value="{{ $empresalquiler->EmailEmpresaTransporte }}" placeholder="{{ $empresalquiler->EmailEmpresaTransporte }}" type="email" class="form-control" name="emailempresa"  required>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     @if ($errors->has('emailempresa'))
                     <span class="help-block">{{ $errors->first('emailempresa') }}</span>
                     @endif
                   </div>
                   <div class="form-group has-feedback{{ $errors->has('observacionesempresa') ? ' has-error' : '' }}">
-                    <input id="observacionesempresa" value="{{ $empresalquiler->ObservacionesEmpresaTransporte }}" placeholder="{{ $empresalquiler->ObservacionesEmpresaTransporte }}" type="observacionesempresa" class="form-control" name="observacionesempresa"  required>
+                    <input id="observacionesempresa" value="{{ $empresalquiler->ObservacionesEmpresaTransporte }}" placeholder="{{ $empresalquiler->ObservacionesEmpresaTransporte }}" type="observacionesempresa" class="form-control" name="observacionesempresa" >
                     <span class="glyphicon glyphicon-bookmark form-control-feedback"></span>
                     @if ($errors->has('observacionesempresa'))
                     <span class="help-block">{{ $errors->first('observacionesempresa') }}</span>

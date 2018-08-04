@@ -8,9 +8,17 @@
   <div class="col-md-4">
     @if(session('status'))
       <br>
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success alert-dismissible fade in" role="alert">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
           {{ session('status') }}
         </div>
+    @endif
+    @if(session('fallo'))
+      <br>
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
+          {{ session('fallo') }}
+      </div>
     @endif
     <div class="box box-primary">
       <div class="box-header">
@@ -56,12 +64,6 @@
   </div>
 
   <div class="col-md-4">
-    @if(session('status'))
-      <br>
-        <div class="alert alert-success" role="alert">
-          {{ session('status') }}
-        </div>
-    @endif
     <div class="box box-info">
       <div class="box-header">
         <h3 class="box-title">Conductores</h3>

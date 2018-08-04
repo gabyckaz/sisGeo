@@ -38,41 +38,50 @@ class TipoTransporteController extends Controller
      */
     public function store(Request $request)
     {
-      //validando la informacion, campo obliatorio, caracteres de max.25 digitos y campo único sin repeticiones
-    $this->validate($request,array(
-     'tipotransporte' => 'required|string|unique:TipoTransporte,NombreTipoTransporte|max:25',
+      try{
+        //validando la informacion, campo obliatorio, caracteres de max.25 digitos y campo único sin repeticiones
+        $this->validate($request,array(
+       'tipotransporte' => 'required|string|unique:TipoTransporte,NombreTipoTransporte|max:25',
 
-    ));
+        ));
 
-   //Guardar en la BD
+       //Guardar en la BD
 
-   //Relacionando campo de BD con formulario
-   //campo de BD -> campo del formulario
-   $tipotransporte=new TipoTransporte;
-   $tipotransporte->NombreTipoTransporte=$request->tipotransporte;
+       //Relacionando campo de BD con formulario
+       //campo de BD -> campo del formulario
+       $tipotransporte=new TipoTransporte;
+       $tipotransporte->NombreTipoTransporte=$request->tipotransporte;
 
-   $tipotransporte->save();
-      return redirect('adminTipoTransporte');
+       $tipotransporte->save();
+          return redirect('adminTipoTransporte')->with('status', "Agregado con éxito");
 
-}
+    }  catch(\Exception $e) {
+         return redirect('adminTipoTransporte')->with('fallo', "Error al guardar.");
+       }
+   }
+
 
   public function guardarConductor(Request $request)
   {
-    //validando la informacion, campo obliatorio, caracteres de max.25 digitos y campo único sin repeticiones
-    $this->validate($request,array(
-     'conductor' => 'required|string|unique:Conductor,NombreConductor|max:30',
+    try{
+        //validando la informacion, campo obliatorio, caracteres de max.25 digitos y campo único sin repeticiones
+        $this->validate($request,array(
+         'conductor' => 'required|string|unique:Conductor,NombreConductor|max:30',
 
-    ));
+        ));
 
-    //Guardar en la BD
+        //Guardar en la BD
 
-    //Relacionando campo de BD con formulario
-    //campo de BD -> campo del formulario
-    $conductor=new Conductor;
-    $conductor->NombreConductor=$request->conductor;
+        //Relacionando campo de BD con formulario
+        //campo de BD -> campo del formulario
+        $conductor=new Conductor;
+        $conductor->NombreConductor=$request->conductor;
 
-    $conductor->save();
-      return redirect('adminTipoTransporte');
+        $conductor->save();
+          return redirect('adminTipoTransporte')->with('status', "Guardado con éxito");
+    }catch(\Exception $e) {
+             return redirect('adminTipoTransporte')->with('fallo', "Error al guardar.");
+           }
 
   }
 
