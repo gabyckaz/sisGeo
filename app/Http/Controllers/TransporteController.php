@@ -19,7 +19,7 @@ class TransporteController extends Controller
     {
   //    return view('adminTransporte.index',['transportes'=> Transporte::all(),'tipotransportes'=> TipoTransporte::all(),
     //  'conductores' => Conductor::all(),'empresalquiler' => EmpresaAlquilerTransporte::all()]);
-    $transportes = Transporte::all();
+    $transportes = Transporte::sortable()->paginate(8);
     $tipotransportes= TipoTransporte::all();
     $empresalquiler = EmpresaAlquilerTransporte::all();
     $conductores= Conductor::all();

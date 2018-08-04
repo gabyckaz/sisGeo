@@ -151,11 +151,11 @@
                     <thead class="thead-dark">
                       <tr>
 
-                      <th>Tipo</th>
-                      <th>Empresa</th>
+                      <th>@sortablelink('TipoTransporte.NombreTipoTransporte','Tipo')</th>
+                      <th>@sortablelink('EmpresaAlquilerTransporte.NombreEmpresaTransporte','Empresa')</th>
                   <!--    <th>Info</th> -->
                   <!--    <th>Matrícula</th>-->
-                      <th>No. asientos</th>
+                      <th>@sortablelink('NumeroAsientos','No. Asientos')</th>
                       <th>Extras</th>
                       <th>Observaciones</th>
                 <!--  <th>Conductor</th> -->
@@ -189,7 +189,7 @@
 
                     </tbody>
                   </table>
-
+                  {!! $transportes->appends(\Request::except('page'))->render() !!}
                 </div>
         </div>
       </div><!-- Fin de vista index -->
