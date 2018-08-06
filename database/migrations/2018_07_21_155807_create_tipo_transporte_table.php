@@ -15,7 +15,7 @@ class CreateTipoTransporteTable extends Migration
     {
         Schema::create('TipoTransporte', function (Blueprint $table) {
             $table->increments('IdTipoTransporte');
-            $table->string('NombreTipoTransporte',25)->unique();;
+            $table->string('NombreTipoTransporte',25)->unique();
         });
     }
 

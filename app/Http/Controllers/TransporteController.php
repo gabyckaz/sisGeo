@@ -48,7 +48,7 @@ class TransporteController extends Controller
      */
     public function store(Request $request)
     {
-      try{
+    //  try{
             //validando la informacion
           $this->validate($request,array(
            'tipotransporte' => 'required',
@@ -56,7 +56,7 @@ class TransporteController extends Controller
            'marca'=>'required|max:25',
            'modelo'=>'required|max:30',
            'color'=>'required|max:25',
-           'placa'=>'required|max:7',
+           'placa'=>'required|max:7','unique:Transporte',
            'numeroasientos'=>'required|max:2',
            'ac'=>'size:2',
            'tv'=>'size:2',
@@ -83,10 +83,11 @@ class TransporteController extends Controller
          $transporte->ObservacionesTransporte=$request->observacionestransporte;
 
          $transporte->save();
-            return redirect('adminTransporte')->with('status', "Guardado con éxito. ");
-      }catch(\Exception $e) {
-            return redirect('adminTransporte')->with('fallo', "Error al guardar.");
-      }
+            return redirect('adminTransporte')->with('status', "Guardado con éxito. ")->withInput();
+            //withInput lleva los últimos datos guardados al formulario que se complementa con  'old' en la vista del formulario
+      // }catch(\Exception $e) {
+      //       return redirect('adminTransporte')->with('fallo', "Error al guardar.");
+      // }
     }
 
     /**

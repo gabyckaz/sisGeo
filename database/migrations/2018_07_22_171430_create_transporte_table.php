@@ -20,7 +20,7 @@ class CreateTransporteTable extends Migration
             $table->string('Marca',25);
             $table->string('Modelo',30);
             $table->string('Color',25);
-            $table->string('Placa_Matricula',7);
+            $table->string('Placa_Matricula',7)->unique();
             $table->integer('NumeroAsientos');
             $table->string('TieneAC',2)->nullable();
             $table->string('TieneTV',2)->nullable();
