@@ -45,43 +45,54 @@ endrole -->
               <!-- /.card-header -->
               <!-- form start -->
               
-              <form class="form-horizontal" method="POST" action="{{route('user.update', $usuario->id) }}">
+              <form class="form-horizontal" id="miForm" method="POST" enctype="multipart/form-data" action="{{route('user.update', $usuario->id) }}">
                 {!! method_field('PUT') !!}
                 {!! csrf_field() !!}
+               
+                
                 <div class="card-body">
+                  <div class="form-group">
+                  <label for="avatar" class="col-sm-2 control-label">Avatar</label>
+                    <div class="col-sm-10">
+                   <input id='input1' type="file" name="avatar">
+                     </div>
+                     @if ($errors->has('avatar'))
+                       <span class="help-block">{{ $errors->first('avatar') }}</span>
+                     @endif
+                </div>
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 
                     <div class="col-sm-10">
-                      <input type="email" name="email" class="form-control" id="inputEmail3" value="{{ $usuario->email }}" placeholder="{{ $usuario->email}}" disabled="true">
+                      <input type="email" name="email" class="form-control" id="input2" value="{{ $usuario->email }}" placeholder="{{ $usuario->email}}" disabled="true">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Primer Nombre</label>
 
                     <div class="col-sm-10">
-                      <input type="text" name="PrimerNombrePersona" class="form-control" value="{{ $usuario->persona->PrimerNombrePersona }}" id="inputEmail3" placeholder="Primer Nombre">
+                      <input type="text" name="PrimerNombrePersona" class="form-control" value="{{ $usuario->persona->PrimerNombrePersona }}" id="input3" placeholder="Primer Nombre">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Segundo Nombre</label>
 
                     <div class="col-sm-10">
-                      <input type="text" name="SegundoNombrePersona" class="form-control" value="{{ $usuario->persona->SegundoNombrePersona }}" id="inputEmail3" placeholder="Primer Apellido">
+                      <input type="text" name="SegundoNombrePersona" class="form-control" value="{{ $usuario->persona->SegundoNombrePersona }}" id="input4" placeholder="Primer Apellido">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Primer Apellido</label>
 
                     <div class="col-sm-10">
-                      <input type="text" name="PrimerApellidoPersona" class="form-control" value="{{ $usuario->persona->PrimerApellidoPersona }}" id="inputEmail3" placeholder="Primer Apellido">
+                      <input type="text" name="PrimerApellidoPersona" class="form-control" value="{{ $usuario->persona->PrimerApellidoPersona }}" id="input5" placeholder="Primer Apellido">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Segundo Apellido</label>
 
                     <div class="col-sm-10">
-                      <input type="text" name="SegundoApellidoPersona" class="form-control" value="{{ $usuario->persona->SegundoApellidoPersona }}" id="inputEmail3" placeholder="Segundo Apellido">
+                      <input type="text" name="SegundoApellidoPersona" class="form-control" value="{{ $usuario->persona->SegundoApellidoPersona }}" id="input6" placeholder="Segundo Apellido">
                     </div>
                   </div>
                   
@@ -89,14 +100,14 @@ endrole -->
                     <label for="inputEmail3" class="col-sm-2 control-label">Area de Telefono</label>
 
                     <div class="col-sm-10">
-                      <input type="text" name="AreaTelContacto" class="form-control" value="{{ $usuario->persona->AreaTelContacto }}" id="inputEmail3" placeholder="Area de Telefono">
+                      <input type="text" name="AreaTelContacto" class="form-control" value="{{ $usuario->persona->AreaTelContacto }}" id="input7" placeholder="Area de Telefono">
                     </div>
                   </div>
                   <div class="form-group ">
                     <label for="inputEmail3" class="col-sm-2 control-label">telefono</label>
 
                     <div class="col-sm-10">
-                      <input type="text" name="TelefonoContacto" class="form-control" value="{{ $usuario->persona->TelefonoContacto }}" id="inputEmail3" placeholder="Telefono">
+                      <input type="text" name="TelefonoContacto" class="form-control" value="{{ $usuario->persona->TelefonoContacto }}" id="input8" placeholder="Telefono">
                     </div>
                   </div>
                 
@@ -105,12 +116,13 @@ endrole -->
                     <label for="inputEmail3" class="col-sm-2 control-label">Genero</label>
 
                     <div class="col-sm-10">
-                      <input type="text" name="Genero" class="form-control" value="{{ $usuario->persona->Genero }}" id="inputEmail3" placeholder="Genero" disabled="true">
+                      <input type="text" name="Genero" class="form-control" value="{{ $usuario->persona->Genero }}" id="input9" placeholder="Genero" disabled="true">
                     </div>
                   </div>
                   
                    <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Notificaciones</label>
+                    <div class="col-sm-10">
                    <label class="custom-control custom-radio">
                    <input id="radio1" name="RecibirNotificacion" value="1" type="radio" class="custom-control-input" checked="{{ $usuario->RecibirNotificacion == '1' ? 'checked' : '' }}">
                    <span class="custom-control-indicator"></span>
@@ -122,6 +134,7 @@ endrole -->
                    <span class="custom-control-indicator"></span>
                    <span class="custom-control-description">No recibir</span>
                   </label>
+                   </div>
                    </div>
                   
                   
@@ -154,6 +167,4 @@ $(document).ready(function() {
         $(".content2").fadeIn(1500);
     },3000);
 });
-</script>
-
 </script>

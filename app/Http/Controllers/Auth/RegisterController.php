@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Persona;
+use App\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -69,7 +70,15 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {  
+       // $a =User::where('id', 1)->get();
+       // dd($a);
+        $rol = Role::find(2);
+        
+        if($rol->name != 'User'){
+          return 'No existe el Rol de usuario';
+        }
+
         $persona = Persona::create([
           'PrimerNombrePersona'=>$data['name'],
           'SegundoNombrePersona'=>$data['SegundoNombrePersona'],
@@ -80,8 +89,8 @@ class RegisterController extends Controller
           'TelefonoContacto'=>$data['TelefonoContacto']
         ]);
        // dd($persona->IdPersona);
-        return User::create([
-            'name' => $data['name'],
+        $usuario = User::create([
+           'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'IdPersona' => $persona->IdPersona,
@@ -93,7 +102,12 @@ class RegisterController extends Controller
             'telefono' => $data['telefono'],*/
             'RecibirNotificacion' => $data['RecibirNotificacion'],
             'EstadoUsuario' => '1',
-        ]);
+         ]);     
+
+        $usuario->attachRole($rol);    
+       
+        
+        return $usuario;     //User::where('id', $user->id); 
     }
 
    /* public function roles()

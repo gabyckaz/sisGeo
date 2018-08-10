@@ -19,8 +19,8 @@ class AdminUsuariosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request)
+    { 
        //  $users = DB::table('users')->get();
        // return view('adminUser.index', compact('users'));
 
@@ -28,9 +28,35 @@ class AdminUsuariosController extends Controller
          //   return view('adminUser.index')->withUsuarios($usuarios);
         
        // return view('adminUser.index',compact('users'));
-            $usuarios = User::all();
-
-        return view('adminUser.index', compact('usuarios'));
+        /* $usuarios = User::inicial('x')->orderBy('id','asc')->paginate(2);
+        if($request->get('fb') == "fbn"){
+           $usuarios = User::nombre($request->get('nombre'))->orderBy('id','asc')->paginate(2);
+            return view('adminUser.index', compact('usuarios'));
+        }
+        if($request->get('fb') == "fbe"){
+           $usuarios = User::email($request->get('email'))->orderBy('id','asc')->paginate(2);
+            return view('adminUser.index', compact('usuarios'));
+        }
+        if($request->get('fb') == "fbs"){
+           $usuarios = User::estado($request->get('estado'))->orderBy('id','asc')->paginate(5);
+            return view('adminUser.index', compact('usuarios'));
+        } */
+        
+       // $usuarios = User::nombre($request->get('nombre'))->orderBy('id','asc')->paginate(2);// User::where('name', 'victor')
+        
+              //lleva el get cuando no tiene paginate $usuarios = User::nombre($request->get('nombre'))->get()
+         //   $usuarios = User::nombre($request->get('nombre'))->orderBy('id','asc')->paginate(2);
+       $usuarios = User::nombre($request->get('nombre'))
+       ->email($request->get('email'))
+       ->estado($request->get('estado'))
+       ->rol($request->get('rol'))
+        ->orderBy('id','asc')->paginate(5);
+ 
+        $estado = $request->get('estado');
+        $rol = $request->get('rol');
+        $email = $request->get('email');
+        $nombre = $request->get('nombre');
+       return view('adminUser.index', compact('usuarios','nombre','email','estado','rol'));
        
     }
 
@@ -161,4 +187,6 @@ class AdminUsuariosController extends Controller
      
 
      }
+
+    
 }

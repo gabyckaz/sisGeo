@@ -25,13 +25,13 @@ kkk
   </li>
   <li class="active">
     <a href="{{ route('adminUser.index') }}">
-      <i class="fa fa-home"></i>
+      <i class="fa fa-users"></i>
       <span>Usuarios</span>      
     </a>
   </li>
   <li class="active">
     <a href="/user/{{ auth()->user()->id }}/edit">
-      <i class="fa fa-home"></i>
+      <i class="fa fa-user"></i>
       <span>Mi Cuenta</span>      
     </a>
   </li>

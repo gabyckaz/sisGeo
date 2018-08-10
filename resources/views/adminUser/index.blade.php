@@ -36,7 +36,7 @@ endrole -->
       <div class="box-header">
         <h3 class="box-title">Usuarios</h3>
               <div class="box-body">
-              	<h1>Todos los Usuarios</h1>
+              	<h1>Usuario estado-rol</h1>
         @if(session('status'))
                       <br>
                       <div  class="alert alert-success content2" role="alert">
@@ -49,7 +49,63 @@ endrole -->
                         {{ session('fallo') }}
                       </div>
                     @endif
-                  </p></div>
+                  </p>
+                </div>
+            <form class="navbar-form navbar-left pull-right" action="{{ route('adminUser.index') }}" method="get" role="search">
+              <div class="form-group">
+                <input type="text" name="nombre" class="form-control" placeholder="Nombre">
+                <input type="text" name="email" class="form-control" placeholder="Email">
+                <select  class="form-control" name="estado" id="estado" >
+                  <option value="">Estado</option>
+                  <option value="1">Activo</option>
+                  <option value="0">Inactivo</option>
+              </select>
+              <select  class="form-control" name="rol" id="rol" >
+                <option value="">Rol</option>
+                <option value="2">User</option>
+                <option value="1">Admin</option>
+              </select>
+              </div>
+              <button type="submit" class="btn btn-default" >Buscar<span class="glyphicon glyphicon-search"></span></button>  
+
+          </div>
+            </form>  
+           <!-- <form action="" method="get" class="sidebar-form">
+              <div class="input-group">                
+              <input type="text" name="nombre" class="form-control" placeholder="Nombre">              
+              </div>
+
+          
+            <div class="input-group">              
+              <input type="text" name="email" class="form-control" placeholder="Email">              
+              
+                  </div>
+          
+          
+         
+            <div class="input-group">              
+              <select  class="form-control" name="estado" id="estado" >
+                <option value="">Estado</option>
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+              </select>
+              
+                  </div>
+          
+         
+            <div class="input-group">
+              
+              <select  class="form-control" name="rol" id="rol" >
+                <option value="">Rol</option>
+                <option value="2">User</option>
+                <option value="1">Admin</option>
+              </select>
+              
+               <button type="submit" value="Buscar" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button >
+                
+                  </div>
+          </form> -->
+<div class="table-responsive">
  <table class="table table-striped table-bordered" >
  	<thead class="thead-dark">
  		<tr>
@@ -69,20 +125,21 @@ endrole -->
            <td>{{ $usuario->name }}</td>
            <td>{{ $usuario->email }}</td>
            <td>
-              <form class="form-horizontal" role="form" method="POST" action="{{route('adminUser.state.change', $usuario->id) }}">
+              <form class="btn-block" role="form" method="POST" action="{{route('adminUser.state.change', $usuario->id) }}">
         {!! method_field('PUT') !!}
         {{ csrf_field()  }}
 
          @if($usuario->EstadoUsuario === '1' )
              <div class="form-group">
             <div>
-             <button type="submit"  class="btn btn-primary "><p>Activo</p></button>               
+             <button type="submit"  class="btn btn-primary ">Activo</button>
+
            </div>
           </div>
             @else
               <div class="form-group">
             <div>
-             <button type="submit" class="btn btn-danger"><p>Inactivo</p></button>               
+             <button type="submit" class="btn btn-danger btn-sm ">Inactivo</button>               
            </div>
           </div>
             @endif
@@ -93,21 +150,17 @@ endrole -->
             @foreach($usuario->roles as $role )
             {{ $role->display_name }}<br>
             @endforeach
-            -
-           
-            {{ $usuario->persona->AreaTelContacto }}<br>
-            
              </td>
             <td>
-                        <form action="#" method="POST">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
+                      <!--  <form action="#" method="POST">
+                             csrf_field() 
+                             method_field('DELETE') 
 
                             <button id="eliminar" type="submit" class="btn btn-danger btn-block" title="Eliminar usuario"
                               onclick="return confirm('¿Está seguro?')">
                                 <i class="fa fa-trash"></i>
                             </button>
-                        </form>
+                        </form> -->
                       <a class="btn btn-primary btn-sm glyphicon glyphicon-pencil btn-block" title="Editarar usuario" 
                       href="{{ route('adminUser.edit', $usuario )}}"></a>
                       
@@ -115,11 +168,15 @@ endrole -->
           
          </tr>
  		@endforeach
+
  	</tbody>
+
  </table>
-
-          
-
+ <div align="center">{!! $usuarios->appends([ 'nombre' =>  $nombre,'email' =>  $email,'estado' =>  $estado ,'rol' => $rol ])->render() !!} </div>
+ </div>
+ 
+        <!--  $usuarios->links()}} -->
+<!--
  <caption>
       <button class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo">
         Agregar nuevo 
@@ -152,7 +209,7 @@ endrole -->
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 

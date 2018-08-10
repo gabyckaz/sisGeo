@@ -2,7 +2,11 @@
 
 @section('content')
 <div class="login-box-body">
-  <p class="login-box-msg">Sign in to start your session</p>
+  <p class="login-box-msg">Iniciar sesión</p>
+     @if($errors->any())
+       <h4 style="color: #FF4499;">{{$errors->first()}}</h4>
+     @endif
+
 
   <form action="{{ route('login') }}" method="POST">
     {{ csrf_field() }}
@@ -23,14 +27,14 @@
     <div class="row">
       <div class="col-xs-8">
         <div class="checkbox icheck">
-          <label>
-            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} value="1"> Remember Me
+          <label class="form-check-label">
+            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} value="1"> Recordarme
           </label>
         </div>
       </div>
       <!-- /.col -->
       <div class="col-xs-4">
-        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        <button type="submit" class="btn btn-primary btn-block btn-flat">Iniciar</button>
       </div>
       <!-- /.col -->
     </div>
@@ -45,8 +49,8 @@
   </div>
   <!-- /.social-auth-links --> --}}
 
-  <a href="{{ route('password.request') }}">I forgot my password</a><br>
-  <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
+  <a href="{{ route('password.request') }}">Recuperar mi password</a><br>
+  <a href="{{ route('register') }}" class="text-center">Registrarme</a>
 
 </div>
 @endsection

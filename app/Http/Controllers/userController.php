@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use DB;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+
 
 class userController extends Controller
 {
@@ -66,6 +68,7 @@ class userController extends Controller
      */
     public function edit($id)
     {
+       
         //
         if(auth()->user()->id ==  $id){
         $usuario = User::findOrFail($id);
@@ -85,7 +88,24 @@ class userController extends Controller
      */
     public function update(Request $request, $id)
     {
-       if( auth()->user()->id == $id){
+         $this->validate($request, [
+            'avatar' => 'image',
+            
+        ]);
+        if( auth()->user()->id == $id){
+        if( $request->hasFile('avatar')){
+      
+       if(auth()->user()->avatar != 'default.gif'){
+         Storage::delete(auth()->user()->avatar);
+       }
+        DB::table('users')->where('id', $id)->update([
+
+            "avatar" => $request->file('avatar')->store('public'), 
+
+        ]);
+        }
+
+       
             DB::table('users')->where('id', $id)->update([
 
             "RecibirNotificacion" => $request->input('RecibirNotificacion'),
@@ -104,7 +124,7 @@ class userController extends Controller
             "updated_at" => Carbon::now(),
 
         ]);
-          return view('home');
+          return redirect()->route('home');//view('home');
     } return "Este no es tu usuario";
 
     }

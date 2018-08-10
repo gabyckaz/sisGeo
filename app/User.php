@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [        
-        'name', 'IdPersona', 'email', 'password','RecibirNotificacion','EstadoUsuario',
+        'name', 'IdPersona', 'email', 'password','RecibirNotificacion','EstadoUsuario', 'avatar',
     ];
 
     /**
@@ -29,6 +30,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    
 
 
     public function roles()
@@ -41,4 +44,46 @@ class User extends Authenticatable
          return $this->hasOne('App\Persona', 'IdPersona', 'IdPersona');
          //return $this->hasOne('App\Persona');
     }
+
+    public function scopeInicial($query, $v){
+        
+      
+     }
+
+     public function scopeNombre($query, $nombre){
+        
+      if(trim($nombre) != ""){       
+         
+      $query->where('name', "Like", "%$nombre%");
+       }
+     }
+
+     public function scopeEmail($query, $email){
+        
+      if(trim($email) != ""){       
+         
+      $query->where('email', "Like", "%$email%");
+       }
+     }
+
+     public function scopeEstado($query, $estado){
+       
+      if(trim($estado) != ""){       
+         
+      $query->where('EstadoUsuario', "$estado");
+       }
+     }
+
+     public function scopeRol($query, $rol){
+    //   dd($rol);
+      if(trim($rol) != ""){       
+         
+        return $query->whereHas('roles', function($q) use ($rol) {
+            $q->where('id', $rol);
+            } );
+         
+       }
+     }
+
+
 }
