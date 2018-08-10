@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
     <head>
@@ -80,10 +81,10 @@
             <div class="content">
                 <div class="title m-b-md">
                     GEOTURISMO EL SALVADOR
-                </div>
-
-                
+                </div>   
             </div>
-        </div>
+
+      </div>
     </body>
 </html>
+

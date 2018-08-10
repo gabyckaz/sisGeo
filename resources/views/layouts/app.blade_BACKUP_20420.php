@@ -25,6 +25,7 @@ kkk
   </li>
   <li class="active">
     <a href="{{ route('adminUser.index') }}">
+<<<<<<< HEAD
       <i class="fa fa-users"></i>
       <span>Usuarios</span>      
     </a>
@@ -33,12 +34,16 @@ kkk
     <a href="/user/{{ auth()->user()->id }}/edit">
       <i class="fa fa-user"></i>
       <span>Mi Cuenta</span>      
+=======
+      <i class="fa fa-home"></i>
+      <span>Usuarios</span>
     </a>
   </li>
   <li class="active">
     <a href="{{ route('home') }}">
       <i class="fa fa-home"></i>
       <span>Paqutes</span>
+>>>>>>> b945445bc03a5303dcf99c99f8c3ff6b6dbe5c5f
     </a>
   </li>
   <li class="active treeview menu-open">
