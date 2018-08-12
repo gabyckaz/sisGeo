@@ -1,9 +1,11 @@
-@extends('layouts.app')
+@extends('master')
 
-@section('content-title', 'Transporte')
-@section('content-subtitle', '')
+@section('head')
+<h1>Hola Mundo</h1>
 
-@section('content')
+@endsection
+
+@section('contenido')
 <div class="row">
   <div class="col-md-4">
     @if(session('status'))
@@ -105,6 +107,6 @@
       </div>
     </div>
   </div>
-
 </div>
 @endsection
+

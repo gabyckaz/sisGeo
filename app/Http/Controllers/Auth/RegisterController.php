@@ -74,7 +74,7 @@ class RegisterController extends Controller
        // $a =User::where('id', 1)->get();
        // dd($a);
         $rol = Role::find(2);
-        
+       // dd($data);
         if($rol->name != 'User'){
           return 'No existe el Rol de usuario';
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -36,4 +37,16 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function sendLoginResponse(Request $request) { 
+        
+        if($this->guard()->user()->EstadoUsuario == 0){ 
+            $this->guard()->logout(); 
+            return redirect()->back() 
+            ->withInput($request->only($this->username(), 'remember')) 
+            ->withErrors(['active' => 'El usuario no esta activo.']); } 
+            $request->session()->regenerate(); $this->clearLoginAttempts($request); 
+            return $this->authenticated($request, $this->guard()->user()) ?: redirect()->intended($this->redirectPath()); 
+        } 
+
 }

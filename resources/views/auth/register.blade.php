@@ -1,98 +1,163 @@
-@extends('admin-lte::layouts.auth')
+@extends('layouts.app')
 
 @section('content')
-<div class="login-box-body">
-  <p class="login-box-msg" >Formulario de Registro</p>
-
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+  <div class="card">
+    <div class="card-header">Formulario de Registro</div>
+<div class="card-body">
   <form action="{{ route('register') }}" method="POST">
     {{ csrf_field() }}
-    <div class="form-group has-feedback{{ $errors->has('name') ? ' has-error' : '' }}">
-      <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Primer Nombre" >
-      <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      @if ($errors->has('name'))
-      <span class="help-block">{{ $errors->first('name') }}</span>
-      @endif
+     <div class="form-group row">
+        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Primer Nombre') }}</label>
+
+        <div class="col-md-6">
+            <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+
+            @if ($errors->has('name'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('name') }}</strong>
+                </span>
+            @endif
+        </div>
     </div>
-    <div class="form-group has-feedback{{ $errors->has('SegundoNombrePersona') ? ' has-error' : '' }}">
-      <input id="SegundoNombrePersona" type="text" class="form-control" name="SegundoNombrePersona" value="{{ old('SegundoNombrePersona') }}" placeholder="Segundo Nombre" >
-      <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      @if ($errors->has('SegundoNombrePersona'))
-      <span class="help-block">{{ $errors->first('SegundoNombrePersona') }}</span>
-      @endif
+     
+     <div class="form-group row">
+        <label for="SegundoNombrePersona" class="col-md-4 col-form-label text-md-right">{{ __('Segundo Nombre') }}</label>
+
+        <div class="col-md-6">
+            <input id="SegundoNombrePersona" type="text" class="form-control{{ $errors->has('SegundoNombrePersona') ? ' is-invalid' : '' }}" name="SegundoNombrePersona" value="{{ old('SegundoNombrePersona') }}" >
+
+            @if ($errors->has('SegundoNombrePersona'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('SegundoNombrePersona') }}</strong>
+                </span>
+            @endif
+        </div>
     </div>
-    <div class="form-group has-feedback{{ $errors->has('PrimerApellidoPersona') ? ' has-error' : '' }}">
-      <input id="PrimerApellidoPersona" type="text" class="form-control" name="PrimerApellidoPersona" value="{{ old('PrimerApellidoPersona') }}" placeholder="Primer Apellido" >
-      <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      @if ($errors->has('PrimerApellidoPersona'))
-      <span class="help-block">{{ $errors->first('PrimerApellidoPersona') }}</span>
-      @endif
-    </div>
-    <div class="form-group has-feedback{{ $errors->has('SegundoApellidoPersona') ? ' has-error' : '' }}">
-      <input id="SegundoApellidoPersona" type="text" class="form-control" name="SegundoApellidoPersona" value="{{ old('SegundoApellidoPersona') }}" placeholder="Segundo Apellido" >
-      <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      @if ($errors->has('SegundoApellidoPersona'))
-      <span class="help-block">{{ $errors->first('SegundoApellidoPersona') }}</span>
-      @endif
-    </div>
-    <div class="form-group">
-    <span class="glyphicon glyphicon-user form-control-feedback"></span>
-    <select  class="form-control" name="Genero" id="Genero" value="{{ old('Genero') }}">
-        <option value="F">Femenino</option>
-        <option value="M">Masculino</option>
-    </select>
-    </div>
-     <div class="form-group">
-    <span class="glyphicon glyphicon-user form-control-feedback"></span>
-    <select  class="form-control" name="AreaTelContacto" id="AreaTelContacto" value="{{ old('AreaTelContacto') }}">
-        <option value="502">502</option>
-        <option value="503">503</option>
-    </select>
-    </div>
-    <div class="form-group has-feedback{{ $errors->has('TelefonoContacto') ? ' has-error' : '' }}">
-      <input id="TelefonoContacto" type="text" class="form-control" name="TelefonoContacto" value="{{ old('TelefonoContacto') }}" placeholder="Telefono" >
-      <span class="glyphicon glyphicon-phone form-control-feedback"></span>
-      @if ($errors->has('TelefonoContacto'))
-      <span class="help-block">{{ $errors->first('TelefonoContacto') }}</span>
-      @endif
+   <div class="form-group row">
+        <label for="PrimerApellidoPersona" class="col-md-4 col-form-label text-md-right">{{ __('Primer Apellido') }}</label>
+
+        <div class="col-md-6">
+            <input id="PrimerApellidoPersona" type="text" class="form-control{{ $errors->has('PrimerApellidoPersona') ? ' is-invalid' : '' }}" name="PrimerApellidoPersona" value="{{ old('PrimerApellidoPersona') }}" required autofocus>
+
+            @if ($errors->has('PrimerApellidoPersona'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('PrimerApellidoPersona') }}</strong>
+                </span>
+            @endif
+        </div>
     </div>
 
-    <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
-      <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email" required>
-      <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      @if ($errors->has('email'))
-      <span class="help-block">{{ $errors->first('email') }}</span>
-      @endif
+    <div class="form-group row">
+        <label for="SegundoApellidoPersona" class="col-md-4 col-form-label text-md-right">{{ __('Segundo Apellido') }}</label>
+
+        <div class="col-md-6">
+            <input id="SegundoApellidoPersona" type="text" class="form-control{{ $errors->has('SegundoApellidoPersona') ? ' is-invalid' : '' }}" name="SegundoApellidoPersona" value="{{ old('SegundoApellidoPersona') }}">
+
+            @if ($errors->has('SegundoApellidoPersona'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('SegundoApellidoPersona') }}</strong>
+                </span>
+            @endif
+        </div>
     </div>
-     <div class="form-group ">
-     <label class="custom-control custom-radio">
-  <input id="radio1" name="RecibirNotificacion" value="1" {{(old('RecibirNotificacion') == '1') ? 'checked' : ''}} type="radio" class="custom-control-input">
-  <span class="custom-control-indicator"></span>
-  <span class="custom-control-description">Recibir Notificaciones</span>
-</label>
-<label class="custom-control custom-radio">
-  <input id="radio2" name="RecibirNotificacion" value="2" {{(old('RecibirNotificacion') == '2') ? 'checked' : ''}} type="radio" class="custom-control-input">
-  <span class="custom-control-indicator"></span>
-  <span class="custom-control-description">No recibir Notificaciones</span>
-</label>
-     </div>
-    <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
-      <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
-      <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      @if ($errors->has('password'))
-      <span class="help-block">{{ $errors->first('password') }}</span>
-      @endif
+    
+
+    <div class="form-group row">
+      <label for="Genero" class="col-md-4 col-form-label text-md-right">{{ __('Sexo') }}</label>
+
+        <div class="col-md-6">
+           <select  class="form-control" name="Genero" id="Genero" value="{{ old('Genero') }}">
+               <option value="M">Masculino</option>
+               <option value="F">Femenino</option>
+           </select>
+        </div>
     </div>
-    <div class="form-group has-feedback{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-      <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Retype Password" required>
-      <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <button type="submit" class="btn btn-primary btn-block btn-flat">Registrarme</button>
+
+    <div class="form-group row">
+                <label for="AreaTelContacto" class="col-md-4 col-form-label text-md-right">{{ __('Codigo de Area') }}</label>
+
+                <div class="col-md-6">
+                    
+                 <select class="form-control" name="AreaTelContacto" id="AreaTelContacto" value="{{ old('AreaTelContacto') }}">
+                   <option value="503">503</option>
+                    <option value="502">502</option>
+                </select>                      
+          </div>
       </div>
-      <!-- /.col -->
+    
+    <div class="form-group row">
+          <label for="TelefonoContacto" class="col-md-4 col-form-label text-md-right">{{ __('Telefono') }}</label>
+
+          <div class="col-md-6">
+              
+         <input id="TelefonoContacto" type="text" class="form-control" name="TelefonoContacto" value="{{ old('TelefonoContacto') }}" required autofocus >
+              @if ($errors->has('TelefonoContacto'))
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $errors->first('TelefonoContacto') }}</strong>
+                  </span>
+              @endif
+              
+          </div>
+          
+     </div>
+
+    <div class="form-group row">
+        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
+
+        <div class="col-md-6">
+            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+
+            @if ($errors->has('email'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </span>
+            @endif
+        </div>
     </div>
+    
+       <div class="form-check ">
+         <label class="form-check-label col-md-6 offset-md-4">
+         <input type="radio" class="form-check-input" name="RecibirNotificacion" value="1" {{(old('RecibirNotificacion') == '1') ? 'checked' : ''}}>Recibir Notificacion
+        </label>
+      </div>
+      <div class="form-check mb-3">
+       <label class="form-check-label col-md-6 offset-md-4">
+       <input type="radio" class="form-check-input" name="RecibirNotificacion" value="2" {{(old('RecibirNotificacion') == '2') ? 'checked' : ''}}>No Recibir Notificacion
+       </label>
+     </div>
+
+        <div class="form-group row">
+            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+            <div class="col-md-6">
+                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                @if ($errors->has('password'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+            <div class="col-md-6">
+                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Registrarme</button>
+          </div>
+      <!-- /.col -->
+        </div>
   </form>
+</div>
 
   {{-- <div class="social-auth-links text-center">
     <p>- OR -</p>
@@ -103,6 +168,9 @@
   </div> --}}
 
   <a href="{{ route('login') }}" class="text-center">Ya tengo una cuenta de usuario!!</a>
+    </div>
+  </div>
+  </div>
 </div>
 <!-- /.form-box -->
 @endsection

@@ -1,9 +1,11 @@
-@extends('layouts.app')
+@extends('master')
 
-@section('content-title', 'Transporte')
-@section('content-subtitle', '')
+@section('head')
+<h1>Hola Mundo</h1>
 
-@section('content')
+@endsection
+
+@section('contenido')
 <div class="row">
   <div class="col-md-8 col-md-offset-2"><!-- Vista create -->
     @if(session('status'))
@@ -77,7 +79,7 @@
                       <option value="Amarillo" {{ old('color') == 'Amarillo' ? 'selected' : '' }} style="background-color: Yellow;">Amarillo</option>
                       <option value="Anaranjado" {{ old('color') == 'Anaranjado' ? 'selected' : '' }} style="background-color: Orange;">Anaranjado</option>
                       <option value="Rojo" {{ old('color') == 'Rojo' ? 'selected' : '' }} style="background-color: Red;">Rojo</option>
-                      <option value="Café" {{ old('color') == 'Café' ? 'selected' : '' }} style="background-color: #aa6e28	;">Café</option>
+                      <option value="Café" {{ old('color') == 'Café' ? 'selected' : '' }} style="background-color: #aa6e28  ;">Café</option>
                       <option value="Beige"{{ old('color') == 'Beige' ? 'selected' : '' }}  style="background-color: Beige;">Beige</option>
                     </select>
                    </div>
@@ -195,5 +197,4 @@
       </div><!-- Fin de vista index -->
 
   </div>
-
 @endsection

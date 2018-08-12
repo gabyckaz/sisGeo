@@ -24,12 +24,15 @@ role('User')
 endrole -->
 
 
- @extends('layouts.app')
+ @extends('master')
 
-@section('content-title', 'Home')
-@section('content-subtitle', 'Dashboard')
+@section('head')
+<h1>Hola Mundo</h1>
 
-@section('content')
+@endsection
+
+@section('contenido')
+
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
     <div class="box box-primary">
@@ -161,10 +164,3 @@ endrole -->
   </div>
 </div>
 @endsection
-<script type="text/javascript">
-$(document).ready(function() {   
-    setTimeout(function() {
-        $(".content2").fadeIn(1500);
-    },3000);
-});
-</script>

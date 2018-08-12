@@ -8,7 +8,7 @@
 @endif
 
 <div class="login-box-body">
-  <p class="login-box-msg">Reset Password</p>
+  <p class="login-box-msg">Recuperar Password</p>
 
   <form action="{{ route('password.email') }}" method="POST">
     {{ csrf_field() }}
@@ -21,7 +21,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <button type="submit" class="btn btn-primary btn-block btn-flat">Send Password Reset Link</button>
+        <button type="submit" class="btn btn-primary btn-block btn-flat">Enviar Link</button>
       </div>
       <!-- /.col -->
     </div>

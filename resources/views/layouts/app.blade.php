@@ -1,86 +1,79 @@
-@extends('admin-lte::layouts.main')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@if (auth()->check())
-@section('user-avatar', 'https://www.gravatar.com/avatar/' . md5(auth()->user()->email) . '?d=mm')
-@section('user-name', auth()->user()->name)
-@endif
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-@section('breadcrumbs')
-@include('admin-lte::layouts.content-wrapper.breadcrumbs', [
-  'breadcrumbs' => [
-    (object) [ 'title' => 'Home', 'url' => route('home') ]
-  ]
-])
-@endsection
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-@section('sidebar-menu')
-kkk
-<ul class="sidebar-menu">
-  <li class="header">MAIN NAVIGATOR</li>
-  <li class="active">
-    <a href="{{ route('home') }}">
-      <i class="fa fa-home"></i>
-      <span>Home</span>
-    </a>
-  </li>
-  <li class="active">
-    <a href="{{ route('adminUser.index') }}">
-      <i class="fa fa-users"></i>
-      <span>Usuarios</span>      
-    </a>
-  </li>
-  <li class="active">
-    <a href="/user/{{ auth()->user()->id }}/edit">
-      <i class="fa fa-user"></i>
-      <span>Mi Cuenta</span>      
-    </a>
-  </li>
-  <li class="active">
-    <a href="{{ route('home') }}">
-      <i class="fa fa-home"></i>
-      <span>Paqutes</span>
-    </a>
-  </li>
-  <li class="active treeview menu-open">
-    <a href="#">
-      <i class="fa fa-bus"></i>
-        <i class="fa fa-angle-left pull-right-container"></i>
-        <i class="fa fa-angl-left pull-right"></i>
-      <span>Transporte</span>
-      <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-    </a>
-      <ul class="treeview-menu">
-                <li><a href="{{ route('adminEmpresaTransporte.index') }}">
-                  <i class="fa fa-circle-o"></i>
-                  Empresas</a></li>
-                <li><a href="{{ route('adminTipoTransporte.index') }}">
-                  <i class="fa fa-circle-o"></i>
-                  Transportes y Conductores</a></li>
-                <li><a href="{{ route('adminTransporte.index') }}">
-                  <i class="fa fa-circle-o"></i>
-                    Transporte</a></li>
-      </ul>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
-  </li>
-  <li class="active">
-    <a href="{{ route('home') }}">
-      <i class="fa fa-home"></i>
-      <span>Home</span>
-    </a>
-  </li>
-  <li class="active">
-    <a href="{{ route('home') }}">
-      <i class="fa fa-home"></i>
-      <span>Home</span>
-    </a>
-  </li>
-  <li class="active">
-    <a href="{{ route('home') }}">
-      <i class="fa fa-home"></i>
-      <span>Home</span>
-    </a>
-  </li>
-</ul>
-@endsection
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    SisGeo
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
+
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="py-4">
+            @yield('content')
+        </main>
+    </div>
+</body>
+</html>

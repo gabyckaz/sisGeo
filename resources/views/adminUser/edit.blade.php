@@ -1,9 +1,11 @@
- @extends('layouts.app')
+@extends('master')
 
-@section('content-title', 'Home')
-@section('content-subtitle', 'Dashboard')
+@section('head')
+<h1>Hola Mundo</h1>
 
-@section('content')
+@endsection
+
+@section('contenido')
 <div class="row">
   <div class="col-md-12 ">
     <div class="box box-primary">
@@ -119,4 +121,5 @@
     </div>
   </div>
 </div>
+
 @endsection

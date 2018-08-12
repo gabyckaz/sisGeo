@@ -22,21 +22,21 @@ role('User')
     \Entrust::role('User')</p>
     <h1>Como Usuario</h1>
 endrole -->
+@extends('master')
 
+@section('head')
+<h1>Hola Mundo</h1>
 
- @extends('layouts.app')
+@endsection
 
-@section('content-title', 'Home')
-@section('content-subtitle', 'Dashboard')
-
-@section('content')
+@section('contenido')
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
     <div class="box box-primary">
       <div class="box-header">
         <h3 class="box-title">Usuarios</h3>
               <div class="box-body">
-              	<h1>Usuario estado-rol</h1>
+                <h1>Usuario estado-rol</h1>
         @if(session('status'))
                       <br>
                       <div  class="alert alert-success content2" role="alert">
@@ -107,21 +107,21 @@ endrole -->
           </form> -->
 <div class="table-responsive">
  <table class="table table-striped table-bordered" >
- 	<thead class="thead-dark">
- 		<tr>
- 		<th class="text-center">id</th>
- 		<th class="text-center">Nombre</th>
- 		<th class="text-center">Email</th>
+  <thead class="thead-dark">
+    <tr>
+    <th class="text-center">id</th>
+    <th class="text-center">Nombre</th>
+    <th class="text-center">Email</th>
     <th class="text-center">Estado</th>
- 		<th class="text-center">Rol</th>
- 		<th class="text-center">Opciones</th>
- 		
- 		</tr>
- 	</thead>
- 	<tbody>
- 		@foreach($usuarios as $usuario)
- 		 <tr class="text-center">
- 		  <td>{{ $usuario->id }}</td>
+    <th class="text-center">Rol</th>
+    <th class="text-center">Opciones</th>
+    
+    </tr>
+  </thead>
+  <tbody>
+    @foreach($usuarios as $usuario)
+     <tr class="text-center">
+      <td>{{ $usuario->id }}</td>
            <td>{{ $usuario->name }}</td>
            <td>{{ $usuario->email }}</td>
            <td>
@@ -167,15 +167,19 @@ endrole -->
             </td>
           
          </tr>
- 		@endforeach
+    @endforeach
 
- 	</tbody>
+  </tbody>
 
  </table>
  <div align="center">{!! $usuarios->appends([ 'nombre' =>  $nombre,'email' =>  $email,'estado' =>  $estado ,'rol' => $rol ])->render() !!} </div>
  </div>
  
         <!--  $usuarios->links()}} -->
+
+@endsection
+
+
 <!--
  <caption>
       <button class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo">
@@ -210,26 +214,3 @@ endrole -->
     </div>
   </div>
 </div> -->
-
-
-
-      </div>
-      </div>
-    </div>
-  </div>
-</div>
-@endsection
-<script type="text/javascript">
-$(document).ready(function() {   
-    setTimeout(function() {
-        $(".content2").fadeIn(1500);
-    },3000);
-});
-</script>
-<script type="text/javascript">
-$(document).ready(function() {   
-    setTimeout(function() {
-        $(".content2").fadeIn(1500);
-    },3000);
-});
-</script>

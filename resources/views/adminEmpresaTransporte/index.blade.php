@@ -1,9 +1,11 @@
- @extends('layouts.app')
+@extends('master')
 
-@section('content-title', 'Transporte')
-@section('content-subtitle', 'Empresas')
+@section('head')
+<h1>Hola Mundo</h1>
 
-@section('content')
+@endsection
+
+@section('contenido')
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
     @if(session('status'))
@@ -97,20 +99,20 @@
               <div class="box-body">
 
                 <table class="table table-striped table-bordered" >
-                	<thead class="thead-dark">
-                		<tr>
+                  <thead class="thead-dark">
+                    <tr>
 
-                		<th>Nombre</th>
-                		<th>Nombre de Contacto</th>
-                		<th>Teléfono</th>
+                    <th>Nombre</th>
+                    <th>Nombre de Contacto</th>
+                    <th>Teléfono</th>
                     <th>Email</th>
-                		<th></th>
+                    <th></th>
 
-                		</tr>
-                	</thead>
-                	<tbody>
-              		@foreach($empresalquiler as $empresa)
-                		 <tr>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($empresalquiler as $empresa)
+                     <tr>
                        <td>{{ $empresa->NombreEmpresaTransporte }}</td>
                        <td>{{ $empresa->NombreContacto }}</td>
                        <td>{{ $empresa->NumeroTelefonoContacto }}</td>
@@ -120,15 +122,14 @@
                                      href="{{ route('adminEmpresaTransporte.edit', $empresa )}}"></a>
                             </td>
                         </tr>
-                		@endforeach
+                    @endforeach
 
-                	</tbody>
+                  </tbody>
                 </table>
 
               </div>
       </div>
     </div>
-
-
 </div>
 @endsection
+
