@@ -24,7 +24,7 @@
     @endif
     <div class="box box-primary collapsed-box">
       <div class="box-header with-border">
-        <h3 class="box-title">Agregar Transporte</h3>
+        <h3 class="box-title">Agregar unidad de transporte</h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
         </div><!-- /.box-tools -->
@@ -33,23 +33,23 @@
                 <form action="{{ route('adminTransporte.store') }}" method="POST">
                   {{ csrf_field() }}
 
+                  <div class="form-group has-feedback{{ $errors->has('empresalquiler') ? ' has-error' : '' }}">
+                    <label for="empresalquiler">Empresa</label>
+                      <select class="form-control" name="empresalquiler">
+                        @foreach($empresalquiler as $empresa)
+                          <option value="{{ $empresa->IdEmpresaTransporte }}" {{ old('empresalquiler') == $empresa->IdEmpresaTransporte ? 'selected' : '' }}>{{ $empresa->NombreEmpresaTransporte }}</option>
+                        @endforeach
+                      </select>
+                 </div>
+
                   <div class="form-group has-feedback{{ $errors->has('tipotransporte') ? ' has-error' : '' }}">
-                    <label for="tipotransporte">Agregar tipo de transporte</label>
+                    <label for="tipotransporte">Tipo de transporte</label>
                       <select class="form-control" name="tipotransporte">
                         @foreach($tipotransportes as $tipotransporte)
                           <option value="{{ $tipotransporte->IdTipoTransporte }}" {{ old('tipotransporte') == $tipotransporte->IdTipoTransporte ? 'selected' : '' }} >{{ $tipotransporte->NombreTipoTransporte }}</option>
                         @endforeach
                       </select>
                  </div>
-
-                 <div class="form-group has-feedback{{ $errors->has('empresalquiler') ? ' has-error' : '' }}">
-                   <label for="empresalquiler">De empresa</label>
-                     <select class="form-control" name="empresalquiler">
-                       @foreach($empresalquiler as $empresa)
-                         <option value="{{ $empresa->IdEmpresaTransporte }}" {{ old('empresalquiler') == $empresa->IdEmpresaTransporte ? 'selected' : '' }}>{{ $empresa->NombreEmpresaTransporte }}</option>
-                       @endforeach
-                     </select>
-                </div>
 
                   <div class="col-sm-6 form-group has-feedback{{ $errors->has('marca') ? ' has-error' : '' }}">
                     <label for="marca">Marca</label>
@@ -145,7 +145,7 @@
     <div class="col-md-8  col-md-offset-2"><!-- Vista index -->
       <div class="box box-primary">
         <div class="box-header">
-          <h3 class="box-title"></h3>
+          <h3 class="box-title">Unidades de transporte</h3>
           </div>
                 <div class="box-body">
 
@@ -153,14 +153,13 @@
                     <thead class="thead-dark">
                       <tr>
 
-                      <th>@sortablelink('TipoTransporte.NombreTipoTransporte','Tipo')</th>
                       <th>@sortablelink('EmpresaAlquilerTransporte.NombreEmpresaTransporte','Empresa')</th>
+                      <th>@sortablelink('TipoTransporte.NombreTipoTransporte','Tipo')</th>
                   <!--    <th>Info</th> -->
                   <!--    <th>Matrícula</th>-->
                       <th>@sortablelink('NumeroAsientos','No. Asientos')</th>
                       <th>Extras</th>
                       <th>Observaciones</th>
-                <!--  <th>Conductor</th> -->
                       <th>Opciones</th>
 
                       </tr>
@@ -169,17 +168,13 @@
 
                     @foreach($transportes as $transporte)
                        <tr>
-                         <td>{{ $transporte->tipotransporte->NombreTipoTransporte}}</td>
-                         <td>{{ $transporte->empresaalquilertransporte->NombreEmpresaTransporte }} </td>
+                         <td>{{ $transporte->empresaalquilertransporte->NombreEmpresaTransporte }}</td>
+                         <td>{{ $transporte->tipotransporte->NombreTipoTransporte}} </td>
                     <!--        <td>{{ $transporte->Marca }} {{ $transporte->Modelo }} {{ $transporte->Color }} </td>-->
                     <!--     <td>{{ $transporte->Placa_Matricula }}</td>-->
                          <td>{{ $transporte->NumeroAsientos }}</td>
                          <td>@if($transporte->TieneAC=='si') <i class="fa fa-thermometer-half" aria-hidden="true" title="Aire acondicionado" ></i>@endif @if($transporte->TieneTV=='si') <i class="fa fa-television" aria-hidden="true" title="TV"></i>@endif @if($transporte->TieneWifi=='si') <i class="fa fa-wifi" aria-hidden="true" title="Wifi"></i>@endif</td>
                          <td>{{ $transporte->ObservacionesTransporte }}</td>
-                      <!--      <td>   @foreach($conductores as $conductor)
-                               <option>{{ $conductor->NombreConductor }}</option>
-                           @endforeach </td>
-                              -->
                              <td>
 
                                <a class="btn btn-primary btn-sm glyphicon glyphicon-pencil btn-block" title="Editar"

@@ -34,8 +34,7 @@ Route::put('/adminUser/cambiarEstado/{usuario}', ['as' => 'adminUser.state.chang
 Route::resource('adminEmpresaTransporte', 'EmpresaAlquilerTransporteController');//Rutas para empresa de alquiler de transporte
 
 //Rutas para agregar tipos de transporte y los nombres de los conductores
-Route::get('/adminTipoTransporte', ['as' => 'adminTipoTransporte.index', 'uses' =>  'TipoTransporteController@index']);//muestra listado de tipos y conductuctores
-Route::post('/adminTipoTransporte/index', ['as' => 'adminTipoTransporte.store', 'uses' =>  'TipoTransporteController@store']);//guarda tipo transporte
-Route::post('/adminTipoTransporte', ['as' => 'adminConductor.guardarConductor', 'uses' =>  'TipoTransporteController@guardarConductor']);//guarda conductor
-
+Route::resource('adminTipoTransporte', 'TipoTransporteController');
+Route::post('/adminEmpresaTransporte/{empresalquiler}', ['as' => 'adminEmpresaTransporte.conductor.add', 'uses' =>  'EmpresaAlquilerTransporteController@guardarConductor']);//guarda conductor
+//Rutas para la administración de unidades de transporte
 Route::resource('adminTransporte', 'TransporteController');

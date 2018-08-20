@@ -31,8 +31,20 @@
                 <form role="form" method="POST" action="{{route('adminTransporte.update', $transporte->IdTransporte) }}" >
                    {!! method_field('PUT') !!}
                    {{ csrf_field()  }}
+
+                   <div class="form-group has-feedback{{ $errors->has('empresalquiler') ? ' has-error' : '' }}">
+                     <label for="empresalquiler">Empresa</label>
+                       <select class="form-control" name="empresalquiler">
+                         @foreach($empresalquiler as $empresa)
+                         <option value="{{ $empresa->IdEmpresaTransporte }}" >{{ $empresa->NombreEmpresaTransporte }}</option>
+                    {{--  <option value="{{ $empresa->IdEmpresaTransporte }}" {{ $selectedEmpresa ==  $empresa->IdEmpresaTransporte ? 'selected="selected"' : '' }}>{{ $empresa->NombreEmpresaTransporte }}</option> --}}
+
+                         @endforeach
+                       </select>
+                  </div>
+
                   <div class="form-group has-feedback{{ $errors->has('tipotransporte') ? ' has-error' : '' }}">
-                    <label for="tipotransporte">Agregar tipo de transporte</label>
+                    <label for="tipotransporte">Tipo de transporte</label>
                       <select class="form-control" name="tipotransporte">
                         @foreach($tipotransportes as $tipotransporte)
                          <option value="{{ $tipotransporte->IdTipoTransporte }}" >{{ $tipotransporte->NombreTipoTransporte }}</option>
@@ -40,17 +52,6 @@
                         @endforeach
                       </select>
                  </div>
-
-                 <div class="form-group has-feedback{{ $errors->has('empresalquiler') ? ' has-error' : '' }}">
-                   <label for="empresalquiler">De empresa</label>
-                     <select class="form-control" name="empresalquiler">
-                       @foreach($empresalquiler as $empresa)
-                       <option value="{{ $empresa->IdEmpresaTransporte }}" >{{ $empresa->NombreEmpresaTransporte }}</option>
-                  {{--  <option value="{{ $empresa->IdEmpresaTransporte }}" {{ $selectedEmpresa ==  $empresa->IdEmpresaTransporte ? 'selected="selected"' : '' }}>{{ $empresa->NombreEmpresaTransporte }}</option> --}}
-
-                       @endforeach
-                     </select>
-                </div>
 
                   <div class="col-sm-6 form-group has-feedback{{ $errors->has('marca') ? ' has-error' : '' }}">
                     <label for="marca">Marca</label>
@@ -144,4 +145,3 @@
   </div>
 
 @endsection
-

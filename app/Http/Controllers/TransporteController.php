@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transporte;
 use App\TipoTransporte;
-use App\Conductor;
 use App\EmpresaAlquilerTransporte;
 
 class TransporteController extends Controller
@@ -18,12 +17,10 @@ class TransporteController extends Controller
     public function index()
     {
   //    return view('adminTransporte.index',['transportes'=> Transporte::all(),'tipotransportes'=> TipoTransporte::all(),
-    //  'conductores' => Conductor::all(),'empresalquiler' => EmpresaAlquilerTransporte::all()]);
     $transportes = Transporte::sortable()->paginate(8);
     $tipotransportes= TipoTransporte::all();
     $empresalquiler = EmpresaAlquilerTransporte::all();
-    $conductores= Conductor::all();
-    return view('adminTransporte.index', compact('transportes','tipotransportes','empresalquiler','conductores'));
+    return view('adminTransporte.index', compact('transportes','tipotransportes','empresalquiler'));
     //
     // view('welcome')->with('pagetitle',$pagetitle)
 		// 		->with('username',$username)
@@ -114,8 +111,7 @@ class TransporteController extends Controller
   //    $selectedEmpresa= Transporte::find(1);
       $tipotransportes= TipoTransporte::all();
       $empresalquiler = EmpresaAlquilerTransporte::all();
-      $conductores= Conductor::all();
-      return view('adminTransporte.edit', compact('transporte',/*'selectedTipo','selectedEmpresa',*/'$IdTransporte','tipotransportes','empresalquiler','conductores'));
+      return view('adminTransporte.edit', compact('transporte',/*'selectedTipo','selectedEmpresa',*/'$IdTransporte','tipotransportes','empresalquiler'));
     }
 
     /**

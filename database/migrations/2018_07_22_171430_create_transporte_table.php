@@ -30,17 +30,6 @@ class CreateTransporteTable extends Migration
             $table->foreign('IdEmpresaTransporte')->references('IdEmpresaTransporte')->on('EmpresaAlquilerTransporte');
         });
 
-        Schema::create('Maneja', function (Blueprint $table) {
-            $table->integer('IdConductor');
-            $table->integer('IdTransporte');
-
-            $table->foreign('IdConductor')->references('IdConductor')->on('Conductor')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('IdTransporte')->references('IdTransporte')->on('Transporte')
-                ->onUpdate('cascade')->onDelete('cascade');
-
-            $table->primary(['IdConductor', 'IdTransporte']);
-        });
     }
 
     /**
@@ -51,6 +40,5 @@ class CreateTransporteTable extends Migration
     public function down()
     {
         Schema::dropIfExists('Transporte');
-        Schema::drop('Maneja');
     }
 }

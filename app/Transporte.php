@@ -31,10 +31,6 @@ class Transporte extends Model
        //return $this->belongsTo(TipoTransporte::class);
   }
 
-  public function Conductores()
-  {
-      return $this->belongsToMany('App\Conductor');
-  }
 
 
 

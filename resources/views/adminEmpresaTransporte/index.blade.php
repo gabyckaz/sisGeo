@@ -24,7 +24,7 @@
     @endif
     <div class="box box-info collapsed-box">
       <div class="box-header with-border">
-        <h3 class="box-title">Registrar empresa de transporte</h3>
+        <h3 class="box-title">Registrar nueva empresa de transporte</h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
         </div><!-- /.box-tools -->
@@ -77,13 +77,7 @@
 
                     <!-- /.col -->
                   </div>
-                  @if(session('status'))
-                    <br>
-                      <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                      </div>
-                  @endif
-                </form>
+              </form>
 
 
 
@@ -118,8 +112,10 @@
                        <td>{{ $empresa->NumeroTelefonoContacto }}</td>
                         <td>{{ $empresa->EmailEmpresaTransporte }}</td>
                            <td>
-                             <a class="btn btn-primary btn-sm glyphicon glyphicon-pencil btn-block" title="Editar"
+                             <a class="btn btn-primary btn-sm fa fa-pencil-square-o btn-block" title="Editar"
                                      href="{{ route('adminEmpresaTransporte.edit', $empresa )}}"></a>
+                          {{--   <a class="btn btn-primary btn-sm fa fa-user-plus" title="Empleados"
+                                     href="{{  route('adminTipoTransporte.edit', $empresa )}}"></a>--}}
                             </td>
                         </tr>
                     @endforeach
@@ -132,4 +128,3 @@
     </div>
 </div>
 @endsection
-

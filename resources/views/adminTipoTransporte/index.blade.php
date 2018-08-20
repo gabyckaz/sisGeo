@@ -7,6 +7,7 @@
 
 @section('contenido')
 <div class="row">
+
   <div class="col-md-4">
     @if(session('status'))
       <br>
@@ -57,20 +58,20 @@
                 </tbody>
               </table>
 
-              <!-- /.col -->
+
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
-
+{{--
   <div class="col-md-4">
     <div class="box box-info">
       <div class="box-header">
         <h3 class="box-title">Conductores</h3>
               <div class="box-body">
-                <form action="{{ route('adminConductor.guardarConductor') }}" method="POST">
+                <form action="{{ route('adminTipoTransporte.guardarConductor') }}" method="POST">
                   {{ csrf_field() }}
                   <div class="form-group has-feedback{{ $errors->has('conductor') ? ' has-error' : '' }}">
                     <input id="conductor" type="text" class="form-control" name="conductor" value="{{ old('conductor') }}" required autofocus>
@@ -100,13 +101,12 @@
                       </tbody>
                     </table>
 
-                    <!-- /.col -->
+
                   </div>
                 </form>
               </div>
       </div>
     </div>
-  </div>
+  </div> --}}
 </div>
 @endsection
-
