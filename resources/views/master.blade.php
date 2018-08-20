@@ -64,7 +64,7 @@ desired effect
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>sis</b>GEO</span>
     </a>
 
     <!-- Header Navbar -->
@@ -265,7 +265,7 @@ desired effect
     <li class="active">
       <a href="{{ route('home') }}">
         <i class="fa fa-home"></i>
-        <span>Home</span>
+        <span>Inicio</span>
       </a>
     </li>
     <li class="active">
@@ -280,11 +280,27 @@ desired effect
         <span>Mi Cuenta</span>      
       </a>
     </li>
-    <li class="active">
-      <a href="{{ route('home') }}">
-        <i class="fa fa-home"></i>
-        <span>Paqutes</span>
+     <li class="active treeview menu-open">
+      <a href="#">
+        <i class="fa fa-ticket"></i>
+          <i class="fa fa-angle-left pull-right-container"></i>
+          <i class="fa fa-angl-left pull-right"></i>
+          <span>Paquetes Turísticos</span>
+          <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
       </a>
+          <ul class="treeview-menu">
+                  <li><a href="{{ route('adminPaquete.create')}}">
+                    <i class="fa fa-star"></i>
+                    Crear Paquete Turístico</a></li>
+                  <li><a href="">
+                    <i class="fa fa-star"></i>
+                    Consultar Paquete Turístico</a></li>
+                  <li><a href="">
+                    <i class="fa fa-star"></i>
+                      Editar Paquete Turístico</a></li>
+        </ul>
     </li>
     <li class="active treeview menu-open">
       <a href="#">
@@ -298,49 +314,49 @@ desired effect
       </a>
         <ul class="treeview-menu">
                   <li><a href="{{ route('adminEmpresaTransporte.index') }}">
-                    <i class="fa fa-circle-o"></i>
+                    <i class="fa fa-star"></i>
                     Empresas</a></li>
                   <li><a href="{{ route('adminTipoTransporte.index') }}">
-                    <i class="fa fa-circle-o"></i>
+                    <i class="fa fa-star"></i>
                     Transportes y Conductores</a></li>
                   <li><a href="{{ route('adminTransporte.index') }}">
-                    <i class="fa fa-circle-o"></i>
+                    <i class="fa fa-star"></i>
                       Transporte</a></li>
         </ul>
 
     </li>
     <li class="active">
       <a href="{{ route('home') }}">
-        <i class="fa fa-home"></i>
-        <span>Home</span>
+        <i class="fa fa-calendar"></i>
+        <span>Reservas</span>
       </a>
     </li>
-    <li class="active">
-      <a href="{{ route('home') }}">
-        <i class="fa fa-home"></i>
-        <span>Home</span>
-      </a>
-    </li>
-    <li >
-      <a href="{{ route('home') }}">
-        <i class="fa fa-home"></i>
-        <span>Home</span>
-      </a>
-    </li>
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
+ <li class="active treeview menu-open">
+      <a href="#">
+        <i class="fa fa-map-marker"></i>
+          <i class="fa fa-angle-left pull-right-container"></i>
+          <i class="fa fa-angl-left pull-right"></i>
+          <span>Ruta Turistica</span>
+          <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
-          </a>
+      </a>
           <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
-          </ul>
-        </li>
+                  <li><a href="#">
+                    <i class="fa fa-star"></i>
+                    Crear Ruta Turística</a></li>
+                  <li><a href="">
+                    <i class="fa fa-star"></i>
+                    Consultar Ruta Turística</a></li>
+                  <li><a href="">
+                    <i class="fa fa-star"></i>
+                      Editar Ruta Turística</a></li>
+        </ul>
+    </li>
+    </li>
+        <li class="active"><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
     </ul>
+
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
@@ -351,12 +367,12 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Page Header
-        <small>Optional description</small>
+        Pagina principal
+        <small>Opciones</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
+        <li class="active">Aqui</li>
       </ol>
     </section>
 
@@ -377,10 +393,10 @@ desired effect
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
+      El Salvador
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Derechos Reservados &copy; 2018 <a href="#">Geoturismo</a>.</strong> Todos los derechos.
   </footer>
 
   <!-- Control Sidebar -->

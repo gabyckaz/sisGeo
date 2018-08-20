@@ -39,3 +39,116 @@ Route::post('/adminTipoTransporte/index', ['as' => 'adminTipoTransporte.store', 
 Route::post('/adminTipoTransporte', ['as' => 'adminConductor.guardarConductor', 'uses' =>  'TipoTransporteController@guardarConductor']);//guarda conductor
 
 Route::resource('adminTransporte', 'TransporteController');
+
+//INICIO RUTAS PAIS
+
+            //Ver pais
+            Route::get('/MostrarPais', [
+              'uses' => 'PaisController@index',
+              'as' => 'adminPais.index',
+            ]);
+
+            //Crear pais
+            Route::get('/CrearPais', [
+                'uses' => 'PaisController@create',
+                'as' => 'adminPais.create',
+            ]);
+
+            Route::post('/CrearPais', [
+                'uses' => 'PaisController@store',
+                'as' => 'adminPais.create',
+            ]);
+
+            //Actualizar pais
+            Route::get('/EditarPais/{id}', [
+                'uses' => 'PaisController@edit',
+                'as' => 'adminPais.edit',
+            ]);
+
+            Route::put('/EditarPais/{id}', [
+                'uses' => 'PaisController@update',
+                'as' => 'adminPais.edit',
+            ]);
+
+            //Bloquear pais
+            Route::get('/EliminarPais/{id}',[
+                'uses' =>'PaisController@destroy',
+                'as' => 'adminPais.destroy'
+            ]);
+
+        /*FIN RUTAS PAQUETES*/
+//INICIO RUTAS TURISTICA
+
+            //Ver ruta turistica
+            Route::get('/MostrarRutaTuristica', [
+              'uses' => 'RutaTuristicaController@index',
+              'as' => 'adminRutaTuristica.index',
+            ]);
+
+            //Crear paquetes
+            Route::get('/CrearRutaTuristica', [
+                'uses' => 'RutaTuristicaController@create',
+                'as' => 'adminRutaTuristica.create',
+            ]);
+
+            Route::post('/CrearRutaTuristica', [
+                'uses' => 'RutaTuristicaController@store',
+                'as' => 'adminRutaTuristica.create',
+            ]);
+
+            //Actualizar paquetes
+            Route::get('/EditarRutaTuristica/{id}', [
+                'uses' => 'RutaTuristicaController@edit',
+                'as' => 'adminRutaTuristica.edit',
+            ]);
+
+            Route::put('/EditarRutaTuristica/{id}', [
+                'uses' => 'RutaTuristicaController@update',
+                'as' => 'adminRutaTuristica.edit',
+            ]);
+
+            //Bloquear paquetes
+            Route::get('/EliminarRutaTuristica/{id}',[
+                'uses' =>'RutaTuristicaController@destroy',
+                'as' => 'adminRutaTuristica.destroy'
+            ]);
+
+        /*FIN RUTAS PAQUETES*/
+
+        //INICIO RUTAS PAQUETES
+
+            //Ver paquetes
+            Route::get('/MostrarPaquete', [
+              'uses' => 'PaqueteController@index',
+              'as' => 'adminPaquete.index',
+            ]);
+
+            //Crear paquetes
+            Route::get('/CrearPaquete', [
+                'uses' => 'PaqueteController@create',
+                'as' => 'adminPaquete.create',
+            ]);
+
+            Route::post('/CrearPaquete', [
+                'uses' => 'PaqueteController@store',
+                'as' => 'adminPaquete.create',
+            ]);
+
+            //Actualizar paquetes
+            Route::get('/EditarPaquete/{id}', [
+                'uses' => 'PaqueteController@edit',
+                'as' => 'adminPaquete.edit',
+            ]);
+
+            Route::put('/EditarPaquete/{id}', [
+                'uses' => 'PaqueteController@update',
+                'as' => 'adminPaquete.edit',
+            ]);
+
+            //Bloquear paquetes
+            Route::get('/EliminarPaquete/{id}',[
+                'uses' =>'PaqueteController@destroy',
+                'as' => 'adminPaquete.destroy'
+            ]);
+
+        /*FIN RUTAS PAQUETES*/
