@@ -34,10 +34,10 @@ class PaisController extends Controller
      */
     public function store(Request $request)
     {
-       try{
+       /*try{
 
         this.validate($request,array(
-            'pais'=>'required'|string|unique:Pais:NombrePais|max:'30',
+            'pais'=>'required'|string|unique:Pais:NombrePais|max:'30'
 
         ));
 
@@ -50,7 +50,7 @@ class PaisController extends Controller
 
        } catch(\Exception $e){
             return redirect('adminPais')->with('fallo',"Error al guardar");
-       }
+       }*/
 
 
 

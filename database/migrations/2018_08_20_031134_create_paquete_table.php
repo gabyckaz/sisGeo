@@ -27,7 +27,9 @@ class CreatePaqueteTable extends Migration
             $table->string('Incluye',1024)->nullable();
             $table->string('Condiciones',1024)->nullable();
             $table->string('Recomendaciones',1024)->nullable();
-             $table->integer('IdTuristica')->unsigned();
+            $table->string('AprobacionPaquete',1);
+            $table->string('DisponibilidadPaquete',1);
+            $table->integer('IdTuristica')->unsigned();
             $table->foreign('IdTuristica')->references('IdRutaTuristica')->on('RutaTuristica')->onDelete('cascade');
             $table->timestamps();
         });

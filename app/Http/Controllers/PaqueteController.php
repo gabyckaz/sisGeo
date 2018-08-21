@@ -55,6 +55,8 @@ class PaqueteController extends Controller
             'incluye'=>'required|max:1024',
             'condiciones'=>'required|max:1024',
             'recomendaciones'=>'required|max:1024',
+            'aprobacionpaquete'=>'required|max:1',
+            'disponibilidadpaquete'=>'required|max:1',
         ));
         $paquete=new Paquete;
         $paquete->IdRutaTuristica=$request->ruta;
@@ -69,11 +71,13 @@ class PaqueteController extends Controller
         $paquete->Incluye=$request->incluye;
         $paquete->Condiciones=$request->condiciones;
         $paquete->Recomendaciones=$request->recomendaciones;
-        $rutaturistica->save();
-            return redirect('adminPaquete')->with('status',"Guardado con exito.")->withInput();*/
+        $paquete->AprobacionPaquete=$request->aprobacionpaquete;
+        $paquete->DisponibilidadPaquete=$request->disponibilidadpaquete;
+        $paquete->save();
+            return view('adminPaquete.create');*/
 
-            //dd($request->all());
-
+            
+        dd($request->all());
 
     }
 
