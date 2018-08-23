@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\RutaTuristica;
+use App\Paquete;
+use Illuminate\Support\Facades\Input;
+
 
 class PaqueteController extends Controller
 {
@@ -16,7 +19,7 @@ class PaqueteController extends Controller
     public function index()
     {
         $paquete=Paquete::all();
-        return view('adminPaquete.create')
+        return view('adminPaquete.index')
         ->with('paquete',$paquete);
     }
 
@@ -42,42 +45,30 @@ class PaqueteController extends Controller
      */
     public function store(Request $request)
     {
-         /*$this->validate($request,array(
-            'ruta'=>'required',
-            'nombrepaquete'=>'required|max:100',
-            'fechasalida'=>'required',
-            'horasalida'=>'required',
-            'fecharegreso'=>'required',
-            'lugarregreso'=>'required|max:200',
-            'precio'=>'required',
-            'itinerario'=>'required|max:1024',
-            'gastosextras'=>'required|max:1024',
-            'incluye'=>'required|max:1024',
-            'condiciones'=>'required|max:1024',
-            'recomendaciones'=>'required|max:1024',
-            'aprobacionpaquete'=>'required|max:1',
-            'disponibilidadpaquete'=>'required|max:1',
-        ));
-        $paquete=new Paquete;
-        $paquete->IdRutaTuristica=$request->ruta;
+        
+        $paquete=new Paquete();
+        $paquete->IdRutaTuristica=$request->idrutaturistica;
+        $paquete->IdTuristica=$request->idrutaturistica;
         $paquete->NombrePaquete=$request->nombrepaquete;
         $paquete->FechaSalida=$request->fechasalida;
-        $paquete->HoraSalida=$request->horasalida;
+        $paquete->HoraSalida=$request->hora;
         $paquete->FechaRegreso=$request->fecharegreso;
-        $paquete->LugarRegreso=$request->lugarregreso;
+        $paquete->LugarRegreso=$request->lugarsalida;
         $paquete->Precio=$request->precio;
         $paquete->Itinerario=$request->itinerario;
         $paquete->GastosExtras=$request->gastosextras;
-        $paquete->Incluye=$request->incluye;
+        $paquete->Incluye=$request->queincluye;
         $paquete->Condiciones=$request->condiciones;
         $paquete->Recomendaciones=$request->recomendaciones;
         $paquete->AprobacionPaquete=$request->aprobacionpaquete;
         $paquete->DisponibilidadPaquete=$request->disponibilidadpaquete;
         $paquete->save();
-            return view('adminPaquete.create');*/
 
-            
-        dd($request->all());
+        $rutaturistica=RutaTuristica::all();
+        
+            return view('adminPaquete.create')->with('ruta',$rutaturistica);
+
+        
 
     }
 
@@ -100,7 +91,9 @@ class PaqueteController extends Controller
      */
     public function edit($id)
     {
-        //
+     $ruta= RutaTuristica::all();   
+     $paquete=Paquete::findOrFail($id);
+        return view('adminPaquete.edit', compact('paquete', 'ruta'));   
     }
 
     /**
@@ -112,7 +105,31 @@ class PaqueteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        
+        $paquete = Paquete::findOrFail($id);
+        $paquete->IdRutaTuristica=$request->idrutaturistica;
+        $paquete->IdTuristica=$request->idrutaturistica;
+        $paquete->NombrePaquete=$request->nombrepaquete;
+        $paquete->FechaSalida=$request->fechasalida;
+        $paquete->HoraSalida=$request->hora;
+        $paquete->FechaRegreso=$request->fecharegreso;
+        $paquete->LugarRegreso=$request->lugarsalida;
+        $paquete->Precio=$request->precio;
+        $paquete->Itinerario=$request->itinerario;
+        $paquete->GastosExtras=$request->gastosextras;
+        $paquete->Incluye=$request->queincluye;
+        $paquete->Condiciones=$request->condiciones;
+        $paquete->Recomendaciones=$request->recomendaciones;
+        $paquete->AprobacionPaquete=$request->aprobacionpaquete;
+        $paquete->DisponibilidadPaquete=$request->disponibilidadpaquete;
+        $paquete->save();
+        
+
+        $paquetes=Paquete::all();
+        return view('adminPaquete.index')
+        ->with('paquete',$paquetes);
+       
     }
 
     /**
@@ -125,4 +142,6 @@ class PaqueteController extends Controller
     {
         //
     }
+
+    
 }

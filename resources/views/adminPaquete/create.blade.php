@@ -38,10 +38,10 @@
                               </div>
                         </div>
                         <div class="form-group">
-                            <label for="nombrerutaturistica">Nombre de Ruta Turística</label>
+                            <label name="idrutaturistica" for="nombrerutaturistica">Nombre de Ruta Turística</label>
                             
-                                  @if($ruta != null)
-                                    <select  class="form-inline"   id="idrutaturistica" data-placeholder="Seleccionar la ruta...">
+                                  @if($ruta !=null)
+                                    <select  class="form-inline" name="idrutaturistica"  id="idrutaturistica" data-placeholder="Seleccionar la ruta...">
                                     @foreach ($ruta as $ruta)
                                                         
                                     <option value="{{ $ruta->IdRutaTuristica }}"> {{$ruta->NombreRutaTuristica}}</option>
@@ -52,16 +52,6 @@
                                           <label>No hay rutas</label>
                                         @endif 
                         </div>
-                        <div class="form-group">
-                          <label for="fechadesalida">Fecha de Creación</label>
-                        <div class="input-group date">
-                 
-                          <input name="fechacreacion" type="date" class="form-control pull-right" id="fechacreacion" placeholder="Fecha de Creación">
-                          <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                          </div>
-                        </div>
-                        </div>
 
                         <div class="form-group">
                           <label for="fechadesalida">Fecha de Salida</label>
@@ -71,6 +61,17 @@
                           <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                           </div>
+                        </div>
+
+                         <div class="form-group">
+                          <label for="hora">Hora de Salida</label>
+                         <div class="input-group time">
+                 
+                          <input name="hora" type="time" id="hora" value="11:45:00"  max="24:00:00" min="00:00:00" class="form-control pull-right" >
+                          <div class="input-group-addon"> 
+                                <i class="fa fa-history"></i>
+                          </div>
+                        </div>
                         </div>
                         
                         </div>
@@ -86,17 +87,6 @@
                         </div>
 
                         <div class="form-group">
-                          <label for="hora">Hora de Salida</label>
-                         <div class="input-group time">
-                 
-                          <input name="hora" type="time" id="hora" class="form-control pull-right" >
-                          <div class="input-group-addon"> 
-                                <i class="fa fa-history"></i>
-                          </div>
-                        </div>
-                        </div>
-
-                        <div class="form-group">
                             <label for="lugar">Lugar de Salida</label>
                             <div class="input-group">
                               <input type="text" name="lugarsalida" class="form-control" id="lugarsalida" placeholder="Lugar" >
@@ -108,7 +98,7 @@
                             <label for="precio">Precio</label>
                             <div class="input-group">
                               <span class="input-group"><i class="fa fa-money"></i>
-                              <span>$</span><input name="precio" type="number" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio"></span>    
+                              <span>$</span><input name="precio" type="text" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio"></span>    
                               </div>
                         </div>
 
@@ -128,6 +118,13 @@
                               </div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="queincluye">Que incluye</label>
+                            <div class="input-group">
+                              <textarea name="queincluye"class="form-control" id="queincluye" rows="5" ></textarea>
+                                      <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                              </div>
+                        </div>
                         <div class="form-group">
                             <label for="con">Condiciones</label>
                             <div class="input-group">

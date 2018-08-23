@@ -295,11 +295,9 @@ desired effect
                     <i class="fa fa-star"></i>
                     Crear Paquete Turístico</a></li>
                   <li><a href="">
+                     <li><a href="{{ route('adminPaquete.index')}}">
                     <i class="fa fa-star"></i>
-                    Consultar Paquete Turístico</a></li>
-                  <li><a href="">
-                    <i class="fa fa-star"></i>
-                      Editar Paquete Turístico</a></li>
+                    Mostrar Paquete Turístico</a></li>
         </ul>
     </li>
     <li class="active treeview menu-open">
