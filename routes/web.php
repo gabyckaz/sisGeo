@@ -25,6 +25,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('adminUser', 'AdminUsuariosController');
 
+Route::get('user/completeInfo', ['as' => 'user.complete.info', 'uses' => 'userController@editInfo']);
+Route::put('user/completeInfo', ['as' => 'user.complete.info.store', 'uses' => 'userController@storeCompleteInfo']);
+Route::get('user/editInfo/{persona}', ['as' => 'user.edit.info', 'uses' => 'userController@editInfoUserTurista']);
+Route::get('user/editInfo', ['as' => 'user.edit.info', 'uses' => 'userController@editInfoUserTurista']);
+Route::get('user/agregarFamiliarAmigo', ['as' => 'user.add.familiarAmigo', 'uses' => 'userController@addFamiliarAmigo']);
 Route::resource('user', 'userController');
 
 Route::put('/adminUser/add-rol/{usuario}', ['as' => 'adminUser.role.add', 'uses' => 'AdminUsuariosController@agregarRol']);
@@ -39,3 +44,5 @@ Route::post('/adminTipoTransporte/index', ['as' => 'adminTipoTransporte.store', 
 Route::post('/adminTipoTransporte', ['as' => 'adminConductor.guardarConductor', 'uses' =>  'TipoTransporteController@guardarConductor']);//guarda conductor
 
 Route::resource('adminTransporte', 'TransporteController');
+
+Route::resource('turista', 'TuristaController');											
