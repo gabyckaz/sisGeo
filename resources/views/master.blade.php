@@ -16,11 +16,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{ asset('adminLte/Ionicons/css/ionicons.min.css') }}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('adminLte/css/AdminLTE.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('adminLte/css/AdminLTE.min.css') }}">														 
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="{{ asset('adminLte/css/skins/skin-green.min.css') }}">
+   <!-- Para datapicker -->
+   <link rel="stylesheet" href="{{ asset('adminLte/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">																												
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -310,15 +312,15 @@ desired effect
 
     </li>
     <li class="active">
-      <a href="{{ route('home') }}">
+      <a href="{{ route('user.complete.info') }}">
         <i class="fa fa-home"></i>
-        <span>Home</span>
+        <span>Completar Informacion</span>
       </a>
     </li>
     <li class="active">
-      <a href="{{ route('home') }}">
+      <a href="{{ route('user.add.familiarAmigo') }}">
         <i class="fa fa-home"></i>
-        <span>Home</span>
+        <span>Agregar Familiar o Amigo</span>
       </a>
     </li>
     <li >
@@ -490,11 +492,52 @@ desired effect
 <script src="{{ asset('adminLte/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('adminLte/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+!-- Datapicker -->
+<script src="{{ asset('adminLte/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>																										 
 <!-- AdminLTE App -->
 <script src="{{ asset('adminLte/js/adminlte.min.js') }}"></script>
-
+<!-- Para mascaras-->
+<script src="{{ asset('adminLte/input-mask/jquery.inputmask.js') }}"></script>
+<script src="{{ asset('adminLte/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+<script src="{{ asset('adminLte/input-mask/jquery.inputmask.extensions.js') }}"></script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
+<script type="text/javascript">
+       $(function () {
+         var div = document.getElementById("documentos");
+         if(div != null){
+         div.style.display = "none"
+         }
+       
+       $('#datepicker').datepicker({ autoclose: true })
+       $('#datepicker2').datepicker({ autoclose: true })
+       $('#fechaNacimiento').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+       $('#fechaVencimientoDoc').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+       $("#dui").inputmask("99999999-9",{ 'placeholder': '00000000-0' })
+      
+       $('#tdocumento').on('change',function(){
+         var selectValor = '#'+ $(this).val(); 
+         
+         console.log(selectValor);
+         if(selectValor === '#' ){
+         // $('#documentos').children('div').hide();
+         div.style.display = "none"
+        $('#documentos').children('#t1').hide();
+        $('#documentos').children('#t2').hide();
+         }
+         if(selectValor === '#t1'){
+          div.style.display = "block";
+         $(selectValor).show();
+         $('#t2').hide();
+         }
+         if(selectValor === '#t2'){
+          div.style.display = "block";
+          $(selectValor).show();
+          $('#t1').hide();
+         }
+       })
+        })
+     </script>					  	   
 </body>
 </html>
