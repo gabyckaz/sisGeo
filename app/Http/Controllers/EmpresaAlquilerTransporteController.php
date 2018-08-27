@@ -16,8 +16,9 @@ class EmpresaAlquilerTransporteController extends Controller
      */
     public function index()
     {
-      $empresalquiler = EmpresaAlquilerTransporte::all();
-      return view('adminEmpresaTransporte.index', compact('empresalquiler'));
+      $empresalquiler = EmpresaAlquilerTransporte::sortable()->paginate(10);//Para el rdenamiento en la tabla index
+      return view('adminEmpresaTransporte.index',compact('empresalquiler'));
+
     }
 
     /**

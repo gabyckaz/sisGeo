@@ -23,14 +23,14 @@
                     @endif
                   </div>
                   <div class="form-group has-feedback{{ $errors->has('nombrecontacto') ? ' has-error' : '' }}">
-                    <input id="nombrecontacto" title="Nombre de contacto" value="{{ $empresalquiler->NombreContacto }}" placeholder="{{ $empresalquiler->NombreContacto }}" type="nombrecontacto" class="form-control" name="nombrecontacto" value="{{ old('nombrecontacto') }}" >
+                    <input id="nombrecontacto" title="Nombre de contacto" value="{{ $empresalquiler->NombreContacto }}" placeholder="{{ $empresalquiler->NombreContacto }}" type="text" class="form-control" name="nombrecontacto" value="{{ old('nombrecontacto') }}" >
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     @if ($errors->has('nombrecontacto'))
                     <span class="help-block">{{ $errors->first('nombrecontacto') }}</span>
                     @endif
                   </div>
                   <div class="form-group has-feedback{{ $errors->has('numerotelefono') ? ' has-error' : '' }}">
-                    <input id="numerotelefono" title="No. Teléfono" value="{{ $empresalquiler->NumeroTelefonoContacto }}" placeholder="{{ $empresalquiler->NumeroTelefonoContacto }}" type="numerotelefono" class="form-control" name="numerotelefono"  required>
+                    <input id="numerotelefono" title="No. Teléfono" value="{{ $empresalquiler->NumeroTelefonoContacto }}" placeholder="{{ $empresalquiler->NumeroTelefonoContacto }}" type="number" min="00000000" max="99999999" class="form-control" name="numerotelefono"  required>
                     <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
                     @if ($errors->has('numerotelefono'))
                     <span class="help-block">{{ $errors->first('numerotelefono') }}</span>
@@ -44,7 +44,7 @@
                     @endif
                   </div>
                   <div class="form-group has-feedback{{ $errors->has('observacionesempresa') ? ' has-error' : '' }}">
-                    <input id="observacionesempresa" title="Observaciones" value="{{ $empresalquiler->ObservacionesEmpresaTransporte }}" placeholder="{{ $empresalquiler->ObservacionesEmpresaTransporte }}" type="observacionesempresa" class="form-control" name="observacionesempresa" >
+                    <textarea id="observacionesempresa" title="Observaciones" value="{{ $empresalquiler->ObservacionesEmpresaTransporte }}" placeholder="{{ $empresalquiler->ObservacionesEmpresaTransporte }}" type="observacionesempresa" class="form-control" name="observacionesempresa" ></textarea>
                     <span class="glyphicon glyphicon-bookmark form-control-feedback"></span>
                     @if ($errors->has('observacionesempresa'))
                     <span class="help-block">{{ $errors->first('observacionesempresa') }}</span>

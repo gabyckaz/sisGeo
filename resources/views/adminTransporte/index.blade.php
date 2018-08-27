@@ -34,7 +34,7 @@
                   {{ csrf_field() }}
 
                   <div class="form-group has-feedback{{ $errors->has('empresalquiler') ? ' has-error' : '' }}">
-                    <label for="empresalquiler">Empresa</label>
+                    <label for="empresalquiler">Empresa *</label>
                       <select class="form-control" name="empresalquiler">
                         @foreach($empresalquiler as $empresa)
                           <option value="{{ $empresa->IdEmpresaTransporte }}" {{ old('empresalquiler') == $empresa->IdEmpresaTransporte ? 'selected' : '' }}>{{ $empresa->NombreEmpresaTransporte }}</option>
@@ -43,7 +43,7 @@
                  </div>
 
                   <div class="form-group has-feedback{{ $errors->has('tipotransporte') ? ' has-error' : '' }}">
-                    <label for="tipotransporte">Tipo de transporte</label>
+                    <label for="tipotransporte">Tipo de transporte *</label>
                       <select class="form-control" name="tipotransporte">
                         @foreach($tipotransportes as $tipotransporte)
                           <option value="{{ $tipotransporte->IdTipoTransporte }}" {{ old('tipotransporte') == $tipotransporte->IdTipoTransporte ? 'selected' : '' }} >{{ $tipotransporte->NombreTipoTransporte }}</option>
@@ -51,41 +51,40 @@
                       </select>
                  </div>
 
-                  <div class="col-sm-6 form-group has-feedback{{ $errors->has('marca') ? ' has-error' : '' }}">
-                    <label for="marca">Marca</label>
-                    <input id="marca" type="text" class=" form-control" name="marca" value="{{ old('marca') }}" placeholder="Ej: Mercedes Benz" required>
-                    @if ($errors->has('marca'))
-                    <span class="help-block">{{ $errors->first('marca') }}</span>
-                    @endif
-                  </div>
+                 <div class="col-sm-6 form-group has-feedback{{ $errors->has('marca') ? ' has-error' : '' }}">
+                  <label for="marca">Marca *</label>
+                  <select  class="form-control" name="marca">
+                    <option value="Toyota" {{ old('marca') == 'Toyota' ? 'selected' : '' }}>Toyota</option>
+                    <option value="Blue Bird" {{ old('marca') == 'Blue Bird' ? 'selected' : '' }} >Blue Bird</option>
+                    <option value="Ford" {{ old('marca') == 'Ford' ? 'selected' : '' }}>Ford</option>
+                    <option value="Mercedez Benz" {{ old('marca') == 'Mercedez Benz' ? 'selected' : '' }} >Mercedez Benz</option>
+                  </select>
+                 </div>
 
-                  <div class="col-sm-6 form-group has-feedback{{ $errors->has('modelo') ? ' has-error' : '' }}">
-                    <label for="modelo">Modelo</label>
-                    <input id="modelo" type="text" class=" form-control" name="modelo" value="{{ old('modelo') }}" placeholder="Ej: Citaro K" required>
-                    @if ($errors->has('modelo'))
-                    <span class="help-block">{{ $errors->first('modelo') }}</span>
-                    @endif
-                  </div>
+                 <div class="col-sm-6 form-group has-feedback{{ $errors->has('modelo') ? ' has-error' : '' }}">
+                  <label for="modelo">Modelo *</label>
+                  <select  class="form-control" name="modelo">
+                    <option value="Coaster" {{ old('modelo') == 'Coaster' ? 'selected' : '' }}>Coaster</option>
+                    <option value="Hiace" {{ old('modelo') == 'Hiace' ? 'selected' : '' }} >Hiace</option>
+                    <option value="All American" {{ old('modelo') == 'All American' ? 'selected' : '' }}>All American</option>
+                    <option value="Ford B series" {{ old('modelo') == 'Ford B series' ? 'selected' : '' }} >Ford B series</option>
+                  </select>
+                 </div>
 
                    <div class="col-sm-4 form-group has-feedback{{ $errors->has('color') ? ' has-error' : '' }}">
-                    <label for="color">Color</label>
+                    <label for="color">Color *</label>
                     <select  class="form-control" name="color">
-                      <option value="Negro" {{ old('color') == 'Negro' ? 'selected' : '' }} style="background-color: Black;color: #FFFFFF;">Negro</option>
-                      <option value="Gris" {{ old('color') == 'Gris' ? 'selected' : '' }} style="background-color: Gray;">Gris</option>
-                      <option value="Blanco" {{ old('color') == 'Blanco' ? 'selected' : '' }} style="background-color: White;">Blanco</option>
-                      <option value="Aqua" {{ old('color') == 'Aqua' ? 'selected' : '' }} style="background-color: Aquamarine;">Aqua</option>
-                      <option value="Azul" {{ old('color') == 'Azul' ? 'selected' : '' }} style="background-color: Navy;color: #FFFFFF;">Azul</option>
-                      <option value="Verde" {{ old('color') == 'Verde' ? 'selected' : '' }} style="background-color: DarkGreen;color: #FFFFFF;">Verde</option>
-                      <option value="Amarillo" {{ old('color') == 'Amarillo' ? 'selected' : '' }} style="background-color: Yellow;">Amarillo</option>
-                      <option value="Anaranjado" {{ old('color') == 'Anaranjado' ? 'selected' : '' }} style="background-color: Orange;">Anaranjado</option>
-                      <option value="Rojo" {{ old('color') == 'Rojo' ? 'selected' : '' }} style="background-color: Red;">Rojo</option>
-                      <option value="Café" {{ old('color') == 'Café' ? 'selected' : '' }} style="background-color: #aa6e28  ;">Café</option>
-                      <option value="Beige"{{ old('color') == 'Beige' ? 'selected' : '' }}  style="background-color: Beige;">Beige</option>
+                      <option value="Negro" style="background-color: Black;color: #FFFFFF;">Negro</option>
+                      <option value="Gris" style="background-color: Gray;">Gris</option>
+                      <option value="Blanco" style="background-color: White;">Blanco</option>
+                      <option value="Amarillo" style="background-color: Yellow;">Amarillo</option>
+                      <option value="Anaranjado" style="background-color: Orange;">Anaranjado</option>
+                      <option value="Beige" style="background-color: Beige;">Beige</option>
                     </select>
                    </div>
 
                   <div class="col-sm-4 form-group has-feedback{{ $errors->has('placa') ? ' has-error' : '' }}">
-                    <label for="placa">Placa</label>
+                    <label for="placa">Placa *</label>
                     <input id="placa" type="text" class="form-control" name="placa" placeholder="Ej: B776123" size="7" required>
                     @if ($errors->has('placa'))
                     <span class="help-block">{{ $errors->first('placa') }}</span>
@@ -93,8 +92,8 @@
                   </div>
 
                   <div class="col-sm-4 form-group has-feedback{{ $errors->has('numeroasientos') ? ' has-error' : '' }}">
-                    <label for="numeroasientos">No. Asientos</label>
-                    <input id="numeroasientos" type="number" min="1" class="form-control" name="numeroasientos" value="{{ old('numeroasientos') }}" placeholder="No. de asientos" required>
+                    <label for="numeroasientos">No. Asientos *</label>
+                    <input id="numeroasientos" type="number" min="10" class="form-control" name="numeroasientos" value="{{ old('numeroasientos') }}" placeholder="No. de asientos" required>
                     @if ($errors->has('numeroasientos'))
                     <span class="help-block">{{ $errors->first('numeroasientos') }}</span>
                     <span class="help-block">Tiene que ser de 1 a más asientos</span>
@@ -103,8 +102,9 @@
                 </br >
 
                   <div class="form-group">
+                    <br/ >
                     <label class="">
-                    <input class="form-group" name="ac" type="checkbox" value="si" @if(old('ac')=="si") checked @endif>
+                    <input class="form-group" name="ac" type="checkbox" value="si" @if(old('ac')=="si") checked @endif checked>
                     <i class="fa fa-thermometer-half"></i> Aire Acondicionado</label>
                   </div>
 
@@ -139,6 +139,9 @@
 
 
               </div>
+              <div class="box-footer">
+              * Estos campos son obligatorios
+              </div>
       </div>
     </div>      <!-- Fin de vista create -->
 
@@ -153,7 +156,7 @@
                     <thead class="thead-dark">
                       <tr>
 
-                      <th>@sortablelink('EmpresaAlquilerTransporte.NombreEmpresaTransporte','Empresa')</th>
+                      <th>@sortablelink('empresaalquilertransporte.NombreEmpresaTransporte','Empresa')</th>
                       <th>@sortablelink('TipoTransporte.NombreTipoTransporte','Tipo')</th>
                   <!--    <th>Info</th> -->
                   <!--    <th>Matrícula</th>-->
@@ -168,7 +171,7 @@
 
                     @foreach($transportes as $transporte)
                        <tr>
-                         <td>{{ $transporte->empresaalquilertransporte->NombreEmpresaTransporte }}</td>
+                         <td>{{ $transporte->EmpresaAlquilerTransporte->NombreEmpresaTransporte }}</td>
                          <td>{{ $transporte->tipotransporte->NombreTipoTransporte}} </td>
                     <!--        <td>{{ $transporte->Marca }} {{ $transporte->Modelo }} {{ $transporte->Color }} </td>-->
                     <!--     <td>{{ $transporte->Placa_Matricula }}</td>-->

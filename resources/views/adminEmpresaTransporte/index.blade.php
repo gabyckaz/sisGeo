@@ -34,21 +34,21 @@
                 <form action="{{ route('adminEmpresaTransporte.store') }}" method="POST">
                   {{ csrf_field() }}
                   <div class="form-group has-feedback{{ $errors->has('nombreempresa') ? ' has-error' : '' }}">
-                    <input id="nombreempresa" type="text" class="form-control" name="nombreempresa"  placeholder="Nombre de la empresa" required autofocus>
+                    <input id="nombreempresa" type="text" class="form-control" name="nombreempresa"  placeholder="Nombre de la empresa *" required autofocus>
                     <span class="glyphicon glyphicon-road form-control-feedback"></span>
                     @if ($errors->has('nombreempresa'))
                     <span class="help-block">{{ $errors->first('nombreempresa') }}</span>
                     @endif
                   </div>
                   <div class="form-group has-feedback{{ $errors->has('nombrecontacto') ? ' has-error' : '' }}">
-                    <input id="nombrecontacto" type="nombrecontacto" class="form-control" name="nombrecontacto"  placeholder="Nombre del contacto">
+                    <input id="nombrecontacto" type="nombrecontacto" class="form-control" name="nombrecontacto"  placeholder="Nombre del contacto *">
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     @if ($errors->has('nombrecontacto'))
                     <span class="help-block">{{ $errors->first('nombrecontacto') }}</span>
                     @endif
                   </div>
                   <div class="form-group has-feedback{{ $errors->has('numerotelefono') ? ' has-error' : '' }}">
-                    <input id="numerotelefono" type="number" min="00000000" max="99999999" class="form-control" name="numerotelefono" placeholder="Teléfono de contacto. Ej: 22331100" required>
+                    <input id="numerotelefono" type="number" min="00000000" max="99999999" class="form-control" name="numerotelefono" placeholder="Teléfono de contacto * (Sin guiones. Ej: 22324560) " required>
                     <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
                     @if ($errors->has('numerotelefono'))
                     <span class="help-block">{{ $errors->first('numerotelefono') }}</span>
@@ -56,7 +56,7 @@
                   </div>
 
                   <div class="form-group has-feedback{{ $errors->has('emailempresa') ? ' has-error' : '' }}">
-                    <input id="emailempresa" type="email" class="form-control" name="emailempresa" placeholder="Email" required>
+                    <input id="emailempresa" type="email" class="form-control" name="emailempresa" placeholder="Email *" required>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     @if ($errors->has('emailempresa'))
                     <span class="help-block">{{ $errors->first('emailempresa') }}</span>
@@ -82,6 +82,9 @@
 
 
       </div>
+      <div class="box-footer">
+      * Estos campos son obligatorios
+      </div>
     </div>
   </div>
 
@@ -96,11 +99,11 @@
                   <thead class="thead-dark">
                     <tr>
 
-                    <th>Nombre</th>
+                    <th>@sortablelink('NombreEmpresaTransporte','Nombre')</th>
                     <th>Nombre de Contacto</th>
                     <th>Teléfono</th>
                     <th>Email</th>
-                    <th></th>
+                    <th>Opciones</th>
 
                     </tr>
                   </thead>
@@ -112,7 +115,7 @@
                        <td>{{ $empresa->NumeroTelefonoContacto }}</td>
                         <td>{{ $empresa->EmailEmpresaTransporte }}</td>
                            <td>
-                             <a class="btn btn-primary btn-sm fa fa-pencil-square-o btn-block" title="Editar"
+                             <a class="btn btn-primary btn-sm glyphicon glyphicon-pencil btn-block" title="Editar"
                                      href="{{ route('adminEmpresaTransporte.edit', $empresa )}}"></a>
                           {{--   <a class="btn btn-primary btn-sm fa fa-user-plus" title="Empleados"
                                      href="{{  route('adminTipoTransporte.edit', $empresa )}}"></a>--}}
@@ -122,7 +125,7 @@
 
                   </tbody>
                 </table>
-
+                {!! $empresalquiler->appends(\Request::except('page'))->render() !!}
               </div>
       </div>
     </div>

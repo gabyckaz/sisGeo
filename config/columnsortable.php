@@ -7,7 +7,7 @@ return [
     */
     'columns'                       => [
         'alpha'   => [
-            'rows'  => ['description', 'email', 'name', 'slug'],//Agregar columnas a ordenar
+            'rows'  => ['description', 'email', 'name', 'slug','NombreEmpresaTransporte','NombreTipoTransporte'],//Agregar columnas a ordenar
             'class' => 'fa fa-sort-alpha',
         ],
         'amount'  => [
