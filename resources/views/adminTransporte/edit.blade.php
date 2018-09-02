@@ -20,7 +20,7 @@
           {{ session('fallo') }}
       </div>
     @endif
-    <div class="box box-primary">
+    <div class="box box-warning">
       <div class="box-header with-border">
         <h3 class="box-title">Transporte</h3>
         <div class="box-tools">
@@ -204,7 +204,10 @@
 
                   <div class="col-sm-4 form-group has-feedback{{ $errors->has('placa') ? ' has-error' : '' }}">
                     <label for="placa">Placa</label>
+                    <div class="input-group">
+                    <span class="input-group-addon">#</span>
                     <input id="placa" type="text" class="form-control" name="placa" value="{{ $transporte->Placa_Matricula }}"placeholder="Ej: B776123" min="1" required>
+                    </div>
                     @if ($errors->has('placa'))
                     <span class="help-block">{{ $errors->first('placa') }}</span>
                     @endif
@@ -212,7 +215,10 @@
 
                   <div class="col-sm-4 form-group has-feedback{{ $errors->has('numeroasientos') ? ' has-error' : '' }}">
                     <label for="numeroasientos">No. Asientos</label>
+                    <div class="input-group">
+                    <span class="input-group-addon"><span class="fa fa-bus"></span></span>
                     <input id="numeroasientos" type="number" min="10" class="form-control" value="{{ $transporte->NumeroAsientos }}"name="numeroasientos" placeholder="No. de asientos" required>
+                    </div>
                     @if ($errors->has('numeroasientos'))
                     <span class="help-block">{{ $errors->first('numeroasientos') }}</span>
                     <span class="help-block">Tiene que ser de 1 a más asientos</span>
@@ -238,7 +244,11 @@
                   </div>
 
                   <div class="form-group has-feedback{{ $errors->has('observacionestransporte') ? ' has-error' : '' }}">
+                    <label for="observacionestransporte">Observaciones</label>
+                    <div class="input-group">
+                    <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                       <textarea id="observacionestransporte" type="text" class="form-control"  name="observacionestransporte">{{ $transporte->ObservacionesTransporte }}</textarea>
+                    </div>
                     @if ($errors->has('observacionestransporte'))
                     <span class="help-block">{{ $errors->first('observacionestransporte') }}</span>
                     @endif
@@ -248,7 +258,7 @@
 
                   <div class="row">
                     <div class="col-md-12">
-                      <button type="submit" class="btn btn-primary btn-block btn-flat">Guardar</button>
+                      <button type="submit" class="btn btn-info center-block">Guardar</button>
                     </div>
                   </div>
                 </form>

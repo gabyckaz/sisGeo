@@ -22,7 +22,7 @@
           {{ session('fallo') }}
       </div>
     @endif
-    <div class="box box-primary collapsed-box">
+    <div class="box box-warning collapsed-box">
       <div class="box-header with-border">
         <h3 class="box-title">Agregar unidad de transporte</h3>
         <div class="box-tools pull-right">
@@ -85,7 +85,10 @@
 
                   <div class="col-sm-4 form-group has-feedback{{ $errors->has('placa') ? ' has-error' : '' }}">
                     <label for="placa">Placa *</label>
+                    <div class="input-group">
+                    <span class="input-group-addon">#</span></span>
                     <input id="placa" type="text" class="form-control" name="placa" placeholder="Ej: B776123" size="7" required>
+                  </div>
                     @if ($errors->has('placa'))
                     <span class="help-block">{{ $errors->first('placa') }}</span>
                     @endif
@@ -93,7 +96,10 @@
 
                   <div class="col-sm-4 form-group has-feedback{{ $errors->has('numeroasientos') ? ' has-error' : '' }}">
                     <label for="numeroasientos">No. Asientos *</label>
+                    <div class="input-group">
+                    <span class="input-group-addon"><span class="fa fa-bus"></span></span>
                     <input id="numeroasientos" type="number" min="10" class="form-control" name="numeroasientos" value="{{ old('numeroasientos') }}" placeholder="No. de asientos" required>
+                  </div>
                     @if ($errors->has('numeroasientos'))
                     <span class="help-block">{{ $errors->first('numeroasientos') }}</span>
                     <span class="help-block">Tiene que ser de 1 a más asientos</span>
@@ -121,7 +127,11 @@
                   </div>
 
                   <div class="form-group has-feedback{{ $errors->has('observacionestransporte') ? ' has-error' : '' }}">
+                    <label for="observacionestransporte">Observaciones</label>
+                    <div class="input-group">
+                    <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                       <textarea id="observacionestransporte" type="text" class="form-control" name="observacionestransporte" placeholder="Observaciones"></textarea>
+                    </div>
                     @if ($errors->has('observacionestransporte'))
                     <span class="help-block">{{ $errors->first('observacionestransporte') }}</span>
                     @endif
@@ -131,7 +141,7 @@
 
                   <div class="row">
                     <div class="col-md-12">
-                      <button type="submit" class="btn btn-primary btn-block btn-flat">Registrar</button>
+                      <button type="submit" class="btn btn-info center-block">Registrar</button>
                     </div>
                     <!-- /.col -->
                   </div>
@@ -146,7 +156,7 @@
     </div>      <!-- Fin de vista create -->
 
     <div class="col-md-8  col-md-offset-2"><!-- Vista index -->
-      <div class="box box-primary">
+      <div class="box box-warning">
         <div class="box-header">
           <h3 class="box-title">Unidades de transporte</h3>
           </div>
@@ -180,7 +190,7 @@
                          <td>{{ $transporte->ObservacionesTransporte }}</td>
                              <td>
 
-                               <a class="btn btn-primary btn-sm glyphicon glyphicon-pencil btn-block" title="Editar"
+                               <a class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editar"
                                        href="{{ route('adminTransporte.edit', $transporte )}}"></a>
                               </td>
                           </tr>

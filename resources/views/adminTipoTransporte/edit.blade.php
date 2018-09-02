@@ -8,7 +8,7 @@
 @section('contenido')
 <div class="row">
   <div class="col-md-4">
-    <div class="box box-info">
+    <div class="box box-warning">
       <div class="box-header">
         <h3 class="box-title">Conductores de  {{$empresa->NombreEmpresaTransporte}}</h3>
               <div class="box-body">
