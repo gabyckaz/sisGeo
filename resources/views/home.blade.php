@@ -7,5 +7,4 @@
 
 @section('contenido')
 
-
 @endsection

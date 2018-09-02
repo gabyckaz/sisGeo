@@ -19,4 +19,17 @@ class Turista extends Model
 
   //Cambiando el campo por defecto id a uno personalizado
   protected $primaryKey = 'IdTurista';
+
+   public function persona()
+  {
+      return $this->belongsTo('App\Persona','IdPersona');//Modelo y llave foránea
+       //return $this->belongsTo(TipoTransporte::class);
+  }
+
+  public function documentos()
+    {
+        // Si el id tienen diferentes nombres
+        return $this->hasMany('App\TipoDocumento', 'IdTurista', 'IdTurista');
+    }
+
 }

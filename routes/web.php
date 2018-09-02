@@ -25,8 +25,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('adminUser', 'AdminUsuariosController');
 
-Route::get('user/completeInfo', ['as' => 'user.complete.info', 'uses' => 'userController@editInfo']);
-Route::put('user/completeInfo', ['as' => 'user.complete.info.store', 'uses' => 'userController@storeCompleteInfo']);
+Route::get('user/completarInformacion', ['as' => 'usuario.completar.informacion', 'uses' => 'userController@editarInformacion']);
+Route::put('user/completarInformacion', ['as' => 'user.completar.informacion.store', 'uses' => 'userController@completarInformacion']);
 Route::get('user/editInfo/{persona}', ['as' => 'user.edit.info', 'uses' => 'userController@editInfoUserTurista']);
 Route::get('user/editInfo', ['as' => 'user.edit.info', 'uses' => 'userController@editInfoUserTurista']);
 Route::get('user/agregarFamiliarAmigo', ['as' => 'user.add.familiarAmigo', 'uses' => 'userController@addFamiliarAmigo']);

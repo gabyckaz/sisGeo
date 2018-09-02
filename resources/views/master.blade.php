@@ -22,7 +22,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="{{ asset('adminLte/css/skins/skin-green.min.css') }}">
    <!-- Para datapicker -->
-   <link rel="stylesheet" href="{{ asset('adminLte/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">																												
+   <link rel="stylesheet" href="{{ asset('adminLte/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">	
+   <!--Para Alertify -->
+   <!--Para Alertify Js-->
+  <script type="text/javascript" src="{{ asset('lib/alertify.js')}}"></script>
+   <link rel="stylesheet" href="{{ asset('themes/alertify.core.css')}}">
+   <link rel="stylesheet" href="{{ asset('themes/alertify.default.css')}}">
+
+   <!-- Select2 -->
+  <link rel="stylesheet" href="{{ asset('adminLte/select2/dist/css/select2.min.css')}}">																										
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -277,7 +285,7 @@ desired effect
       </a>
     </li>
     <li class="active">
-      <a href="/user/{{ auth()->user()->id }}/edit">
+      <a href="#">
         <i class="fa fa-user"></i>
         <span>Mi Cuenta</span>      
       </a>
@@ -312,7 +320,7 @@ desired effect
 
     </li>
     <li class="active">
-      <a href="{{ route('user.complete.info') }}">
+      <a href="{{ route('usuario.completar.informacion') }}">
         <i class="fa fa-home"></i>
         <span>Completar Informacion</span>
       </a>
@@ -371,7 +379,7 @@ desired effect
          <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Title</h3>
+          <h3 class="box-title">@yield('Title')</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -492,7 +500,7 @@ desired effect
 <script src="{{ asset('adminLte/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('adminLte/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-!-- Datapicker -->
+<!-- Datapicker -->
 <script src="{{ asset('adminLte/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>																										 
 <!-- AdminLTE App -->
 <script src="{{ asset('adminLte/js/adminlte.min.js') }}"></script>
@@ -500,43 +508,29 @@ desired effect
 <script src="{{ asset('adminLte/input-mask/jquery.inputmask.js') }}"></script>
 <script src="{{ asset('adminLte/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
 <script src="{{ asset('adminLte/input-mask/jquery.inputmask.extensions.js') }}"></script>
+
+<!-- Select2 -->
+<script src="{{ asset('adminLte/select2/dist/js/select2.full.min.js')}}"></script>
+
+
+
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
 <script type="text/javascript">
        $(function () {
-         var div = document.getElementById("documentos");
+        /* var div = document.getElementById("documentos");
          if(div != null){
          div.style.display = "none"
-         }
+         }*/
        
-       $('#datepicker').datepicker({ autoclose: true })
-       $('#datepicker2').datepicker({ autoclose: true })
-       $('#fechaNacimiento').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-       $('#fechaVencimientoDoc').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+      /* $('#datepicker').datepicker({ autoclose: true })
+       $('#datepicker2').datepicker({ autoclose: true }) */
        $("#dui").inputmask("99999999-9",{ 'placeholder': '00000000-0' })
-      
-       $('#tdocumento').on('change',function(){
-         var selectValor = '#'+ $(this).val(); 
-         
-         console.log(selectValor);
-         if(selectValor === '#' ){
-         // $('#documentos').children('div').hide();
-         div.style.display = "none"
-        $('#documentos').children('#t1').hide();
-        $('#documentos').children('#t2').hide();
-         }
-         if(selectValor === '#t1'){
-          div.style.display = "block";
-         $(selectValor).show();
-         $('#t2').hide();
-         }
-         if(selectValor === '#t2'){
-          div.style.display = "block";
-          $(selectValor).show();
-          $('#t1').hide();
-         }
-       })
+       $("#pasaporte").inputmask("999999999",{ 'placeholder': '000000000' })
+       //Initialize Select2 Elements
+       $('.select2').select2()
+
         })
      </script>					  	   
 </body>

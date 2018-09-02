@@ -20,21 +20,30 @@ class CreateTuristasTable extends Migration
             $table->timestamps();
         });
 
-
         Schema::create('Turista', function (Blueprint $table) {
             $table->increments('IdTurista');
             $table->integer('IdNacionalidad');
             $table->integer('IdPersona');
             $table->string('CategoriaTurista',1);
             $table->date('FechaNacimiento');
-            $table->string('TipoDocumento',9);
-            $table->string('Dui_Pasaporte',10);
-            $table->date('FechaVenceDocumen');
+           // $table->string('TipoDocumento',9);
+           // $table->string('Dui_Pasaporte',10);
+           //$table->date('FechaVenceDocumen');
             $table->string('DomicilioTurista',100);
-            $table->string('Problemas_Salud',256);
+            $table->string('Problemas_Salud',256)->nullable();
             $table->timestamps();
             $table->foreign('IdPersona')->references('IdPersona')->on('personas')->onDelete('cascade');
             $table->foreign('IdNacionalidad')->references('IdNacionalidad')->on('Nacionalidad')->onDelete('cascade');
+        });
+
+        Schema::create('TipoDocumento', function (Blueprint $table) {
+            $table->increments('IdTipoDocumento');
+            $table->integer('IdTurista');
+            $table->string('TipoDocumento',9);
+            $table->string('NumeroDocumento',10)->unique();;
+            $table->date('FechaVenceDocumento');
+            $table->foreign('IdTurista')->references('IdTurista')->on('Turista')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -44,7 +53,8 @@ class CreateTuristasTable extends Migration
      * @return void
      */
     public function down()
-    {
+    {   
+        Schema::dropIfExists('TipoDocumento');
         Schema::dropIfExists('Turista');
         Schema::dropIfExists('Nacionalidad');
     }
