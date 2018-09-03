@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('AreaTelContacto',4);
             $table->string('TelefonoContacto',10);
             $table->timestamps();
+            
         });
 
 
