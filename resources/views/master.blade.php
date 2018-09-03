@@ -209,12 +209,12 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                <a href="#" class="btn btn-default btn-flat">Perfil</a>
                </div>
                 <div class="pull-right">
                   <form action="{{ route('logout') }}" method="POST">
                       {{ csrf_field() }}
-                      <button type="submit" class="btn btn-default btn-flat">Sign Out</button>
+                      <button type="submit" class="btn btn-default btn-flat">Salir</button>
                   </form>
                 </div>
                </li>
@@ -236,7 +236,7 @@ desired effect
 
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
-        <div class="pull-left image">          
+        <div class="pull-left image">
           <img src="{{ Storage::url( auth()->user()->avatar ) }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
@@ -261,7 +261,7 @@ desired effect
       <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">OPCIONES</li>
-         
+
     <li class="active">
       <a href="{{ route('home') }}">
         <i class="fa fa-home"></i>
@@ -271,13 +271,13 @@ desired effect
     <li class="active">
       <a href="{{ route('adminUser.index') }}">
         <i class="fa fa-users"></i>
-        <span>Usuarios</span>      
+        <span>Usuarios</span>
       </a>
     </li>
     <li class="active">
       <a href="/user/{{ auth()->user()->id }}/edit">
         <i class="fa fa-user"></i>
-        <span>Mi Cuenta</span>      
+        <span>Mi Cuenta</span>
       </a>
     </li>
      <li class="active treeview menu-open">

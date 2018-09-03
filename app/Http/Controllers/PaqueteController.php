@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\RutaTuristica;
 use App\Paquete;
+use App\GastosExtras;
 use Illuminate\Support\Facades\Input;
 
 
@@ -30,10 +31,12 @@ class PaqueteController extends Controller
      */
     public function create()
     {
+
         $rutaturistica=RutaTuristica::all();
+        $gastosextras=GastosExtras::all();
         return view('adminPaquete.create')
-        ->with('ruta',$rutaturistica);
-    
+        ->with('ruta',$rutaturistica)->with('gastosextras',$gastosextras);
+
 
     }
 
@@ -45,7 +48,7 @@ class PaqueteController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $paquete=new Paquete();
         $paquete->IdRutaTuristica=$request->idrutaturistica;
         $paquete->IdTuristica=$request->idrutaturistica;
@@ -63,12 +66,12 @@ class PaqueteController extends Controller
         $paquete->AprobacionPaquete=$request->aprobacionpaquete;
         $paquete->DisponibilidadPaquete=$request->disponibilidadpaquete;
         $paquete->save();
-
+        $gastosextras=GastosExtras::all();
         $rutaturistica=RutaTuristica::all();
-        
-            return view('adminPaquete.create')->with('ruta',$rutaturistica);
 
-        
+            return view('adminPaquete.create')->with('ruta',$rutaturistica)->with('gastosextras',$gastosextras);
+
+
 
     }
 
@@ -91,9 +94,10 @@ class PaqueteController extends Controller
      */
     public function edit($id)
     {
-     $ruta= RutaTuristica::all();   
+
+     $ruta= RutaTuristica::all();
      $paquete=Paquete::findOrFail($id);
-        return view('adminPaquete.edit', compact('paquete', 'ruta'));   
+        return view('adminPaquete.edit', compact('paquete', 'ruta','gastosextras'));
     }
 
     /**
@@ -105,8 +109,8 @@ class PaqueteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        
+
+
         $paquete = Paquete::findOrFail($id);
         $paquete->IdRutaTuristica=$request->idrutaturistica;
         $paquete->IdTuristica=$request->idrutaturistica;
@@ -124,12 +128,12 @@ class PaqueteController extends Controller
         $paquete->AprobacionPaquete=$request->aprobacionpaquete;
         $paquete->DisponibilidadPaquete=$request->disponibilidadpaquete;
         $paquete->save();
-        
+
 
         $paquetes=Paquete::all();
         return view('adminPaquete.index')
         ->with('paquete',$paquetes);
-       
+
     }
 
     /**
@@ -143,5 +147,5 @@ class PaqueteController extends Controller
         //
     }
 
-    
+
 }

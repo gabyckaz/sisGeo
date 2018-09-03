@@ -16,20 +16,20 @@
                       <div class="panel-body">
                         <form method="post" action="/CrearPaquete">
 
-                          
-                         
+
+
 
                         <div class="col-md-12">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Crear paquetes turísticos</h3>
                             </div>
                         </div>
-                        
+
                         <div class="box box-warning">
                         <!-- /.box-header -->
                         <!-- form start -->
                         <div class="box-body">
-                          
+
                         <div class="form-group">
                             <label for="nombrepaquete">Nombre de Paquete Turístico</label>
                             <div class="input-group">
@@ -39,24 +39,24 @@
                         </div>
                         <div class="form-group">
                             <label name="idrutaturistica" for="nombrerutaturistica">Nombre de Ruta Turística</label>
-                            
+
                                   @if($ruta !=null)
                                     <select  class="form-inline" name="idrutaturistica"  id="idrutaturistica" data-placeholder="Seleccionar la ruta...">
                                     @foreach ($ruta as $ruta)
-                                                        
+
                                     <option value="{{ $ruta->IdRutaTuristica }}"> {{$ruta->NombreRutaTuristica}}</option>
                                     @endforeach
                                     </select>
                                     <hr>
                                        @else
                                           <label>No hay rutas</label>
-                                        @endif 
+                                        @endif
                         </div>
 
                         <div class="form-group">
                           <label for="fechadesalida">Fecha de Salida</label>
                          <div class="input-group date">
-                 
+
                           <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida" placeholder="Fecha de Salida">
                           <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
@@ -66,24 +66,24 @@
                          <div class="form-group">
                           <label for="hora">Hora de Salida</label>
                          <div class="input-group time">
-                 
+
                           <input name="hora" type="time" id="hora" value="11:45:00"  max="24:00:00" min="00:00:00" class="form-control pull-right" >
-                          <div class="input-group-addon"> 
+                          <div class="input-group-addon">
                                 <i class="fa fa-history"></i>
                           </div>
                         </div>
                         </div>
-                        
+
                         </div>
                         <div class="form-group">
                           <label for="fechaderegreso">Fecha de Regreso</label>
                          <div class="input-group date">
-                 
+
                           <input name="fecharegreso" type="date" class="form-control pull-right" id="fecharegreso" placeholder="Fecha de Regreso">
                           <div class="input-group-addon">
                                  <i class="fa fa-calendar"></i>
                           </div>
-                        </div>                        
+                        </div>
                         </div>
 
                         <div class="form-group">
@@ -98,7 +98,7 @@
                             <label for="precio">Precio</label>
                             <div class="input-group">
                               <span class="input-group"><i class="fa fa-money"></i>
-                              <span>$</span><input name="precio" type="text" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio"></span>    
+                              <span>$</span><input name="precio" type="text" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio"></span>
                               </div>
                         </div>
 
@@ -109,13 +109,17 @@
                                       <span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
                               </div>
                         </div>
-                     
+
                         <div class="form-group">
-                            <label for="gastos">Gastos extras</label>
-                            <div class="input-group">
-                              <textarea name="gastosextras"class="form-control" id="gastosextras" rows="5" ></textarea>
-                                      <span class="input-group-addon"><i class="fa fa-money"></i></span>
-                              </div>
+                            <label name="gastosextras" for="gastosextras">Gastos Extras</label>
+
+                                    <select class="form-control select2" multiple="multiple" name="gastosextras" >
+                                    @foreach ($gastosextras as $gastos)
+
+                                    <option value="{{ $gastos->gastosextras_id }}"> {{$gastos->NombreGastos}}</option>
+                                    @endforeach
+                                    </select>
+
                         </div>
 
                         <div class="form-group">
@@ -151,17 +155,17 @@
                               <input type='checkbox' name='disponibilidadpaquete' value='1'/>
                           <label class="form-check-label" for="disponibilidadpaquete">Disponibilidad de paquete</label>
                         </div>
-                          
+
                         </div>
                         <!-- /.box-body -->
-                                
-                         <div class="box-footer">
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                    <button type="reset" class="btn btn-warning">Limpiar</button>
-                                    <a  class="btn btn-danger" >Cancelar</a>
+
+                         <div class="box-footer" align="center">
+                                    <button  type="submit" class="btn  btn-primary btn-flat">Guardar</button>
+                                    <button  type="reset" class="btn  btn-warning btn-flat">Limpiar</button>
+                                    <a  class="btn btn-danger btn-flat" >Cancelar</a>
                                 </div>
-                           
-                            
+
+
 
                         </div>
                         </form>
