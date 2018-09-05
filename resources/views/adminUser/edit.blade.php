@@ -4,24 +4,19 @@
 <h1>Hola Mundo</h1>
 
 @endsection
+@section('Title')
+Agregar Rol
+@endsection
 
 @section('contenido')
 <div class="row">
   <div class="col-md-12 ">
-    <div class="box box-primary">
-      <div class="box-header">
-        <h3 class="box-title">Agregar Rol</h3>
-        <h1>Todos los Usuarios</h1>
-          <div class="container">
          
     <form class="form-horizontal" role="form" method="POST" action="{{route('adminUser.role.add', $usuario->id) }}" >
       {!! method_field('PUT') !!}
       {{ csrf_field()  }}
 
-      <fieldset>
-
       <!-- Form Name -->
-      <legend>Agregar rol</legend>
 
       <!-- Text input-->
       <div class="form-group">
@@ -54,11 +49,10 @@
 
         <div class="form-group">
           <div>
-              <button type="submit" class="btn btn-primary">Agregar rol</button>
+              <button type="submit" class="btn btn-primary col-md-offset-3">Agregar rol</button>
           </div>
         </div>
 
-      </fieldset>
       </form>
       <br>
       <br>
@@ -103,7 +97,7 @@
 
           <div class="form-group">
             <div>
-                <button type="submit" class="btn btn-primary">Eliminar rol</button>
+                <button type="submit" class="btn btn-primary col-md-offset-3">Eliminar rol</button>
             </div>
           </div>
 
@@ -118,8 +112,6 @@
         @endif
         You are logged in!
       </div>
-    </div>
-  </div>
 </div>
 
 @endsection

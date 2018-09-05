@@ -87,7 +87,7 @@ EDITAR MI INFORMACION DE USUARIO
         	<div class="col-md-3">
               <div class="form-group">
                 <label>Genero</label>
-                <select name="Genero" class="form-control select2" style="width: 100%;" disabled>
+                <select name="Genero" class="form-control" style="width: 100%;" disabled>
                   <option {{ $usuario->persona->Genero == "M"   ? 'selected' : '' }}>Masculino</option>
                   <option {{ $usuario->persona->Genero == "F"   ? 'selected' : ''}}>Femenino</option>
                 </select>
@@ -197,7 +197,7 @@ EDITAR MI INFORMACION DE USUARIO
         	   <div class="col-md-3">
               <div class="form-group">
                 <label>Nacionalidad</label>
-                <select name="nacionalidad" class="form-control select2" style="width: 100%;">
+                <select name="nacionalidad" class="form-control" style="width: 100%;">
                     @foreach($nacionalidad as $origen)
                            <option value="{{ $origen->IdNacionalidad }}" 
                             {{ $turista->IdNacionalidad == $origen->IdNacionalidad   ? 'selected' : '' }}> {{ $origen->Nacionalidad }} </option>
@@ -209,7 +209,7 @@ EDITAR MI INFORMACION DE USUARIO
               <div class="col-md-3">
                <div class="form-group">
                 <label>Nacionalidad</label>
-                <select name="nacionalidad" class="form-control select2" style="width: 100%;">
+                <select name="nacionalidad" class="form-control" style="width: 100%;">
                     @foreach($nacionalidad as $origen)
                            <option value="{{ $origen->IdNacionalidad }}" 
                            {{ old('nacionalidad') == $origen->IdNacionalidad   ? 'selected' : '' }}> {{ $origen->Nacionalidad }} </option>

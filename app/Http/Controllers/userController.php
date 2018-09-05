@@ -417,7 +417,7 @@ class userController extends Controller
         return view('user.editInfoUserTurista', compact('turista', 'nacionalidad'));
     }
 
-    public function addFamiliarAmigo()
+    public function agregarFamiliarAmigo()
     {    
 
         $usuario = User::findOrFail(auth()->user()->id);

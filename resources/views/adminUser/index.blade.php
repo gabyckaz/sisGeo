@@ -28,15 +28,10 @@ endrole -->
 <h1>Hola Mundo</h1>
 
 @endsection
-
+@section('Title')
+Administracion de usuarios
+@endsection
 @section('contenido')
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="box box-primary">
-      <div class="box-header">
-        <h3 class="box-title">Usuarios</h3>
-              <div class="box-body">
-                <h1>Administracion de usuarios</h1>
         @if(session('status'))
                       <br>
                       <div  class="alert alert-success content2" role="alert">
@@ -50,8 +45,8 @@ endrole -->
                       </div>
                     @endif
                   </p>
-                </div>
-            <form class="navbar-form navbar-left pull-right" action="{{ route('adminUser.index') }}" method="get" role="search">
+                
+       <form class="navbar-form navbar-left pull-right" action="{{ route('adminUser.index') }}" method="get" role="search">
               <div class="form-group">
                 <input type="text" name="nombre" class="form-control" placeholder="Nombre">
                 <input type="text" name="email" class="form-control" placeholder="Email">
@@ -69,7 +64,7 @@ endrole -->
               <button type="submit" class="btn btn-default" >Buscar<span class="glyphicon glyphicon-search"></span></button>  
 
           </div>
-            </form>  
+        </form>   
            <!-- <form action="" method="get" class="sidebar-form">
               <div class="input-group">                
               <input type="text" name="nombre" class="form-control" placeholder="Nombre">              
@@ -105,6 +100,8 @@ endrole -->
                 
                   </div>
           </form> -->
+<div class="row">
+<div class="col-md-12">
 <div class="table-responsive">
  <table class="table table-striped table-bordered" >
   <thead class="thead-dark">
@@ -174,9 +171,9 @@ endrole -->
  </table>
  <div align="center">{!! $usuarios->appends([ 'nombre' =>  $nombre,'email' =>  $email,'estado' =>  $estado ,'rol' => $rol ])->render() !!} </div>
  </div>
- 
+ </div>
         <!--  $usuarios->links()}} -->
-
+</div>
 @endsection
 
 

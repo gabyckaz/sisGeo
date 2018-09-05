@@ -29,7 +29,7 @@ Route::get('user/completarInformacion', ['as' => 'usuario.completar.informacion'
 Route::put('user/completarInformacion', ['as' => 'user.completar.informacion.store', 'uses' => 'userController@completarInformacion']);
 Route::get('user/editInfo/{persona}', ['as' => 'user.edit.info', 'uses' => 'userController@editInfoUserTurista']);
 Route::get('user/editInfo', ['as' => 'user.edit.info', 'uses' => 'userController@editInfoUserTurista']);
-Route::get('user/agregarFamiliarAmigo', ['as' => 'user.add.familiarAmigo', 'uses' => 'userController@addFamiliarAmigo']);
+Route::get('user/agregarFamiliarAmigo', ['as' => 'user.agregar.familiarAmigo', 'uses' => 'userController@agregarFamiliarAmigo']);
 Route::resource('user', 'userController');
 
 Route::put('/adminUser/add-rol/{usuario}', ['as' => 'adminUser.role.add', 'uses' => 'AdminUsuariosController@agregarRol']);
