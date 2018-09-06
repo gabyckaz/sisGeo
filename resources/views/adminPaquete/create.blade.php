@@ -10,15 +10,11 @@
     <div class="container spark-screen">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
+                <div class="panel panel-warning">
                     <div class="panel-heading">Paquetes Turisticos</div>
 
                       <div class="panel-body">
                         <form method="post" action="/CrearPaquete">
-
-
-
-
                         <div class="col-md-12">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Crear paquetes turísticos</h3>
@@ -31,88 +27,144 @@
                         <div class="box-body">
 
                         <div class="form-group">
-                            <label for="nombrepaquete">Nombre de Paquete Turístico</label>
+                            <label for="nombrepaquete" class="control-label">Nombre de Paquete Turístico</label>
                             <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-automobile"></i></span>
                               <input type="text" name="nombrepaquete" class="form-control" id="nombrepaquete" placeholder="Nombre paquete" >
-                                      <span class="input-group-addon"><i class="fa fa-automobile"></i></span>
                               </div>
                         </div>
-                        <div class="form-group">
-                            <label name="idrutaturistica" for="nombrerutaturistica">Nombre de Ruta Turística</label>
 
-                                  @if($ruta !=null)
-                                    <select  class="form-inline" name="idrutaturistica"  id="idrutaturistica" data-placeholder="Seleccionar la ruta...">
-                                    @foreach ($ruta as $ruta)
+                        <div class="row">
+                        	<div class="col-md-4">
+                            <div class="form-group">
+                                <label name="idrutaturistica" for="nombrerutaturistica">Nombre de Ruta Turística</label>
 
-                                    <option value="{{ $ruta->IdRutaTuristica }}"> {{$ruta->NombreRutaTuristica}}</option>
-                                    @endforeach
-                                    </select>
-                                    <hr>
-                                       @else
-                                          <label>No hay rutas</label>
-                                        @endif
+                                      @if($ruta !=null)
+                                        <select  class="form-inline" name="idrutaturistica"  id="idrutaturistica" data-placeholder="Seleccionar la ruta...">
+                                        @foreach ($ruta as $ruta)
+
+                                        <option value="{{ $ruta->IdRutaTuristica }}"> {{$ruta->NombreRutaTuristica}}</option>
+                                        @endforeach
+                                        </select>
+                                        <hr>
+                                           @else
+                                              <label>No hay rutas</label>
+                                            @endif
+                            </div>
+                          </div>
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <label name="idpais" for="nombrepais">Pais</label>
+
+                                      @if($pais !=null)
+                                        <select  class="form-inline" name="idpais"  id="idpais" data-placeholder="Seleccionar el pais...">
+                                        @foreach ($pais as $pais)
+
+                                        <option value="{{ $pais->IdPais }}"> {{$pais->nombrePais}}</option>
+                                        @endforeach
+                                        </select>
+                                        <hr>
+                                           @else
+                                              <label>No hay Pais</label>
+                                            @endif
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                          <div class="form-group">
+                              <label name="iddepartamento" for="nombredepartamento">Departamento</label>
+
+                                    @if($departamento !=null)
+                                      <select  class="form-inline" name="iddepartamento"  id="iddepartamento" data-placeholder="Seleccionar el departamento...">
+                                      @foreach ($departamento as $departamento)
+
+                                      <option value="{{ $departamento->IdDepartamento }}"> {{$departamento->NombreDepartamento}}</option>
+
+                                      @endforeach
+                                      </select>
+                                      <hr>
+                                         @else
+                                            <label>No hay Departamento</label>
+                                          @endif
+                          </div>
                         </div>
-
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label for="fechadesalida">Fecha de Salida</label>
                          <div class="input-group date">
-
+                           <div class="input-group-addon">
+                                 <i class="fa fa-calendar"></i>
+                           </div>
                           <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida" placeholder="Fecha de Salida">
-                          <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                          </div>
                         </div>
-
+                      </div>
+                    </div>
+                      <div class="col-md-4">
                          <div class="form-group">
                           <label for="hora">Hora de Salida</label>
                          <div class="input-group time">
-
+                           <div class="input-group-addon">
+                                 <i class="fa fa-history"></i>
+                           </div>
                           <input name="hora" type="time" id="hora" value="11:45:00"  max="24:00:00" min="00:00:00" class="form-control pull-right" >
-                          <div class="input-group-addon">
-                                <i class="fa fa-history"></i>
-                          </div>
-                        </div>
-                        </div>
 
                         </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+
                         <div class="form-group">
                           <label for="fechaderegreso">Fecha de Regreso</label>
                          <div class="input-group date">
-
+                           <div class="input-group-addon">
+                                  <i class="fa fa-calendar"></i>
+                           </div>
                           <input name="fecharegreso" type="date" class="form-control pull-right" id="fecharegreso" placeholder="Fecha de Regreso">
-                          <div class="input-group-addon">
-                                 <i class="fa fa-calendar"></i>
-                          </div>
-                        </div>
-                        </div>
 
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="row">
+                      <div class="col-md-6">
                         <div class="form-group">
                             <label for="lugar">Lugar de Salida</label>
                             <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-map"></i></span>
                               <input type="text" name="lugarsalida" class="form-control" id="lugarsalida" placeholder="Lugar" >
-                                      <span class="input-group-addon"><i class="fa fa-map"></i></span>
+
                             </div>
                         </div>
-
+                      </div>
+                      <div class="col-md-6">
                         <div class="form-group">
                             <label for="precio">Precio</label>
-                            <div class="input-group">
-                              <span class="input-group"><i class="fa fa-money"></i>
-                              <span>$</span><input name="precio" type="text" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio"></span>
+                              <div class="input-group">
+                            <span class="input-group-addon">
+
+
+                              <i class="fa fa-money"></i> $
+                              </span>
+                              <input name="precio" type="number" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio">
+
+                        </div>
                               </div>
                         </div>
+                      </div>
+
 
                         <div class="form-group">
                             <label for="iti">Itinerario</label>
                             <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
                               <textarea name="itinerario" class="form-control" id="itinerario" rows="20" ></textarea>
-                                      <span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
+
                               </div>
                         </div>
 
                         <div class="form-group">
                             <label name="gastosextras" for="gastosextras">Gastos Extras</label>
-
                                     <select class="form-control select2" multiple="multiple" name="gastosextras" >
                                     @foreach ($gastosextras as $gastos)
 
@@ -124,25 +176,32 @@
 
                         <div class="form-group">
                             <label for="queincluye">Que incluye</label>
-                            <div class="input-group">
-                              <textarea name="queincluye"class="form-control" id="queincluye" rows="5" ></textarea>
-                                      <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                            <select class="form-control select2" multiple="multiple" name="incluye" >
+                            @foreach ($incluye as $incluye)
+
+                            <option value="{{ $incluye->incluye_id }}"> {{$incluye->NombreIncluye}}</option>
+                            @endforeach
+                            </select>
                               </div>
-                        </div>
+
                         <div class="form-group">
                             <label for="con">Condiciones</label>
-                            <div class="input-group">
-                              <textarea name="condiciones" class="form-control" id="condiciones" rows="5" ></textarea>
-                                      <span class="input-group-addon"><i class="fa fa-server"></i></span>
-                              </div>
+                            <select class="form-control select2" multiple="multiple" name="condiciones" >
+                            @foreach ($condiciones as $condiciones)
+
+                            <option value="{{ $condiciones->condiciones_id }}"> {{$condiciones->NombreCondiciones}}</option>
+                            @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="re">Recomendaciones</label>
-                            <div class="input-group">
-                              <textarea name="recomendaciones" class="form-control" id="recomendaciones" rows="5" ></textarea>
-                                      <span class="input-group-addon"><i class="fa fa-sticky-note-o"></i></span>
-                              </div>
+                            <select class="form-control select2" multiple="multiple" name="recomendaciones" >
+                            @foreach ($recomendaciones as $recomendaciones)
+
+                            <option value="{{ $recomendaciones->recomendaciones_id }}"> {{$recomendaciones->NombreRecomendaciones}}</option>
+                            @endforeach
+                            </select>
                         </div>
 
                         <div class="form-check">
@@ -156,6 +215,7 @@
                           <label class="form-check-label" for="disponibilidadpaquete">Disponibilidad de paquete</label>
                         </div>
 
+                        </div>
                         </div>
                         <!-- /.box-body -->
 

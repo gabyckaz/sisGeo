@@ -44,8 +44,9 @@ Route::post('/adminTipoTransporte/index', ['as' => 'adminTipoTransporte.store', 
 Route::post('/adminTipoTransporte', ['as' => 'adminConductor.guardarConductor', 'uses' =>  'TipoTransporteController@guardarConductor']);//guarda conductor
 
 Route::resource('adminTransporte', 'TransporteController');
+Route::resource('turista', 'TuristaController');
 
-<<<<<<< HEAD
+
 //INICIO RUTAS PAIS
 
             //Ver pais
@@ -158,6 +159,3 @@ Route::resource('adminTransporte', 'TransporteController');
             ]);
 
         /*FIN RUTAS PAQUETES*/
-=======
-Route::resource('turista', 'TuristaController');											
->>>>>>> 180cd9cec8769567ff75fb45f9b31ed6b4dd9b65

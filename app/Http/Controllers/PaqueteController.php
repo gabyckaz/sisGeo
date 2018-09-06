@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Condiciones;
+use App\Pais;
+use App\Recomendaciones;
+use App\Incluye;
+use App\Departamento;
 use App\RutaTuristica;
 use App\Paquete;
 use App\GastosExtras;
@@ -33,9 +38,16 @@ class PaqueteController extends Controller
     {
 
         $rutaturistica=RutaTuristica::all();
+        $pais=Pais::all();
+        $departamento=Departamento::all();
         $gastosextras=GastosExtras::all();
+        $incluye=Incluye::all();
+        $condiciones=Condiciones::all();
+        $recomendaciones=Recomendaciones::all();
         return view('adminPaquete.create')
-        ->with('ruta',$rutaturistica)->with('gastosextras',$gastosextras);
+        ->with('ruta',$rutaturistica)->with('pais',$pais)
+        ->with('departamento',$departamento)->with('gastosextras',$gastosextras)
+        ->with('incluye',$incluye)->with('condiciones',$condiciones)->with('recomendaciones',$recomendaciones);
 
 
     }

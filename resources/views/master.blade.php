@@ -285,6 +285,19 @@ desired effect
       </a>
     </li>
     <li class="active">
+      <a href="{{ route('user.add.familiarAmigo') }}">
+        <i class="fa fa-home"></i>
+        <span>Agregar Familiar o Amigo</span>
+      </a>
+    </li>
+    <li class="active">
+          <a href="{{ route('usuario.completar.informacion') }}">
+            <i class="fa fa-home"></i>
+            <span>Completar Informacion</span>
+          </a>
+        </li>
+
+    <li class="active">
       <a href="#">
         <i class="fa fa-user"></i>
         <span>Mi Cuenta</span>
@@ -358,20 +371,6 @@ desired effect
                         Editar Ruta Turística</a></li>
           </ul>
 </li>
-<li class="active treeview menu-open">
-      <a href="{{ route('usuario.completar.informacion') }}">
-        <i class="fa fa-home"></i>
-        <span>Completar Informacion</span>
-      </a>
-    </li>
-    <li class="active">
-      <a href="{{ route('user.add.familiarAmigo') }}">
-        <i class="fa fa-home"></i>
-        <span>Agregar Familiar o Amigo</span>
-      </a>
-    </li>
-
-
 
         <li class="active"><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
 
@@ -418,9 +417,6 @@ desired effect
           @yield('contenido')
         </div>
         <!-- /.box-body -->
-        <div class="box-footer">
-          Footer
-        </div>
         <!-- /.box-footer-->
       </div>
       <!-- /.box -->
