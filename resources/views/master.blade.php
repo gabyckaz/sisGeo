@@ -246,7 +246,7 @@ desired effect
 
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
-        <div class="pull-left image">          
+        <div class="pull-left image">
           <img src="{{ Storage::url( auth()->user()->avatar ) }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
@@ -271,7 +271,7 @@ desired effect
       <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">OPCIONES</li>
-         
+
     <li class="active">
       <a href="{{ route('home') }}">
         <i class="fa fa-home"></i>
@@ -281,13 +281,13 @@ desired effect
     <li class="active">
       <a href="{{ route('adminUser.index') }}">
         <i class="fa fa-users"></i>
-        <span>Usuarios</span>      
+        <span>Usuarios</span>
       </a>
     </li>
     <li class="active">
       <a href="#">
         <i class="fa fa-user"></i>
-        <span>Mi Cuenta</span>      
+        <span>Mi Cuenta</span>
       </a>
     </li>
     <li class="active">
@@ -296,7 +296,7 @@ desired effect
         <span>Paqutes</span>
       </a>
     </li>
-    <li class="active treeview menu-open">
+    <li class="treeview">
       <a href="#">
         <i class="fa fa-bus"></i>
           <i class="fa fa-angle-left pull-right-container"></i>
@@ -310,9 +310,9 @@ desired effect
                   <li><a href="{{ route('adminEmpresaTransporte.index') }}">
                     <i class="fa fa-circle-o"></i>
                     Empresas</a></li>
-                  <li><a href="{{ route('adminTipoTransporte.index') }}">
+            {{--      <li><a href="{{ route('adminTipoTransporte.index') }}">
                     <i class="fa fa-circle-o"></i>
-                    Transportes y Conductores</a></li>
+                    Transportes y Conductores</a></li> --}}
                   <li><a href="{{ route('adminTransporte.index') }}">
                     <i class="fa fa-circle-o"></i>
                       Transporte</a></li>
@@ -365,8 +365,8 @@ desired effect
         <small>Optional description</small>
       </h1>
       <ol class="breadcrumb">
-        <!--<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li> -->
+        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+        <li class="active">Here</li>
       </ol>
     </section>
 

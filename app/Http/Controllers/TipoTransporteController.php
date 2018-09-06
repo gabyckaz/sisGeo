@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\TipoTransporte;
 use App\Conductor;
+use App\EmpresaAlquilerTransporte;
+use DB;
 
 class TipoTransporteController extends Controller
 {
@@ -16,8 +18,7 @@ class TipoTransporteController extends Controller
     public function index()
     {
       $tipotransporte = TipoTransporte::all();
-      $conductor = Conductor::all();
-      return view('adminTipoTransporte.index', compact('tipotransporte'))->withConductor($conductor);
+      return view('adminTipoTransporte.index', compact('tipotransporte'));
     }
 
     /**
@@ -60,30 +61,6 @@ class TipoTransporteController extends Controller
        }
    }
 
-
-  public function guardarConductor(Request $request)
-  {
-    try{
-        //validando la informacion, campo obliatorio, caracteres de max.25 digitos y campo único sin repeticiones
-        $this->validate($request,array(
-         'conductor' => 'required|string|unique:Conductor,NombreConductor|max:30',
-
-        ));
-
-        //Guardar en la BD
-
-        //Relacionando campo de BD con formulario
-        //campo de BD -> campo del formulario
-        $conductor=new Conductor;
-        $conductor->NombreConductor=$request->conductor;
-
-        $conductor->save();
-          return redirect('adminTipoTransporte')->with('status', "Guardado con éxito");
-    }catch(\Exception $e) {
-             return redirect('adminTipoTransporte')->with('fallo', "Error al guardar.");
-           }
-
-  }
 
     /**
      * Display the specified resource.

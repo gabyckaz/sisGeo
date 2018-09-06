@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\EmpresaAlquilerTransporte;
 use DB;
-
+use App\Conductor;
+use Session;
 class EmpresaAlquilerTransporteController extends Controller
 {
     /**
@@ -15,8 +16,9 @@ class EmpresaAlquilerTransporteController extends Controller
      */
     public function index()
     {
-      $empresalquiler = EmpresaAlquilerTransporte::all();
-      return view('adminEmpresaTransporte.index', compact('empresalquiler'));
+      $empresalquiler = EmpresaAlquilerTransporte::sortable()->paginate(10);//Para el rdenamiento en la tabla index
+      return view('adminEmpresaTransporte.index',compact('empresalquiler'));
+
     }
 
     /**
@@ -87,7 +89,38 @@ class EmpresaAlquilerTransporteController extends Controller
     public function edit($IdEmpresaAlquilerTransporte)
     {
        $empresalquiler = EmpresaAlquilerTransporte::find($IdEmpresaAlquilerTransporte);
-       return view('adminEmpresaTransporte.edit',compact('empresalquiler','IdEmpresaAlquilerTransporte'));
+
+       $conductores = DB::table('Conductor')
+                ->where('IdEmpresaTransporte', '=', $IdEmpresaAlquilerTransporte)
+                ->get();
+
+       return view('adminEmpresaTransporte.edit',compact('empresalquiler','IdEmpresaAlquilerTransporte','conductores'));
+    }
+
+    /**
+     * Guarda un nuevo empleado de la empresa
+     *
+     * @param   $empresa
+     */
+    public function guardarConductor(EmpresaAlquilerTransporte $empresalquiler, Request $request)
+    {
+          //validando la informacion, campo obliatorio, caracteres de max.25 digitos y campo único sin repeticiones
+          $this->validate($request,array(
+           'conductor' => 'required|string|unique:Conductor,NombreConductor|max:30',
+
+          ));
+
+          //Guardar en la BD
+
+          //Relacionando campo de BD con formulario
+          //campo de BD -> campo del formulario
+          $conductor=new Conductor;
+          $conductor->NombreConductor=$request->conductor;
+          $conductor->IdEmpresaTransporte=$empresalquiler->IdEmpresaTransporte;
+          $conductor->save();
+
+          return back();
+
     }
 
     /**
