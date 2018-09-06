@@ -424,4 +424,42 @@ class userController extends Controller
         $nacionalidad = Nacionalidad::all();
         return view('user.agregarFamiliaAmigo', compact('usuario','nacionalidad'));
     }
+
+    public function guardarFamiliarAmigo(Request $request){
+      dd($request);
+      $request->tipo;
+      $request->dui;
+      $request->fechaVencimento;
+      $request->pasaporte;
+      $request->fechaVencimentoP;
+      
+      $persona = Persona::create([
+            "PrimerNombrePersona" => $request->PrimerNombrePersona,
+            "PrimerApellidoPersona" => $request->PrimerApellidoPersona,
+            "Genero" => $request->genero,
+         ]);
+      $turista = Turista::create([
+              'IdNacionalidad'=> $request->nacionalidad,
+              'IdPersona' => $persona->IdPersona,
+              "FechaNacimiento" => $request->fechaNacimiento,
+              "CategoriaTurista"  => 'A',            
+              "DomicilioTurista" => $request->direccion,
+              "Problemas_Salud" => $request->psalud,    
+        ]);
+
+       $dui = TipoDocumento::create([
+                "IdTurista" => $turista->IdTurista,
+                "TipoDocumento" => "DUI",
+                "NumeroDocumento" => $request->dui,
+                "FechaVenceDocumento" => $request->fechaVencimientoD,
+             ]);
+
+        $pasaporte = TipoDocumento::create([
+                "IdTurista" => $turista->IdTurista,
+                "TipoDocumento" => "Pasaporte",
+                "NumeroDocumento" => $request->pasaporte,
+                "FechaVenceDocumento" => $request->fechaVencimientoP,
+         ]); 
+
+    }
 }

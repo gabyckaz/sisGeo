@@ -5,11 +5,11 @@
 
 @endsection
 @section('Title')
-Agregar Familiares o amigos
+Agregar familiares o amigos
 @endsection
 @section('contenido')
 
-    <form id="miForm" method="POST" action="{{route('user.update', $usuario->id) }}">
+    <form id="miForm" method="POST" action="{{route('user.agregar.familiarAmigo.store') }}">
       {!! method_field('PUT') !!}
       {!! csrf_field() !!}
        <div class="row">
@@ -64,7 +64,7 @@ Agregar Familiares o amigos
               <div class="">
                   <select  class="form-control" name="nacionalidad" id="nacionalidad" >             
                     @foreach($nacionalidad as $origen)
-                     <option value="{{ $origen->id }}">{{ $origen->Nacionalidad }}</option>
+                     <option value="{{ $origen->IdNacionalidad }}">{{ $origen->Nacionalidad }}</option>
                     @endforeach
                   </select>
               </div>
@@ -146,11 +146,7 @@ Agregar Familiares o amigos
             </div>
         </div>
       </div>        
-
-
-
-
-                  <button type="submit" class="btn btn-info">Actualizar</button>
-              </form>
+          <button type="submit" class="btn btn-info">Guardar</button>
+      </form>
             
 @endsection

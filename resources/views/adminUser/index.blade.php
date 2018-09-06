@@ -108,7 +108,7 @@ Administracion de usuarios
     <tr>
     <th class="text-center">id</th>
     <th class="text-center">Nombre</th>
-    <th class="text-center">Email</th>
+    <th class="text-center">Correo</th>
     <th class="text-center">Estado</th>
     <th class="text-center">Rol</th>
     <th class="text-center">Opciones</th>
@@ -119,7 +119,7 @@ Administracion de usuarios
     @foreach($usuarios as $usuario)
      <tr class="text-center">
       <td>{{ $usuario->id }}</td>
-           <td>{{ $usuario->name }}</td>
+           <td>{{ $usuario->persona->PrimerNombrePersona }} </td>
            <td>{{ $usuario->email }}</td>
            <td>
               <form class="btn-block" role="form" method="POST" action="{{route('adminUser.state.change', $usuario->id) }}">
@@ -129,14 +129,14 @@ Administracion de usuarios
          @if($usuario->EstadoUsuario === '1' )
              <div class="form-group">
             <div>
-             <button type="submit"  class="btn btn-primary ">Activo</button>
+             <button type="submit"  class="btn btn-primary btn-sm btn-block">Activo</button>
 
            </div>
           </div>
             @else
               <div class="form-group">
             <div>
-             <button type="submit" class="btn btn-danger btn-sm ">Inactivo</button>               
+             <button type="submit" class="btn btn-danger btn-sm btn-block">Inactivo</button>               
            </div>
           </div>
             @endif
@@ -158,7 +158,7 @@ Administracion de usuarios
                                 <i class="fa fa-trash"></i>
                             </button>
                         </form> -->
-                      <a class="btn btn-primary btn-sm glyphicon glyphicon-pencil btn-block" title="Editarar usuario" 
+                      <a class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editarar usuario" 
                       href="{{ route('adminUser.edit', $usuario )}}"></a>
                       
             </td>
