@@ -36,7 +36,7 @@ endrole -->
       <div class="box-header">
         <h3 class="box-title">Usuarios</h3>
               <div class="box-body">
-                <h1>Usuario estado-rol</h1>
+                <h1>Administracion de usuarios</h1>
         @if(session('status'))
                       <br>
                       <div  class="alert alert-success content2" role="alert">

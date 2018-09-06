@@ -25,6 +25,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('adminUser', 'AdminUsuariosController');
 
+Route::get('user/completarInformacion', ['as' => 'usuario.completar.informacion', 'uses' => 'userController@editarInformacion']);
+Route::put('user/completarInformacion', ['as' => 'user.completar.informacion.store', 'uses' => 'userController@completarInformacion']);
+Route::get('user/editInfo/{persona}', ['as' => 'user.edit.info', 'uses' => 'userController@editInfoUserTurista']);
+Route::get('user/editInfo', ['as' => 'user.edit.info', 'uses' => 'userController@editInfoUserTurista']);
+Route::get('user/agregarFamiliarAmigo', ['as' => 'user.add.familiarAmigo', 'uses' => 'userController@addFamiliarAmigo']);
 Route::resource('user', 'userController');
 
 Route::put('/adminUser/add-rol/{usuario}', ['as' => 'adminUser.role.add', 'uses' => 'AdminUsuariosController@agregarRol']);
@@ -40,6 +45,7 @@ Route::post('/adminTipoTransporte', ['as' => 'adminConductor.guardarConductor', 
 
 Route::resource('adminTransporte', 'TransporteController');
 
+<<<<<<< HEAD
 //INICIO RUTAS PAIS
 
             //Ver pais
@@ -152,3 +158,6 @@ Route::resource('adminTransporte', 'TransporteController');
             ]);
 
         /*FIN RUTAS PAQUETES*/
+=======
+Route::resource('turista', 'TuristaController');											
+>>>>>>> 180cd9cec8769567ff75fb45f9b31ed6b4dd9b65

@@ -21,6 +21,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="{{ asset('adminLte/css/skins/skin-green.min.css') }}">
+   <!-- Para datapicker -->
+   <link rel="stylesheet" href="{{ asset('adminLte/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+   <!--Para Alertify -->
+   <!--Para Alertify Js-->
+  <script type="text/javascript" src="{{ asset('lib/alertify.js')}}"></script>
+   <link rel="stylesheet" href="{{ asset('themes/alertify.core.css')}}">
+   <link rel="stylesheet" href="{{ asset('themes/alertify.default.css')}}">
+
+   <!-- Select2 -->
+  <link rel="stylesheet" href="{{ asset('adminLte/select2/dist/css/select2.min.css')}}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -64,7 +74,7 @@ desired effect
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>sis</b>GEO</span>
+      <span class="logo-lg"><b>Geo</b>Turismo</span>
     </a>
 
     <!-- Header Navbar -->
@@ -275,7 +285,7 @@ desired effect
       </a>
     </li>
     <li class="active">
-      <a href="/user/{{ auth()->user()->id }}/edit">
+      <a href="#">
         <i class="fa fa-user"></i>
         <span>Mi Cuenta</span>
       </a>
@@ -336,24 +346,35 @@ desired effect
           <i class="fa fa-angl-left pull-right"></i>
           <span>Ruta Turistica</span>
           <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+            <ul class="treeview-menu">
+                    <li><a href="#">
+                      <i class="fa fa-star"></i>
+                      Crear Ruta Turística</a></li>
+                    <li><a href="">
+                      <i class="fa fa-star"></i>
+                      Consultar Ruta Turística</a></li>
+                    <li><a href="">
+                      <i class="fa fa-star"></i>
+                        Editar Ruta Turística</a></li>
+          </ul>
+</li>
+<li class="active treeview menu-open">
+      <a href="{{ route('usuario.completar.informacion') }}">
+        <i class="fa fa-home"></i>
+        <span>Completar Informacion</span>
       </a>
-          <ul class="treeview-menu">
-                  <li><a href="#">
-                    <i class="fa fa-star"></i>
-                    Crear Ruta Turística</a></li>
-                  <li><a href="">
-                    <i class="fa fa-star"></i>
-                    Consultar Ruta Turística</a></li>
-                  <li><a href="">
-                    <i class="fa fa-star"></i>
-                      Editar Ruta Turística</a></li>
-        </ul>
     </li>
+    <li class="active">
+      <a href="{{ route('user.add.familiarAmigo') }}">
+        <i class="fa fa-home"></i>
+        <span>Agregar Familiar o Amigo</span>
+      </a>
     </li>
+
+
+
         <li class="active"><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
-    </ul>
+
 
       <!-- /.sidebar-menu -->
     </section>
@@ -380,7 +401,29 @@ desired effect
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
-        @yield('contenido')
+         <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">@yield('Title')</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+              <i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+          @yield('contenido')
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          Footer
+        </div>
+        <!-- /.box-footer-->
+      </div>
+      <!-- /.box -->
 
     </section>
     <!-- /.content -->
@@ -482,11 +525,38 @@ desired effect
 <script src="{{ asset('adminLte/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('adminLte/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<!-- Datapicker -->
+<script src="{{ asset('adminLte/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('adminLte/js/adminlte.min.js') }}"></script>
+<!-- Para mascaras-->
+<script src="{{ asset('adminLte/input-mask/jquery.inputmask.js') }}"></script>
+<script src="{{ asset('adminLte/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+<script src="{{ asset('adminLte/input-mask/jquery.inputmask.extensions.js') }}"></script>
+
+<!-- Select2 -->
+<script src="{{ asset('adminLte/select2/dist/js/select2.full.min.js')}}"></script>
+
+
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
+<script type="text/javascript">
+       $(function () {
+        /* var div = document.getElementById("documentos");
+         if(div != null){
+         div.style.display = "none"
+         }*/
+
+      /* $('#datepicker').datepicker({ autoclose: true })
+       $('#datepicker2').datepicker({ autoclose: true }) */
+       $("#dui").inputmask("99999999-9",{ 'placeholder': '00000000-0' })
+       $("#pasaporte").inputmask("999999999",{ 'placeholder': '000000000' })
+       //Initialize Select2 Elements
+       $('.select2').select2()
+
+        })
+     </script>
 </body>
 </html>

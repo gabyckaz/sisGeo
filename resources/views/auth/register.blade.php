@@ -5,8 +5,9 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
   <div class="card">
-  <strong>  <div class="card-header bg-warning" style="font-size:16px">Formulario de Registro</div></strong>
-<div class="card-body ">
+<div class="card-header bg-primary text-white" style="text-align: center; font-weight: bold;">
+Formulario de Registro</div>
+<div class="card-body">
   <form action="{{ route('register') }}" method="POST">
     {{ csrf_field() }}
      <div class="form-group row">
