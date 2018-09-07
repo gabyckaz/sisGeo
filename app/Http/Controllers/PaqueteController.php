@@ -12,6 +12,10 @@ use App\Departamento;
 use App\RutaTuristica;
 use App\Paquete;
 use App\GastosExtras;
+use App\RecomendacionesPaquete;
+use App\IncluyePaquete;
+use App\GastosExtrasPaquete;
+use App\CondicionesPaquete;
 use Illuminate\Support\Facades\Input;
 
 
@@ -66,14 +70,10 @@ class PaqueteController extends Controller
     public function store(Request $request)
     {
 
-      $gasto= $request->gastosextras;
-      for ($i=0;$i<$gasto.length; $i++){
-        dd($gasto[i]);
-      }
+
+
 
         $paquete=new Paquete();
-
-        $paquete->IdRutaTuristica=$request->idrutaturistica;
         $paquete->IdTuristica=$request->idrutaturistica;
         $paquete->NombrePaquete=$request->nombrepaquete;
         $paquete->FechaSalida=$request->fechasalida;
@@ -82,24 +82,52 @@ class PaqueteController extends Controller
         $paquete->LugarRegreso=$request->lugarsalida;
         $paquete->Precio=$request->precio;
         $paquete->Itinerario=$request->itinerario;
-        $paquete->GastosExtras=$request->gastosextras;
-        $paquete->Incluye=$request->incluye;
-        $paquete->Condiciones=$request->condiciones;
-        $paquete->Recomendaciones=$request->recomendaciones;
         $paquete->AprobacionPaquete=$request->aprobacionpaquete;
         $paquete->DisponibilidadPaquete=$request->disponibilidadpaquete;
-        dd($paquete);
         $paquete->save();
-        $pais=Pais::all();
-        $gastosextras=GastosExtras::all();
+
+        $paquete2 = Paquete::latest('IdPaquete')->first();
+
+        for ($i=0; $i<count($request->gastosextras);$i++){
+          $gastospaquete = new GastosExtrasPaquete();
+          $gastospaquete->paquete_id = $paquete2->IdPaquete;
+          $gastospaquete->gastosextras_id = $request->gastosextras[$i];
+          $gastospaquete->save();
+        }
+
+
+        for ($i=0; $i<count($request->condiciones);$i++){
+          $condicionespaquete = new CondicionesPaquete();
+          $condicionespaquete->paquete_id = $paquete2->IdPaquete;
+          $condicionespaquete->condiciones_id = $request->condiciones[$i];
+          $condicionespaquete->save();
+        }
+
+        for ($i=0; $i<count($request->recomendaciones);$i++){
+          $recomendacionespaquete = new RecomendacionesPaquete();
+          $recomendacionespaquete->paquete_id =$paquete2->IdPaquete;
+          $recomendacionespaquete->recomendaciones_id = $request->recomendaciones[$i];
+          $recomendacionespaquete->save();
+        }
+        for ($i=0; $i<count($request->incluye);$i++){
+          $incluyepaquete = new IncluyePaquete();
+          $incluyepaquete->paquete_id = $paquete2->IdPaquete;
+          $incluyepaquete->incluye_id = $request->incluye[$i];
+          $incluyepaquete->save();
+        }
+
+
         $rutaturistica=RutaTuristica::all();
+        $pais=Pais::all();
         $departamento=Departamento::all();
+        $gastosextras=GastosExtras::all();
         $incluye=Incluye::all();
-
-            return view('adminPaquete.create')->with('ruta',$rutaturistica)->with('gastosextras',$gastosextras)
-            ->with('pais',$pais)->with('departamento',$departamento)->with('incluye',$incluye);
-
-
+        $condiciones=Condiciones::all();
+        $recomendaciones=Recomendaciones::all();
+        return view('adminPaquete.create')
+        ->with('ruta',$rutaturistica)->with('pais',$pais)
+        ->with('departamento',$departamento)->with('gastosextras',$gastosextras)
+        ->with('incluye',$incluye)->with('condiciones',$condiciones)->with('recomendaciones',$recomendaciones);
 
     }
 

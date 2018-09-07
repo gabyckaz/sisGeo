@@ -15,7 +15,6 @@ class CreatePaqueteTable extends Migration
     {
          Schema::create('Paquetes', function (Blueprint $table) {
             $table->increments('IdPaquete');
-            $table->integer('IdRutaTuristica');
             $table->string('NombrePaquete',100);
             $table->date('FechaSalida');
             $table->time('HoraSalida');
@@ -23,10 +22,6 @@ class CreatePaqueteTable extends Migration
             $table->string('LugarRegreso',200);
             $table->string('Precio');
             $table->string('Itinerario',1024);
-            $table->string('GastosExtras',1024)->nullable();
-            $table->string('Incluye',1024)->nullable();
-            $table->string('Condiciones',1024)->nullable();
-            $table->string('Recomendaciones',1024)->nullable();
             $table->string('AprobacionPaquete',1);
             $table->string('DisponibilidadPaquete',1);
             $table->integer('IdTuristica')->unsigned();

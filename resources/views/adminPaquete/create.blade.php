@@ -52,41 +52,8 @@
                                             @endif
                             </div>
                           </div>
-                            <div class="col-md-4">
-                            <div class="form-group">
-                                <label name="idpais" for="nombrepais">Pais</label>
 
-                                      @if($pais !=null)
-                                        <select  class="form-inline" name="idpais"  id="idpais" data-placeholder="Seleccionar el pais...">
-                                        @foreach ($pais as $pais)
 
-                                        <option value="{{ $pais->IdPais }}"> {{$pais->nombrePais}}</option>
-                                        @endforeach
-                                        </select>
-                                        <hr>
-                                           @else
-                                              <label>No hay Pais</label>
-                                            @endif
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                          <div class="form-group">
-                              <label name="iddepartamento" for="nombredepartamento">Departamento</label>
-
-                                    @if($departamento !=null)
-                                      <select  class="form-inline" name="iddepartamento"  id="iddepartamento" data-placeholder="Seleccionar el departamento...">
-                                      @foreach ($departamento as $departamento)
-
-                                      <option value="{{ $departamento->IdDepartamento }}"> {{$departamento->NombreDepartamento}}</option>
-
-                                      @endforeach
-                                      </select>
-                                      <hr>
-                                         @else
-                                            <label>No hay Departamento</label>
-                                          @endif
-                          </div>
-                        </div>
                     </div>
                     <div class="row">
                       <div class="col-md-4">
@@ -168,7 +135,7 @@
                                     <select class="form-control select2" multiple="multiple" name="gastosextras[]" id="gasto[]" >
                                     @foreach ($gastosextras as $gastos)
 
-                                    <option value[]="{{$gastos->IdGastosExtras }}">{{$gastos->NombreGastos}}</option>
+                                    <option value="{{$gastos->IdGastosExtras }}">{{$gastos->NombreGastos}}</option>
                                     @endforeach
                                     </select>
 
@@ -179,7 +146,7 @@
                             <select class="form-control select2" multiple="multiple" name="incluye[]" >
                             @foreach ($incluye as $incluye)
 
-                            <option value[]="{{ $incluye->IdIncluye }}"> {{$incluye->NombreIncluye}}</option>
+                            <option value="{{ $incluye->IdIncluye }}"> {{$incluye->NombreIncluye}}</option>
                             @endforeach
                             </select>
                               </div>
@@ -189,7 +156,7 @@
                             <select class="form-control select2" multiple="multiple" name="condiciones[]" >
                             @foreach ($condiciones as $condiciones)
 
-                            <option value[]="{{$condiciones->NombreCondiciones}}">{{$condiciones->IdCondiciones}} </option>
+                            <option value="{{$condiciones->IdCondiciones}}">{{$condiciones->NombreCondiciones}} </option>
                             @endforeach
                             </select>
                         </div>
@@ -199,7 +166,7 @@
                             <select class="form-control select2" multiple="multiple" name="recomendaciones[]" >
                             @foreach ($recomendaciones as $recomendaciones)
 
-                            <option value[]="{{ $recomendaciones->IdRecomendaciones }}"> {{$recomendaciones->NombreRecomendaciones}}</option>
+                            <option value="{{ $recomendaciones->IdRecomendaciones }}"> {{$recomendaciones->NombreRecomendaciones}}</option>
                             @endforeach
                             </select>
                         </div>

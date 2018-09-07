@@ -21,6 +21,7 @@ class CreateCondicionesTable extends Migration
 
       // Create table for associating gastosextras to paquete (Many-to-Many)
       Schema::create('Condiciones_Paquete', function (Blueprint $table) {
+        $table->increments('IdCondicionesPaquete');
           $table->integer('condiciones_id')->unsigned();
           $table->integer('paquete_id')->unsigned();
 
@@ -28,8 +29,6 @@ class CreateCondicionesTable extends Migration
               ->onUpdate('cascade')->onDelete('cascade');
           $table->foreign('paquete_id')->references('IdPaquete')->on('Paquetes')
               ->onUpdate('cascade')->onDelete('cascade');
-
-          $table->primary(['condiciones_id', 'paquete_id']);
       });
     }
 

@@ -21,6 +21,7 @@ class CreateRecomendacionesTable extends Migration
 
       // Create table for associating gastosextras to paquete (Many-to-Many)
       Schema::create('Recomendaciones_Paquete', function (Blueprint $table) {
+        $table->increments('IdRecomendacionesPaquete');
           $table->integer('recomendaciones_id')->unsigned();
           $table->integer('paquete_id')->unsigned();
 
@@ -29,7 +30,7 @@ class CreateRecomendacionesTable extends Migration
           $table->foreign('paquete_id')->references('IdPaquete')->on('Paquetes')
               ->onUpdate('cascade')->onDelete('cascade');
 
-          $table->primary(['recomendaciones_id', 'paquete_id']);
+
       });
     }
 

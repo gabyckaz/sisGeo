@@ -15,14 +15,13 @@ class CreateRutaturisticaTable extends Migration
     {
         Schema::create('RutaTuristica', function (Blueprint $table) {
             $table->increments('IdRutaTuristica');
-            $table->integer('IdPais');
             $table->string('NombreRutaTuristica',60);
             $table->string('DatosGenerales',1024);
             $table->string('DescripcionRutaTuristica',1024);
-            $table->integer('id_pais')->unsigned();
-            $table->foreign('id_pais')->references('IdPais')->on('Pais');
+            $table->integer('IdPais')->unsigned();
+            $table->foreign('IdPais')->references('IdPais')->on('Pais');
             $table->timestamps();
-        
+
         });
 
 
