@@ -426,12 +426,36 @@ class userController extends Controller
     }
 
     public function guardarFamiliarAmigo(Request $request){
-      dd($request);
-      $request->tipo;
-      $request->dui;
-      $request->fechaVencimento;
-      $request->pasaporte;
-      $request->fechaVencimentoP;
+       $this->validate($request, [
+              "PrimerNombrePersona" => "required",
+              "PrimerApellidoPersona" => "required",
+              "fechaNacimiento" => "required",
+        ]);
+        
+      if( $request->input("dui") == null && $request->input("pasaporte") == null){ 
+            $hola1 = "Debes introducir por lo menos un documento";
+
+            return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento');
+        }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
+          $hola1 = "Ingresastes los dos documentos";
+             $this->validate($request, [
+             "fechaVencimentoD" => "required",
+             "fechaVencimentoP" => "required",
+           ]);
+        }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
+           $hola1 = "Solo Ingresastes El dui";
+           $this->validate($request, [
+             "fechaVencimentoD" => "required",
+           ]);
+        }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
+           $hola1 = "Solo Ingresastes El pasaporte";
+            $this->validate($request, [
+             "fechaVencimentoP" => "required",
+           ]);
+        }
+        dd($request);
+        
+     
       
       $persona = Persona::create([
             "PrimerNombrePersona" => $request->PrimerNombrePersona,
@@ -447,19 +471,40 @@ class userController extends Controller
               "Problemas_Salud" => $request->psalud,    
         ]);
 
-       $dui = TipoDocumento::create([
-                "IdTurista" => $turista->IdTurista,
-                "TipoDocumento" => "DUI",
-                "NumeroDocumento" => $request->dui,
-                "FechaVenceDocumento" => $request->fechaVencimientoD,
-             ]);
 
-        $pasaporte = TipoDocumento::create([
-                "IdTurista" => $turista->IdTurista,
-                "TipoDocumento" => "Pasaporte",
-                "NumeroDocumento" => $request->pasaporte,
-                "FechaVenceDocumento" => $request->fechaVencimientoP,
+        if($request->input("dui") != null && $request->input("pasaporte") != null){
+          $hola1 = "Ingresastes los dos documentos";
+            $documentoDui = TipoDocumento::create([
+            "IdTurista" => $turista->IdTurista,
+            "TipoDocumento" => "DUI",
+            "NumeroDocumento" => $request->dui,
+            "FechaVenceDocumento" => $request->fechaVencimentoD,
          ]); 
+        $documentoPasaporte = TipoDocumento::create([
+            "IdTurista" => $turista->IdTurista,
+            "TipoDocumento" => "Pasaporte",
+            "NumeroDocumento" => $request->pasaporte,
+            "FechaVenceDocumento" => $request->fechaVencimentoP,
+         ]); 
+        }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
+           $hola1 = "Solo Ingresastes El dui";
+           $documentoDui = TipoDocumento::create([
+            "IdTurista" => $turista->IdTurista,
+            "TipoDocumento" => "DUI",
+            "NumeroDocumento" => $request->dui,
+            "FechaVenceDocumento" => $request->fechaVencimientoD,
+         ]); 
+           
+        }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
+           $hola1 = "Solo Ingresastes El pasaporte";
+            $documentoPasaporte = TipoDocumento::create([
+            "IdTurista" => $turista->IdTurista,
+            "TipoDocumento" => "Pasaporte",
+            "NumeroDocumento" => $request->pasaporte,
+            "FechaVenceDocumento" => $request->fechaVencimientoP,
+         ]); 
+        }
+       
 
     }
 }
