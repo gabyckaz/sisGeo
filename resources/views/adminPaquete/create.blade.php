@@ -40,7 +40,7 @@
                                 <label name="idrutaturistica" for="nombrerutaturistica">Nombre de Ruta Turística</label>
 
                                       @if($ruta !=null)
-                                        <select  class="form-inline" name="idrutaturistica"  id="idrutaturistica" data-placeholder="Seleccionar la ruta...">
+                                        <select  class="form-inline" name="idrutaturistica"  id="idrutaturisticas" data-placeholder="Seleccionar la ruta...">
                                         @foreach ($ruta as $ruta)
 
                                         <option value="{{ $ruta->IdRutaTuristica }}"> {{$ruta->NombreRutaTuristica}}</option>
@@ -146,7 +146,7 @@
 
                               <i class="fa fa-money"></i> $
                               </span>
-                              <input name="precio" type="number" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio">
+                              <input name="precio" type="text" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio">
 
                         </div>
                               </div>
@@ -165,10 +165,10 @@
 
                         <div class="form-group">
                             <label name="gastosextras" for="gastosextras">Gastos Extras</label>
-                                    <select class="form-control select2" multiple="multiple" name="gastosextras" >
+                                    <select class="form-control select2" multiple="multiple" name="gastosextras[]" id="gasto[]" >
                                     @foreach ($gastosextras as $gastos)
 
-                                    <option value="{{ $gastos->gastosextras_id }}"> {{$gastos->NombreGastos}}</option>
+                                    <option value[]="{{$gastos->IdGastosExtras }}">{{$gastos->NombreGastos}}</option>
                                     @endforeach
                                     </select>
 
@@ -176,30 +176,30 @@
 
                         <div class="form-group">
                             <label for="queincluye">Que incluye</label>
-                            <select class="form-control select2" multiple="multiple" name="incluye" >
+                            <select class="form-control select2" multiple="multiple" name="incluye[]" >
                             @foreach ($incluye as $incluye)
 
-                            <option value="{{ $incluye->incluye_id }}"> {{$incluye->NombreIncluye}}</option>
+                            <option value[]="{{ $incluye->IdIncluye }}"> {{$incluye->NombreIncluye}}</option>
                             @endforeach
                             </select>
                               </div>
 
                         <div class="form-group">
                             <label for="con">Condiciones</label>
-                            <select class="form-control select2" multiple="multiple" name="condiciones" >
+                            <select class="form-control select2" multiple="multiple" name="condiciones[]" >
                             @foreach ($condiciones as $condiciones)
 
-                            <option value="{{ $condiciones->condiciones_id }}"> {{$condiciones->NombreCondiciones}}</option>
+                            <option value[]="{{$condiciones->NombreCondiciones}}">{{$condiciones->IdCondiciones}} </option>
                             @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="re">Recomendaciones</label>
-                            <select class="form-control select2" multiple="multiple" name="recomendaciones" >
+                            <select class="form-control select2" multiple="multiple" name="recomendaciones[]" >
                             @foreach ($recomendaciones as $recomendaciones)
 
-                            <option value="{{ $recomendaciones->recomendaciones_id }}"> {{$recomendaciones->NombreRecomendaciones}}</option>
+                            <option value[]="{{ $recomendaciones->IdRecomendaciones }}"> {{$recomendaciones->NombreRecomendaciones}}</option>
                             @endforeach
                             </select>
                         </div>

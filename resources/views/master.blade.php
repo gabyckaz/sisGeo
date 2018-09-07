@@ -15,6 +15,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('adminLte/font-awesome/css/font-awesome.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{ asset('adminLte/Ionicons/css/ionicons.min.css') }}">
+  <!--Tablas-->
+
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('adminLte/css/AdminLTE.min.css') }}">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -285,7 +287,7 @@ desired effect
       </a>
     </li>
     <li class="active">
-      <a href="{{ route('user.add.familiarAmigo') }}">
+      <a href="{{ route('user.agregar.familiarAmigo') }}">
         <i class="fa fa-home"></i>
         <span>Agregar Familiar o Amigo</span>
       </a>
@@ -323,7 +325,7 @@ desired effect
                     Mostrar Paquete Turístico</a></li>
         </ul>
     </li>
-    <li class="active treeview menu-open">
+    <li class="treeview">
       <a href="#">
         <i class="fa fa-bus"></i>
           <i class="fa fa-angle-left pull-right-container"></i>
@@ -346,6 +348,7 @@ desired effect
         </ul>
 
     </li>
+
     <li class="active">
       <a href="{{ route('home') }}">
         <i class="fa fa-calendar"></i>
@@ -401,7 +404,7 @@ desired effect
         | Your Page Content Here |
         -------------------------->
          <!-- Default box -->
-      <div class="box">
+      <div class="box box-warning">
         <div class="box-header with-border">
           <h3 class="box-title">@yield('Title')</h3>
 

@@ -18,7 +18,8 @@ class Transporte extends Model
   //Cambiando el campo por defecto id a uno personalizado
   protected $primaryKey = 'IdTransporte';
 
-  public $sortable = ['NombreTipoTransporte','NumeroAsientos'];
+  //Definicion los campos del ordenamiento en la tabla index
+  public $sortable = ['NombreEmpresaTransporte','NombreTipoTransporte','NumeroAsientos'];
 
   public function empresaalquilertransporte()
   {
@@ -31,10 +32,6 @@ class Transporte extends Model
        //return $this->belongsTo(TipoTransporte::class);
   }
 
-  public function Conductores()
-  {
-      return $this->belongsToMany('App\Conductor');
-  }
 
 
 

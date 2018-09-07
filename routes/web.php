@@ -29,7 +29,8 @@ Route::get('user/completarInformacion', ['as' => 'usuario.completar.informacion'
 Route::put('user/completarInformacion', ['as' => 'user.completar.informacion.store', 'uses' => 'userController@completarInformacion']);
 Route::get('user/editInfo/{persona}', ['as' => 'user.edit.info', 'uses' => 'userController@editInfoUserTurista']);
 Route::get('user/editInfo', ['as' => 'user.edit.info', 'uses' => 'userController@editInfoUserTurista']);
-Route::get('user/agregarFamiliarAmigo', ['as' => 'user.add.familiarAmigo', 'uses' => 'userController@addFamiliarAmigo']);
+Route::get('user/agregarFamiliarAmigo', ['as' => 'user.agregar.familiarAmigo', 'uses' => 'userController@agregarFamiliarAmigo']);
+Route::put('user/agregarFamiliarAmigo', ['as' => 'user.agregar.familiarAmigo.store', 'uses' => 'userController@guardarFamiliarAmigo']);
 Route::resource('user', 'userController');
 
 Route::put('/adminUser/add-rol/{usuario}', ['as' => 'adminUser.role.add', 'uses' => 'AdminUsuariosController@agregarRol']);
@@ -39,10 +40,9 @@ Route::put('/adminUser/cambiarEstado/{usuario}', ['as' => 'adminUser.state.chang
 Route::resource('adminEmpresaTransporte', 'EmpresaAlquilerTransporteController');//Rutas para empresa de alquiler de transporte
 
 //Rutas para agregar tipos de transporte y los nombres de los conductores
-Route::get('/adminTipoTransporte', ['as' => 'adminTipoTransporte.index', 'uses' =>  'TipoTransporteController@index']);//muestra listado de tipos y conductuctores
-Route::post('/adminTipoTransporte/index', ['as' => 'adminTipoTransporte.store', 'uses' =>  'TipoTransporteController@store']);//guarda tipo transporte
-Route::post('/adminTipoTransporte', ['as' => 'adminConductor.guardarConductor', 'uses' =>  'TipoTransporteController@guardarConductor']);//guarda conductor
-
+Route::resource('adminTipoTransporte', 'TipoTransporteController');
+Route::post('/adminEmpresaTransporte/{empresalquiler}', ['as' => 'adminEmpresaTransporte.conductor.add', 'uses' =>  'EmpresaAlquilerTransporteController@guardarConductor']);//guarda conductor
+//Rutas para la administración de unidades de transporte
 Route::resource('adminTransporte', 'TransporteController');
 Route::resource('turista', 'TuristaController');
 

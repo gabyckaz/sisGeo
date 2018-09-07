@@ -7,13 +7,21 @@
     <div class="container spark-screen">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
+              <form class="navbar-form navbar-left pull-right" action="{{ route('adminPaquete.index') }}" method="get" role="search">
+                     <div class="form-group">
+                       <input type="text" name="nombre" class="form-control" placeholder="Nombre Paquete">
+                     </div>
+                     <button type="submit" class="btn btn-default" >Buscar<span class="glyphicon glyphicon-search"></span></button>
+
+               </form>
                 <div align="right">
 							<a href="{{route('adminPaquete.create')}}" class="btn btn-primary" > <font color="black" size="2" style=""> <b>Agregar nuevo Paquete</b> </font>  </a>
-						
+
 					</div>
+
 					<br>
 				<div class="panel panel-default">
-				
+
 					<div class="panel-heading"> Listado de paquetes
 					</div>
 					<br>
@@ -46,19 +54,17 @@
 					 						class="btn btn-warning"> <font color="black" size="2"> <b> Editar</b>
 					 						</font>
 					 						</a>
-					 			
+
 					 				    </td>
 					 				 </tr>
 					 				 @endforeach
 					 				</tbody>
 					 			</table>
 					 		</div>
-					 	</div>	
+					 	</div>
 					 </div>
 				</div>
-					 	
-					
+
+
 			</form>
 @endsection
-
-

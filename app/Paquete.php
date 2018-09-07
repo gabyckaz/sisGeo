@@ -19,4 +19,12 @@ class Paquete extends Model
         {
             return $this->belongsToMany('App\GastosExtras');
         }
+  public function scopeNombre($query, $nombre){
+
+         if(trim($nombre) != ""){
+
+         $query->where('NombrePaquete', "Like", "%$nombre%");
+          }
+        }
+
 }

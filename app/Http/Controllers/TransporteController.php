@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transporte;
 use App\TipoTransporte;
-use App\Conductor;
 use App\EmpresaAlquilerTransporte;
+use DB;
 
 class TransporteController extends Controller
 {
@@ -18,12 +18,10 @@ class TransporteController extends Controller
     public function index()
     {
   //    return view('adminTransporte.index',['transportes'=> Transporte::all(),'tipotransportes'=> TipoTransporte::all(),
-    //  'conductores' => Conductor::all(),'empresalquiler' => EmpresaAlquilerTransporte::all()]);
-    $transportes = Transporte::sortable()->paginate(8);
+    $transportes = Transporte::sortable()->paginate(10);//Para el rdenamiento en la tabla index
     $tipotransportes= TipoTransporte::all();
     $empresalquiler = EmpresaAlquilerTransporte::all();
-    $conductores= Conductor::all();
-    return view('adminTransporte.index', compact('transportes','tipotransportes','empresalquiler','conductores'));
+    return view('adminTransporte.index', compact('transportes','tipotransportes','empresalquiler'));
     //
     // view('welcome')->with('pagetitle',$pagetitle)
 		// 		->with('username',$username)
@@ -56,7 +54,7 @@ class TransporteController extends Controller
            'marca'=>'required|max:25',
            'modelo'=>'required|max:30',
            'color'=>'required|max:25',
-           'placa'=>'required|max:7','unique:Transporte',
+           'placa'=>'required|min:6| max:7 |unique:Transporte,Placa_Matricula',
            'numeroasientos'=>'required|max:2',
            'ac'=>'size:2',
            'tv'=>'size:2',
@@ -85,9 +83,9 @@ class TransporteController extends Controller
          $transporte->save();
             return redirect('adminTransporte')->with('status', "Guardado con éxito. ")->withInput();
             //withInput lleva los últimos datos guardados al formulario que se complementa con  'old' en la vista del formulario
-      // }catch(\Exception $e) {
-      //       return redirect('adminTransporte')->with('fallo', "Error al guardar.");
-      // }
+       /*}catch(\Exception $e) {
+             return redirect('adminTransporte')->with('fallo', "Error al guardar.");
+       }*/
     }
 
     /**
@@ -110,12 +108,9 @@ class TransporteController extends Controller
     public function edit($IdTransporte)
     {
       $transporte = Transporte::find($IdTransporte);
-  //    $selectedTipo = Transporte::find(1);
-  //    $selectedEmpresa= Transporte::find(1);
       $tipotransportes= TipoTransporte::all();
       $empresalquiler = EmpresaAlquilerTransporte::all();
-      $conductores= Conductor::all();
-      return view('adminTransporte.edit', compact('transporte',/*'selectedTipo','selectedEmpresa',*/'$IdTransporte','tipotransportes','empresalquiler','conductores'));
+      return view('adminTransporte.edit', compact('transporte','$IdTransporte','tipotransportes','empresalquiler'));
     }
 
     /**
@@ -127,7 +122,7 @@ class TransporteController extends Controller
      */
     public function update(Request $request, $id)
     {
-      try{
+      //try{
           $this->validate($request,array(
 
             'tipotransporte' => 'required',
@@ -135,7 +130,7 @@ class TransporteController extends Controller
             'marca'=>'required|max:25',
             'modelo'=>'required|max:30',
             'color'=>'required|max:25',
-            'placa'=>'required|max:7',
+            'placa'=>'required|min:6||max:7',
             'numeroasientos'=>'required|max:2',
             'ac'=>'size:2',
             'tv'=>'size:2',
@@ -162,9 +157,9 @@ class TransporteController extends Controller
            $transporte->save();
 
            return redirect('adminTransporte')->with('status', "Gardado con éxito");
-      }catch(\Exception $e) {
-           return redirect('adminTransporte')->with('fallo', "Error al guardar.");
-         }
+    //  }catch(\Exception $e) {
+           //return redirect('adminTransporte')->with('fallo', "Error al guardar.");
+      //   }
     }
 
     /**

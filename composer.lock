@@ -4,59 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee09579c6fb517b67ba48ef4e2fac1e1",
+    "content-hash": "aa91ffaca4da3181fb28db94bfd7dc51",
     "packages": [
-        {
-            "name": "atnic/laravel-admin-lte",
-            "version": "v0.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Atnic/laravel-admin-lte.git",
-                "reference": "0dc66c04001622bbe972bad2383978bb559861cc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Atnic/laravel-admin-lte/zipball/0dc66c04001622bbe972bad2383978bb559861cc",
-                "reference": "0dc66c04001622bbe972bad2383978bb559861cc",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "^5.4",
-                "php": ">=5.6.4"
-            },
-            "require-dev": {
-                "fzaninotto/faker": "~1.4",
-                "laravel/tinker": "~1.0",
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "~5.7"
-            },
-            "type": "package",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Atnic\\AdminLTE\\Providers\\AppServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Atnic\\AdminLTE\\": "app/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Laravel Package for integrating AdminLTE template and this package is Laravel Mix friendly.",
-            "keywords": [
-                "AdminLTE",
-                "admin-lte",
-                "composer",
-                "laravel",
-                "package"
-            ],
-            "time": "2018-05-23T17:09:12+00:00"
-        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",

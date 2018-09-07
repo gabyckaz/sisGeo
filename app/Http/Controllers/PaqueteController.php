@@ -22,9 +22,14 @@ class PaqueteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $paquete=Paquete::all();
+      $paquete = Paquete::nombre($request->get('nombre'))
+      ->orderBy('IdPaquete','asc')->paginate(2);
+      $nombre = $request->get('nombrepaquete');
+
+
+
         return view('adminPaquete.index')
         ->with('paquete',$paquete);
     }
@@ -61,7 +66,13 @@ class PaqueteController extends Controller
     public function store(Request $request)
     {
 
+      $gasto= $request->gastosextras;
+      for ($i=0;$i<$gasto.length; $i++){
+        dd($gasto[i]);
+      }
+
         $paquete=new Paquete();
+
         $paquete->IdRutaTuristica=$request->idrutaturistica;
         $paquete->IdTuristica=$request->idrutaturistica;
         $paquete->NombrePaquete=$request->nombrepaquete;
@@ -72,16 +83,21 @@ class PaqueteController extends Controller
         $paquete->Precio=$request->precio;
         $paquete->Itinerario=$request->itinerario;
         $paquete->GastosExtras=$request->gastosextras;
-        $paquete->Incluye=$request->queincluye;
+        $paquete->Incluye=$request->incluye;
         $paquete->Condiciones=$request->condiciones;
         $paquete->Recomendaciones=$request->recomendaciones;
         $paquete->AprobacionPaquete=$request->aprobacionpaquete;
         $paquete->DisponibilidadPaquete=$request->disponibilidadpaquete;
+        dd($paquete);
         $paquete->save();
+        $pais=Pais::all();
         $gastosextras=GastosExtras::all();
         $rutaturistica=RutaTuristica::all();
+        $departamento=Departamento::all();
+        $incluye=Incluye::all();
 
-            return view('adminPaquete.create')->with('ruta',$rutaturistica)->with('gastosextras',$gastosextras);
+            return view('adminPaquete.create')->with('ruta',$rutaturistica)->with('gastosextras',$gastosextras)
+            ->with('pais',$pais)->with('departamento',$departamento)->with('incluye',$incluye);
 
 
 

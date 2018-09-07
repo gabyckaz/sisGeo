@@ -7,6 +7,7 @@
 
 @section('contenido')
 <div class="row">
+
   <div class="col-md-4">
     @if(session('status'))
       <br>
@@ -22,7 +23,7 @@
           {{ session('fallo') }}
       </div>
     @endif
-    <div class="box box-primary">
+    <div class="box box-warning">
       <div class="box-header">
         <h3 class="box-title">Tipos de transporte</h3>
         <div class="box-body">
@@ -30,8 +31,10 @@
           <form action="{{ route('adminTipoTransporte.store') }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group has-feedback{{ $errors->has('tipotransporte') ? ' has-error' : '' }}">
+              <div class="input-group">
+              <span class="input-group-addon"><span class="fa fa-bus"></span></span>
               <input id="tipotransporte" type="text" class="form-control" name="tipotransporte" value="{{ old('tipotransporte') }}" required autofocus>
-              <span class="fa fa-bus form-control-feedback"></span>
+              </div>
               @if ($errors->has('tipotransporte'))
               <span class="help-block">{{ $errors->first('tipotransporte') }}</span>
               @endif
@@ -39,7 +42,7 @@
 
             <div class="row">
               <div class="col-md-12">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">Agregar transporte</button>
+                <button type="submit" class="btn btn-info center-block">Agregar transporte</button>
               </div>
               <h3 class="box-title"> </h3>
               <table class="table table-striped table-bordered" >
@@ -57,20 +60,20 @@
                 </tbody>
               </table>
 
-              <!-- /.col -->
+
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
-
+{{--
   <div class="col-md-4">
     <div class="box box-info">
       <div class="box-header">
         <h3 class="box-title">Conductores</h3>
               <div class="box-body">
-                <form action="{{ route('adminConductor.guardarConductor') }}" method="POST">
+                <form action="{{ route('adminTipoTransporte.guardarConductor') }}" method="POST">
                   {{ csrf_field() }}
                   <div class="form-group has-feedback{{ $errors->has('conductor') ? ' has-error' : '' }}">
                     <input id="conductor" type="text" class="form-control" name="conductor" value="{{ old('conductor') }}" required autofocus>
@@ -100,13 +103,12 @@
                       </tbody>
                     </table>
 
-                    <!-- /.col -->
+
                   </div>
                 </form>
               </div>
       </div>
     </div>
-  </div>
+  </div> --}}
 </div>
 @endsection
-
