@@ -19,6 +19,7 @@ use App\CondicionesPaquete;
 use Illuminate\Support\Facades\Input;
 
 
+
 class PaqueteController extends Controller
 {
     /**
@@ -28,14 +29,18 @@ class PaqueteController extends Controller
      */
     public function index(Request $request)
     {
-      $paquete = Paquete::nombre($request->get('nombre'))
-      ->orderBy('IdPaquete','asc')->paginate(2);
-      $nombre = $request->get('nombrepaquete');
 
 
+      $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','asc')->paginate(5);
+      /*$paquetes = Paquete::sortable()->paginate(5);*/
 
-        return view('adminPaquete.index')
-        ->with('paquete',$paquete);
+
+    /*$nombre = $request->get('nombrepaquete');*/
+
+    /*  $paquete = Paquete::paginate(5);
+*/
+
+        return view('adminPaquete.index',compact('paquetes'));
     }
 
     /**
@@ -148,12 +153,19 @@ class PaqueteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
 
-     $ruta= RutaTuristica::all();
-     $paquete=Paquete::findOrFail($id);
-        return view('adminPaquete.edit', compact('paquete', 'ruta','gastosextras'));
+
+      /*si necesitamos modificar la ruta turistica debemos cambiar esta
+      linea ++  $ruta = RutaTuristica::where('IdRutaTuristica', $ruta2)->get(); ++
+      por esta linea ++  */
+      $paquete=Paquete::findOrFail($id);
+      $ruta =RutaTuristica::all();
+
+      return view('adminPaquete.edit')
+      ->with('paquete',$paquete)
+      ->with('ruta',$ruta);
     }
 
     /**
@@ -168,7 +180,6 @@ class PaqueteController extends Controller
 
 
         $paquete = Paquete::findOrFail($id);
-        $paquete->IdRutaTuristica=$request->idrutaturistica;
         $paquete->IdTuristica=$request->idrutaturistica;
         $paquete->NombrePaquete=$request->nombrepaquete;
         $paquete->FechaSalida=$request->fechasalida;
@@ -177,14 +188,51 @@ class PaqueteController extends Controller
         $paquete->LugarRegreso=$request->lugarsalida;
         $paquete->Precio=$request->precio;
         $paquete->Itinerario=$request->itinerario;
-        $paquete->GastosExtras=$request->gastosextras;
-        $paquete->Incluye=$request->queincluye;
-        $paquete->Condiciones=$request->condiciones;
-        $paquete->Recomendaciones=$request->recomendaciones;
-        $paquete->AprobacionPaquete=$request->aprobacionpaquete;
-        $paquete->DisponibilidadPaquete=$request->disponibilidadpaquete;
+
         $paquete->save();
 
+/*
+        if($request->gastosextras =! null){
+          for ($i=0; $i<count($request->gastosextras);$i++){
+            $gastoSpaquete = new GastosExtrasPaquete();
+            $gastospaquete = GastosExtrasPaquete::where('paquete_id',$paquete->IdPaquete)->get();
+
+            if($gastospaquete=! null){
+              $gastospaquete->gastosextras_id = $request->gastosextras[$i];
+              $gastospaquete->save();
+            }else{
+              $gastospaquete = new GastosExtrasPaquete();
+              $gastospaquete->paquete_id = $paquete->IdPaquete;
+              $gastospaquete->gastosextras_id = $request->gastosextras[$i];
+              $gastospaquete->save();
+            }
+        }
+      }else{
+        $gastospaquete = GastosExtrasPaquete::where('paquete_id',$paquete->IdPaquete)->get();
+        $gastospaquete->delete();
+      }
+
+
+        for ($i=0; $i<count($request->condiciones);$i++){
+          $condicionespaquete = new CondicionesPaquete();
+          $condicionespaquete->paquete_id = $paquete->IdPaquete;
+          $condicionespaquete->condiciones_id = $request->condiciones[$i];
+          $condicionespaquete->save();
+        }
+
+        for ($i=0; $i<count($request->recomendaciones);$i++){
+          $recomendacionespaquete = new RecomendacionesPaquete();
+          $recomendacionespaquete->paquete_id =$paquete->IdPaquete;
+          $recomendacionespaquete->recomendaciones_id = $request->recomendaciones[$i];
+          $recomendacionespaquete->save();
+        }
+        for ($i=0; $i<count($request->incluye);$i++){
+          $incluyepaquete = new IncluyePaquete();
+          $incluyepaquete->paquete_id = $paquete->IdPaquete;
+          $incluyepaquete->incluye_id = $request->incluye[$i];
+          $incluyepaquete->save();
+        }
+*/
 
         $paquetes=Paquete::all();
         return view('adminPaquete.index')

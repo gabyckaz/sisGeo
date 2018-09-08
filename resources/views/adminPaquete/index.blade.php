@@ -6,20 +6,27 @@
 @section('contenido')
     <div class="container spark-screen">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <form class="navbar-form navbar-left pull-right" action="{{ route('adminPaquete.index') }}" method="get" role="search">
+
+            <div class="col-md-9 col-md-offset-1">
+              <div class="table-responsive">
+              <div class="row">
+                <div class="col-md-6">
+                   <div class="form-group">
+                 <a href="{{route('adminPaquete.create')}}" class="btn btn-primary" > <font color="black" style=""> <b>Agregar nuevo Paquete</b> </font>  </a>
+               </div>
+             </div>
+                <div class="col-md-6">
+              <form class="navbar-form navbar-left " action="{{ route('adminPaquete.index') }}" method="get" role="search">
                      <div class="form-group">
+
                        <input type="text" name="nombre" class="form-control" placeholder="Nombre Paquete">
+                        <button type="submit" class="btn btn-default" >Buscar<span class="glyphicon glyphicon-search"></span></button>
                      </div>
-                     <button type="submit" class="btn btn-default" >Buscar<span class="glyphicon glyphicon-search"></span></button>
-
                </form>
-                <div align="right">
-							<a href="{{route('adminPaquete.create')}}" class="btn btn-primary" > <font color="black" size="2" style=""> <b>Agregar nuevo Paquete</b> </font>  </a>
+             </div>
 
-					</div>
+        </div>
 
-					<br>
 				<div class="panel panel-default">
 
 					<div class="panel-heading"> Listado de paquetes
@@ -33,16 +40,16 @@
 					 <div class="panel-body">
 					 	<table class="table table-striped">
 					 		<thead>
-					 			<tr>
+
 					 				<th>Id</th>
 					 				<th>Nombre Paquete</th>
-					 				<th>Fecha de Salida</th>
-					 				<th>Hora de Salida</th>
+					 				<th>Fecha Salida</th>
+					 				<th>Hora Salida</th>
 					 				<th>Precio Paquete</th>
 					 			</tr>
 					 		</thead>
 					 		<tbody>
-					 			@foreach($paquete->sortBy('IdPaquete') as $paquete)
+					 			@foreach($paquetes as $paquete)
 					 				<tr>
 					 					<td>{{$id=$paquete->IdPaquete}}</td>
 					 					<td>{{$nombrepaquete=$paquete->NombrePaquete}}</td>
@@ -57,14 +64,21 @@
 
 					 				    </td>
 					 				 </tr>
-					 				 @endforeach
+
+      @endforeach
 					 				</tbody>
 					 			</table>
+              {!! $paquetes->appends(\Request::except('page'))->render() !!}
+
+
+
 					 		</div>
+
+
 					 	</div>
 					 </div>
-				</div>
 
+				</div>
 
 			</form>
 @endsection
