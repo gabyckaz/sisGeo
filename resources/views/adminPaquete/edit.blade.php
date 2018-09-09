@@ -111,9 +111,9 @@
                                                             </h4>
                                                             @foreach ($imagen as $imagenes)
                                                             <ul id="lightgallery">
-                                                                <li data-src="/storage/app/public/{{$imagenes->Imagen1}}" data-sub-html="<h4>Imagen</h4><p>Imagen del examen Fisico</p>">
-                                                                    <a href="/storage/app/public/{{$imagenes->Imagen1}}">
-                                                                        <img src="/storage/app/public/{{$imagenes->Imagen1}}" class="img-responsive" style="width: 100px; height: 100px; border: 2px solid green" class="img-responsive img-rounded" >
+                                                                <li data-src="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}" data-sub-html="<h4>Imagen</h4><p>Imagen del examen Fisico</p>">
+                                                                    <a href="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}">
+                                                                        <img src="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}" class="img-responsive" style="width: 100px; height: 100px; border: 2px solid green" class="img-responsive img-rounded" >
                                                                     </a>
                                                                 </li>
                                                             </ul>

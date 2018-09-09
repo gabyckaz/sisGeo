@@ -98,7 +98,7 @@ class PaqueteController extends Controller
 
             $nombreimagen[$i] = 'paquete_'. $paquete2->IdPaquete .'_'. $archivo[$i]->getClientOriginalName();
 
-            $path[$i] = public_path() . "/storage/app/public/";
+            $path[$i] = public_path() . "/storage/imagenesPaquete";
 
             $archivo[$i]->move($path[$i] , $nombreimagen[$i]);
 
