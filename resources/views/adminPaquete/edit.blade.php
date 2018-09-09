@@ -9,12 +9,12 @@
 @section('contenido')
     <div class="container spark-screen">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-9 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">Actualizar Paquetes Turisticos</div>
 
                       <div class="panel-body">
-                        <form method="POST" action="{{$paquete->IdPaquete}}" >
+                        <form method="POST" action="{{$paquete->IdPaquete}}" files = "true" >
                         <input name="_method" type="hidden" value="PUT">
 
                         <div class="col-md-12">
@@ -104,6 +104,22 @@
 
                               </div>
                         </div>
+
+                      <div class="col-xs-4">
+                                    <h4>
+                                                    <span class="label label-primary">Imagen</span>
+                                                            </h4>
+                                                            @foreach ($imagen as $imagenes)
+                                                            <ul id="lightgallery">
+                                                                <li data-src="/storage/app/public/{{$imagenes->Imagen1}}" data-sub-html="<h4>Imagen</h4><p>Imagen del examen Fisico</p>">
+                                                                    <a href="/storage/app/public/{{$imagenes->Imagen1}}">
+                                                                        <img src="/storage/app/public/{{$imagenes->Imagen1}}" class="img-responsive" style="width: 100px; height: 100px; border: 2px solid green" class="img-responsive img-rounded" >
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                            @endforeach
+                                                        </div>
+
 
 
                         </div>

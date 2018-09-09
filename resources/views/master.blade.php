@@ -323,6 +323,7 @@ desired effect
                      <li><a href="{{ route('adminPaquete.index')}}">
                     <i class="fa fa-star"></i>
                     Mostrar Paquete Turístico</a></li>
+
         </ul>
     </li>
     <li class="treeview">
@@ -536,6 +537,8 @@ desired effect
 <!-- Select2 -->
 <script src="{{ asset('adminLte/select2/dist/js/select2.full.min.js')}}"></script>
 
+<script src="js/lightgallery.min.js"></script>
+
 
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
@@ -556,6 +559,12 @@ desired effect
        $('.select2').select2()
 
         })
+     </script>
+
+     <script type="text/javascript">
+         $(document).ready(function() {
+             $("#lightgallery").lightGallery();
+         });
      </script>
 </body>
 </html>

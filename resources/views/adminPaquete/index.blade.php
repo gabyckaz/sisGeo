@@ -68,6 +68,7 @@
       @endforeach
 					 				</tbody>
 					 			</table>
+              
               {!! $paquetes->appends(\Request::except('page'))->render() !!}
 
 

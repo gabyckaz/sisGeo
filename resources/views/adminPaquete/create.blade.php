@@ -7,14 +7,14 @@
 
 
 @section('contenido')
-    <div class="container spark-screen">
+    <div class="container spark-screen" CONTENT="no-cache">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-8 col-md-offset-1">
                 <div class="panel panel-warning">
                     <div class="panel-heading">Paquetes Turisticos</div>
 
                       <div class="panel-body">
-                        <form method="post" action="/CrearPaquete">
+                        <form method="post" action="/CrearPaquete" enctype="multipart/form-data">
                         <div class="col-md-12">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Crear paquetes turísticos</h3>
@@ -170,18 +170,25 @@
                             @endforeach
                             </select>
                         </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputFile">Imagenes</label>
+                        <input type="file" multiple="true" name="imagenpaquete[]" >
 
-                        <div class="form-check">
-                              <input type='hidden' name='aprobacionpaquete' value='0'/>
-                              <input type='checkbox' name='aprobacionpaquete' value='1'/>
-                          <label class="form-check-label" for="materialChecked2">Aprobación de Paquete</label>
-                        </div>
+                        <p class="help-block">Subir Hasta 5 Imagenes.</p>
+                      </div>
+
+
                         <div class="form-check">
                               <input type='hidden' name='disponibilidadpaquete' value='0'/>
                               <input type='checkbox' name='disponibilidadpaquete' value='1'/>
                           <label class="form-check-label" for="disponibilidadpaquete">Disponibilidad de paquete</label>
                         </div>
-
+                        <div class="form-check">
+                              <input type='hidden' name='aprobacionpaquete' value='0'/>
+                              <input type='checkbox' name='aprobacionpaquete' value='1'/>
+                          <label class="form-check-label" for="aprobacionpaquete">Aprobacion de paquete</label>
+                        </div>
                         </div>
                         </div>
                         <!-- /.box-body -->
@@ -189,7 +196,6 @@
                          <div class="box-footer" align="center">
                                     <button  type="submit" class="btn  btn-primary btn-flat">Guardar</button>
                                     <button  type="reset" class="btn  btn-warning btn-flat">Limpiar</button>
-                                    <a  class="btn btn-danger btn-flat" >Cancelar</a>
                                 </div>
 
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Condiciones;
 use App\Pais;
+use Input;
 use App\Recomendaciones;
 use App\Incluye;
 use App\Departamento;
@@ -16,7 +17,8 @@ use App\RecomendacionesPaquete;
 use App\IncluyePaquete;
 use App\GastosExtrasPaquete;
 use App\CondicionesPaquete;
-use Illuminate\Support\Facades\Input;
+use App\ImagenPaqueteTuristico;
+
 
 
 
@@ -74,10 +76,6 @@ class PaqueteController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
-
         $paquete=new Paquete();
         $paquete->IdTuristica=$request->idrutaturistica;
         $paquete->NombrePaquete=$request->nombrepaquete;
@@ -92,6 +90,27 @@ class PaqueteController extends Controller
         $paquete->save();
 
         $paquete2 = Paquete::latest('IdPaquete')->first();
+
+        $archivo = $request->file('imagenpaquete');
+            for($i=0;$i<count($archivo);$i++){
+            //dd($archivo);
+            //Hay Imagen
+
+            $nombreimagen[$i] = 'paquete_'. $paquete2->IdPaquete .'_'. $archivo[$i]->getClientOriginalName();
+
+            $path[$i] = public_path() . "/storage/app/public/";
+
+            $archivo[$i]->move($path[$i] , $nombreimagen[$i]);
+
+            $imagen[$i] = new ImagenPaqueteTuristico();
+
+            $imagen[$i]->id_paquete = $paquete2->IdPaquete;
+            $imagen[$i]->Imagen1 = $nombreimagen[$i];
+
+
+
+            $imagen[$i]->save();
+            }
 
         for ($i=0; $i<count($request->gastosextras);$i++){
           $gastospaquete = new GastosExtrasPaquete();
@@ -162,10 +181,14 @@ class PaqueteController extends Controller
       por esta linea ++  */
       $paquete=Paquete::findOrFail($id);
       $ruta =RutaTuristica::all();
+      $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->get();
+      $imagenes2 = $imagenes->all();
+      //$imagenes = ImagenPaqueteTuristico::findOrFail(10);
 
       return view('adminPaquete.edit')
       ->with('paquete',$paquete)
-      ->with('ruta',$ruta);
+      ->with('ruta',$ruta)
+        ->with('imagen',$imagenes2);
     }
 
     /**
@@ -189,7 +212,12 @@ class PaqueteController extends Controller
         $paquete->Precio=$request->precio;
         $paquete->Itinerario=$request->itinerario;
 
+
+
+
         $paquete->save();
+
+
 
 /*
         if($request->gastosextras =! null){
@@ -250,6 +278,10 @@ class PaqueteController extends Controller
     {
         //
     }
+    /*
+public fuction postNewImage(Request $request){
+  $this->validate($request,['Imagen1','Imagen2','Imagen3','Imagen4','Imagen5'=>'required|image']);
+*/
 
 
 }

@@ -29,6 +29,7 @@ class Paquete extends Model
          $query->where('NombrePaquete', "Like", "%$nombre%");
           }
         }
+      
         //Definicion los campos del ordenamiento en la tabla index
 
 
