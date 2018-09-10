@@ -8,7 +8,8 @@ use App\User;
 use App\Nacionalidad;
 use App\Persona;
 use App\Turista;
-use App\TipoDocumento;		
+use App\TipoDocumento;	
+use App\Acompanante;	
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
@@ -187,7 +188,7 @@ class userController extends Controller
         //d($request);
         if( $request->input("dui") == null && $request->input("pasaporte") == null){ 
             $hola1 = "Debes introducir por lo menos un documento";
-            return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento');
+            return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
         }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
           $hola1 = "Ingresastes los dos documentos";
              $this->validate($request, [
@@ -419,13 +420,56 @@ class userController extends Controller
 
     public function agregarFamiliarAmigo()
     {    
-
+        
         $usuario = User::findOrFail(auth()->user()->id);
         $nacionalidad = Nacionalidad::all();
-        return view('user.agregarFamiliaAmigo', compact('usuario','nacionalidad'));
+         $acom = DB::select('SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
+          p."PrimerNombrePersona",p."PrimerApellidoPersona",p."Genero",
+          n."Nacionalidad",t."FechaNacimiento", t."DomicilioTurista",
+          t."Problemas_Salud", td."TipoDocumento"
+          FROM public."Acompanante" as a, public."Turista" as t,
+          public."personas" as p,public."Nacionalidad" as n,
+          public."TipoDocumento" as td
+          WHERE a."IdTurista" = t."IdTurista" and
+          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad"
+          and td."IdTurista"=t."IdTurista"');
+        
+        return view('user.agregarFamiliaAmigo', compact('usuario','nacionalidad','acom'));
     }
 
     public function guardarFamiliarAmigo(Request $request){
+
+         //$usuario = User::findOrFail(auth()->user()->id);
+         //foreach ($usuario->turistas as $task) {
+         //obteniendo los datos de un task específico
+          // $task->CategoriaTurista;
+          //dd($task);
+         //obteniendo datos de la tabla pivot por task
+      //  echo $task->pivot->menu_id;
+      //  echo $task->pivot->status;
+       // /7}
+      //  dd("Termino");
+      //Los acompañantes de el usuario
+     /* $acompañantes = Acompanante::where('IdUsuario',auth()->user()->id);
+      foreach ($acompañantes->turist as $turista) {
+         dd($turista->DomicilioTurista);
+       }*/
+        $acompañantes = DB::select('
+          SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
+          p."PrimerNombrePersona",p."PrimerApellidoPersona",p."Genero",
+          n."Nacionalidad",t."FechaNacimiento", t."DomicilioTurista",
+          t."Problemas_Salud", td."TipoDocumento"
+          FROM public."Acompanante" as a, public."Turista" as t,
+          public."personas" as p,public."Nacionalidad" as n,
+          public."TipoDocumento" as td
+          WHERE a."IdTurista" = t."IdTurista" and
+          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad"
+          and td."IdTurista"=t."IdTurista"');
+        /*$long = count($acompañantes);
+        for ($i=0; $i < $long; $i++) { 
+          dd($acompañantes[$i]->IdTurista);
+        } */
+        
        $this->validate($request, [
               "PrimerNombrePersona" => "required",
               "PrimerApellidoPersona" => "required",
@@ -434,8 +478,14 @@ class userController extends Controller
         
       if( $request->input("dui") == null && $request->input("pasaporte") == null){ 
             $hola1 = "Debes introducir por lo menos un documento";
+             
+       $this->validate($request, [
+              "dui" => "required",
+              "pasaporte" => "required",
+              
+        ]);
 
-            return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento');
+            return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
         }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
           $hola1 = "Ingresastes los dos documentos";
              $this->validate($request, [
@@ -453,14 +503,15 @@ class userController extends Controller
              "fechaVencimentoP" => "required",
            ]);
         }
-        dd($request);
         
-     
       
       $persona = Persona::create([
             "PrimerNombrePersona" => $request->PrimerNombrePersona,
             "PrimerApellidoPersona" => $request->PrimerApellidoPersona,
             "Genero" => $request->genero,
+            "AreaTelContacto"=>'503',
+            "TelefonoContacto" => '76788859',
+
          ]);
       $turista = Turista::create([
               'IdNacionalidad'=> $request->nacionalidad,
@@ -492,7 +543,7 @@ class userController extends Controller
             "IdTurista" => $turista->IdTurista,
             "TipoDocumento" => "DUI",
             "NumeroDocumento" => $request->dui,
-            "FechaVenceDocumento" => $request->fechaVencimientoD,
+            "FechaVenceDocumento" => $request->fechaVencimentoD,
          ]); 
            
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
@@ -501,10 +552,17 @@ class userController extends Controller
             "IdTurista" => $turista->IdTurista,
             "TipoDocumento" => "Pasaporte",
             "NumeroDocumento" => $request->pasaporte,
-            "FechaVenceDocumento" => $request->fechaVencimientoP,
+            "FechaVenceDocumento" => $request->fechaVencimentoP,
          ]); 
         }
        
-
+         $familiarAmigo = Acompanante::create([
+          'IdTurista' => $turista->IdTurista,
+          'IdUsuario' => auth()->user()->id,
+          'EsFamiliar' => $request->tipo,
+         ]);
+           
+   
+           dd($familiarAmigo);
     }
 }

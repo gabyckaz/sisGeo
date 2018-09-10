@@ -32,7 +32,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    
+     public $sortable = ['name',
+                        ];
 
 
     public function roles()
@@ -52,7 +53,6 @@ class User extends Authenticatable
      }
 
      public function scopeNombre($query, $nombre){
-        
       if(trim($nombre) != ""){       
          
       $query->where('name', "Like", "%$nombre%");
@@ -85,6 +85,13 @@ class User extends Authenticatable
          
        }
      }
+
+     //public function turistas(){
+       // return $this->belongsToMany('App\Turista','Acompanante')
+         //    ->withPivot('IdTurista')
+           // ->withPivot('EsFamiliar');
+     // return $this->belongsToMany('App\Turista');
+   // }
 
 
 }
