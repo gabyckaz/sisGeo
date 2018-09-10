@@ -20,7 +20,10 @@ class CreatePaqueteTable extends Migration
             $table->time('HoraSalida');
             $table->date('FechaRegreso');
             $table->string('LugarRegreso',200);
-            $table->string('Precio');
+            $table->double('Precio',8,2);
+            $table->string('TipoPaquete',20);
+            $table->integer('Cupos');
+            $table->string('Dificultad',20);
             $table->string('Itinerario',1024);
             $table->string('AprobacionPaquete',1);
             $table->string('DisponibilidadPaquete',1);

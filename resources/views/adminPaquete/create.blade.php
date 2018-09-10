@@ -40,7 +40,7 @@
                                 <label name="idrutaturistica" for="nombrerutaturistica">Nombre de Ruta Turística</label>
 
                                       @if($ruta !=null)
-                                        <select  class="form-inline" name="idrutaturistica"  id="idrutaturisticas" data-placeholder="Seleccionar la ruta...">
+                                        <select  class="form-control" name="idrutaturistica"  id="idrutaturisticas" data-placeholder="Seleccionar la ruta...">
                                         @foreach ($ruta as $ruta)
 
                                         <option value="{{ $ruta->IdRutaTuristica }}"> {{$ruta->NombreRutaTuristica}}</option>
@@ -51,6 +51,29 @@
                                               <label>No hay rutas</label>
                                             @endif
                             </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="tipopaquete">Tipo Paquete</label>
+                              <br>
+                              <select class="form-control" id="tipopaquete" name="tipopaquete">
+                                  <option value="nacional">Nacional</option>
+                                  <option value="internacional">Internacional</option>
+                                </select>
+                          </div>
+                        </div>
+
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="dificultad">Dificultad Paquete</label>
+                              <br>
+                              <select class="form-control" id="dificultad" name="dificultad">
+                                  <option value="baja">Baja</option>
+                                  <option value="media">Media</option>
+                                  <option value="alta">Alta</option>
+                                  <option value="extrema">Extrema</option>
+                                </select>
+                          </div>
                           </div>
 
 
@@ -74,7 +97,7 @@
                            <div class="input-group-addon">
                                  <i class="fa fa-history"></i>
                            </div>
-                          <input name="hora" type="time" id="hora" value="11:45:00"  max="24:00:00" min="00:00:00" class="form-control pull-right" >
+                          <input name="hora" type="time" id="hora" value="06:00:00"  max="24:00:00" min="00:00:00" class="form-control pull-right" >
 
                         </div>
                         </div>
@@ -93,33 +116,42 @@
                         </div>
                       </div>
                     </div>
-                  <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="lugar">Lugar de Salida</label>
+                      <div class="row">
+                        <div class="col-md-4">
+                           <div class="form-group">
+                            <label for="cupos">Número de Cupos</label>
                             <div class="input-group">
-                              <span class="input-group-addon"><i class="fa fa-map"></i></span>
-                              <input type="text" name="lugarsalida" class="form-control" id="lugarsalida" placeholder="Lugar" >
+                          <span class="input-group-addon">
+                            <i class="fa fa-child"></i>
+                            </span>
+                            <input  class="form-control" name="cupos" type="number" min="1" step="1" max="10,0000" placeholder="10" id="cupos">
 
-                            </div>
+                          </div>
+                          </div>
                         </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="precio">Precio</label>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                              <label for="precio">Precio</label>
+                                <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="fa fa-money"></i> $
+                                </span>
+                                <input class="form-control" name="precio" type="number" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio">
+                          </div>
+                                </div>
+                          </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                              <label for="lugar">Lugar de Salida</label>
                               <div class="input-group">
-                            <span class="input-group-addon">
+                                <span class="input-group-addon"><i class="fa fa-map"></i></span>
+                                <input type="text" name="lugarsalida" class="form-control" id="lugarsalida" placeholder="Lugar" >
 
-
-                              <i class="fa fa-money"></i> $
-                              </span>
-                              <input name="precio" type="text" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio">
-
-                        </div>
                               </div>
+                          </div>
                         </div>
-                      </div>
 
+                      </div>
 
                         <div class="form-group">
                             <label for="iti">Itinerario</label>

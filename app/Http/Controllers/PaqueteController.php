@@ -84,6 +84,9 @@ class PaqueteController extends Controller
         $paquete->FechaRegreso=$request->fecharegreso;
         $paquete->LugarRegreso=$request->lugarsalida;
         $paquete->Precio=$request->precio;
+        $paquete->TipoPaquete=$request->tipopaquete;
+        $paquete->Cupos=$request->cupos;
+        $paquete->Dificultad=$request->dificultad;
         $paquete->Itinerario=$request->itinerario;
         $paquete->AprobacionPaquete=$request->aprobacionpaquete;
         $paquete->DisponibilidadPaquete=$request->disponibilidadpaquete;
@@ -210,6 +213,9 @@ class PaqueteController extends Controller
         $paquete->FechaRegreso=$request->fecharegreso;
         $paquete->LugarRegreso=$request->lugarsalida;
         $paquete->Precio=$request->precio;
+        $paquete->TipoPaquete=$request->tipopaquete;
+        $paquete->Cupos=$request->cupos;
+        $paquete->Dificultad=$request->dificultad;
         $paquete->Itinerario=$request->itinerario;
 
 
