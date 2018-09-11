@@ -1,33 +1,36 @@
 @extends('master')
 
 @section('head')
-<h1>Hola Mundo</h1>
+@section('Title','Empresas de Transporte')
 
 @endsection
 
 @section('contenido')
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-md-7 col-md-offset-2">
     @if(session('status'))
       <br>
-        <div class="alert alert-success alert-dismissible fade in" role="alert">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
-          {{ session('status') }}
-        </div>
+       <script type="text/javascript">
+      alertify.success("{{ session('status') }}");
+      </script>
     @endif
     @if(session('fallo'))
       <br>
-        <div class="alert alert-danger alert-dismissible fade in" role="alert">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
-          {{ session('fallo') }}
-      </div>
+      <script type="text/javascript">
+     alertify.error("{{ session('fallo') }}");
+     </script>
     @endif
-    <div class="box box-warning collapsed-box">
-      <div class="box-header with-border">
+    @if($errors->has('numeroTelefono'))
+      <div class="box box-solid">
+    @else
+      <div class="box box-solid collapsed-box">
+    @endif
+
+      <div class="box-header">
         <h3 class="box-title">Registrar nueva empresa de transporte</h3>
         <div class="box-tools pull-right">
-          <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-        </div><!-- /.box-tools -->
+          <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
+        </div>
         </div>
               <div class="box-body">
 
@@ -38,30 +41,30 @@
                     <label for="nombreempresa">Nombre de la empresa *</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-road"></span></span>
-                     <input id="nombreempresa" type="text" class="form-control" name="nombreempresa"  placeholder="" required autofocus>
+                     <input id="nombreempresa" type="text" class="form-control" name="nombreempresa" value="{{ old('nombreempresa') }}" placeholder="" required autofocus>
                    </div>
                     @if ($errors->has('nombreempresa'))
-                    <span class="help-block">{{ $errors->first('nombreempresa') }}</span>
+                    <span class="help-block">{{ $errors->first('nombreEmpresa') }}</span>
                     @endif
                   </div>
                   <div class="form-group col-sm-6 has-feedback{{ $errors->has('nombrecontacto') ? ' has-error' : '' }}">
                     <label for="nombrecontacto">Nombre del contacto *</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-user-circle"></span></span>
-                    <input id="nombrecontacto" type="nombrecontacto" class="form-control" name="nombrecontacto"  placeholder="">
+                    <input id="nombrecontacto" type="nombrecontacto" class="form-control" name="nombrecontacto"  value="{{ old('nombrecontacto') }}" required placeholder="">
                   </div>
                     @if ($errors->has('nombrecontacto'))
                     <span class="help-block">{{ $errors->first('nombrecontacto') }}</span>
                     @endif
                   </div>
-                  <div class="form-group col-sm-6 has-feedback{{ $errors->has('numerotelefono') ? ' has-error' : '' }}">
-                    <label for="numerotelefono">Teléfono de contacto *</label>
+                  <div class="form-group col-sm-6 has-feedback{{ $errors->has('numeroTelefono') ? ' has-error' : '' }}">
+                    <label for="numeroTelefono">Teléfono de contacto *</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-phone"></span></span>
-                    <input id="numerotelefono" type="number" min="00000000" max="99999999" class="form-control" name="numerotelefono" placeholder="(Sin guiones. Ej: 22324560) " required>
+                    <input id="numeroTelefono" type="number" min="00000000" max="99999999" class="form-control" name="numeroTelefono" value="{{ old('numeroTelefono') }}" placeholder="(Sin guiones. Ej: 22324560) " required>
                     </div>
-                    @if ($errors->has('numerotelefono'))
-                    <span class="help-block">{{ $errors->first('numerotelefono') }}</span>
+                    @if ($errors->has('numeroTelefono'))
+                    <span class="help-block">{{ $errors->first('numeroTelefono') }}</span>
                     @endif
                   </div>
 
@@ -69,7 +72,7 @@
                     <label for="emailempresa">Correo electrónico *</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-envelope"></span></span>
-                    <input id="emailempresa" type="email" class="form-control" name="emailempresa" placeholder="" required>
+                    <input id="emailempresa" type="email" class="form-control" name="emailempresa" value="{{ old('emailempresa') }}" placeholder="" required>
                   </div>
                     @if ($errors->has('emailempresa'))
                     <span class="help-block">{{ $errors->first('emailempresa') }}</span>
@@ -79,7 +82,7 @@
                     <label for="observacionesempresa">Observaciones</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-                    <textarea id="observacionesempresa" type="observacionesempresa" class="form-control" name="observacionesempresa" placeholder="Observaciones" ></textarea>
+                    <textarea id="observacionesempresa" type="observacionesempresa" class="form-control" name="observacionesempresa" value="{{ old('observacionesempresa') }}" placeholder="Observaciones" >{{ old('observacionesempresa') }}</textarea>
                   </div>
                     @if ($errors->has('observacionesempresa'))
                     <span class="help-block">{{ $errors->first('observacionesempresa') }}</span>
@@ -87,8 +90,9 @@
                   </div>
                 </div>
                   <div class="row">
-                    <div class="col-md-12">
-                      <button type="submit" class="btn btn-info center-block">Registrar</button>
+                    <div class="col-md-10 col-md-offset-4">
+                      <button type="submit" class="btn btn-info ">Registrar</button>
+                      <button type="reset" class="btn btn-warning ">Limpiar</button>
                     </div>
 
                     <!-- /.col -->
@@ -104,10 +108,10 @@
     </div>
   </div>
 
-  <div class="col-md-8  col-md-offset-2">
-    <div class="box box-warning">
+  <div class="col-md-7 col-md-offset-2">
+    <div class="">
       <div class="box-header">
-        <h3 class="box-title">Empresas</h3>
+        <h3 class="box-title">Listado de Empresas</h3>
         </div>
               <div class="box-body">
 
@@ -115,11 +119,11 @@
                   <thead class="thead-dark">
                     <tr>
 
-                    <th>@sortablelink('NombreEmpresaTransporte','Nombre')</th>
-                    <th>Nombre de Contacto</th>
-                    <th>Teléfono</th>
-                    <th>Email</th>
-                    <th>Opciones</th>
+                    <th class="text-center">@sortablelink('NombreEmpresaTransporte','Nombre')</th>
+                    <th class="text-center">Nombre de Contacto</th>
+                    <th class="text-center">Teléfono</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Opciones</th>
 
                     </tr>
                   </thead>
@@ -141,7 +145,7 @@
 
                   </tbody>
                 </table>
-                {!! $empresalquiler->appends(\Request::except('page'))->render() !!}
+              <center>{!! $empresalquiler->appends(\Request::except('page'))->render() !!}</center>
               </div>
       </div>
     </div>
