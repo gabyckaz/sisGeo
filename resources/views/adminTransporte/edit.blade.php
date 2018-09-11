@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('head')
-<h1>Hola Mundo</h1>
 
 @endsection
+@section('Title','Unidad de Transporte')
 
 @section('contenido')
 <div class="row">
@@ -20,9 +20,9 @@
           {{ session('fallo') }}
       </div>
     @endif
-    <div class="box box-warning">
-      <div class="box-header with-border">
-        <h3 class="box-title">Transporte</h3>
+    <div class="">
+      <div class="box-header">
+        <h3 class="box-title"></h3>
         <div class="box-tools">
           <button class="btn btn-box-tool"></button>
         </div><!-- /.box-tools -->
@@ -32,7 +32,9 @@
                    {!! method_field('PUT') !!}
                    {{ csrf_field()  }}
 
-                   <div class="form-group has-feedback{{ $errors->has('empresalquiler') ? ' has-error' : '' }}">
+                   <div class="row">
+                   <div class="col-md-6">
+                   <div class="form-group">
                      <label for="empresalquiler">Empresa</label>
                        <select class="form-control" name="empresalquiler">
 
@@ -41,8 +43,10 @@
                          @endforeach
                        </select>
                   </div>
+                 </div>
 
-                  <div class="form-group has-feedback{{ $errors->has('tipotransporte') ? ' has-error' : '' }}">
+                  <div class="form-group">
+                    <div class="col-md-6">
                     <label for="tipotransporte">Tipo de transporte</label>
                       <select class="form-control" name="tipotransporte">
                         @foreach($tipotransportes as $tipotransporte)
@@ -50,8 +54,11 @@
                         @endforeach
                       </select>
                  </div>
+                 </div>
+                </div>
 
-                 <div class="col-sm-6 form-group has-feedback{{ $errors->has('marca') ? ' has-error' : '' }}">
+                 <div class="row">
+                 <div class="col-sm-6 form-group">
                   <label for="marca">Marca</label>
                   <select  class="form-control" name="marca">
 
@@ -97,12 +104,10 @@
                             @break
 
                     @endswitch
-
-
                   </select>
                  </div>
 
-                 <div class="col-sm-6 form-group has-feedback{{ $errors->has('modelo') ? ' has-error' : '' }}">
+                 <div class="col-sm-6 form-group">
                   <label for="modelo">Modelo</label>
                   <select  class="form-control" name="modelo">
                   @switch($transporte->Modelo)
@@ -138,8 +143,10 @@
 
                   </select>
                  </div>
+                 </div>
 
-                   <div class="col-sm-4 form-group has-feedback{{ $errors->has('color') ? ' has-error' : '' }}">
+                 <div class="row">
+                   <div class="col-sm-4 form-group">
                     <label for="color">Color</label>
                     <select  class="form-control" name="color">
                       @switch($transporte->Color)
@@ -224,37 +231,43 @@
                     <span class="help-block">Tiene que ser de 1 a más asientos</span>
                     @endif
                   </div>
+                  </div>
 
-                  <div class="form-group">
+                  <div class="row">
+                  <label class="col-md-12">Características</label>
+                  <div class="form-group col-md-4">
                     <label class="">
                     <input class="form-group" name="ac" type="checkbox" value="si" @if( $transporte->TieneAC == 'si') checked @endif>
                     <i class="fa fa-thermometer-half"></i> Aire Acondicionado</label>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group col-md-4">
                     <label class="" >
                     <input class="form-group" name="tv" type="checkbox" value="si" @if( $transporte->TieneTV == 'si') checked @endif>
                     <i class="fa fa-television"></i> TV</label>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group col-md-4">
                     <label  class=" form-group">
                     <input  class="form-group" name="wifi" type="checkbox" value="si" @if( $transporte->TieneWifi == 'si') checked @endif>
                     <i class="fa fa-wifi"  title="Wifi"></i> Wifi</label>
                   </div>
-
-                  <div class="form-group has-feedback{{ $errors->has('observacionestransporte') ? ' has-error' : '' }}">
-                    <label for="observacionestransporte">Observaciones</label>
-                    <div class="input-group">
-                    <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-                      <textarea id="observacionestransporte" type="text" class="form-control"  name="observacionestransporte">{{ $transporte->ObservacionesTransporte }}</textarea>
-                    </div>
-                    @if ($errors->has('observacionestransporte'))
-                    <span class="help-block">{{ $errors->first('observacionestransporte') }}</span>
-                    @endif
                   </div>
 
-
+                  <div class="row">
+                   <div class="col-md-12">
+                     <div class="form-group has-feedback{{ $errors->has('observacionestransporte') ? ' has-error' : '' }}">
+                      <label for="observacionestransporte">Observaciones</label>
+                      <div class="input-group">
+                       <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
+                        <textarea id="observacionestransporte" type="text" class="form-control"  name="observacionestransporte">{{ $transporte->ObservacionesTransporte }}</textarea>
+                      </div>
+                      @if ($errors->has('observacionestransporte'))
+                      <span class="help-block">{{ $errors->first('observacionestransporte') }}</span>
+                      @endif
+                    </div>
+                   </div>
+                  </div>
 
                   <div class="row">
                     <div class="col-md-12">

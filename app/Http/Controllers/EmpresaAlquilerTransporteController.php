@@ -9,6 +9,11 @@ use App\Conductor;
 use Session;
 class EmpresaAlquilerTransporteController extends Controller
 {
+
+    public function __construct()
+   {
+       $this->middleware('auth');
+   }
     /**
      * Display a listing of the resource.
      *
@@ -40,12 +45,12 @@ class EmpresaAlquilerTransporteController extends Controller
      */
     public function store(Request $request)
     {
-      try{
+      //try{
             //validando la informacion
           $this->validate($request,array(
            'nombreempresa' => 'required|max:80',
            'nombrecontacto' => 'required|max:40',
-           'numerotelefono'=>'required|size:8',
+           'numeroTelefono'=>'required|size:8',
            'emailempresa'=>'required|max:30',
            'observacionesempresa'=>'max:255',
 
@@ -58,15 +63,15 @@ class EmpresaAlquilerTransporteController extends Controller
          $empresalquiler=new EmpresaAlquilerTransporte;
          $empresalquiler->NombreEmpresaTransporte=$request->nombreempresa;
          $empresalquiler->NombreContacto=$request->nombrecontacto;
-         $empresalquiler->NumeroTelefonoContacto=$request->numerotelefono;
+         $empresalquiler->NumeroTelefonoContacto=$request->numeroTelefono;
          $empresalquiler->EmailEmpresaTransporte=$request->emailempresa;
          $empresalquiler->ObservacionesEmpresaTransporte=$request->observacionesempresa;
 
          $empresalquiler->save();
-          return redirect('adminEmpresaTransporte')->with('status', "Guardado con éxito. ");
-      }catch(\Exception $e) {
-         return redirect('adminEmpresaTransporte')->with('fallo', "Error al guardar.");
-       }
+           return redirect('adminEmpresaTransporte')->with('status', "Guardado con éxito");
+      // }catch(\Exception $e) {
+      //   // return back()->with('fallo', "Error al guardar")->withInput();
+      //  }
     }
 
     /**
@@ -119,8 +124,8 @@ class EmpresaAlquilerTransporteController extends Controller
           $conductor->IdEmpresaTransporte=$empresalquiler->IdEmpresaTransporte;
           $conductor->save();
 
+          //return redirect('adminEmpresaTransporte')->with('status', "Guardado con éxito");
           return back();
-
     }
 
     /**
@@ -132,7 +137,7 @@ class EmpresaAlquilerTransporteController extends Controller
      */
     public function update(Request $request, $id)
     {
-      try{
+    //  try{
           //validando la informacion
          $this->validate($request,array(
 
@@ -156,10 +161,10 @@ class EmpresaAlquilerTransporteController extends Controller
           $empresalquiler->save();
 
 
-          return redirect('adminEmpresaTransporte')->with('status', "Cambios guardados con éxito. ");
-        }catch(\Exception $e) {
-           return redirect('adminEmpresaTransporte')->with('fallo', "Error al guardar.");
-         }
+          return redirect('adminEmpresaTransporte')->with('status', "Cambios guardados con éxito");
+        // }catch(\Exception $e) {
+        //    return redirect('adminEmpresaTransporte')->with('fallo', "Error al guardar");
+        //  }
 
     }
 
@@ -171,6 +176,9 @@ class EmpresaAlquilerTransporteController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $empresalquiler= EmpresaAlquilerTransporte::find($id);
+      $empresalquiler->delete();
+
+      return redirect()->route('adminEmpresaTransporte')->with('status', "Eliminado con éxito");
     }
 }

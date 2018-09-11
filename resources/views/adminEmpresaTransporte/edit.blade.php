@@ -1,16 +1,33 @@
 @extends('master')
 
 @section('head')
-
+@section('Title','Empresas de Transporte')
 
 @endsection
 
 @section('contenido')
 <div class="row">
+  @if(session('status'))
+    <br>
+     <script type="text/javascript">
+    alertify.success("{{ session('status') }}");
+    </script>
+  @endif
+  @if(session('fallo'))
+    <br>
+    <script type="text/javascript">
+   alertify.error("{{ session('fallo') }}");
+   </script>
+  @endif
+  @if(session('status') == 'Guardado con éxito')
+    <div class="box box-solid collapsed-box">
+  @else
+    <div class="box box-solid">
+  @endif
   <div class="col-md-6 col-md-offset-1">
-    <div class="box box-warning">
+    <div class="">
       <div class="box-header">
-        <h3 class="box-title">Empresa de transporte</h3>
+        <h3 class="box-title">Información básica</h3>
               <div class="box-body">
                 <form method="post" action="{{action('EmpresaAlquilerTransporteController@update', $IdEmpresaAlquilerTransporte)}}">
                   @csrf
@@ -59,7 +76,7 @@
                     <label for="observacionesempresa">Observaciones</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-                    <textarea id="observacionesempresa" title="Observaciones" value="{{ $empresalquiler->ObservacionesEmpresaTransporte }}" placeholder="{{ $empresalquiler->ObservacionesEmpresaTransporte }}" type="observacionesempresa" class="form-control" name="observacionesempresa" ></textarea>
+                    <textarea id="observacionesempresa" title="Observaciones" value="{{ $empresalquiler->ObservacionesEmpresaTransporte }}" placeholder="{{ $empresalquiler->ObservacionesEmpresaTransporte }}" type="observacionesempresa" class="form-control" name="observacionesempresa" >{{ $empresalquiler->ObservacionesEmpresaTransporte }}</textarea>
                     </div>
                     @if ($errors->has('observacionesempresa'))
                     <span class="help-block">{{ $errors->first('observacionesempresa') }}</span>
@@ -81,7 +98,7 @@
   </div>
 
   <div class="col-md-4">
-    <div class="box box-warning">
+    <div class="">
       <div class="box-header">
         <h3 class="box-title">Conductores de  {{$empresalquiler->NombreEmpresaTransporte}}</h3>
               <div class="box-body">
@@ -91,6 +108,7 @@
                   <fieldset>
                   <div class="col-md-12">
                  <div class="form-group has-feedback{{ $errors->has('conductor') ? ' has-error' : '' }}">
+                   <label for="nombreempresa">Nombre de conductor </label>
                    <div class="input-group">
                    <span class="input-group-addon"><span class="fa fa-id-card"></span></span>
                     <input id="conductor" title="Nombre del conductor" type="text" class="form-control" name="conductor" value="{{ old('conductor') }}" required autofocus>
@@ -108,6 +126,10 @@
 
                 <div class="row">
 
+                  @if (count($conductores) === 0)
+                    <br>
+                    <p>No hay conductores registrados<p>
+                  @elseif (count($conductores) >= 1)
                   <h3 class="box-title"> </h3>
                   <table class="table table-striped table-bordered" >
                     <thead class="thead-dark">
@@ -123,6 +145,7 @@
                     @endforeach
                     </tbody>
                   </table>
+                  @endif
 
 
                 </div>
