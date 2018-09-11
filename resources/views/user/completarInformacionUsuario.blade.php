@@ -5,41 +5,37 @@
 
 @endsection
 @section('Title')
-EDITAR MI INFORMACION DE USUARIO
+Editar mi informacion de usuario
 @endsection
 @section('contenido')
 <!-- SELECT2 EXAMPLE -->
       
         <!-- /.box-header -->
         @if(session()->has('message'))
-            <!--div class="alert alert-success">
-              { session()->get('message') }}
-            </div -->
            <script type="text/javascript"> 
             console.log("Hola");
-           alertify.success("{{ session()->get('message') }}");
-           // alertify.set('notifier','position', 'top-center');
-           // alertify.success('Current position : ' + alertify.get('notifier','position'));
+              alertify.success("<h1>{{ session()->get('message') }} </h1>");
             </script>
          @endif
-      <form id="miForm" method="POST" enctype="multipart/form-data" action="{{route('user.completar.informacion.store') }}">
+   <!-- -->
+       <form id="miForm" method="POST" enctype="multipart/form-data" action="{{route('user.completar.informacion.store') }}">
         {!! method_field('PUT') !!}
         {!! csrf_field() !!}
         <div class="row">
             <div class="col-md-4">
-	            <div class="form-group">
-	              <label for="avatar" class="control-label">Imagen Para Perfil</label>
-	                  <input id='input1' type="file" name="avatar" style="width: 100%;">
-	                  @if ($errors->has('avatar'))
+              <div class="form-group">
+                <label for="avatar" class="control-label">Imagen Para Perfil</label>
+                    <input id='input1' type="file" name="avatar" style="width: 100%;">
+                    @if ($errors->has('avatar'))
                        <span class="help-block">{{ $errors->first('avatar') }}</span>
                      @endif
-	            </div>
+              </div>
             </div>
         </div>
 
         <div class="row">
-        	<div class="col-md-3">
-        	   <div class="form-group">
+          <div class="col-md-3">
+             <div class="form-group">
                   <label for="input2" class="control-label">Primer Nombre</label>
                    <div class="input-group">
                     <div class="input-group-addon">
@@ -48,9 +44,9 @@ EDITAR MI INFORMACION DE USUARIO
                     <input type="text" name="PrimerNombrePersona" class="form-control" id="input2" value="{{ $usuario->persona->PrimerNombrePersona }}" placeholder="Primer Nombre">
                    </div>
                 </div>
-        	</div>
-        	<div class="col-md-3">
-        		<div class="form-group">
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
                   <label for="input3" class="control-label">Segundo Nombre</label>
                    <div class="input-group">
                     <div class="input-group-addon">
@@ -59,9 +55,9 @@ EDITAR MI INFORMACION DE USUARIO
                       <input type="text" name="SegundoNombrePersona" class="form-control"  id="input3" value="{{ $usuario->persona->SegundoNombrePersona }}" placeholder="Segundo Nombre">
                    </div>
                 </div>
-        	</div>
-        	<div class="col-md-3">
-        		 <div class="form-group">
+          </div>
+          <div class="col-md-3">
+             <div class="form-group">
                     <label for="input4" class="control-label">Primer Apellido</label>
                       <div class="input-group">
                         <div class="input-group-addon">
@@ -70,9 +66,9 @@ EDITAR MI INFORMACION DE USUARIO
                        <input type="text" name="PrimerApellidoPersona" class="form-control"  id="input4" value="{{ $usuario->persona->PrimerApellidoPersona }}"  placeholder="Primer Apellido">
                       </div>
                   </div>
-        	</div>
-        	<div class="col-md-3">
-        		<div class="form-group">
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
                   <label for="input5" class="control-label">Segundo Apellido</label>
                     <div class="input-group">
                         <div class="input-group-addon">
@@ -81,10 +77,10 @@ EDITAR MI INFORMACION DE USUARIO
                         <input type="text" name="SegundoApellidoPersona" class="form-control"  id="input5" value="{{ $usuario->persona->SegundoApellidoPersona }}" id="input6" placeholder="Segundo Apellido">
                     </div>
                 </div>
-        	</div>
+          </div>
         </div>
         <div class="row">
-        	<div class="col-md-3">
+          <div class="col-md-3">
               <div class="form-group">
                 <label>Genero</label>
                 <select name="Genero" class="form-control" style="width: 100%;" disabled>
@@ -126,7 +122,7 @@ EDITAR MI INFORMACION DE USUARIO
 
              @if($existeTurista == 'si')
              <div class="col-md-3">
-             	<div class="form-group ">
+              <div class="form-group ">
                  <label for="dui" class="control-label">DUI </label>
                        @if($documentos == 'duiPasaporte' || $documentos == 'dui')
                        @foreach($turista->documentos as $documento)
@@ -194,7 +190,7 @@ EDITAR MI INFORMACION DE USUARIO
         <div class="row">
 
             @if($existeTurista == 'si')
-        	   <div class="col-md-3">
+             <div class="col-md-3">
               <div class="form-group">
                 <label>Nacionalidad</label>
                 <select name="nacionalidad" class="form-control" style="width: 100%;">
@@ -220,7 +216,7 @@ EDITAR MI INFORMACION DE USUARIO
              @endif
              @if($existeTurista == 'si')
                  <div class="col-md-3">
-                 	<div class="form-group ">
+                  <div class="form-group ">
                       <label for="pasaporte" class="control-label">Pasaporte</label>
                       @if($documentos == 'duiPasaporte' || $documentos == 'Pasaporte')
                        @foreach($turista->documentos as $documento)
@@ -286,9 +282,9 @@ EDITAR MI INFORMACION DE USUARIO
         </div>
         <div class="row">
           <div class="col-md-3">
-        	<div class="form-group">
-        		<label for="inputEmail3" class="control-label">Email</label>
-        		<div class="input-group">      
+          <div class="form-group">
+            <label for="inputEmail3" class="control-label">Email</label>
+            <div class="input-group">      
                   <div class="input-group-addon">
                        <i class="fa fa-envelope"></i>
                     </div>
@@ -322,12 +318,12 @@ EDITAR MI INFORMACION DE USUARIO
         </div>
         <div class="row">
          @if( $existeTurista == 'si') 
-        	<div class="col-md-6">
-        		  <div class="form-group ">
+          <div class="col-md-6">
+              <div class="form-group ">
                      <label for="direccion" class="control-label">Direccion</label>
                       <textarea   class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." required>{{ $turista->DomicilioTurista }}</textarea>
                   </div>
-        	</div>
+          </div>
           <div class="col-md-6">
               <div class="form-group ">
                      <label for="psalud" class="control-label">Problemas de salud</label>
@@ -352,9 +348,9 @@ EDITAR MI INFORMACION DE USUARIO
         
 
         <div class="row">
-        	
+          
              <div class="col-md-4">
-             	  <div class="form-group">
+                <div class="form-group">
                      <label for="notificaciones" class="control-label">Notificaciones</label>
                       <div >
                         <label class="custom-control custom-radio">
@@ -373,7 +369,18 @@ EDITAR MI INFORMACION DE USUARIO
              </div>
 
         </div>
-        <button type="submit" class="btn btn-info">Actualizar</button>
+      
+         <div class="row">
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-info center-block">Actualizar</button>
+            </div>
+            <!-- /.col -->
+          </div>
       </div>
     </form>
+     <!--div class="box-footer">
+        * Estos campos son obligatorios
+       <p>Es necesario ingresar almenos un documento</p>
+      </div -->
+   <!--  ->
 @endsection

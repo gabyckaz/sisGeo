@@ -16,12 +16,12 @@ class CreateUsersTable extends Migration
         Schema::create('personas', function (Blueprint $table) {
             $table->increments('IdPersona');            
             $table->string('PrimerNombrePersona',25);
-            $table->string('SegundoNombrePersona',25)->nullable();;
+            $table->string('SegundoNombrePersona',25)->nullable();
             $table->string('PrimerApellidoPersona',25);
             $table->string('SegundoApellidoPersona',25)->nullable();
             $table->string('Genero',1);
-            $table->string('AreaTelContacto',4);
-            $table->string('TelefonoContacto',10);
+            $table->string('AreaTelContacto',4)->nullable();
+            $table->string('TelefonoContacto',10)->nullable();
             $table->timestamps();
             
         });

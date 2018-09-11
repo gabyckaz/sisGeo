@@ -32,4 +32,9 @@ class Turista extends Model
         return $this->hasMany('App\TipoDocumento', 'IdTurista', 'IdTurista');
     }
 
+    public function usuarios(){
+      return $this->belongsToMany('App\User', 'Acompanante')
+     ->withPivot('IdUsuario','EsFamiliar'); 
+ } 
+
 }
