@@ -32,14 +32,14 @@ endrole -->
 Administracion de usuarios
 @endsection
 @section('contenido')
- 
-   
+
+
         @if(session('status'))
                       <!--<br>
                       <div  class="alert alert-success content2" role="alert">
                         { session('status') }}
                       </div -->
-                      <script type="text/javascript"> 
+                      <script type="text/javascript">
                          console.log("Hola");
                          alertify.success("{{session('status') }}");
                        </script>
@@ -49,18 +49,13 @@ Administracion de usuarios
                       <div  class="alert alert-danger content2" role="alert">
                         { session('fallo') }}
                       </div -->
-                      <script type="text/javascript"> 
+                      <script type="text/javascript">
                          console.log("Hola");
                          alertify.warning("{{session('fallo')  }}");
                        </script>
                     @endif
-<<<<<<< HEAD
-                  </p>
 
-=======
-                  
-    <div class="col-md-7 col-md-offset-2">   
->>>>>>> 794b3b4d14bc38ed4d4c13d7d38726cafa2689f2
+    <div class="col-md-7 col-md-offset-2">
        <form class="navbar-form navbar-left pull-right" action="{{ route('adminUser.index') }}" method="get" role="search">
               <div class="form-group">
                 <input type="text" name="nombre" class="form-control" placeholder="Nombre">
@@ -76,16 +71,10 @@ Administracion de usuarios
                 <option value="1">Admin</option>
               </select>
               </div>
-<<<<<<< HEAD
               <button type="submit" class="btn btn-default" >Buscar<span class="glyphicon glyphicon-search"></span></button>
-
-        </form>
-=======
-              <button type="submit" class="btn btn-default" >Buscar<span class="glyphicon glyphicon-search"></span></button>  
           </form>
         </div>
-          
->>>>>>> 794b3b4d14bc38ed4d4c13d7d38726cafa2689f2
+
            <!-- <form action="" method="get" class="sidebar-form">
               <div class="input-group">
               <input type="text" name="nombre" class="form-control" placeholder="Nombre">
@@ -121,7 +110,7 @@ Administracion de usuarios
 
                   </div>
           </form> -->
-<div class="row"> 
+<div class="row">
 <div class="col-md-7 col-md-offset-2">
 <div class="table-responsive">
  <table class="table table-striped table-bordered" >
@@ -199,7 +188,7 @@ Administracion de usuarios
 </div>
 </div>
 @endsection
- 
+
 
 <!--
  <caption>
