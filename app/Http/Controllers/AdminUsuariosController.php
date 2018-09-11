@@ -46,11 +46,14 @@ class AdminUsuariosController extends Controller
         
               //lleva el get cuando no tiene paginate $usuarios = User::nombre($request->get('nombre'))->get()
          //   $usuarios = User::nombre($request->get('nombre'))->orderBy('id','asc')->paginate(2);
-       $usuarios = User::nombre($request->get('nombre'))
+       $usuarios = User::sortable()
+       ->nombre($request->get('nombre'))
        ->email($request->get('email'))
        ->estado($request->get('estado'))
        ->rol($request->get('rol'))
         ->orderBy('id','asc')->paginate(5);
+
+       // $usuarios= User::sortable()->paginate(5);
  
         $estado = $request->get('estado');
         $rol = $request->get('rol');
@@ -157,7 +160,7 @@ class AdminUsuariosController extends Controller
      try{
         $rol = Role::find($request->get('rol'));
         $usuario->attachRole($rol);
-        return redirect()->route('adminUser.index')->with('status', 'Agregado rol '.$rol->display_name .' al usuario '.$usuario->name);
+        return redirect()->route('adminUser.index')->with('status', 'Agregado rol '.$rol->display_name .' al usuario '.$usuario->Persona->PrimerNombrePersona);
       } catch(\Exception $e) {
         return redirect()->route('adminUser.index')->with('fallo', 'El  usuario '.$usuario->name.' ya cuenta con el rol ' .$rol->display_name);
       }
