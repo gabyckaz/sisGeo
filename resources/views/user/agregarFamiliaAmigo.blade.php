@@ -238,7 +238,8 @@ Agregar familiares o amigos
                          <th>Nacionalidad</th>
                         </thead>
                           <tbody>
-                            @foreach($acom as $a)
+                            @foreach($familiaAmigos as $a)
+                             <tr>
                                @if($a->EsFamiliar == "a")
                                 <td>Amigo</td>
                                 @else
@@ -252,6 +253,7 @@ Agregar familiares o amigos
                                 <td>Femenino</td>
                                @endif                   
                                <td>{{ $a->Nacionalidad }}</td>
+                            </tr>
                             @endforeach
                           </tbody>
                       </table>
