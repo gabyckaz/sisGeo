@@ -49,7 +49,11 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {
+    {   
+        /*
+        *Validamos campos necesarios
+        *
+        */
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -71,14 +75,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {  
-       // $a =User::where('id', 1)->get();
-       // dd($a);
-        $rol = Role::find(2);
-       // dd($data);
+        /**
+        *Extraemos el rol de usuario de la Bd para luego asignarselo al nuevo usuario de la *aplicacion.
+        */
+        $rol = Role::where('name','User')->first();
         if($rol->name != 'User'){
           return 'No existe el Rol de usuario';
         }
-
+        /*
+        *Creamos la persona para este usuario.
+        *Lo creamos de esta forma para poder usar el id de la persona recien creada
+        */
         $persona = Persona::create([
           'PrimerNombrePersona'=>$data['name'],
           'SegundoNombrePersona'=>$data['SegundoNombrePersona'],
@@ -88,30 +95,22 @@ class RegisterController extends Controller
           'AreaTelContacto'=>$data['AreaTelContacto'],
           'TelefonoContacto'=>$data['TelefonoContacto']
         ]);
-       // dd($persona->IdPersona);
+        /*
+        *Creamos el usuario utilzando el id de la persona creada anteriormente
+        *el usuario es creado con estado activo
+        */
         $usuario = User::create([
            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'IdPersona' => $persona->IdPersona,
-            /*'segundoNombre' => $data['segundoNombre'],
-            'primerApellido' => $data['primerApellido'],
-            'segundoApellido' => $data['segundoApellido'],
-            'sexo' => $data['sexo'],
-            'codigoArea' => $data['codigoArea'],
-            'telefono' => $data['telefono'],*/
-            'RecibirNotificacion' => $data['RecibirNotificacion'],
-            'EstadoUsuario' => '1',
+           'email' => $data['email'],
+           'password' => Hash::make($data['password']),
+           'IdPersona' => $persona->IdPersona,
+           'RecibirNotificacion' => $data['RecibirNotificacion'],
+           'EstadoUsuario' => '1', 
          ]);     
-
+        /*
+        *Agregamos el rol de usuario al nuevo usuario
+        */
         $usuario->attachRole($rol);    
-       
-        
-        return $usuario;     //User::where('id', $user->id); 
+        return $usuario;
     }
-
-   /* public function roles()
-    {
-        return $this->belongsToMany('App\Role');
-    }*/
 }
