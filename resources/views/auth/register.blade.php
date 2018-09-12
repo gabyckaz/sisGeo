@@ -23,7 +23,7 @@ Formulario de Registro</div>
             @endif
         </div>
     </div>
-     
+
      <div class="form-group row">
         <label for="SegundoNombrePersona" class="col-md-4 col-form-label text-md-right">{{ __('Segundo Nombre') }}</label>
 
@@ -64,7 +64,7 @@ Formulario de Registro</div>
             @endif
         </div>
     </div>
-    
+
 
     <div class="form-group row">
       <label for="Genero" class="col-md-4 col-form-label text-md-right">{{ __('Sexo') }}</label>
@@ -81,32 +81,32 @@ Formulario de Registro</div>
                 <label for="AreaTelContacto" class="col-md-4 col-form-label text-md-right">{{ __('Codigo de Area') }}</label>
 
                 <div class="col-md-6">
-                    
+
                  <select class="form-control" name="AreaTelContacto" id="AreaTelContacto" value="{{ old('AreaTelContacto') }}">
                    <option value="503">503</option>
                     <option value="502">502</option>
-                </select>                      
+                </select>
           </div>
       </div>
-    
+
     <div class="form-group row">
           <label for="TelefonoContacto" class="col-md-4 col-form-label text-md-right">{{ __('Telefono') }}</label>
 
           <div class="col-md-6">
-              
+
          <input id="TelefonoContacto" type="text" class="form-control" name="TelefonoContacto" value="{{ old('TelefonoContacto') }}" required autofocus >
               @if ($errors->has('TelefonoContacto'))
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $errors->first('TelefonoContacto') }}</strong>
                   </span>
               @endif
-              
+
           </div>
-          
+
      </div>
 
     <div class="form-group row">
-        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
+        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Correo Electrónico') }}</label>
 
         <div class="col-md-6">
             <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
@@ -118,7 +118,7 @@ Formulario de Registro</div>
             @endif
         </div>
     </div>
-    
+
        <div class="form-check ">
          <label class="form-check-label col-md-6 offset-md-4">
          <input type="radio" class="form-check-input" name="RecibirNotificacion" value="1" {{(old('RecibirNotificacion') == '1') ? 'checked' : ''}}>Recibir Notificacion
@@ -131,7 +131,7 @@ Formulario de Registro</div>
      </div>
 
         <div class="form-group row">
-            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Contraseña') }}</label>
 
             <div class="col-md-6">
                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
@@ -145,7 +145,7 @@ Formulario de Registro</div>
         </div>
 
         <div class="form-group row">
-            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Contraseña') }}</label>
 
             <div class="col-md-6">
                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
@@ -153,7 +153,7 @@ Formulario de Registro</div>
         </div>
         <div class="row">
             <div class="col-md-12">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">Registrarme</button>
+            <button type="submit" class="btn btn-secondary btn-block btn-flat">Registrarme</button>
           </div>
       <!-- /.col -->
         </div>
@@ -168,7 +168,7 @@ Formulario de Registro</div>
     Google+</a>
   </div> --}}
 
-  <a href="{{ route('login') }}" class="text-center">Ya tengo una cuenta de usuario!!</a>
+  <a href="{{ route('login') }}" class="text-center">¡¡Ya tengo una cuenta de usuario!!</a>
     </div>
   </div>
   </div>
