@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Geoturismo</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -14,9 +14,9 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
+                background-color: #ffff;
                 color: #636b6f;
-                font-family: 'Raleway', sans-serif;
+                font-family: 'Arial', Helvetica, sans-serif;
                 font-weight: 100;
                 height: 100vh;
                 margin: 0;
@@ -70,7 +70,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}">Inicio</a>
                     @else
                         <a href="{{ route('login') }}">Inicio</a>
                         <a href="{{ route('register') }}">Registrarme</a>
@@ -81,10 +81,10 @@
             <div class="content">
                 <div class="title m-b-md">
                     GEOTURISMO EL SALVADOR
-                </div>   
+
+                </div>
             </div>
 
       </div>
     </body>
 </html>
-

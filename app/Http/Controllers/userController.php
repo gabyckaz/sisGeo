@@ -8,8 +8,8 @@ use App\User;
 use App\Nacionalidad;
 use App\Persona;
 use App\Turista;
-use App\TipoDocumento;	
-use App\Acompanante;	
+use App\TipoDocumento;
+use App\Acompanante;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
@@ -73,7 +73,7 @@ class userController extends Controller
      */
     public function edit($id)
     {
-       
+
         //
         if(auth()->user()->id ==  $id){
         $usuario = User::findOrFail($id);
@@ -95,22 +95,22 @@ class userController extends Controller
     {
          $this->validate($request, [
             'avatar' => 'image',
-            
+
         ]);
         if( auth()->user()->id == $id){
         if( $request->hasFile('avatar')){
-      
+
        if(auth()->user()->avatar != 'default.gif'){
          Storage::delete(auth()->user()->avatar);
        }
         DB::table('users')->where('id', $id)->update([
 
-            "avatar" => $request->file('avatar')->store('public'), 
+            "avatar" => $request->file('avatar')->store('public'),
 
         ]);
         }
 
-       
+
             DB::table('users')->where('id', $id)->update([
 
             "RecibirNotificacion" => $request->input('RecibirNotificacion'),
@@ -145,7 +145,7 @@ class userController extends Controller
         //
     }
 	public function editarInformacion()
-    {    
+    {
         $existeturista ="";
         //$t = DB::table('Turista')->where('IdPersona', auth()->user()->IdPersona)->first();
         //$t = Turista::find(auth()->user()->IdPersona); //--> arreglar esto xq no me esta buscando el turista con id de turista
@@ -162,7 +162,7 @@ class userController extends Controller
             $documentos = "duiPasaporte";
         }else{
           foreach ($turista->documentos as $documento) {
-             
+
              if($documento->TipoDocumento=="DUI"){
                 $documentos= "dui";
                 break;
@@ -180,13 +180,13 @@ class userController extends Controller
 
         return view('user.completarInformacionUsuario', compact('usuario','nacionalidad' ,'existeTurista','turista','documentos'));
     }
-    
+
      public function completarInformacion(Request $request)
-    {    
+    {
         $documentos = "";
         $existeTurista ="";
         //d($request);
-        if( $request->input("dui") == null && $request->input("pasaporte") == null){ 
+        if( $request->input("dui") == null && $request->input("pasaporte") == null){
             $hola1 = "Debes introducir por lo menos un documento";
             return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
         }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
@@ -206,17 +206,17 @@ class userController extends Controller
              "fechaVencimientoP" => "required",
            ]);
         }
-        
+
         $this->validate($request, [
               "PrimerNombrePersona" => "required",
               "PrimerApellidoPersona" => "required",
               "TelefonoContacto" => "required",
               "fechaNacimiento" => "required",
         ]);
-        
+
          $existeTurista ="";
          $turista = Turista::where('IdPersona',auth()->user()->IdPersona)->first();
-         
+
         if($turista == null){
          $existeTurista = "no";
          //Actualizo elusuario
@@ -229,14 +229,14 @@ class userController extends Controller
          }
           DB::table('users')->where('id', auth()->user()->id)->update([
 
-            "avatar" => $request->file('avatar')->store('public'), 
+            "avatar" => $request->file('avatar')->store('public'),
 
         ]);
         }
           $usuario = User::find(auth()->user()->id);
           $usuario->name = $request->PrimerNombrePersona;
           $usuario->save();
-          
+
         //Actualizo a la persona
           $persona = Persona::find(auth()->user()->IdPersona)->first();
           $persona->PrimerNombrePersona = $request->PrimerNombrePersona;
@@ -246,17 +246,17 @@ class userController extends Controller
           $persona->AreaTelContacto = $request->AreaTelContacto;
           $persona->TelefonoContacto = $request->TelefonoContacto;
           $persona->save();
-          
+
          //no existe turista entonces lo creo
          $t = Turista::create([
               'IdNacionalidad'=> $request->nacionalidad,
               'IdPersona' => auth()->user()->IdPersona,
               "FechaNacimiento" => $request->fechaNacimiento,
-              "CategoriaTurista"  => 'A',            
+              "CategoriaTurista"  => 'A',
               "DomicilioTurista" => $request->direccion,
-              "Problemas_Salud" => $request->psalud,    
+              "Problemas_Salud" => $request->psalud,
         ]);
-         
+
          if($request->input("dui") != null && $request->input("pasaporte") != null){
           $hola1 = "Ingresastes los dos documentos";
             $documentoDui = TipoDocumento::create([
@@ -264,13 +264,13 @@ class userController extends Controller
             "TipoDocumento" => "DUI",
             "NumeroDocumento" => $request->dui,
             "FechaVenceDocumento" => $request->fechaVencimientoD,
-         ]); 
+         ]);
         $documentoPasaporte = TipoDocumento::create([
             "IdTurista" => $turista->IdTurista,
             "TipoDocumento" => "Pasaporte",
             "NumeroDocumento" => $request->pasaporte,
             "FechaVenceDocumento" => $request->fechaVencimientoP,
-         ]); 
+         ]);
         }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
            $hola1 = "Solo Ingresastes El dui";
            $documentoDui = TipoDocumento::create([
@@ -278,8 +278,8 @@ class userController extends Controller
             "TipoDocumento" => "DUI",
             "NumeroDocumento" => $request->dui,
             "FechaVenceDocumento" => $request->fechaVencimientoD,
-         ]); 
-           
+         ]);
+
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
            $hola1 = "Solo Ingresastes El pasaporte";
             $documentoPasaporte = TipoDocumento::create([
@@ -287,14 +287,14 @@ class userController extends Controller
             "TipoDocumento" => "Pasaporte",
             "NumeroDocumento" => $request->pasaporte,
             "FechaVenceDocumento" => $request->fechaVencimientoP,
-         ]); 
+         ]);
         }
         $documentos="";
         if($turista->documentos->count() == 2){
             $documentos = "duiPasaporte";
         }else{
           foreach ($turista->documentos as $documento) {
-             
+
              if($documento->TipoDocumento=="DUI"){
                 $documentos= "dui";
                 break;
@@ -320,7 +320,7 @@ class userController extends Controller
          }
           DB::table('users')->where('id', auth()->user()->id)->update([
 
-            "avatar" => $request->file('avatar')->store('public'), 
+            "avatar" => $request->file('avatar')->store('public'),
 
          ]);
         }
@@ -328,7 +328,7 @@ class userController extends Controller
           $usuario->name = $request->PrimerNombrePersona;
           $usuario->RecibirNotificacion = $request->RecibirNotificacion;
           $usuario->save();
-          
+
         //Actualizo a la persona
           $persona = Persona::find(auth()->user()->IdPersona);
           $persona->PrimerNombrePersona = $request->PrimerNombrePersona;
@@ -338,7 +338,7 @@ class userController extends Controller
           $persona->AreaTelContacto = $request->AreaTelContacto;
           $persona->TelefonoContacto = $request->TelefonoContacto;
           $persona->save();
-          
+
         //Actualizo al turista
           $turista->IdNacionalidad = $request->nacionalidad;
           $turista->IdPersona = $persona->IdPersona;
@@ -347,18 +347,18 @@ class userController extends Controller
           $turista->DomicilioTurista = $request->direccion;
           $turista->Problemas_Salud = $request->psalud;
           $turista->save();
-          
+
         //Actualizo documentos o los creo si no existen
          if($request->input("dui") != null && $request->input("fechaVencimientoD") != null){
            $dui = TipoDocumento::where('TipoDocumento','DUI')
-            ->where('IdTurista',$turista->IdTurista)->first(); 
+            ->where('IdTurista',$turista->IdTurista)->first();
             if($dui == null){
               $dui = TipoDocumento::create([
                 "IdTurista" => $turista->IdTurista,
                 "TipoDocumento" => "DUI",
                 "NumeroDocumento" => $request->dui,
                 "FechaVenceDocumento" => $request->fechaVencimientoD,
-             ]); 
+             ]);
             }else{
             $dui->FechaVenceDocumento = $request->fechaVencimientoD;
             $dui->save();
@@ -374,20 +374,20 @@ class userController extends Controller
                 "TipoDocumento" => "Pasaporte",
                 "NumeroDocumento" => $request->pasaporte,
                 "FechaVenceDocumento" => $request->fechaVencimientoP,
-         ]); 
+         ]);
 
             }else{
             $pasaporte->FechaVenceDocumento = $request->fechaVencimientoP;
             $pasaporte->save();
             }
-            
+
           }
         $documentos="";
         if($turista->documentos->count() == 2){
             $documentos = "duiPasaporte";
         }else{
           foreach ($turista->documentos as $documento) {
-             
+
              if($documento->TipoDocumento=="DUI"){
                 $ddocumentos= "dui";
                 break;
@@ -398,20 +398,20 @@ class userController extends Controller
             }
            }
          }
-      
+
         }
-   
+
        // $usuario = User::findOrFail(auth()->user()->id);
         $nacionalidad = Nacionalidad::all();
-          
-      // return view('user.completarInfoUserTurista', compact('usuario','nacionalidad' ,'existe')); 
+
+      // return view('user.completarInfoUserTurista', compact('usuario','nacionalidad' ,'existe'));
       return redirect()->route('usuario.completar.informacion',compact('usuario','nacionalidad' ,'existeTurista','documentos'))->with('message','Informacion Actualizada');
-        
+
     }
 
     public function editInfoUserTurista($id){
        // $id =  Crypt::decrypt($id);
-        
+
         $turista = DB::table('Turista')->where('IdPersona', auth()->user()->IdPersona)->first();
         $nacionalidad = Nacionalidad::all();
 
@@ -419,8 +419,8 @@ class userController extends Controller
     }
 
     public function agregarFamiliarAmigo()
-    {    
-        
+    {
+
         $usuario = User::findOrFail(auth()->user()->id);
         $nacionalidad = Nacionalidad::all();
          
@@ -433,11 +433,10 @@ class userController extends Controller
           public."personas" as p,public."Nacionalidad" as n
           WHERE a."IdTurista" = t."IdTurista" and
           t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
-      a."IdUsuario" =
-
-            '.auth()->user()->id );
+          a."IdUsuario" = '.auth()->user()->id );
         
         return view('user.agregarFamiliaAmigo', compact('usuario','nacionalidad','familiaAmigos'));
+
     }
 
     public function guardarFamiliarAmigo(Request $request){
@@ -469,23 +468,23 @@ class userController extends Controller
           t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad"
           and td."IdTurista"=t."IdTurista"');
         /*$long = count($acompañantes);
-        for ($i=0; $i < $long; $i++) { 
+        for ($i=0; $i < $long; $i++) {
           dd($acompañantes[$i]->IdTurista);
         } */
-        
+
        $this->validate($request, [
               "PrimerNombrePersona" => "required",
               "PrimerApellidoPersona" => "required",
               "fechaNacimiento" => "required",
         ]);
-        
-      if( $request->input("dui") == null && $request->input("pasaporte") == null){ 
+
+      if( $request->input("dui") == null && $request->input("pasaporte") == null){
             $hola1 = "Debes introducir por lo menos un documento";
-             
+
        $this->validate($request, [
               "dui" => "required",
               "pasaporte" => "required",
-              
+
         ]);
 
             return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
@@ -506,8 +505,8 @@ class userController extends Controller
              "fechaVencimentoP" => "required",
            ]);
         }
-        
-      
+
+
       $persona = Persona::create([
             "PrimerNombrePersona" => $request->PrimerNombrePersona,
             "PrimerApellidoPersona" => $request->PrimerApellidoPersona,
@@ -520,9 +519,9 @@ class userController extends Controller
               'IdNacionalidad'=> $request->nacionalidad,
               'IdPersona' => $persona->IdPersona,
               "FechaNacimiento" => $request->fechaNacimiento,
-              "CategoriaTurista"  => 'A',            
+              "CategoriaTurista"  => 'A',
               "DomicilioTurista" => $request->direccion,
-              "Problemas_Salud" => $request->psalud,    
+              "Problemas_Salud" => $request->psalud,
         ]);
 
 
@@ -533,13 +532,13 @@ class userController extends Controller
             "TipoDocumento" => "DUI",
             "NumeroDocumento" => $request->dui,
             "FechaVenceDocumento" => $request->fechaVencimentoD,
-         ]); 
+         ]);
         $documentoPasaporte = TipoDocumento::create([
             "IdTurista" => $turista->IdTurista,
             "TipoDocumento" => "Pasaporte",
             "NumeroDocumento" => $request->pasaporte,
             "FechaVenceDocumento" => $request->fechaVencimentoP,
-         ]); 
+         ]);
         }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
            $hola1 = "Solo Ingresastes El dui";
            $documentoDui = TipoDocumento::create([
@@ -547,8 +546,8 @@ class userController extends Controller
             "TipoDocumento" => "DUI",
             "NumeroDocumento" => $request->dui,
             "FechaVenceDocumento" => $request->fechaVencimentoD,
-         ]); 
-           
+         ]);
+
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
            $hola1 = "Solo Ingresastes El pasaporte";
             $documentoPasaporte = TipoDocumento::create([
@@ -556,16 +555,15 @@ class userController extends Controller
             "TipoDocumento" => "Pasaporte",
             "NumeroDocumento" => $request->pasaporte,
             "FechaVenceDocumento" => $request->fechaVencimentoP,
-         ]); 
+         ]);
         }
-       
+
          $familiarAmigo = Acompanante::create([
           'IdTurista' => $turista->IdTurista,
           'IdUsuario' => auth()->user()->id,
           'EsFamiliar' => $request->tipo,
          ]);
-           
-   
-           dd($familiarAmigo);
+
+
     }
 }

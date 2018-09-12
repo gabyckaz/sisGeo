@@ -15,22 +15,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('adminLte/font-awesome/css/font-awesome.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{ asset('adminLte/Ionicons/css/ionicons.min.css') }}">
+  <!--Tablas-->
+
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('adminLte/css/AdminLTE.min.css') }}">														 
+  <link rel="stylesheet" href="{{ asset('adminLte/css/AdminLTE.min.css') }}">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="{{ asset('adminLte/css/skins/skin-green.min.css') }}">
    <!-- Para datapicker -->
-   <link rel="stylesheet" href="{{ asset('adminLte/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">	
+   <link rel="stylesheet" href="{{ asset('adminLte/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
    <!--Para Alertify -->
    <!--Para Alertify Js-->
   <script type="text/javascript" src="{{ asset('lib/alertify.js')}}"></script>
    <link rel="stylesheet" href="{{ asset('themes/alertify.core.css')}}">
    <link rel="stylesheet" href="{{ asset('themes/alertify.default.css')}}">
+   <link rel="stylesheet" href="{{ asset('adminLte/lightGallery/dist/css/lightgallery.min.css')}}">
 
    <!-- Select2 -->
-  <link rel="stylesheet" href="{{ asset('adminLte/select2/dist/css/select2.min.css')}}">																										
+  <link rel="stylesheet" href="{{ asset('adminLte/select2/dist/css/select2.min.css')}}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -219,12 +222,12 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                <a href="#" class="btn btn-default btn-flat">Perfil</a>
                </div>
                 <div class="pull-right">
                   <form action="{{ route('logout') }}" method="POST">
                       {{ csrf_field() }}
-                      <button type="submit" class="btn btn-default btn-flat">Sign Out</button>
+                      <button type="submit" class="btn btn-default btn-flat">Salir</button>
                   </form>
                 </div>
                </li>
@@ -275,7 +278,7 @@ desired effect
     <li class="active">
       <a href="{{ route('home') }}">
         <i class="fa fa-home"></i>
-        <span>Home</span>
+        <span>Inicio</span>
       </a>
     </li>
     <li class="active">
@@ -285,16 +288,44 @@ desired effect
       </a>
     </li>
     <li class="active">
+      <a href="{{ route('user.agregar.familiarAmigo') }}">
+        <i class="fa fa-home"></i>
+        <span>Agregar Familiar o Amigo</span>
+      </a>
+    </li>
+    <li class="active">
+          <a href="{{ route('usuario.completar.informacion') }}">
+            <i class="fa fa-home"></i>
+            <span>Completar Informacion</span>
+          </a>
+        </li>
+
+    <li class="active">
       <a href="#">
         <i class="fa fa-user"></i>
         <span>Mi Cuenta</span>
       </a>
     </li>
-    <li class="active">
-      <a href="{{ route('home') }}">
-        <i class="fa fa-home"></i>
-        <span>Paqutes</span>
+     <li class="active treeview menu-open">
+      <a href="#">
+        <i class="fa fa-ticket"></i>
+          <i class="fa fa-angle-left pull-right-container"></i>
+          <i class="fa fa-angl-left pull-right"></i>
+          <span>Paquetes Turísticos</span>
+          <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
       </a>
+          <ul class="treeview-menu">
+                  <li><a href="{{ route('adminPaquete.create')}}">
+                    <i class="fa fa-star"></i>
+                    Crear Paquete Turístico</a></li>
+                  <li><a href="">
+                     <li><a href="{{ route('adminPaquete.index')}}">
+                    <i class="fa fa-star"></i>
+                    Mostrar Paquete Turístico</a></li>
+
+        </ul>
     </li>
     <li class="treeview">
       <a href="#">
@@ -308,49 +339,47 @@ desired effect
       </a>
         <ul class="treeview-menu">
                   <li><a href="{{ route('adminEmpresaTransporte.index') }}">
-                    <i class="fa fa-circle-o"></i>
+                    <i class="fa fa-star"></i>
                     Empresas</a></li>
-            {{--      <li><a href="{{ route('adminTipoTransporte.index') }}">
-                    <i class="fa fa-circle-o"></i>
-                    Transportes y Conductores</a></li> --}}
+                  <li><a href="{{ route('adminTipoTransporte.index') }}">
+                    <i class="fa fa-star"></i>
+                    Transportes y Conductores</a></li>
                   <li><a href="{{ route('adminTransporte.index') }}">
-                    <i class="fa fa-circle-o"></i>
+                    <i class="fa fa-star"></i>
                       Transporte</a></li>
         </ul>
 
     </li>
+
     <li class="active">
-      <a href="{{ route('usuario.completar.informacion') }}">
-        <i class="fa fa-home"></i>
-        <span>Completar Informacion</span>
-      </a>
-    </li>
-    <li class="active">
-      <a href="{{ route('user.agregar.familiarAmigo') }}">
-        <i class="fa fa-home"></i>
-        <span>Agregar Familiar o Amigo</span>
-      </a>
-    </li>
-    <li >
       <a href="{{ route('home') }}">
-        <i class="fa fa-home"></i>
-        <span>Home</span>
+        <i class="fa fa-calendar"></i>
+        <span>Reservas</span>
       </a>
     </li>
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
+ <li class="active treeview menu-open">
+      <a href="#">
+        <i class="fa fa-map-marker"></i>
+          <i class="fa fa-angle-left pull-right-container"></i>
+          <i class="fa fa-angl-left pull-right"></i>
+          <span>Ruta Turistica</span>
+          <span class="pull-right-container">
+            <ul class="treeview-menu">
+                    <li><a href="#">
+                      <i class="fa fa-star"></i>
+                      Crear Ruta Turística</a></li>
+                    <li><a href="">
+                      <i class="fa fa-star"></i>
+                      Consultar Ruta Turística</a></li>
+                    <li><a href="">
+                      <i class="fa fa-star"></i>
+                        Editar Ruta Turística</a></li>
           </ul>
-        </li>
-    </ul>
+</li>
+
+        <li class="active"><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
+
+
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
@@ -361,12 +390,12 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Page Header
-        <small>Optional description</small>
+        Pagina principal
+        <small>Opciones</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
+        <li class="active">Aqui</li>
       </ol>
     </section>
 
@@ -393,9 +422,6 @@ desired effect
           @yield('contenido')
         </div>
         <!-- /.box-body -->
-        <div class="box-footer">
-          Footer
-        </div>
         <!-- /.box-footer-->
       </div>
       <!-- /.box -->
@@ -409,10 +435,10 @@ desired effect
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
+      El Salvador
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Derechos Reservados &copy; 2018 <a href="#">Geoturismo</a>.</strong> Todos los derechos.
   </footer>
 
   <!-- Control Sidebar -->
@@ -501,7 +527,7 @@ desired effect
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('adminLte/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- Datapicker -->
-<script src="{{ asset('adminLte/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>																										 
+<script src="{{ asset('adminLte/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('adminLte/js/adminlte.min.js') }}"></script>
 <!-- Para mascaras-->
@@ -511,6 +537,8 @@ desired effect
 
 <!-- Select2 -->
 <script src="{{ asset('adminLte/select2/dist/js/select2.full.min.js')}}"></script>
+
+<script src="{{ asset('adminLte/lightGallery/dist/js/lightgallery.min.js')}}"></script>
 
 
 
@@ -523,7 +551,7 @@ desired effect
          if(div != null){
          div.style.display = "none"
          }*/
-       
+
       /* $('#datepicker').datepicker({ autoclose: true })
        $('#datepicker2').datepicker({ autoclose: true }) */
        $("#dui").inputmask("99999999-9",{ 'placeholder': '00000000-0' })
@@ -532,6 +560,11 @@ desired effect
        $('.select2').select2()
 
         })
-     </script>					  	   
+
+        $(document).ready(function() {
+            $("#lightgallery").lightGallery();
+        });
+     </script>
+
 </body>
 </html>
