@@ -94,6 +94,54 @@
           </div>
         </div>
       </div>
+      <div class="panel box box-success">
+        <div class="box-header with-border">
+          <h4 class="box-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+              Recomendaciones
+            </a>
+          </h4>
+        </div>
+        <div id="collapseFive" class="panel-collapse collapse">
+          <div class="box-body">
+            @foreach ($recomendaciones as $recomendacion)
+              {{$recomendacion->recomendacionespaq->NombreRecomendaciones}}<br>
+            @endforeach
+          </div>
+        </div>
+      </div>
+      <div class="panel box box-success">
+        <div class="box-header with-border">
+          <h4 class="box-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+              Gastos Extra
+            </a>
+          </h4>
+        </div>
+        <div id="collapseSix" class="panel-collapse collapse">
+          <div class="box-body">
+            @foreach ($gastosextras as $gastosextra)
+              {{$gastosextra->gastospaq->NombreGastos}}<br>
+            @endforeach
+          </div>
+        </div>
+      </div>
+      <div class="panel box box-success">
+        <div class="box-header with-border">
+          <h4 class="box-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
+              Incluye
+            </a>
+          </h4>
+        </div>
+        <div id="collapseSeven" class="panel-collapse collapse">
+          <div class="box-body">
+            @foreach ($incluye as $inc)
+              {{$inc->incluyepaq->NombreIncluye}}<br>
+            @endforeach
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- /.box-body -->

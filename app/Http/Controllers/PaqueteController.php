@@ -323,6 +323,15 @@ public fuction postNewImage(Request $request){
       //Trae las condiciones relacionadas al paquete
       $condiciones = CondicionesPaquete::where('paquete_id',$id)->get();
       $condiciones = $condiciones->all();
+      //Trae las recomendaciones relacionadas al paquete
+      $recomendaciones = RecomendacionesPaquete::where('paquete_id',$id)->get();
+      $recomendaciones = $recomendaciones->all();
+      //Trae los gastos extra relacionadas al paquete
+      $gastosextras = GastosExtrasPaquete::where('paquete_id',$id)->get();
+      $gastosextras = $gastosextras->all();
+      //Trae los 'incluye' relacionadas al paquete
+      $incluye = IncluyePaquete::where('paquete_id',$id)->get();
+      $incluye = $incluye->all();
       //Trae las imagenes relacionadas al paquete
       $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->get();
       $imagenes2 = $imagenes->all();
@@ -330,6 +339,9 @@ public fuction postNewImage(Request $request){
       return view('adminPaquete.single')
       ->with('paquete',$paquete)
       ->with('condiciones',$condiciones)
+      ->with('recomendaciones',$recomendaciones)
+      ->with('gastosextras',$gastosextras)
+      ->with('incluye',$incluye)
       ->with('imagen',$imagenes2);
 
     }
