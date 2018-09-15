@@ -319,11 +319,17 @@ public fuction postNewImage(Request $request){
     public function getSingle($id)
     {
       $paquete= Paquete::where('IdPaquete','=',$id)->first();
+
+      //Trae las condiciones relacionadas al paquete
+      $condiciones = CondicionesPaquete::where('paquete_id',$id)->get();
+      $condiciones = $condiciones->all();
+      //Trae las imagenes relacionadas al paquete
       $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->get();
       $imagenes2 = $imagenes->all();
 
       return view('adminPaquete.single')
       ->with('paquete',$paquete)
+      ->with('condiciones',$condiciones)
       ->with('imagen',$imagenes2);
 
     }

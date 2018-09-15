@@ -78,11 +78,28 @@
           </div>
         </div>
       </div>
+      <div class="panel box box-success">
+        <div class="box-header with-border">
+          <h4 class="box-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+              Condiciones
+            </a>
+          </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse">
+          <div class="box-body">
+            @foreach ($condiciones as $condicion)
+              {{$condicion->condicionpaq->NombreCondiciones}}<br>
+            @endforeach
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- /.box-body -->
 </div>
 <!-- /.box -->
+
         <table style="width:100%">
         <tr>
         <th>Salida</th>
