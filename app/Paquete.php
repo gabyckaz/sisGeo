@@ -16,6 +16,8 @@ class Paquete extends Model
 
     //Cambiando el campo por defecto id a uno personalizado
     protected $primaryKey = 'IdPaquete';
+
+    //Definicion los campos del ordenamiento en la tabla index
     public $sortable = ['IdPaquete','NombrePaquete','FechaSalida','HoraSalida','FechaRegreso','Precio'];
 
     public function gastosextras()
@@ -29,8 +31,12 @@ class Paquete extends Model
          $query->where('NombrePaquete', "Like", "%$nombre%");
           }
         }
-      
-        //Definicion los campos del ordenamiento en la tabla index
+    public function ruta()
+    {
+      return $this->belongsTo('App\RutaTuristica','IdTuristica');//Modelo y llave foránea
+    }
+
+
 
 
 }

@@ -159,14 +159,35 @@ class PaqueteController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra todos los paquetes al cliente
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+      $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
+
+
+
+      foreach ($paquetes as $paquete) {
+        $imagenes = ImagenPaqueteTuristico::where('id_paquete',$paquete->IdPaquete)->get();
+        $imagenes2 = $imagenes->all();
+      }
+
+
+      return view('welcome')
+      ->with('imagen',$imagenes2)
+      ->with('paquetes',$paquetes);
+      //return view('welcome')->withPaquetes($paquetes);
+
+
+      // $paquete= Paquete::where('IdPaquete','=',$id)->first();
+      // $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->get();
+      // $imagenes2 = $imagenes->all();
+      //
+      // return view('adminPaquete.single')
+      // ->with('paquete',$paquete)
+      // ->with('imagen',$imagenes2);
     }
 
     /**
@@ -288,6 +309,24 @@ class PaqueteController extends Controller
 public fuction postNewImage(Request $request){
   $this->validate($request,['Imagen1','Imagen2','Imagen3','Imagen4','Imagen5'=>'required|image']);
 */
+
+    /**
+     * Muestra la información de 1 paquete al cliente
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getSingle($id)
+    {
+      $paquete= Paquete::where('IdPaquete','=',$id)->first();
+      $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->get();
+      $imagenes2 = $imagenes->all();
+
+      return view('adminPaquete.single')
+      ->with('paquete',$paquete)
+      ->with('imagen',$imagenes2);
+
+    }
 
 
 }

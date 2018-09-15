@@ -365,10 +365,7 @@ desired effect
           <span>Ruta Turistica</span>
           <span class="pull-right-container">
             <ul class="treeview-menu">
-                    <li><a href="#">
-                      <i class="fa fa-star"></i>
-                      Crear Ruta Turística</a></li>
-                    <li><a href="">
+                    <li><a href="{{ route('adminRutaTuristica.index') }}">
                       <i class="fa fa-star"></i>
                       Consultar Ruta Turística</a></li>
                     <li><a href="">
