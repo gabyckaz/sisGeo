@@ -66,16 +66,21 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
+@auth
 <body class="hold-transition skin-green sidebar-mini">
+@endauth
+@guest
+<body class="skin-green layout-top-nav ">
+@endguest
 <div class="wrapper">
 
   <!-- Main Header -->
   <header class="main-header">
-
+    @auth
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="/" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>G</b>EO</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>Geo</b>Turismo</span>
     </a>
@@ -240,7 +245,25 @@ desired effect
         </ul>
       </div>
     </nav>
+    @endauth
+    @guest
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top">
+      <div class="navbar-header">
+        <a href="/" class="navbar-brand"><b>Geo</b>turismo</a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+          <i class="fa fa-bars"></i>
+        </button>
+      </div>
+
+      <ul class="nav navbar-nav">
+        <li><a style="text-align: right"href="/login">Iniciar Sesión</a></li>
+        <li><a href="/register">Crear Cuenta</a></li>
+      </ul>
+    </nav>
+    @endguest
   </header>
+  @auth
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
 
@@ -365,10 +388,7 @@ desired effect
           <span>Ruta Turistica</span>
           <span class="pull-right-container">
             <ul class="treeview-menu">
-                    <li><a href="#">
-                      <i class="fa fa-star"></i>
-                      Crear Ruta Turística</a></li>
-                    <li><a href="">
+                    <li><a href="{{ route('adminRutaTuristica.index') }}">
                       <i class="fa fa-star"></i>
                       Consultar Ruta Turística</a></li>
                     <li><a href="">
@@ -381,9 +401,11 @@ desired effect
 
 
       <!-- /.sidebar-menu -->
+          <li class="active"><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
     </section>
     <!-- /.sidebar -->
   </aside>
+  @endauth
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

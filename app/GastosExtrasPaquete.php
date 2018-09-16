@@ -14,4 +14,9 @@ class GastosExtrasPaquete extends Model
 
     //Cambiando el campo por defecto id a uno personalizado
     protected $primaryKey = 'IdGastosExtraPaquete';
+
+    public function gastospaq()
+    {
+      return $this->belongsTo('App\GastosExtras','gastosextras_id');//Modelo y llave foránea
+    }
 }

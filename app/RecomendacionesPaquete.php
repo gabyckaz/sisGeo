@@ -14,4 +14,9 @@ class RecomendacionesPaquete extends Model
 
     //Cambiando el campo por defecto id a uno personalizado
     protected $primaryKey = 'IdRecomendacionesPaquete';
+
+    public function recomendacionespaq()
+    {
+      return $this->belongsTo('App\Recomendaciones','recomendaciones_id');//Modelo y llave foránea
+    }
 }

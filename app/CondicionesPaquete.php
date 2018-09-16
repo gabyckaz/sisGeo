@@ -14,4 +14,9 @@ class CondicionesPaquete extends Model
 
     //Cambiando el campo por defecto id a uno personalizado
     protected $primaryKey = 'IdCondicionesPaquete';
+
+    public function condicionpaq()
+    {
+      return $this->belongsTo('App\Condiciones','condiciones_id');//Modelo y llave foránea
+    }
 }

@@ -159,14 +159,20 @@ class PaqueteController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra todos los paquetes al cliente
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+      $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
+
+      $imagenes = ImagenPaqueteTuristico::all();
+
+      return view('welcome')
+      ->with('imagenes',$imagenes)
+      ->with('paquetes',$paquetes);
+
     }
 
     /**
@@ -288,6 +294,42 @@ class PaqueteController extends Controller
 public fuction postNewImage(Request $request){
   $this->validate($request,['Imagen1','Imagen2','Imagen3','Imagen4','Imagen5'=>'required|image']);
 */
+
+    /**
+     * Muestra la información de 1 paquete al cliente
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getSingle($id)
+    {
+      $paquete= Paquete::where('IdPaquete','=',$id)->first();
+
+      //Trae las condiciones relacionadas al paquete
+      $condiciones = CondicionesPaquete::where('paquete_id',$id)->get();
+      $condiciones = $condiciones->all();
+      //Trae las recomendaciones relacionadas al paquete
+      $recomendaciones = RecomendacionesPaquete::where('paquete_id',$id)->get();
+      $recomendaciones = $recomendaciones->all();
+      //Trae los gastos extra relacionadas al paquete
+      $gastosextras = GastosExtrasPaquete::where('paquete_id',$id)->get();
+      $gastosextras = $gastosextras->all();
+      //Trae los 'incluye' relacionadas al paquete
+      $incluye = IncluyePaquete::where('paquete_id',$id)->get();
+      $incluye = $incluye->all();
+      //Trae las imagenes relacionadas al paquete
+      $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->get();
+      $imagenes2 = $imagenes->all();
+
+      return view('adminPaquete.single')
+      ->with('paquete',$paquete)
+      ->with('condiciones',$condiciones)
+      ->with('recomendaciones',$recomendaciones)
+      ->with('gastosextras',$gastosextras)
+      ->with('incluye',$incluye)
+      ->with('imagen',$imagenes2);
+
+    }
 
 
 }

@@ -423,18 +423,20 @@ class userController extends Controller
 
         $usuario = User::findOrFail(auth()->user()->id);
         $nacionalidad = Nacionalidad::all();
-         $acom = DB::select('SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
+         
+         $familiaAmigos = DB::select('
+            SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
           p."PrimerNombrePersona",p."PrimerApellidoPersona",p."Genero",
           n."Nacionalidad",t."FechaNacimiento", t."DomicilioTurista",
-          t."Problemas_Salud", td."TipoDocumento"
+          t."Problemas_Salud"
           FROM public."Acompanante" as a, public."Turista" as t,
-          public."personas" as p,public."Nacionalidad" as n,
-          public."TipoDocumento" as td
+          public."personas" as p,public."Nacionalidad" as n
           WHERE a."IdTurista" = t."IdTurista" and
-          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad"
-          and td."IdTurista"=t."IdTurista"');
+          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
+          a."IdUsuario" = '.auth()->user()->id );
+        
+        return view('user.agregarFamiliaAmigo', compact('usuario','nacionalidad','familiaAmigos'));
 
-        return view('user.agregarFamiliaAmigo', compact('usuario','nacionalidad','acom'));
     }
 
     public function guardarFamiliarAmigo(Request $request){

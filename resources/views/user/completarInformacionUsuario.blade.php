@@ -14,7 +14,7 @@ Editar mi informacion de usuario
         @if(session()->has('message'))
            <script type="text/javascript"> 
             console.log("Hola");
-              alertify.success("<h1>{{ session()->get('message') }} </h1>");
+              alertify.success('<p class="fa fa-check" style="color: white"></p>{{ session()->get('message') }} ');
             </script>
          @endif
    <!-- -->
