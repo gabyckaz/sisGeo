@@ -8,6 +8,11 @@ use App\RutaTuristica;
 
 class RutaTuristicaController extends Controller
 {
+    //Solo con acceso los que hayan iniciado sesion
+    public function __construct()
+    {
+       $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *

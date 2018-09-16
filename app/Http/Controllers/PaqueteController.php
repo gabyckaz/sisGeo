@@ -167,27 +167,12 @@ class PaqueteController extends Controller
     {
       $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
 
-
-
-      foreach ($paquetes as $paquete) {
-        $imagenes = ImagenPaqueteTuristico::where('id_paquete',$paquete->IdPaquete)->get();
-        $imagenes2 = $imagenes->all();
-      }
-
+      $imagenes = ImagenPaqueteTuristico::all();
 
       return view('welcome')
-      ->with('imagen',$imagenes2)
+      ->with('imagenes',$imagenes)
       ->with('paquetes',$paquetes);
-      //return view('welcome')->withPaquetes($paquetes);
 
-
-      // $paquete= Paquete::where('IdPaquete','=',$id)->first();
-      // $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->get();
-      // $imagenes2 = $imagenes->all();
-      //
-      // return view('adminPaquete.single')
-      // ->with('paquete',$paquete)
-      // ->with('imagen',$imagenes2);
     }
 
     /**

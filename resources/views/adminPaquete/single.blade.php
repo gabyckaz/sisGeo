@@ -1,3 +1,19 @@
+<style>
+.galeria{
+  height: 200px;
+  overflow:hidden; /*hide bounds of image */
+  margin:0;   /*reset margin of figure tag*/
+}
+
+.thumbnail:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+.responsive {
+    width: 100%;
+    height: auto;
+}
+</style>
+
 @extends('master')
 
 @section('head')
@@ -10,27 +26,32 @@
     <div class="col-md-6"><!-- columna izquierda -->
           <!-- Que solo muestre 1 foto al inicio -->
       @foreach ($imagen as $key=>$imagenes)
-        <?php  ++$key?>
-          <a href="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}">
-              <img src="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}" style=" margin-left: auto; margin-right: auto; display: block;"    >
+        @php  ++$key @endphp
+              <img src="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}" style=" margin-left: auto; margin-right: 220px; display: block;" class="responsive img-rounded">
           </a>
         @if($key == 1)
           @break
         @endif
       @endforeach
 
+    <div class="galeria">
+
       @foreach ($imagen as $imagenes)
+        <div class="col-sm-4 galeria" style="height:200px">
         <a href="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}">
-          <img src="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4" >
+          <img src="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}"  class="thumbnail responsive" style="height: 100%; margin:10 -38.885%;  width:177.777%; ">
         </a>
+        </div>
       @endforeach
+
+    </div>
 
     </div><!-- Fin de columna izquierda -->
       <div class="col-md-6"><!-- columna derecha -->
         <div class="box box-solid">
   <div class="box-header with-border">
     <h3 class="box-title"></h3>
-    <span class="col-md-6 col-md-offset-3 label label-success pull-center"><h4>{{$paquete->ruta->pais->nombrePais}}</h4></span>
+
   </div>
   <!-- /.box-header -->
   <div class="box-body">
@@ -43,6 +64,7 @@
               Datos generales
             </a>
           </h4>
+          <span class=" label label-success">{{$paquete->ruta->pais->nombrePais}}</span>
         </div>
         <div id="collapseOne" class="panel-collapse collapse in">
           <div class="box-body">

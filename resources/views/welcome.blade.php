@@ -47,17 +47,52 @@ scratch. This page gets rid of all links and provides the needed markup only.
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <style>
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  padding: 10px;
-}
-.grid-item {
-  background-color: rgba(255, 255, 255, 0.8);
 
-  padding: 20px;
-  font-size: 20px;
-  text-align: center;
+.responsive {
+    width: 100%;
+    height: auto;
+}
+.fadein img{
+  /* opacity:1; */
+  transition: 1s ease;
+}
+
+.fadein img:hover{
+  /* opacity:0.7; */
+  filter:contrast(125%) brightness(115%);
+  transition: 1s ease;
+}
+
+div.figure{
+   /* width:473px;
+   height: 400px; */
+   overflow:hidden; /*hide bounds of image */
+   margin:0;   /*reset margin of figure tag*/
+}
+div.figure img{
+   display:block; /*remove inline-block spaces*/
+   width:100%; /*make image streatch*/
+    /*  margin:0 -38.885%;
+
+   width:177.777%; */
+}
+.image {
+   position: relative;
+   width: 100%; /* for IE 6 */
+}
+
+h4 {
+   position: absolute;
+   top: 200px;
+   left: 0;
+   width: 100%;
+}
+h4 span {
+   color: white;
+   letter-spacing: -1px;
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px;
 }
 </style>
 <!--
@@ -80,140 +115,28 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-green sidebar-mini">
+<body class=" skin-green layout-top-nav ">
 <div class="wrapper">
 
   <!-- Main Header -->
   <header class="main-header">
-
-    <!-- Logo -->
-    <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>G</b>EO</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Geo</b>Turismo</span>
-    </a>
     <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" role="navigation">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-      <!-- Navbar Right Menu -->
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          @if(Auth::check())
-          <!-- User Account Menu -->
-          <li class="dropdown user user-menu">
-            <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <!-- The user image in the navbar-->
-              <img src="{{ Storage::url( auth()->user()->avatar ) }}" class="user-image" alt="User Image">
-              <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">{{ auth()->user()->name }}</span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- The user image in the menu -->
-              <li class="user-header">
-                <img src="{{ Storage::url(auth()->user()->avatar) }}" class="img-circle" alt="User Image">
-                <p>
-                  {{ auth()->user()->name }} - {{ auth()->user()->name }}
-                  <small>Member since Nov. 2012</small>
-                </p>
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                  <form action="{{ route('logout') }}" method="POST">
-                      {{ csrf_field() }}
-                      <button type="submit" class="btn btn-default btn-flat">Salir</button>
-                  </form>
-               </li>
-            </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
-          @endif
-        </ul>
-      </div>
+    <nav class="navbar navbar-static-top">
+
+      <div class="navbar-header">
+  <a href="/" class="navbar-brand"><b>Geo</b>turismo</a>
+  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+    <i class="fa fa-bars"></i>
+  </button>
+</div>
+
+      <ul class="nav navbar-nav">
+        <li><a style="text-align: right"href="/login">Iniciar Sesión</a></li>
+        <li><a href="/register">Crear Cuenta</a></li>
+      </ul>
+
     </nav>
   </header>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel">
-        @if(Auth::check())
-        <div class="pull-left image">
-          <img src="{{ Storage::url( auth()->user()->avatar ) }}" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>{{ auth()->user()->name}}</p>
-          <!-- Status -->
-        </div>
-        @endif
-      </div>
-
-      <!-- search form (Optional) -->
-      <!--<form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
-        </div>
-      </form> -->
-      <!-- /.search form -->
-
-      <!-- Sidebar Menu -->
-    <ul class="sidebar-menu" data-widget="tree">
-      <li class="header">OPCIONES</li>
-
-@if(Auth::check())
-    <li class="active">
-      <a href="{{ route('home') }}">
-        <i class="fa fa-home"></i>
-        <span>Inicio</span>
-      </a>
-    </li>
-
-    <li class="active">
-      <a href="#">
-        <i class="fa fa-user"></i>
-        <span>Mi Cuenta</span>
-      </a>
-    </li>
-
-    <li class="active">
-      <a href="{{ route('home') }}">
-        <i class="fa fa-calendar"></i>
-        <span>Reservas</span>
-      </a>
-    </li>
-    @endif
-
-    @guest
-    <li class="active">
-      <a href="{{ route('login') }}">
-        <i class="fa fa-info"></i>
-        <span>Iniciar sesión</span>
-      </a>
-    </li>
-
-    <li class="active">
-      <a href="{{ route('register') }}">
-        <i class="fa fa-info"></i>
-        <span>Registrarse</span>
-      </a>
-    </li>
-    @endguest
-    <li class="active"><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
-      <!-- /.sidebar-menu -->
-    </section>
-    <!-- /.sidebar -->
-  </aside>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -238,30 +161,60 @@ desired effect
         </div>
         <div class="box-body">
           @yield('contenido')
-          <div class="grid-container">
+          <div style="padding:1px 100px 1px 100px;">
+        {{--
+            <div class="text-center" >
+              <img alt="Geoturismo logo" src="http://nebula.wsimg.com/d3657b04208ae150f468167d20de36aa?AccessKeyId=B5E8C3F7E00CA38BCFD7&disposition=0&alloworigin=1">
+            </div>
+            --}}
+            <div class="text-center">
+              <img class="responsive" alt="Geoturismo banner" src="https://78.media.tumblr.com/6a60fa5ae43c94c672501188c1f2ef02/tumblr_pf41uvQQwE1qa3lvmo1_r1_1280.png">
+            </div>
+          </div>
+
+          <div class="row">
+
             @foreach($paquetes as $paquete)
 
-            <div class="grid-item">
-              <div class="small-box bg-yellow disabled color-palette">
-                <div class="inner">
+            <div class="col-sm-4 ">
+             <div class="fadein figure">
+              <!-- muestra 1 imagen de cada paquete-->
+              @foreach ($imagenes as $key=>$imagen)
+                @php  $key=0 @endphp
+                @if($imagen->id_paquete == $paquete->IdPaquete )
+                @php  ++$key @endphp
+                  <a href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}">
+                    <img src="{{asset('storage/imagenesPaquete')}}/{{$imagen->Imagen1}}" class="responsive figure"/>
+                  </a>
+                @endif
+                @if($key == 1)
+                  @break
+                @endif
+              @endforeach
 
-                <a style="color:white; font-weight:bold" href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}">{{ $paquete->NombrePaquete }} </a></h3>
+              </div>
+              <!-- /muestra 1 imagen de cada paquete-->
+              <!-- box info de cada paquete-->
+              <div class="small-box  disabled color-palette" style="background-color:#9CC1A9">
+                <span class=" label" style="background:#568D51;text-align:right">{{$paquete->ruta->pais->nombrePais}}</span>
+                <div class="inner" style="text-align:center;display:block;">
+                  <a style="color:#4c5b51; font-weight:bold;align:center" href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}">{{ $paquete->NombrePaquete }} </a></h3>
                   <div class="box-body">
+                    <p style="color:#4c5b51">Fecha de salida: {{ $paquete->FechaSalida}}</p>
+                  </div>
+                </div><!-- /.inner-->
+                <a href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}" class="small-box-footer">
+                  Leer más <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div> <!--/ box info de cada paquete-->
+            </div><!-- /. colm-d-->
 
-                  <p>Fecha de salida: {{ $paquete->FechaSalida}}</p>
-                  <p>Precio: $ {{ $paquete->Precio}}</p>
-                  <p>Dificultad: {{ $paquete->Dificultad}}</p>
-
-
-               </div>
-             </div><!-- /.inner-->
-             <a href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}" class="small-box-footer">
-              Leer más <i class="fa fa-arrow-circle-right"></i>
-            </a>
-            </div> <!-- /.small-box bg-yellow-->
-          </div><!-- /.grid item -->
             @endforeach
-          </div><!-- /.grid container -->
+
+          </div><!-- /.row -->
+          <div class="text-center" >
+            <img alt="Geoturismo logo" src="http://nebula.wsimg.com/f1a6ab585e8127b5cc523d8f47ab7fe1?AccessKeyId=B5E8C3F7E00CA38BCFD7&disposition=0&alloworigin=1">
+          </div>
         </div>
         </div>
         <!-- /.box-body -->

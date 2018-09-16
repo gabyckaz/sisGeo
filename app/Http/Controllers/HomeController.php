@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Paquete;
+use App\ImagenPaqueteTuristico;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+      $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
+
+      $imagenes = ImagenPaqueteTuristico::all();
+
+      return view('home')
+      ->with('imagenes',$imagenes)
+      ->with('paquetes',$paquetes);
+
     }
 }
