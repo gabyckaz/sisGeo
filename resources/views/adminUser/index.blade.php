@@ -54,8 +54,8 @@ Administracion de usuarios
                          alertify.warning("{{session('fallo')  }}");
                        </script>
                     @endif
-
-    <div class="col-md-7 col-md-offset-2">
+    <div class="row">
+    <div class="col-md-offset-2 col-md-7 ">
        <form class="navbar-form navbar-left pull-right" action="{{ route('adminUser.index') }}" method="get" role="search">
               <div class="form-group">
                 <input type="text" name="nombre" class="form-control" placeholder="Nombre">
@@ -74,7 +74,7 @@ Administracion de usuarios
               <button type="submit" class="btn btn-default" >Buscar<span class="glyphicon glyphicon-search"></span></button>
           </form>
         </div>
-
+     </div>
            <!-- <form action="" method="get" class="sidebar-form">
               <div class="input-group">
               <input type="text" name="nombre" class="form-control" placeholder="Nombre">
@@ -180,7 +180,7 @@ Administracion de usuarios
   </tbody>
 
  </table>
- {!! $usuarios->appends(\Request::except('page'))->render() !!}
+ <center>{!! $usuarios->appends(\Request::except('page'))->render() !!}</center>
  <!--div align="center">!! $usuarios->appends([ 'nombre' =>  $nombre,'email' =>  $email,'estado' =>  $estado ,'rol' => $rol ])->render() !!} </div>
  </div -->
  </div>

@@ -1,4 +1,4 @@
-@extends('admin-lte::layouts.auth')
+@extends('layouts.app')
 
 @section('content')
 @if (session('status'))

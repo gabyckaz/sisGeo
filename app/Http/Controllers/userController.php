@@ -12,6 +12,12 @@ use App\TipoDocumento;
 use App\Acompanante;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+//use Illuminate\Support\Facades\Paginator;
+//use Illuminate\Pagination\Paginator;
+
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 
 class userController extends Controller
@@ -418,14 +424,14 @@ class userController extends Controller
         return view('user.editInfoUserTurista', compact('turista', 'nacionalidad'));
     }
 
-    public function agregarFamiliarAmigo()
+    public function agregarFamiliarAmigo(Request $request)
     {
-
+        
         $usuario = User::findOrFail(auth()->user()->id);
         $nacionalidad = Nacionalidad::all();
-         
+
          $familiaAmigos = DB::select('
-            SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
+           (SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
           p."PrimerNombrePersona",p."PrimerApellidoPersona",p."Genero",
           n."Nacionalidad",t."FechaNacimiento", t."DomicilioTurista",
           t."Problemas_Salud"
@@ -433,44 +439,36 @@ class userController extends Controller
           public."personas" as p,public."Nacionalidad" as n
           WHERE a."IdTurista" = t."IdTurista" and
           t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
-          a."IdUsuario" = '.auth()->user()->id );
-        
+          a."IdUsuario" = '.auth()->user()->id.' )
+        UNION
+          (SELECT  u."id",(0) as "IdFamiliarAmigo", t."IdTurista",('."'af'".') as "EsFamiliar",
+          p."PrimerNombrePersona",p."PrimerApellidoPersona",p."Genero",
+          n."Nacionalidad",t."FechaNacimiento", t."DomicilioTurista",
+          t."Problemas_Salud"
+          FROM public."users" as u, public."Turista" as t,
+          public."personas" as p,public."Nacionalidad" as n
+          WHERE u."IdPersona" = p."IdPersona" and
+          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
+          u."id" = '.auth()->user()->id.' )
+          ');
+
+        $familiaAmigos = $this->arrayPaginator($familiaAmigos);
         return view('user.agregarFamiliaAmigo', compact('usuario','nacionalidad','familiaAmigos'));
 
     }
 
-    public function guardarFamiliarAmigo(Request $request){
+    public function arrayPaginator($array)
+{
+    $page = Input::get('page', 1);
+    $perPage = 2;
+    $offset = ($page * $perPage) - $perPage;
 
-         //$usuario = User::findOrFail(auth()->user()->id);
-         //foreach ($usuario->turistas as $task) {
-         //obteniendo los datos de un task específico
-          // $task->CategoriaTurista;
-          //dd($task);
-         //obteniendo datos de la tabla pivot por task
-      //  echo $task->pivot->menu_id;
-      //  echo $task->pivot->status;
-       // /7}
-      //  dd("Termino");
-      //Los acompañantes de el usuario
-     /* $acompañantes = Acompanante::where('IdUsuario',auth()->user()->id);
-      foreach ($acompañantes->turist as $turista) {
-         dd($turista->DomicilioTurista);
-       }*/
-        $acompañantes = DB::select('
-          SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
-          p."PrimerNombrePersona",p."PrimerApellidoPersona",p."Genero",
-          n."Nacionalidad",t."FechaNacimiento", t."DomicilioTurista",
-          t."Problemas_Salud", td."TipoDocumento"
-          FROM public."Acompanante" as a, public."Turista" as t,
-          public."personas" as p,public."Nacionalidad" as n,
-          public."TipoDocumento" as td
-          WHERE a."IdTurista" = t."IdTurista" and
-          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad"
-          and td."IdTurista"=t."IdTurista"');
-        /*$long = count($acompañantes);
-        for ($i=0; $i < $long; $i++) {
-          dd($acompañantes[$i]->IdTurista);
-        } */
+    return new LengthAwarePaginator(array_slice($array, $offset, $perPage, true), count($array), $perPage, $page,
+        ['path' => 'agregarFamiliarAmigo']);
+}
+
+
+    public function guardarFamiliarAmigo(Request $request){
 
        $this->validate($request, [
               "PrimerNombrePersona" => "required",
@@ -564,6 +562,6 @@ class userController extends Controller
           'EsFamiliar' => $request->tipo,
          ]);
 
-
+      return redirect()->route('user.agregar.familiarAmigo');
     }
 }

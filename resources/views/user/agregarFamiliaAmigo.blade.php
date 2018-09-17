@@ -81,8 +81,8 @@ Agregar familiares o amigos
               
               <div class="">
                 <select  class="form-control" name="genero" id="genero" >    
-                     <option value="m">Masculino</option>
-                     <option value="f">Femenino</option>
+                     <option value="M">Masculino</option>
+                     <option value="F">Femenino</option>
                   </select>
               </div>
             </div>
@@ -225,9 +225,9 @@ Agregar familiares o amigos
        <div class="col-md-8  col-md-offset-2">
         <div class="box box-warning">
         <div class="box-header">
-          <h3 class="box-title">Unidades de transporte</h3>
+          <h3 class="box-title">Familiares y amigos</h3>
           </div>
-                <div class="box-body">
+                <div class="box-body">                  
                     <div class="table-responsive">
                       <table class="table table-striped table-bordered" >
                         <thead class="thead-dark">
@@ -235,29 +235,35 @@ Agregar familiares o amigos
                          <th>Nombre</th>
                          <th>Apellido</th>
                          <th>Genero</th>
-                         <th>Nacionalidad</th>
+                         <th>Nacionalidad</th>                        
                         </thead>
                           <tbody>
                             @foreach($familiaAmigos as $a)
                              <tr>
-                               @if($a->EsFamiliar == "a")
+                               @if(strtoupper($a->EsFamiliar) == strtoupper("a"))
                                 <td>Amigo</td>
-                                @else
+                               @endif
+                               @if(strtoupper($a->EsFamiliar) == strtoupper("f"))
                                 <td>Familia</td>
-                               @endif          
+                               @endif
+                               @if(strtoupper($a->EsFamiliar) == strtoupper("af"))
+                                <td>*</td>
+                               @endif         
                                <td>{{ $a->PrimerNombrePersona }}</td>
                                <td>{{ $a->PrimerApellidoPersona }}</td>
-                               @if($a->Genero == "m")
+                               @if($a->Genero == "M")
                                 <td>Masculino</td>
                                @else
                                 <td>Femenino</td>
                                @endif                   
-                               <td>{{ $a->Nacionalidad }}</td>
+                               <td>{{ $a->Nacionalidad }}</td>                              
                             </tr>
                             @endforeach
                           </tbody>
                       </table>
-                  </div> 
+                      <center>{{ $familiaAmigos->links() }}</center>
+                       
+                  </div>
                 </div> 
-   
+
 @endsection
