@@ -32,7 +32,9 @@ class Transporte extends Model
        //return $this->belongsTo(TipoTransporte::class);
   }
 
-
-
+   public function paquetes()
+   {
+       return $this->belongsToMany('App\Paquete', 'Contrata', 'IdTransporte', 'IdPaquete');
+   }
 
 }

@@ -164,6 +164,16 @@ Route::resource('turista', 'TuristaController');
               'as' => 'adminPaquete.single',
             ]);
 
+            //AGREGAR TRANSPORTE A PAQUETE
+            Route::get('/MostrarPaquete/{id}', [
+              'uses' => 'PaqueteController@edittransporte',
+              'as' => 'adminPaquete.show',
+            ]);
+
+            Route::put('/MostrarPaquete/{id}', [
+              'uses' => 'PaqueteController@asignartransporte',
+              'as' => 'adminPaquete.show',
+            ]);
 
 
         /*FIN RUTAS PAQUETES*/

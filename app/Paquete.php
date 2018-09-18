@@ -36,7 +36,10 @@ class Paquete extends Model
       return $this->belongsTo('App\RutaTuristica','IdTuristica');//Modelo y llave foránea
     }
 
-
+    public function transportes()
+    {
+          return $this->belongsToMany('App\Transporte', 'Contrata', 'IdPaquete', 'IdTransporte');
+    }
 
 
 }

@@ -18,6 +18,7 @@ use App\IncluyePaquete;
 use App\GastosExtrasPaquete;
 use App\CondicionesPaquete;
 use App\ImagenPaqueteTuristico;
+use App\Transporte;
 
 
 
@@ -328,6 +329,59 @@ public fuction postNewImage(Request $request){
       ->with('gastosextras',$gastosextras)
       ->with('incluye',$incluye)
       ->with('imagen',$imagenes2);
+
+    }
+
+    /**
+     * Muestra la pantalla para agregar transporte y conductor a 1 paquete
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edittransporte($id)
+    {
+      $paquete= Paquete::where('IdPaquete','=',$id)->first();
+      $transportes =Transporte::all();
+      $conductores =Conductor::all();
+
+      $consulta = DB::table('Contrata')
+            ->join('Transporte', 'Contrata.IdTransporte', '=', 'Transporte.IdTransporte')
+            ->select('Transporte.NumeroAsientos')
+            ->where('Contrata.IdPaquete','=',$id)
+            ->get();
+
+      return view('adminPaquete.show')
+      ->with('transportes',$transportes)
+      ->with('conductores',$conductores)
+      ->with('paquete',$paquete)
+      ->with('consulta',$consulta);
+
+    }
+
+    /**
+     * Guarda las asignaciones en la BD
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function asignartransporte($paquete, Request $request)
+    {
+      try{
+        $transporte = Transporte::find($request->get('transporte'));
+        // insert into "Contrata" ("IdPaquete", "IdTransporte") values (5, 25)
+        $transporte->paquetes()->attach($paquete);
+
+        $paquete= Paquete::where('IdPaquete','=',$paquete)->first();
+        $transportes =Transporte::all();
+        $conductores =Conductor::all();
+        $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','asc')->paginate(5);
+
+        return back()
+        ->with('paquetes',$paquetes)
+        ->with('status',"Asignado exitosamente");
+      } catch(\Exception $e) {
+        return back()->with('fallo', "Ya tiene asignado el transporte de ". $transporte->tipotransporte->NombreTipoTransporte." de". $transporte->EmpresaAlquilerTransporte->NombreEmpresaTransporte);
+      }
 
     }
 
