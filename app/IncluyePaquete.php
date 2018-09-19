@@ -14,4 +14,9 @@ class IncluyePaquete extends Model
 
     //Cambiando el campo por defecto id a uno personalizado
     protected $primaryKey = 'IdIncluyePaquete';
+
+    public function incluyepaq()
+    {
+      return $this->belongsTo('App\Incluye','incluye_id');//Modelo y llave foránea
+    }
 }

@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
@@ -100,7 +100,7 @@ Route::resource('turista', 'TuristaController');
 
             Route::post('/CrearRutaTuristica', [
                 'uses' => 'RutaTuristicaController@store',
-                'as' => 'adminRutaTuristica.create',
+                'as' => 'adminRutaTuristica.store',
             ]);
 
             //Actualizar paquetes
@@ -111,7 +111,7 @@ Route::resource('turista', 'TuristaController');
 
             Route::put('/EditarRutaTuristica/{id}', [
                 'uses' => 'RutaTuristicaController@update',
-                'as' => 'adminRutaTuristica.edit',
+                'as' => 'adminRutaTuristica.update',
             ]);
 
             //Bloquear paquetes
@@ -158,4 +158,34 @@ Route::resource('turista', 'TuristaController');
                 'as' => 'adminPaquete.destroy'
             ]);
 
+            //MOSTRAR PAQUETES A CLIENTES
+            Route::get('/MostrarPaqueteCliente/{id}', [
+              'uses' => 'PaqueteController@getSingle',
+              'as' => 'adminPaquete.single',
+            ]);
+
+            //AGREGAR TRANSPORTE A PAQUETE
+            Route::get('/MostrarPaquete/{id}', [
+              'uses' => 'PaqueteController@edittransporte',
+              'as' => 'adminPaquete.show',
+            ]);
+
+            Route::put('/MostrarPaquete/{id}', [
+              'uses' => 'PaqueteController@asignartransporte',
+              'as' => 'adminPaquete.show',
+            ]);
+            //AGREGAR CONDUCTOR A PAQUETE
+            Route::post('/MostrarPaquete/{id}', [
+              'uses' => 'PaqueteController@asignarconductor',
+              'as' => 'adminPaquete.show',
+            ]);
+
+
         /*FIN RUTAS PAQUETES*/
+
+Route::group(['middleware' => ['guest']], function () {
+        //solo los visitantes sin login pueden accesar aquí
+        Route::get('/', ['uses' => 'PaqueteController@show',
+          'as' => 'welcome',
+        ]);
+});

@@ -18,6 +18,8 @@ use App\IncluyePaquete;
 use App\GastosExtrasPaquete;
 use App\CondicionesPaquete;
 use App\ImagenPaqueteTuristico;
+use App\Transporte;
+use App\Conductor;
 
 
 
@@ -159,14 +161,20 @@ class PaqueteController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra todos los paquetes al cliente
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+      $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
+
+      $imagenes = ImagenPaqueteTuristico::all();
+
+      return view('welcome')
+      ->with('imagenes',$imagenes)
+      ->with('paquetes',$paquetes);
+
     }
 
     /**
@@ -288,6 +296,128 @@ class PaqueteController extends Controller
 public fuction postNewImage(Request $request){
   $this->validate($request,['Imagen1','Imagen2','Imagen3','Imagen4','Imagen5'=>'required|image']);
 */
+
+    /**
+     * Muestra la información de 1 paquete al cliente
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getSingle($id)
+    {
+      $paquete= Paquete::where('IdPaquete','=',$id)->first();
+
+      //Trae las condiciones relacionadas al paquete
+      $condiciones = CondicionesPaquete::where('paquete_id',$id)->get();
+      $condiciones = $condiciones->all();
+      //Trae las recomendaciones relacionadas al paquete
+      $recomendaciones = RecomendacionesPaquete::where('paquete_id',$id)->get();
+      $recomendaciones = $recomendaciones->all();
+      //Trae los gastos extra relacionadas al paquete
+      $gastosextras = GastosExtrasPaquete::where('paquete_id',$id)->get();
+      $gastosextras = $gastosextras->all();
+      //Trae los 'incluye' relacionadas al paquete
+      $incluye = IncluyePaquete::where('paquete_id',$id)->get();
+      $incluye = $incluye->all();
+      //Trae las imagenes relacionadas al paquete
+      $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->get();
+      $imagenes2 = $imagenes->all();
+
+      return view('adminPaquete.single')
+      ->with('paquete',$paquete)
+      ->with('condiciones',$condiciones)
+      ->with('recomendaciones',$recomendaciones)
+      ->with('gastosextras',$gastosextras)
+      ->with('incluye',$incluye)
+      ->with('imagen',$imagenes2);
+
+    }
+
+    /**
+     * Muestra la pantalla para agregar transporte y conductor a 1 paquete
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edittransporte($id)
+    {
+      $paquete= Paquete::where('IdPaquete','=',$id)->first();
+      $transportes =Transporte::all();
+      $conductores =Conductor::all();
+
+      $consulta = DB::table('Contrata')
+            ->join('Transporte', 'Contrata.IdTransporte', '=', 'Transporte.IdTransporte')
+            ->select('Transporte.NumeroAsientos')
+            ->where('Contrata.IdPaquete','=',$id)
+            ->get();
+
+      $consultaconductor= DB::table('Conduce')
+            ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
+            ->select('Conductor.NombreConductor')
+            ->where('Conduce.IdPaquete','=',$id)
+            ->get();
+
+      return view('adminPaquete.show')
+      ->with('transportes',$transportes)
+      ->with('conductores',$conductores)
+      ->with('paquete',$paquete)
+      ->with('consulta',$consulta)
+      ->with('consultaconductor',$consultaconductor);
+
+    }
+
+    /**
+     * Guarda las asignaciones de transporte en la BD
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function asignartransporte($paquete, Request $request)
+    {
+      try{
+        $transporte = Transporte::find($request->get('transporte'));
+        // insert into "Contrata" ("IdPaquete", "IdTransporte") values (5, 25)
+        $transporte->paquetes()->attach($paquete);
+
+        $paquete= Paquete::where('IdPaquete','=',$paquete)->first();
+        $transportes =Transporte::all();
+        $conductores =Conductor::all();
+        $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','asc')->paginate(5);
+
+        return back()
+        ->with('paquetes',$paquetes)
+        ->with('status',"Asignado exitosamente");
+      } catch(\Exception $e) {
+        return back()->with('fallo', "Ya tiene asignado el transporte de ". $transporte->tipotransporte->NombreTipoTransporte." de". $transporte->EmpresaAlquilerTransporte->NombreEmpresaTransporte);
+      }
+    }
+
+      /**
+       * Guarda las asignaciones de conductores en la BD
+       *
+       * @param  int  $id
+       * @return \Illuminate\Http\Response
+       */
+      public function asignarconductor($paquete, Request $request)
+      {
+        try{
+          $conductor = Conductor::find($request->get('conductor'));
+          // insert into "Conduce" ("IdPaquete", "IdConductor") values (5, 25)
+          $conductor->paquetescon()->attach($paquete);
+
+          $paquete= Paquete::where('IdPaquete','=',$paquete)->first();
+          $transportes =Conductor::all();
+          $conductores =Conductor::all();
+          $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','asc')->paginate(5);
+
+          return back()
+          ->with('paquetes',$paquetes)
+          ->with('status',"Asignado exitosamente");
+        } catch(\Exception $e) {
+          return back()->with('fallo', "Ya tiene asignado al conductor ".$conductor->NombreConductor);
+        }
+
+    }
 
 
 }

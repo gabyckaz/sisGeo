@@ -6,8 +6,19 @@
 @section('contenido')
     <div class="container spark-screen">
         <div class="row">
-
             <div class="col-md-9 col-md-offset-1">
+              @if(session('status'))
+              <br>
+               <script type="text/javascript">
+                alertify.success("{{ session('status') }}");
+               </script>
+              @endif
+              @if(session('fallo'))
+              <br>
+               <script type="text/javascript">
+                alertify.error("{{ session('fallo') }}");
+               </script>
+               @endif
               <div class="table-responsive">
               <div class="row">
                 <div class="col-md-6">
@@ -41,7 +52,6 @@
 					 	<table class="table table-striped">
 					 		<thead>
 
-					 				<th>Id</th>
 					 				<th>Nombre Paquete</th>
 					 				<th>Fecha Salida</th>
 					 				<th>Hora Salida</th>
@@ -51,7 +61,6 @@
 					 		<tbody>
 					 			@foreach($paquetes as $paquete)
 					 				<tr>
-					 					<td>{{$id=$paquete->IdPaquete}}</td>
 					 					<td>{{$nombrepaquete=$paquete->NombrePaquete}}</td>
 					 					<td>{{$fechasalida=$paquete->FechaSalida}}</td>
 					 					<td>{{$horasalida=$paquete->HoraSalida}}</td>
@@ -61,6 +70,10 @@
 					 						class="btn btn-warning"> <font color="black" size="2"> <b> Editar</b>
 					 						</font>
 					 						</a>
+                      <a href="{{route('adminPaquete.show', $paquete['IdPaquete'])}}"
+                      class="btn btn-info"> <font color="black" size="2"> <b> Asignaciones</b>
+                      </font>
+                      </a>
 
 					 				    </td>
 					 				 </tr>
@@ -68,7 +81,7 @@
       @endforeach
 					 				</tbody>
 					 			</table>
-              
+
               {!! $paquetes->appends(\Request::except('page'))->render() !!}
 
 
