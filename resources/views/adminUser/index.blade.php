@@ -116,8 +116,8 @@ Administracion de usuarios
  <table class="table table-striped table-bordered" >
   <thead class="thead-dark">
     <tr>
-    <th class="text-center">id</th>
-    <th class="text-center">@sortablelink('name', 'name')</th>
+    
+    <th class="text-center">@sortablelink('name', 'Nombre')</th>
     <th class="text-center">Correo</th>
     <th class="text-center">Estado</th>
     <th class="text-center">Rol</th>
@@ -128,9 +128,9 @@ Administracion de usuarios
   <tbody>
     @foreach($usuarios as $usuario)
      <tr>
-      <td class="text-center">{{ $usuario->id }}</td>
+      
            <!--td>{ $usuario->persona->PrimerNombrePersona }} </td -->
-           <td>{{ $usuario->name }} </td>
+           <td> {{ $usuario->persona->PrimerNombrePersona }}  {{ $usuario->persona->PrimerApellidoPersona }}</td>
            <td>{{ $usuario->email }}</td>
            <td>
               <form class="btn-block" role="form" method="POST" action="{{route('adminUser.state.change', $usuario->id) }}">
@@ -169,7 +169,7 @@ Administracion de usuarios
                                 <i class="fa fa-trash"></i>
                             </button>
                         </form> -->
-                      <a class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editarar usuario"
+                      <a class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editar usuario"
                       href="{{ route('adminUser.edit', $usuario )}}"></a>
 
             </td>
