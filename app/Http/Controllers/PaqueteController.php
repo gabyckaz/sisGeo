@@ -19,6 +19,7 @@ use App\GastosExtrasPaquete;
 use App\CondicionesPaquete;
 use App\ImagenPaqueteTuristico;
 use App\Transporte;
+use App\Conductor;
 
 
 
@@ -350,16 +351,23 @@ public fuction postNewImage(Request $request){
             ->where('Contrata.IdPaquete','=',$id)
             ->get();
 
+      $consultaconductor= DB::table('Conduce')
+            ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
+            ->select('Conductor.NombreConductor')
+            ->where('Conduce.IdPaquete','=',$id)
+            ->get();
+
       return view('adminPaquete.show')
       ->with('transportes',$transportes)
       ->with('conductores',$conductores)
       ->with('paquete',$paquete)
-      ->with('consulta',$consulta);
+      ->with('consulta',$consulta)
+      ->with('consultaconductor',$consultaconductor);
 
     }
 
     /**
-     * Guarda las asignaciones en la BD
+     * Guarda las asignaciones de transporte en la BD
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -382,6 +390,32 @@ public fuction postNewImage(Request $request){
       } catch(\Exception $e) {
         return back()->with('fallo', "Ya tiene asignado el transporte de ". $transporte->tipotransporte->NombreTipoTransporte." de". $transporte->EmpresaAlquilerTransporte->NombreEmpresaTransporte);
       }
+    }
+
+      /**
+       * Guarda las asignaciones de conductores en la BD
+       *
+       * @param  int  $id
+       * @return \Illuminate\Http\Response
+       */
+      public function asignarconductor($paquete, Request $request)
+      {
+        try{
+          $conductor = Conductor::find($request->get('conductor'));
+          // insert into "Conduce" ("IdPaquete", "IdConductor") values (5, 25)
+          $conductor->paquetescon()->attach($paquete);
+
+          $paquete= Paquete::where('IdPaquete','=',$paquete)->first();
+          $transportes =Conductor::all();
+          $conductores =Conductor::all();
+          $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','asc')->paginate(5);
+
+          return back()
+          ->with('paquetes',$paquetes)
+          ->with('status',"Asignado exitosamente");
+        } catch(\Exception $e) {
+          return back()->with('fallo', "Ya tiene asignado al conductor ".$conductor->NombreConductor);
+        }
 
     }
 

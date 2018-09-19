@@ -112,27 +112,33 @@
                   <p>Actualmente seleccionado el de cupos: {{$consulta}}</p>
                 </div>
               </div>
-              <div class="col-md-6">
-              <div class="form-group">
-                <label for="conductor">Conductor</label>
-                  <select class="form-control" name="conductor">
-                    @foreach($conductores as $conductor)
-                      <option value="{{ $conductor->IdConductor}}">{{ $conductor->NombreConductor }} de {{$conductor->empresa->NombreEmpresaTransporte}}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
              </div>
 
 
               </div>
                 <!-- /.box-body -->
-
-              <div class="box-footer">
-                  <button type="submit" class="btn btn-info">Asignar transporte</button>
-              </div>
-                </div>
+            <div class="row">
+                  <div class="col-md-6" >
+                    <button type="submit" class="btn btn-info">Asignar transporte</button>
+                  </div>
               </form>
+
+              <div class="col-md-6">
+              <form method="POST" action="{{$paquete->IdPaquete}}" files = "true" >
+                <div class="form-group">
+                  <label for="conductor">Conductor</label>
+                    <select class="form-control" name="conductor">
+                      @foreach($conductores as $conductor)
+                        <option value="{{ $conductor->IdConductor}}">{{ $conductor->NombreConductor }} de {{$conductor->empresa->NombreEmpresaTransporte}}</option>
+                      @endforeach
+                    </select>
+                      <p>Actualmente seleccionado el conductor: {{$consultaconductor}}</p>
+                  </div>
+                <button type="submit" class="btn btn-info">Asignar conductor</button>
+                  </form>
+                </div>
+
+        </div>
       </div>
     </div>
   </div>

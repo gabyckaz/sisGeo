@@ -174,6 +174,11 @@ Route::resource('turista', 'TuristaController');
               'uses' => 'PaqueteController@asignartransporte',
               'as' => 'adminPaquete.show',
             ]);
+            //AGREGAR CONDUCTOR A PAQUETE
+            Route::post('/MostrarPaquete/{id}', [
+              'uses' => 'PaqueteController@asignarconductor',
+              'as' => 'adminPaquete.show',
+            ]);
 
 
         /*FIN RUTAS PAQUETES*/
