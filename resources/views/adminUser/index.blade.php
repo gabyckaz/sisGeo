@@ -130,7 +130,7 @@ Administracion de usuarios
      <tr>
       
            <!--td>{ $usuario->persona->PrimerNombrePersona }} </td -->
-           <td> {{ $usuario->persona->PrimerNombrePersona }}  {{ $usuario->persona->PrimerApellidoPersona }}</td>
+           <td> {{ ucfirst(strtolower($usuario->persona->PrimerNombrePersona)) }}  {{ ucfirst(strtolower($usuario->persona->PrimerApellidoPersona)) }}</td>
            <td>{{ $usuario->email }}</td>
            <td>
               <form class="btn-block" role="form" method="POST" action="{{route('adminUser.state.change', $usuario->id) }}">

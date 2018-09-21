@@ -8,6 +8,18 @@
 Editar familiar o amigo
 @endsection
 @section('contenido')
+   @if(session()->has('message'))
+          <script type="text/javascript"> 
+           console.log("Hola");
+           alertify.error('{{ session()->get('message') }} ');
+          </script>
+    @endif
+    @if(session()->has('error'))
+        <script type="text/javascript"> 
+           console.log("Hola");
+           alertify.error('{{ session()->get('error') }} ');
+        </script>
+    @endif
  <div class="box box-solid">
   <div class="box-header">
         <h3 class="box-title">Editar familiares o amigos</h3>
@@ -20,6 +32,7 @@ Editar familiar o amigo
     <form id="miForm" method="POST" action="{{route('user.guardar.informacion.familaAmigoEditado') }}">
       {!! method_field('PUT') !!}
       {!! csrf_field() !!}
+      <input type="hidden" name="idTurista" value="{{ $turista->IdTurista}}"/>
        <div class="row">
          <div class="col-md-2">
           <div class="form-group">
@@ -68,7 +81,7 @@ Editar familiar o amigo
               <label for="Genero" class="col-sm-2 control-label">Genero*</label>
               
               <div class="">
-                <select  class="form-control" name="genero" id="genero" readonly >    
+                <select  class="form-control" name="genero" id="genero" disabled >    
                      <option value="M" @if (old('genero', $turista->persona->Genero) == "M") {{ 'selected' }} @endif>Masculino</option>
                      <option value="F" @if (old('genero', $turista->persona->Genero) == "F") {{ 'selected' }} @endif>Femenino</option>
                   </select>
@@ -149,7 +162,16 @@ Editar familiar o amigo
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
                     </div>
-                  <input type="date" name="fechaVencimentoD" class="form-control pull-right" value="{{ old('fechaVencimentoD') }}" >                  
+                   @if( ($documentos == 'duiPasaporte') || ($documentos == 'dui') )
+                     @foreach($turista->documentos as $documento)
+                           @if($documento->TipoDocumento == "DUI")
+                      <input type="date" name="fechaVencimentoD" class="form-control pull-right" value="{{ old('fechaVencimentoD',$documento->FechaVenceDocumento) }}" >
+                         @break
+                           @endif
+                     @endforeach
+                   @else 
+                    <input type="date" name="fechaVencimentoD" class="form-control pull-right" value="{{ old('fechaVencimentoD') }}" >
+                   @endif            
                   </div>
                   @if ($errors->has('fechaVencimentoD'))
                        <span class="help-block">{{ $errors->first('fechaVencimentoD') }}</span>
@@ -215,7 +237,7 @@ Editar familiar o amigo
               
               <div class="col-md-10 col-md-offset-4">
                       <button type="submit" class="btn btn-info ">Editar</button>
-                      <button type="reset" class="btn btn-warning ">Limpiar</button>
+                      <!--button type="reset" class="btn btn-warning ">Limpiar</button -->
                     </div>
                     <!-- /.col -->
             </div>

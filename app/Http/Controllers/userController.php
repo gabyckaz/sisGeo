@@ -474,7 +474,7 @@ class userController extends Controller
     
        $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
-              "Apellido" => "required|alpha|min:6|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
               "fechaNacimiento" => "required|date",
               "Direccion" => "required|min:10|max:100",
         ]);
@@ -565,7 +565,7 @@ class userController extends Controller
           'EsFamiliar' => $request->tipo,
          ]);
 
-      return redirect()->route('user.agregar.familiarAmigo')->with('message',' Agregado con éxito');;
+      return redirect()->route('user.agregar.familiarAmigo')->with('message',' Agregado con éxito');
     }
 
    public function editarInformacionFamiliarAmigo($idTurista){
@@ -606,8 +606,95 @@ class userController extends Controller
 
 
    public function guardarInformacionFamiliarAmigoEditado(Request $request){
-      dd('Hola Mundo');
-      
+     //Opcion numero 2
+       /*$hoystr = Carbon::now()->format('d-m-Y');
+       $hoyObj = Carbon::parse($hoystr);
+       $fechaIngresadaObj = Carbon::parse($request->fechaVencimentoD);
+     
+      if($hoyObj > $fechaIngresadaObj){
+
+        return redirect()->back()->withInput()->with('error', 'Fecha de vencimiento incorrecta');
+      }
+
+       $lengthOfAd = $hoyObj->diffInDays($fechaIngresadaObj);
+       dd($lengthOfAd); */
+          $this->validate($request, [
+              "Nombre" => "required|alpha|min:3|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
+              "Direccion" => "required|min:10|max:100",
+        ]);
+
+        if($request->input("dui") != null && $request->input("pasaporte") != null){
+          $hola1 = "Ingresastes los dos documentos";
+             $this->validate($request, [
+             "fechaVencimentoD" => "required",
+             "fechaVencimentoP" => "required",
+           ]);
+        }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
+           $hola1 = "Solo Ingresastes El dui";
+           $this->validate($request, [
+             "fechaVencimentoD" => "required",
+           ]);
+        }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
+           $hola1 = "Solo Ingresastes El pasaporte";
+            $this->validate($request, [
+             "fechaVencimentoP" => "required",
+           ]);
+        }
+
+
+          $turista = Turista::find($request->idTurista);          
+       //Actualizo a la persona
+          $persona = Persona::find($turista->IdPersona);
+          $persona->PrimerNombrePersona = $request->Nombre;
+          $persona->PrimerApellidoPersona = $request->Apellido;
+          $persona->save();
+
+        //Actualizo al turista
+          
+        //$t->CategoriaTurista = $request->;          
+          $turista->DomicilioTurista = $request->Direccion;
+          $turista->Problemas_Salud = $request->psalud;
+          $turista->save();
+
+                  //Actualizo documentos o los creo si no existen
+         if($request->input("dui") != null && $request->input("fechaVencimientoD") != null){
+           $dui = TipoDocumento::where('TipoDocumento','DUI')
+            ->where('IdTurista',$turista->IdTurista)->first();
+            if($dui == null){
+              $dui = TipoDocumento::create([
+                "IdTurista" => $turista->IdTurista,
+                "TipoDocumento" => "DUI",
+                "NumeroDocumento" => $request->dui,
+                "FechaVenceDocumento" => $request->fechaVencimientoD,
+             ]);
+            }else{
+            $dui->FechaVenceDocumento = $request->fechaVencimientoD;
+            $dui->save();
+            }
+         }
+
+          if($request->input("pasaporte") != null && $request->input("fechaVencimientoP") != null){
+            $pasaporte = TipoDocumento::where('TipoDocumento','Pasaporte')
+            ->where('IdTurista',$turista->IdTurista)->first();
+            if($pasaporte == null){
+                $pasaporte = TipoDocumento::create([
+                "IdTurista" => $turista->IdTurista,
+                "TipoDocumento" => "Pasaporte",
+                "NumeroDocumento" => $request->pasaporte,
+                "FechaVenceDocumento" => $request->fechaVencimientoP,
+         ]);
+
+            }else{
+            $pasaporte->FechaVenceDocumento = $request->fechaVencimientoP;
+            $pasaporte->save();
+            }
+
+          }
+
+     return redirect()->route('user.agregar.familiarAmigo')->with('message',' Informacion actualizada con éxito');
    }
+
+
 
 }
