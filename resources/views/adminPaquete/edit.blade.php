@@ -40,7 +40,8 @@
                                     <select  class="form-control" name="idrutaturistica"  id="idrutaturistica" data-placeholder="Seleccionar la ruta...">
                                     @foreach ($ruta as $ruta)
 
-                                    <option value="{{ $ruta->IdRutaTuristica }}"> {{$ruta->NombreRutaTuristica}}</option>
+
+                                     <option value="{{ $ruta->IdRutaTuristica }}" {{ $ruta->IdRutaTuristica == $ruta->IdRutaTuristica ? 'selected' : '' }}>{{ $ruta->NombreRutaTuristica }}</option>
                                     @endforeach
                                     </select>
                                     <hr>
@@ -92,8 +93,9 @@
                         <div class="form-group">
                             <label for="lugar">Lugar de Salida</label>
                             <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-map"></i></span>
                               <input type="text" name="lugarsalida" class="form-control" id="lugarsalida" placeholder="Lugar" value="{{$paquete->LugarRegreso}}">
-                                      <span class="input-group-addon"><i class="fa fa-map"></i></span>
+
                             </div>
                         </div>
                       </div>
@@ -119,7 +121,31 @@
                         </div>
                         </div>
                       </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="tipopaquete">Tipo Paquete</label>
+                          <br>
+                          <select class="form-control" id="tipopaquete" name="tipopaquete">
+                              <option value="nacional">Nacional</option>
+                              <option value="internacional">Internacional</option>
+                            </select>
+                      </div>
                     </div>
+
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="dificultad">Dificultad Paquete</label>
+                          <br>
+                          <select class="form-control" id="dificultad" name="dificultad">
+                              <option value="baja">Baja</option>
+                              <option value="media">Media</option>
+                              <option value="alta">Alta</option>
+                              <option value="extrema">Extrema</option>
+                            </select>
+                      </div>
+                      </div>
+                    </div>
+
 
                         <div class="form-group">
                             <label for="iti">Itinerario</label>
@@ -146,6 +172,14 @@
 
                                                             @endforeach
                                                         </div>
+                                                        <div class="form-group">
+
+                                                          <input type="file" multiple="true" name="imagenpaquete[]" >
+
+                                                          <p class="help-block">Subir Hasta 5 Imagenes.</p>
+                                                        </div>
+
+
                                                       </div>
 
 

@@ -347,6 +347,9 @@ desired effect
                      <li><a href="{{ route('adminPaquete.index')}}">
                     <i class="fa fa-star"></i>
                     Mostrar Paquete Turístico</a></li>
+                    <li><a href="{{ route('adminOpcionesPaquete.create')}}">
+                      <i class="fa fa-star"></i>
+                      Opciones Paquete</a></li>
 
         </ul>
     </li>
