@@ -44,6 +44,9 @@ Editar mi informacion de usuario
                     <input type="text" name="PrimerNombrePersona" class="form-control" id="input2" value="{{ $usuario->persona->PrimerNombrePersona }}" placeholder="Primer Nombre">
                    </div>
                 </div>
+                @if ($errors->has('PrimerNombrePersona'))
+                       <span class="help-block">{{ $errors->first('PrimerNombrePersona') }}</span>
+                     @endif
           </div>
           <div class="col-md-3">
             <div class="form-group">
@@ -66,6 +69,9 @@ Editar mi informacion de usuario
                        <input type="text" name="PrimerApellidoPersona" class="form-control"  id="input4" value="{{ $usuario->persona->PrimerApellidoPersona }}"  placeholder="Primer Apellido">
                       </div>
                   </div>
+                  @if ($errors->has('PrimerApellidoPersona'))
+                       <span class="help-block">{{ $errors->first('PrimerApellidoPersona') }}</span>
+                     @endif
           </div>
           <div class="col-md-3">
             <div class="form-group">
@@ -147,7 +153,7 @@ Editar mi informacion de usuario
                   @if($documentos == 'duiPasaporte' || $documentos == 'dui')
                        @foreach($turista->documentos as $documento)
                            @if($documento->TipoDocumento == "DUI")
-                            <input  id="fechaVencimientoDUI" type="date" name="fechaVencimientoD" value="{{ $documento->FechaVenceDocumento }}" class="form-control" >
+                            <input  id="fechaVencimientoDUI" type="date" name="fechaVencimientoD" value="{{old('fechaVencimientoD', $documento->FechaVenceDocumento) }}" class="form-control" >
                            @break
                            @endif
                        @endforeach

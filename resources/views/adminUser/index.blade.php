@@ -54,8 +54,8 @@ Administracion de usuarios
                          alertify.warning("{{session('fallo')  }}");
                        </script>
                     @endif
-
-    <div class="col-md-7 col-md-offset-2">
+    <div class="row">
+    <div class="col-md-offset-2 col-md-7 ">
        <form class="navbar-form navbar-left pull-right" action="{{ route('adminUser.index') }}" method="get" role="search">
               <div class="form-group">
                 <input type="text" name="nombre" class="form-control" placeholder="Nombre">
@@ -74,7 +74,7 @@ Administracion de usuarios
               <button type="submit" class="btn btn-default" >Buscar<span class="glyphicon glyphicon-search"></span></button>
           </form>
         </div>
-
+     </div>
            <!-- <form action="" method="get" class="sidebar-form">
               <div class="input-group">
               <input type="text" name="nombre" class="form-control" placeholder="Nombre">
@@ -116,8 +116,8 @@ Administracion de usuarios
  <table class="table table-striped table-bordered" >
   <thead class="thead-dark">
     <tr>
-    <th class="text-center">id</th>
-    <th class="text-center">@sortablelink('name', 'name')</th>
+    
+    <th class="text-center">@sortablelink('name', 'Nombre')</th>
     <th class="text-center">Correo</th>
     <th class="text-center">Estado</th>
     <th class="text-center">Rol</th>
@@ -128,9 +128,9 @@ Administracion de usuarios
   <tbody>
     @foreach($usuarios as $usuario)
      <tr>
-      <td class="text-center">{{ $usuario->id }}</td>
+      
            <!--td>{ $usuario->persona->PrimerNombrePersona }} </td -->
-           <td>{{ $usuario->name }} </td>
+           <td> {{ $usuario->persona->PrimerNombrePersona }}  {{ $usuario->persona->PrimerApellidoPersona }}</td>
            <td>{{ $usuario->email }}</td>
            <td>
               <form class="btn-block" role="form" method="POST" action="{{route('adminUser.state.change', $usuario->id) }}">
@@ -169,7 +169,7 @@ Administracion de usuarios
                                 <i class="fa fa-trash"></i>
                             </button>
                         </form> -->
-                      <a class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editarar usuario"
+                      <a class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editar usuario"
                       href="{{ route('adminUser.edit', $usuario )}}"></a>
 
             </td>
@@ -180,7 +180,7 @@ Administracion de usuarios
   </tbody>
 
  </table>
- {!! $usuarios->appends(\Request::except('page'))->render() !!}
+ <center>{!! $usuarios->appends(\Request::except('page'))->render() !!}</center>
  <!--div align="center">!! $usuarios->appends([ 'nombre' =>  $nombre,'email' =>  $email,'estado' =>  $estado ,'rol' => $rol ])->render() !!} </div>
  </div -->
  </div>

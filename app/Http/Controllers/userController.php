@@ -12,6 +12,12 @@ use App\TipoDocumento;
 use App\Acompanante;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+//use Illuminate\Support\Facades\Paginator;
+//use Illuminate\Pagination\Paginator;
+
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 
 class userController extends Controller
@@ -185,38 +191,40 @@ class userController extends Controller
     {
         $documentos = "";
         $existeTurista ="";
-        //d($request);
+        
         if( $request->input("dui") == null && $request->input("pasaporte") == null){
-            $hola1 = "Debes introducir por lo menos un documento";
+            $hola1 = "Debes introducir por lo menos un documento";            
             return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
         }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
-          $hola1 = "Ingresastes los dos documentos";
+          $hola1 = "Ingresastes los dos documentos";            
              $this->validate($request, [
              "fechaVencimientoD" => "required",
              "fechaVencimientoP" => "required",
            ]);
         }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
            $hola1 = "Solo Ingresastes El dui";
+           
            $this->validate($request, [
              "fechaVencimientoD" => "required",
            ]);
+           
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
-           $hola1 = "Solo Ingresastes El pasaporte";
+           $hola1 = "Solo Ingresastes El pasaporte";            
             $this->validate($request, [
              "fechaVencimientoP" => "required",
            ]);
         }
-
+         
         $this->validate($request, [
-              "PrimerNombrePersona" => "required",
-              "PrimerApellidoPersona" => "required",
+              "PrimerNombrePersona" => "required|alpha|min:2|max:25",
+              "PrimerApellidoPersona" => "required|alpha|min:2|max:25",
               "TelefonoContacto" => "required",
               "fechaNacimiento" => "required",
         ]);
-
+        
          $existeTurista ="";
          $turista = Turista::where('IdPersona',auth()->user()->IdPersona)->first();
-
+         
         if($turista == null){
          $existeTurista = "no";
          //Actualizo elusuario
@@ -389,7 +397,7 @@ class userController extends Controller
           foreach ($turista->documentos as $documento) {
 
              if($documento->TipoDocumento=="DUI"){
-                $ddocumentos= "dui";
+                $documentos= "dui";
                 break;
                 }
             if($documento->TipoDocumento=="Pasaporte"){
@@ -418,14 +426,14 @@ class userController extends Controller
         return view('user.editInfoUserTurista', compact('turista', 'nacionalidad'));
     }
 
-    public function agregarFamiliarAmigo()
+    public function agregarFamiliarAmigo(Request $request)
     {
-
-        $usuario = User::findOrFail(auth()->user()->id);
+        
+       // $usuario = User::findOrFail(auth()->user()->id);
         $nacionalidad = Nacionalidad::all();
-         
+
          $familiaAmigos = DB::select('
-            SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
+           (SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
           p."PrimerNombrePersona",p."PrimerApellidoPersona",p."Genero",
           n."Nacionalidad",t."FechaNacimiento", t."DomicilioTurista",
           t."Problemas_Salud"
@@ -433,51 +441,44 @@ class userController extends Controller
           public."personas" as p,public."Nacionalidad" as n
           WHERE a."IdTurista" = t."IdTurista" and
           t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
-          a."IdUsuario" = '.auth()->user()->id );
-        
-        return view('user.agregarFamiliaAmigo', compact('usuario','nacionalidad','familiaAmigos'));
+          a."IdUsuario" = '.auth()->user()->id.' )
+        UNION
+          (SELECT  u."id",(0) as "IdFamiliarAmigo", t."IdTurista",('."'af'".') as "EsFamiliar",
+          p."PrimerNombrePersona",p."PrimerApellidoPersona",p."Genero",
+          n."Nacionalidad",t."FechaNacimiento", t."DomicilioTurista",
+          t."Problemas_Salud"
+          FROM public."users" as u, public."Turista" as t,
+          public."personas" as p,public."Nacionalidad" as n
+          WHERE u."IdPersona" = p."IdPersona" and
+          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
+          u."id" = '.auth()->user()->id.' )
+          ');
+
+        $familiaAmigos = $this->arrayPaginator($familiaAmigos);
+        return view('user.agregarFamiliaAmigo', compact('nacionalidad','familiaAmigos'));
 
     }
 
+    public function arrayPaginator($array)
+{
+    $page = Input::get('page', 1);
+    $perPage = 5;
+    $offset = ($page * $perPage) - $perPage;
+
+    return new LengthAwarePaginator(array_slice($array, $offset, $perPage, true), count($array), $perPage, $page,
+        ['path' => 'agregarFamiliarAmigo']);
+}
+
+
     public function guardarFamiliarAmigo(Request $request){
-
-         //$usuario = User::findOrFail(auth()->user()->id);
-         //foreach ($usuario->turistas as $task) {
-         //obteniendo los datos de un task específico
-          // $task->CategoriaTurista;
-          //dd($task);
-         //obteniendo datos de la tabla pivot por task
-      //  echo $task->pivot->menu_id;
-      //  echo $task->pivot->status;
-       // /7}
-      //  dd("Termino");
-      //Los acompañantes de el usuario
-     /* $acompañantes = Acompanante::where('IdUsuario',auth()->user()->id);
-      foreach ($acompañantes->turist as $turista) {
-         dd($turista->DomicilioTurista);
-       }*/
-        $acompañantes = DB::select('
-          SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
-          p."PrimerNombrePersona",p."PrimerApellidoPersona",p."Genero",
-          n."Nacionalidad",t."FechaNacimiento", t."DomicilioTurista",
-          t."Problemas_Salud", td."TipoDocumento"
-          FROM public."Acompanante" as a, public."Turista" as t,
-          public."personas" as p,public."Nacionalidad" as n,
-          public."TipoDocumento" as td
-          WHERE a."IdTurista" = t."IdTurista" and
-          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad"
-          and td."IdTurista"=t."IdTurista"');
-        /*$long = count($acompañantes);
-        for ($i=0; $i < $long; $i++) {
-          dd($acompañantes[$i]->IdTurista);
-        } */
-
+    
        $this->validate($request, [
-              "PrimerNombrePersona" => "required",
-              "PrimerApellidoPersona" => "required",
-              "fechaNacimiento" => "required",
+              "Nombre" => "required|alpha|min:3|max:25",
+              "Apellido" => "required|alpha|min:6|max:25",
+              "fechaNacimiento" => "required|date",
+              "Direccion" => "required|min:10|max:100",
         ]);
-
+         
       if( $request->input("dui") == null && $request->input("pasaporte") == null){
             $hola1 = "Debes introducir por lo menos un documento";
 
@@ -487,7 +488,7 @@ class userController extends Controller
 
         ]);
 
-            return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
+      //return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
         }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
           $hola1 = "Ingresastes los dos documentos";
              $this->validate($request, [
@@ -506,10 +507,10 @@ class userController extends Controller
            ]);
         }
 
-
+      
       $persona = Persona::create([
-            "PrimerNombrePersona" => $request->PrimerNombrePersona,
-            "PrimerApellidoPersona" => $request->PrimerApellidoPersona,
+            "PrimerNombrePersona" => $request->Nombre,
+            "PrimerApellidoPersona" => $request->Apellido,
             "Genero" => $request->genero,
             "AreaTelContacto"=>'503',
             "TelefonoContacto" => '76788859',
@@ -520,7 +521,7 @@ class userController extends Controller
               'IdPersona' => $persona->IdPersona,
               "FechaNacimiento" => $request->fechaNacimiento,
               "CategoriaTurista"  => 'A',
-              "DomicilioTurista" => $request->direccion,
+              "DomicilioTurista" => $request->Direccion,
               "Problemas_Salud" => $request->psalud,
         ]);
 
@@ -564,6 +565,49 @@ class userController extends Controller
           'EsFamiliar' => $request->tipo,
          ]);
 
-
+      return redirect()->route('user.agregar.familiarAmigo')->with('message',' Agregado con éxito');;
     }
+
+   public function editarInformacionFamiliarAmigo($idTurista){
+        $nacionalidad = Nacionalidad::all(); 
+       $sql = 'SELECT "IdFamiliarAmigo", "IdTurista", "IdUsuario", "EsFamiliar"
+                FROM public."Acompanante"
+                WHERE "IdUsuario" = '.auth()->user()->id.' AND "IdTurista" = '.$idTurista.';';
+       $resultado= DB::select($sql);
+       if($resultado == null){
+         return redirect()->route('user.agregar.familiarAmigo')->with('message', 'No encontrado');
+       }
+
+       $turista = Turista::find($idTurista );
+        $sqltipo = 'SELECT "EsFamiliar"
+                    FROM public."Acompanante"
+                    WHERE "IdTurista" = '.$turista->IdTurista.';';
+        $tipo = DB::select($sqltipo);
+        $tipo = $tipo[0]->EsFamiliar;
+         $documentos="";
+        if($turista->documentos->count() == 2){
+            $documentos = "duiPasaporte";
+        }else{
+          foreach ($turista->documentos as $documento) {
+
+             if($documento->TipoDocumento=="DUI"){
+                $documentos= "dui";
+                break;
+                }
+            if($documento->TipoDocumento=="Pasaporte"){
+                $documentos= "pasaporte";
+                break;
+            }
+           }
+         } 
+       //dd($turista->documentos);
+    return view('user.editarFamiliarAmigo', compact('turista','documentos','nacionalidad','tipo'));
+   }
+
+
+   public function guardarInformacionFamiliarAmigoEditado(Request $request){
+      dd('Hola Mundo');
+      
+   }
+
 }

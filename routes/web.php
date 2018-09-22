@@ -31,6 +31,8 @@ Route::get('user/editInfo/{persona}', ['as' => 'user.edit.info', 'uses' => 'user
 Route::get('user/editInfo', ['as' => 'user.edit.info', 'uses' => 'userController@editInfoUserTurista']);
 Route::get('user/agregarFamiliarAmigo', ['as' => 'user.agregar.familiarAmigo', 'uses' => 'userController@agregarFamiliarAmigo']);
 Route::put('user/agregarFamiliarAmigo', ['as' => 'user.agregar.familiarAmigo.store', 'uses' => 'userController@guardarFamiliarAmigo']);
+Route::get('user/{familiarAmigo}/editarFamiliarAmigo', ['as' => 'user.editar.informacion.familaAmigo', 'uses' => 'userController@editarInformacionFamiliarAmigo']);
+Route::put('user/editarFamiliarAmigo', ['as' => 'user.guardar.informacion.familaAmigoEditado', 'uses' => 'userController@guardarInformacionFamiliarAmigoEditado']);
 Route::resource('user', 'userController');
 
 Route::put('/adminUser/add-rol/{usuario}', ['as' => 'adminUser.role.add', 'uses' => 'AdminUsuariosController@agregarRol']);
@@ -200,6 +202,21 @@ Route::resource('turista', 'TuristaController');
               'as' => 'adminPaquete.single',
             ]);
 
+            //AGREGAR TRANSPORTE A PAQUETE
+            Route::get('/MostrarPaquete/{id}', [
+              'uses' => 'PaqueteController@edittransporte',
+              'as' => 'adminPaquete.show',
+            ]);
+
+            Route::put('/MostrarPaquete/{id}', [
+              'uses' => 'PaqueteController@asignartransporte',
+              'as' => 'adminPaquete.show',
+            ]);
+            //AGREGAR CONDUCTOR A PAQUETE
+            Route::post('/MostrarPaquete/{id}', [
+              'uses' => 'PaqueteController@asignarconductor',
+              'as' => 'adminPaquete.show',
+            ]);
 
 
         /*FIN RUTAS PAQUETES*/
