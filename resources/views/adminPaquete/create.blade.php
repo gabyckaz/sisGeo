@@ -57,8 +57,8 @@
                               <label for="tipopaquete">Tipo Paquete</label>
                               <br>
                               <select class="form-control" id="tipopaquete" name="tipopaquete">
-                                  <option value="nacional">Nacional</option>
-                                  <option value="internacional">Internacional</option>
+                                  <option value="Nacional">Nacional</option>
+                                  <option value="Internacional">Internacional</option>
                                 </select>
                           </div>
                         </div>
@@ -68,10 +68,10 @@
                               <label for="dificultad">Dificultad Paquete</label>
                               <br>
                               <select class="form-control" id="dificultad" name="dificultad">
-                                  <option value="baja">Baja</option>
-                                  <option value="media">Media</option>
-                                  <option value="alta">Alta</option>
-                                  <option value="extrema">Extrema</option>
+                                  <option value="Baja">Baja</option>
+                                  <option value="Media">Media</option>
+                                  <option value="Alta">Alta</option>
+                                  <option value="Extrema">Extrema</option>
                                 </select>
                           </div>
                           </div>

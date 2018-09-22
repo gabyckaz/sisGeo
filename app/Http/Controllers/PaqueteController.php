@@ -193,13 +193,26 @@ class PaqueteController extends Controller
       $paquete=Paquete::findOrFail($id);
       $ruta =RutaTuristica::all();
       $imagenes = ImagenPaqueteTuristico::all();
+
+      $recomendaciones=Recomendaciones::all();
+    //  dd($recomendaciones[0]->IdRecomendaciones);
+
+      // $recomendacionespaquete = RecomendacionesPaquete::where('paquete_id',$id)->get();
+      // $recomendacionespaquete = $recomendacionespaquete->all();
+    //  dd($recomendacionespaquete );
+    $sql = 'SELECT "IdRecomendacionesPaquete", recomendaciones_id , paquete_id
+     FROM "Recomendaciones_Paquete"
+      WHERE "paquete_id" = '.$id.' ;';
+       $recomendacionespaquete= DB::select($sql);
+      // dd($recomendacionespaquete[0]);
     //  $imagenes2 = $imagenes->all();
       //$imagenes = ImagenPaqueteTuristico::findOrFail(10);
 
       return view('adminPaquete.edit')
       ->with('paquete',$paquete)
       ->with('ruta',$ruta)
-        ->with('imagen',$imagenes);
+        ->with('imagen',$imagenes)->with('recomendaciones', $recomendaciones)->with('recomendacionespaquete',$recomendacionespaquete);
+        //return view('adminPaquete.edit', compact( 'paquete','ruta','imagenes','recomendaciones','recomendacionespaquete') );
     }
 
     /**

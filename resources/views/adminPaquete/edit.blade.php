@@ -37,10 +37,8 @@
                             <label name="idrutaturistica" for="nombrerutaturistica">Nombre de Ruta Turística</label>
 
                                   @if($ruta !=null)
-                                    <select  class="form-control" name="idrutaturistica"  id="idrutaturistica" data-placeholder="Seleccionar la ruta...">
+                                    <select  class="form-control" name="idrutaturistica"  id="idrutaturistica" disabled>
                                     @foreach ($ruta as $ruta)
-
-
                                      <option value="{{ $ruta->IdRutaTuristica }}" {{ $ruta->IdRutaTuristica == $ruta->IdRutaTuristica ? 'selected' : '' }}>{{ $ruta->NombreRutaTuristica }}</option>
                                     @endforeach
                                     </select>
@@ -125,9 +123,9 @@
                         <div class="form-group">
                           <label for="tipopaquete">Tipo Paquete</label>
                           <br>
-                          <select class="form-control" id="tipopaquete" name="tipopaquete">
-                              <option value="nacional">Nacional</option>
-                              <option value="internacional">Internacional</option>
+                          <select class="form-control" id="tipopaquete" name="tipopaquete"  disabled>
+                              <option value="{{ $paquete->TipoPaquete }}" {{ $paquete->TipoPaquete == $paquete->TipoPaquete ? 'selected' : '' }}>{{$paquete->TipoPaquete }}</option>
+
                             </select>
                       </div>
                     </div>
@@ -136,25 +134,46 @@
                         <div class="form-group">
                           <label for="dificultad">Dificultad Paquete</label>
                           <br>
-                          <select class="form-control" id="dificultad" name="dificultad">
-                              <option value="baja">Baja</option>
-                              <option value="media">Media</option>
-                              <option value="alta">Alta</option>
-                              <option value="extrema">Extrema</option>
+                          <select class="form-control" id="dificultad" name="dificultad" disabled>
+                              <option value="{{ $paquete->Dificultad }}" {{ $paquete->Dificultad == $paquete->Dificultad ? 'selected' : '' }}>{{$paquete->Dificultad }}</option>
+
                             </select>
                       </div>
                       </div>
                     </div>
-
-
-                        <div class="form-group">
-                            <label for="iti">Itinerario</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
+                    <div class="form-group">
+                        <label for="iti">Itinerario</label>
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
                               <input name="itinerario" class="form-control" id="itinerario" rows="20" value="{{$paquete->Itinerario}}" ></input>
+                          </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="re">Recomendaciones</label>
+                        @php $x='f';
+                        @endphp
+                        
 
-                              </div>
-                        </div>
+                        <select class="form-control select2" multiple="multiple" name="recomendaciones[]" >
+                          @for ($i = 0; $i < count($recomendaciones); $i++)
+
+                           @for ($j = 0; $j < count($recomendacionespaquete); $j++)
+                           @if($recomendacionespaquete[$j]->recomendaciones_id == $recomendaciones[$i]->IdRecomendaciones)
+                                 <option value="{{ $recomendaciones[$i]->IdRecomendaciones }}"{{ 'selected'}}> {{$recomendaciones[$i]->NombreRecomendaciones}}</option>
+                                 @php $x='t';
+                                 @endphp
+                            @endif
+                           @endfor
+                           @if($x == 't')
+                             @php $x ='f';
+                             @endphp
+                           @else
+                            <option value="{{ $recomendaciones[$i]->IdRecomendaciones }}" > {{$recomendaciones[$i]->NombreRecomendaciones}}</option>
+                           @endif
+                          @endfor
+
+                        </select>
+                    </div>
 
 
                         <h4>

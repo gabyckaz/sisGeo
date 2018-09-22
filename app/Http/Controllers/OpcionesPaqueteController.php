@@ -108,8 +108,9 @@ class OpcionesPaqueteController extends Controller
              $incluye->NombreIncluye = $request->incluye;
 
              $incluye->save();
-             $incluye3 = Incluye::all();
-             return view('adminOpcionesPaquete.create')->with('incluye',$incluye3);
+    
+                   return back();
+             /*return view('adminOpcionesPaquete.create')->with('incluye',$incluye3);*/
 
     }
  public function guardarrecomendaciones(Request $request){
@@ -117,8 +118,8 @@ class OpcionesPaqueteController extends Controller
       $recomendaciones=new Recomendaciones;
       $recomendaciones->NombreRecomendaciones = $request->recomendaciones;
       $recomendaciones->save();
-      $recomendaciones3 = Recomendaciones::all();
-      return view('adminOpcionesPaquete.create')->with('recomendaciones',$recomendaciones);
+            return back();
+    /*  return view('adminOpcionesPaquete.create')->with('recomendaciones',$recomendaciones);*/
     }
 /*    public function guardargastosextras(Request $request){
       $gastosextras=new GastosExtras;
