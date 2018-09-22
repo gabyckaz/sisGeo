@@ -191,3 +191,5 @@ Route::group(['middleware' => ['guest']], function () {
           'as' => 'welcome',
         ]);
 });
+Route::resource('Reservacion', 'ReservacionController');
+Route::post('/{id}/adminPaquete', ['as' => 'adminPaquete.reserva.add', 'uses' =>  'ReservacionController@reservar']);

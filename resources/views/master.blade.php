@@ -305,31 +305,41 @@ desired effect
         <span>Inicio</span>
       </a>
     </li>
+    @role('Admin')
     <li class="active">
       <a href="{{ route('adminUser.index') }}">
         <i class="fa fa-users"></i>
         <span>Usuarios</span>
       </a>
     </li>
-    <li class="active">
-      <a href="{{ route('user.agregar.familiarAmigo') }}">
-        <i class="fa fa-home"></i>
-        <span>Agregar Familiar o Amigo</span>
-      </a>
-    </li>
-    <li class="active">
-          <a href="{{ route('usuario.completar.informacion') }}">
-            <i class="fa fa-home"></i>
-            <span>Completar Informacion</span>
-          </a>
-        </li>
+    @endrole
 
-    <li class="active">
+    <li class="treeview">
       <a href="#">
         <i class="fa fa-user"></i>
-        <span>Mi Cuenta</span>
+          <i class="fa fa-angle-left pull-right-container"></i>
+          <i class="fa fa-angl-left pull-right"></i>
+        <span>Mi cuenta</span>
+        <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+      </a>
+        <ul class="treeview-menu">
+          <li><a href="{{ route('usuario.completar.informacion') }}">
+            <i class="fa fa-home"></i>
+            Completar Informacion</a></li>
+          <li><a href="{{ route('user.agregar.familiarAmigo') }}">
+            <i class="fa fa-home"></i>
+            Agregar Familiar o Amigo</a></li>
+        </ul>
+    </li>
+    <li class="active">
+      <a href="{{ route('home') }}">
+        <i class="fa fa-calendar"></i>
+        <span>Reservas</span>
       </a>
     </li>
+    @role('Admin')
      <li class="active treeview menu-open">
       <a href="#">
         <i class="fa fa-ticket"></i>
@@ -375,12 +385,6 @@ desired effect
 
     </li>
 
-    <li class="active">
-      <a href="{{ route('home') }}">
-        <i class="fa fa-calendar"></i>
-        <span>Reservas</span>
-      </a>
-    </li>
  <li class="active treeview menu-open">
       <a href="#">
         <i class="fa fa-map-marker"></i>
@@ -397,6 +401,7 @@ desired effect
                         Editar Ruta Turística</a></li>
           </ul>
 </li>
+    @endrole
 
         <li class="active"><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
 
