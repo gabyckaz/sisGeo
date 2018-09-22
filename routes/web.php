@@ -158,6 +158,14 @@ Route::resource('turista', 'TuristaController');
                         'uses' =>'OpcionesPaqueteController@destroy',
                         'as' => 'adminOpcionesPaquete.destroy'
                     ]);
+                   Route::post('/CrearIncluye', [
+                        'uses' => 'OpcionesPaqueteController@guardarincluye',
+                        'as' => 'adminOpcionesPaquete.guardarincluye',
+                    ]);
+                   Route::post('/CrearRecomendaciones', [
+                        'uses' => 'OpcionesPaqueteController@guardarrecomendaciones',
+                        'as' => 'adminOpcionesPaquete.guardarrecomendaciones',
+                    ]);
 
                 /*FIN RUTAS PAQUETES*/
         //INICIO RUTAS PAQUETES

@@ -432,9 +432,8 @@ desired effect
     <!-- Main content -->
     <section class="content container-fluid">
 
-      <!--------------------------
-        | Your Page Content Here |
-        -------------------------->
+
+
          <!-- Default box -->
       <div class="box box-warning">
         <div class="box-header with-border">

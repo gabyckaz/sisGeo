@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('head')
-<h1>Hola Mundo</h1>
 
 @endsection
+@section('Title','Opciones Paquete')
 
 @section('contenido')
 <div class="row">
@@ -11,6 +11,9 @@
   <div class="col-md-4">
     @if(session('status'))
       <br>
+      <script type="text/javascript">
+     alertify.success("{{ session('status') }}");
+     </script>
         <div class="alert alert-success alert-dismissible fade in" role="alert">
           <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
           {{ session('status') }}
@@ -28,8 +31,10 @@
         <h3 class="box-title">Agregar Gastos Extras</h3>
         <div class="box-body">
 
-          <form action="{{ route('adminOpcionesPaquete.store') }}" method="POST">
+          <form class="form-horizontal" role="form" method="POST" action="{{ route('adminOpcionesPaquete.store') }}">
             {{ csrf_field() }}
+            <fieldset>
+              <div class?"col-md-12">
             <div class="form-group has-feedback{{ $errors->has('opcionespaquete') ? ' has-error' : '' }}">
               <div class="input-group">
               <span class="input-group-addon"><span class="fa fa-bus"></span></span>
@@ -39,11 +44,11 @@
               <span class="help-block">{{ $errors->first('gastosextras') }}</span>
               @endif
             </div>
-
+          </div>
+                    <button type="submit" class="btn btn-info center-block">Agregar Gasto Extra</button>
+            </fieldset>
+          </form>
             <div class="row">
-              <div class="col-md-12">
-                <button type="submit" class="btn btn-info center-block">Agregar Gasto Extra</button>
-              </div>
               <h3 class="box-title"> </h3>
               <table class="table table-striped table-bordered" >
                 <thead class="thead-dark">
@@ -62,18 +67,22 @@
 
 
             </div>
-          </form>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-md-4">
+
+
+    <div class="col-md-4">
+    <div class="">
     <div class="box box-info">
       <div class="box-header">
         <h3 class="box-title">Agregar Que incluye Paquete</h3>
               <div class="box-body">
-                <form action="{{ route('adminOpcionesPaquete.store') }}" method="POST">
+                <form class="form-horizontal" role="form"  method="POST" action="{{ route('adminOpcionesPaquete.guardarincluye') }}">
                   {{ csrf_field() }}
+                  <fieldset>
+                    <div class="col-md.12">
                   <div class="form-group has-feedback{{ $errors->has('incluye') ? ' has-error' : '' }}">
                     <div class="input-group">
                         <span class="input-group-addon"><span class="fa fa-bus"></span></span>
@@ -83,11 +92,12 @@
                     <span class="help-block">{{ $errors->first('incluye') }}</span>
                     @endif
                   </div>
-
-                  <div class="row">
-                    <div class="col-md-12">
+                  </div>
                         <button type="submit" class="btn btn-info center-block">Agregar Que Incluye</button>
-                    </div>
+                  </fieldset>
+                </form>
+                  <div class="row">
+
                     <h3 class="box-title"> </h3>
                     <table class="table table-striped table-bordered" >
                       <thead class="thead-dark">
@@ -106,18 +116,22 @@
 
 
                   </div>
-                </form>
               </div>
       </div>
     </div>
   </div>
-  <div class="col-md-4">
+</div>
+
+   <div class="col-md-4">
+     <div class="">
     <div class="box box-warning">
       <div class="box-header">
         <h3 class="box-title">Agregar Recomendaciones</h3>
               <div class="box-body">
-                <form action="{{ route('adminOpcionesPaquete.store') }}" method="POST">
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('adminOpcionesPaquete.guardarrecomendaciones') }}" >
                   {{ csrf_field() }}
+                  <fieldset>
+                    <div class="col-md-12">
                   <div class="form-group has-feedback{{ $errors->has('recomendaciones') ? ' has-error' : '' }}">
                     <div class="input-group">
                         <span class="input-group-addon"><span class="fa fa-bus"></span></span>
@@ -127,11 +141,11 @@
                     <span class="help-block">{{ $errors->first('recomendaciones') }}</span>
                     @endif
                   </div>
-
+                </div>
+                      <button type="submit" class="btn btn-info center-block">Agregar Recomendaciones</button>
+                </fieldset>
+              </form>
                   <div class="row">
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-info center-block">Agregar Recomendaciones</button>
-                    </div>
                     <h3 class="box-title"> </h3>
                     <table class="table table-striped table-bordered" >
                       <thead class="thead-dark">
@@ -150,10 +164,11 @@
 
 
                   </div>
-                </form>
               </div>
       </div>
     </div>
   </div>
 </div>
+</div>
+
 @endsection

@@ -30,7 +30,7 @@ class OpcionesPaqueteController extends Controller
      */
     public function create()
     {
-      $gastosextras = GastosExtras::all();
+    $gastosextras = GastosExtras::all();
       $recomendaciones = Recomendaciones::all();
       $incluye= Incluye::all();
       $condiciones=Condiciones::all();
@@ -57,22 +57,7 @@ class OpcionesPaqueteController extends Controller
 
        $gastosextras->save();
        $gastosextras3 = GastosExtras::all();
-
-
-       $incluye=new Incluye;
-       $incluye->NombreIncluye = $request->incluye;
-
-       $incluye->save();
-       $incluye3 = Incluye::all();
-
-       $recomendaciones=new Recomendaciones;
-       $recomendaciones->NombreRecomendaciones = $request->recomendaciones;
-
-       $recomendaciones->save();
-       $recomendaciones3 = Recomendaciones::all();
-
-        return view('adminOpcionesPaquete.create')->with('gastosextras',$gastosextras3)
-        ->with('incluye',$incluye3)->with('recomendaciones',$recomendaciones);
+        return view('adminOpcionesPaquete.create')->with('gastosextras',$gastosextras3);
 
 
     }
@@ -116,4 +101,31 @@ class OpcionesPaqueteController extends Controller
     {
         //
     }
+
+   public function guardarincluye(Request $request){
+
+             $incluye=new Incluye;
+             $incluye->NombreIncluye = $request->incluye;
+
+             $incluye->save();
+             $incluye3 = Incluye::all();
+             return view('adminOpcionesPaquete.create')->with('incluye',$incluye3);
+
+    }
+ public function guardarrecomendaciones(Request $request){
+
+      $recomendaciones=new Recomendaciones;
+      $recomendaciones->NombreRecomendaciones = $request->recomendaciones;
+      $recomendaciones->save();
+      $recomendaciones3 = Recomendaciones::all();
+      return view('adminOpcionesPaquete.create')->with('recomendaciones',$recomendaciones);
+    }
+/*    public function guardargastosextras(Request $request){
+      $gastosextras=new GastosExtras;
+      $gastosextras->NombreGastos = $request->gastosextras;
+
+      $gastosextras->save();
+      $gastosextras3 = GastosExtras::all();
+          return view('adminOpcionesPaquete.create')->with('gastosextras',$gastosextras3);
+    }*/
 }
