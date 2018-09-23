@@ -73,7 +73,7 @@ h4 span {
 
   <div class="row">
       <div class="col-md-12">
-    @if (count($reservaciones) === 0)
+    @if (count($reservaciones) == 0)
       <br>
       <p>No hay Reservas registradas<p>
     @elseif (count($reservaciones) >= 1)

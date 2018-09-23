@@ -377,7 +377,7 @@ desired effect
                     Empresas</a></li>
                   <li><a href="{{ route('adminTipoTransporte.index') }}">
                     <i class="fa fa-star"></i>
-                    Transportes y Conductores</a></li>
+                    Tipos de Transporte</a></li>
                   <li><a href="{{ route('adminTransporte.index') }}">
                     <i class="fa fa-star"></i>
                       Transporte</a></li>

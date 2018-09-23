@@ -68,10 +68,10 @@ class ReservacionController extends Controller
          //campo de BD -> campo del formulario
 
          $reservacion=new Reservacion;
-         $reservacion->IdTurista=$usuarioreservando;//si
-         $reservacion->IdPaquete=$request->idPaquete;//si
-         $reservacion->FechaReservacion= Carbon::now(); //si
-         $reservacion->NumeroAcompanantes = $request->numeroacompanantes; //si
+         $reservacion->IdTurista=$usuarioreservando;
+         $reservacion->IdPaquete=$request->idPaquete;
+         $reservacion->FechaReservacion= Carbon::now();
+         $reservacion->NumeroAcompanantes = $request->numeroacompanantes; 
          $reservacion->IdsAcompanantes=$request->idacompanantes;
          $reservacion->ConfirmacionReservacion='0';
 
@@ -81,8 +81,10 @@ class ReservacionController extends Controller
          //Redireccionando
          $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
          $imagenes = ImagenPaqueteTuristico::all();
+         $reservaciones=Reservacion::orderBy('FechaReservacion','desc')->paginate(5);
 
            return view('/home')
+           ->with('reservaciones',$reservaciones)
            ->with('paquetes',$paquetes)
            ->with('imagenes',$imagenes)
            ->with('status', "Guardado con éxito");
