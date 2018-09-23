@@ -54,16 +54,39 @@ h4 span {
 
 @section('contenido')
 
-<div style="padding:1px 100px 1px 100px;">
-
   <div class="text-center" >
     <img alt="Geoturismo logo" src="http://nebula.wsimg.com/d3657b04208ae150f468167d20de36aa?AccessKeyId=B5E8C3F7E00CA38BCFD7&disposition=0&alloworigin=1">
   </div>
-    <p>-----------------------------------------------</p>
-    <p>Que aqui se muestren las reservas hechas </p>
-    <p>...</p>
-    <p>-----------------------------------------------</p>
-    <p>Y si no hay que salga el listado de todos los paquetes:</p>
+
+  <div class="row">
+    @if (count($reservaciones) === 0)
+      <br>
+      <p>No hay Reservas registradas<p>
+    @elseif (count($reservaciones) >= 1)
+      <h3 style="text-align:center">Reservaciones</h3>
+      @foreach($reservaciones as $reservacion)
+        <div class="col-sm-4 ">
+          <!-- box info de cada paquete-->
+          <div class="small-box  disabled color-palette" style="background-color:#E0BA5F">
+            <span class=" label" style="background:#568D51;text-align:right"></span>
+            <div class="inner" style="text-align:center;display:block;">
+              <a style="color:#4c5b51; font-weight:bold;align:center" href="{{ url('MostrarPaqueteCliente/') }}"> Mostrar nombre del paquete {{$reservacion->IdPaquete}}</a></h3>
+              <div class="box-body">
+                <p style="color:#4c5b51">Fecha de salida: </p>
+                <p style="color:#4c5b51">Reservada en {{$reservacion->FechaReservacion}} </p>
+              </div>
+            </div><!-- /.inner-->
+            <a href="{{ url('MostrarPaqueteCliente/') }}" class="small-box-footer">
+              Leer más <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div> <!--/ box info de cada paquete-->
+        </div><!-- /. colm-d-->
+
+        @endforeach
+    @endif
+
+  </div><!-- /.row -->
+<div style="padding:1px 100px 1px 100px;">
   <div class="text-center">
     <img class="responsive" alt="Geoturismo banner" src="https://78.media.tumblr.com/6a60fa5ae43c94c672501188c1f2ef02/tumblr_pf41uvQQwE1qa3lvmo1_r1_1280.png">
   </div>
