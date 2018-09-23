@@ -174,7 +174,7 @@ class AdminUsuariosController extends Controller
 
 
         ]);
-      return redirect()->route('adminUser.index');
+      return redirect()->route('adminUser.index')->with('status', 'Estado de '.$usuario->name.' modificado');
      }
         if(($usuario->EstadoUsuario === '1')){
            DB::table('users')->where('id', $usuario->id)->update([

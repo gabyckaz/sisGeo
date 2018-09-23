@@ -71,7 +71,7 @@ class ReservacionController extends Controller
          $reservacion->IdTurista=$usuarioreservando;
          $reservacion->IdPaquete=$request->idPaquete;
          $reservacion->FechaReservacion= Carbon::now();
-         $reservacion->NumeroAcompanantes = $request->numeroacompanantes; 
+         $reservacion->NumeroAcompanantes = $request->numeroacompanantes;
          $reservacion->IdsAcompanantes=$request->idacompanantes;
          $reservacion->ConfirmacionReservacion='0';
 
@@ -134,7 +134,7 @@ class ReservacionController extends Controller
        $reservacion->IdsAcompanantes=$request->input('idacompanantes');
        $reservacion->save();
 
-       return redirect('/home')->with('status', "Gardado con éxito");
+       return redirect('/home')->with('status', "Guardado con éxito");
     }
 
     /**
