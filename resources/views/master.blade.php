@@ -227,7 +227,7 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                <a href="{{ route('usuario.completar.informacion') }}" class="btn btn-default btn-flat">Perfil</a>
                </div>
                 <div class="pull-right">
                   <form action="{{ route('logout') }}" method="POST">
@@ -334,9 +334,9 @@ desired effect
         </ul>
     </li>
     <li class="active">
-      <a href="{{ route('home') }}">
+      <a href="{{ route('Reservacion.index') }}">
         <i class="fa fa-calendar"></i>
-        <span>Reservas</span>
+        <span>Mis Reservas</span>
       </a>
     </li>
     @role('Admin')

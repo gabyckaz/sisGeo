@@ -42,19 +42,10 @@ class HomeController extends Controller
         }
       }
 
-      $reservaciones = DB::table('Reservacion')
-               ->where('IdTurista', '=', $usuarioreservando)
-               ->get();
-
-      // $consulta = DB::table('Reservacion')
-      //                ->join('Paquetes', 'Reservacion.IdPaquete', '=', 'Paquetes.IdPaquete')
-      //                ->select('Paquetes.NombrePaquete')
-      //                ->where('Reservacion.IdTurista','=',$usuarioreservando)
-      //                ->get();
+      $reservaciones = Reservacion::where('IdTurista', $usuarioreservando)->get();
 
       return view('home')
       ->with('imagenes',$imagenes)
-      //->with('consulta',$consulta)
       ->with('reservaciones',$reservaciones)
       ->with('paquetes',$paquetes);
 

@@ -25,7 +25,8 @@ class ReservacionController extends Controller
      */
     public function index()
     {
-        //
+        $reservaciones=Reservacion::orderBy('FechaReservacion','desc')->paginate(5);
+        return view('Reservacion.index')->with('reservaciones',$reservaciones);
     }
 
     /**
@@ -106,7 +107,8 @@ class ReservacionController extends Controller
      */
     public function edit($id)
     {
-        //
+      $reservacion = Reservacion::find($id);
+      return view('Reservacion.edit', compact('reservacion'))->with('status', "Guardado con éxito");
     }
 
     /**
@@ -118,7 +120,19 @@ class ReservacionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $this->validate($request,array(
+
+        'idacompanantes' => 'required',
+        'numeroacompanantes'=>'required',
+         ));
+
+       //guardar en la bd
+       $reservacion = Reservacion::find($id);
+       $reservacion->NumeroAcompanantes = $request->input('numeroacompanantes'); //si
+       $reservacion->IdsAcompanantes=$request->input('idacompanantes');
+       $reservacion->save();
+
+       return redirect('/home')->with('status', "Gardado con éxito");
     }
 
     /**
@@ -142,7 +156,26 @@ class ReservacionController extends Controller
       //en forma de consulta usando el modelo:
       $usuarioreservando= User::where('IdPersona','=',auth()->user()->id)->first();
 
-      //dd($usuarioreservando->IdPersona);
+      //Barriendo los turistas
+      $turistas =Turista::all();
+      foreach ($turistas as $key => $turista) {
+        if ($turista->IdPersona == $usuarioreservando->IdPersona) {
+        $usuarioreservando=$turista->IdTurista;
+          break;
+        }
+      }
+
+      return view('Reservacion.create')
+      ->with('paquete',$paquete)
+      ->with('usuarioreservando',$usuarioreservando);
+    }
+
+    public function showall()
+    {
+      //Obteniendo el turista actual
+
+      //en forma de consulta usando el modelo:
+      $usuarioreservando= User::where('IdPersona','=',auth()->user()->id)->first();
 
       //Barriendo los turistas
       $turistas =Turista::all();

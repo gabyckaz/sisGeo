@@ -24,6 +24,6 @@ class Reservacion extends Model
 
     public function paquete()
     {
-      return $this->hasMany('App\Paquete','IdPaquete');//Modelo y llave foránea
+      return $this->belongsTo('App\Paquete','IdPaquete');//Modelo y llave foránea
     }
 }
