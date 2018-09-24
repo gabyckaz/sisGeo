@@ -59,7 +59,8 @@ h4 span {
   </div>
 
   <div class="row">
-    @if (count($reservaciones) === 0)
+    <div class="col-md-12">
+    @if (count($reservaciones) == 0)
       <br>
       <p>No hay Reservas registradas<p>
     @elseif (count($reservaciones) >= 1)
@@ -108,9 +109,8 @@ h4 span {
         @endif
       @endforeach
     @endif
-
+  </div>
   </div><!-- /.row -->
-<center>{!! $reservaciones->appends(\Request::except('page'))->render() !!}</center>
 
 
 @endsection

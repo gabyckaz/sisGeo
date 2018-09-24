@@ -47,7 +47,7 @@
 					 </div>
 					 	</form>
 					 <div class="panel-body">
-					 	<table class="table table-striped">
+					 	<table class="table table table-striped table-bordered table-hover">
 					 		<thead>
 
 					 				<th>Nombre Paquete</th>

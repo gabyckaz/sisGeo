@@ -108,8 +108,8 @@
         <h3 class="box-title">Listado de Rutas</h3>
         </div>
               <div class="box-body">
-
-                <table class="table table-striped table-bordered" >
+               <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" >
                   <thead class="thead-dark">
                     <tr>
                     <th class="text-center">Nombre</th>
@@ -134,7 +134,7 @@
 
                   </tbody>
                 </table>
-
+               </div>
               </div>
       </div>
       <center>{!! $rutaturistica->appends(\Request::except('page'))->render() !!}</center>

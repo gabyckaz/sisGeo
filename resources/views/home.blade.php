@@ -55,13 +55,11 @@ h4 span {
 @section('contenido')
 
 @if(session('status'))
-  <br>
    <script type="text/javascript">
   alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
   </script>
 @endif
 @if(session('fallo'))
-  <br>
   <script type="text/javascript">
  alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
  </script>
@@ -100,11 +98,12 @@ h4 span {
         </div><!-- /. colm-d-->
         @endif
       @endforeach
+      <a href="{{  route('Reservacion.index') }}" class="small-box-footer">
+        Historial de reservas <i class="fa fa-arrow-circle-right"></i>
+      </div>
     @endif
-    <a href="{{  route('Reservacion.index') }}" class="small-box-footer">
-      Historial de reservas <i class="fa fa-arrow-circle-right"></i>
-    </div>
   </div><!-- /.row -->
+
 <div style="padding:1px 100px 1px 100px;">
   <div class="text-center">
     <img class="responsive" alt="Geoturismo banner" src="https://78.media.tumblr.com/6a60fa5ae43c94c672501188c1f2ef02/tumblr_pf41uvQQwE1qa3lvmo1_r1_1280.png">
@@ -153,6 +152,8 @@ h4 span {
 </div><!-- /.row -->
 <div class="text-center" >
   <img alt="Geoturismo logo" src="http://nebula.wsimg.com/f1a6ab585e8127b5cc523d8f47ab7fe1?AccessKeyId=B5E8C3F7E00CA38BCFD7&disposition=0&alloworigin=1">
+  <center>{!! $paquetes->appends(\Request::except('page'))->render() !!}</center>
 </div>
+<center></center>
 
 @endsection

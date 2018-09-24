@@ -19,14 +19,33 @@ class ReservacionController extends Controller
          $this->middleware('auth');
      }
     /**
-     * Display a listing of the resource.
+     * Muestra historial de reservas
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $reservaciones=Reservacion::orderBy('FechaReservacion','desc')->paginate(5);
-        return view('Reservacion.index')->with('reservaciones',$reservaciones);
+      try{
+      $usuarioreservando= User::where('IdPersona','=',auth()->user()->id)->first();
+
+      //Barriendo los turistas
+      $turistas =Turista::all();
+      foreach ($turistas as $key => $turista) {
+        if ($turista->IdPersona == $usuarioreservando->IdPersona) {
+        $usuarioreservando=$turista->IdTurista;
+          break;
+        }
+      }
+      //Trae las reservaciones hechas por el turista actual y las ordena de la mas reciente a la menos reciente
+      $reservaciones = Reservacion::where('IdTurista', $usuarioreservando)->orderBy('FechaReservacion','desc')->get();
+      return view('Reservacion.index')->with('reservaciones',$reservaciones);
+
+     }catch(\Exception $e) {
+       //si todavia no tiene informacion como turista
+       $reservaciones=null;
+       return view('Reservacion.index')->with('reservaciones',$reservaciones);
+     }
+
     }
 
     /**
@@ -148,6 +167,10 @@ class ReservacionController extends Controller
         //
     }
 
+    /**
+     * Boton reservar
+     *
+     */
     public function reservar($paquete)
     {
       //Obteniendo el turista actual
@@ -172,13 +195,16 @@ class ReservacionController extends Controller
       ->with('usuarioreservando',$usuarioreservando);
     }
 
+    /**
+     *
+     *
+     */
     public function showall()
     {
       //Obteniendo el turista actual
 
       //en forma de consulta usando el modelo:
       $usuarioreservando= User::where('IdPersona','=',auth()->user()->id)->first();
-
       //Barriendo los turistas
       $turistas =Turista::all();
       foreach ($turistas as $key => $turista) {

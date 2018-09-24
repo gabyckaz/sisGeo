@@ -53,17 +53,22 @@
                   <span class="help-block">{{ $errors->first('idacompanantes') }}</span>
                   @endif
                 </div>
+                <p><b>Paquete seleccionado:</b> {{$paquete}}</div>
+                      <input type="hidden" name="idPaquete" value="{{ $paquete}}" />
 
-
-                <p><b>Usted es el turista: {{$usuarioreservando}} <b></p>
-
-                  <p><b>Paquete seleccionado:</b> {{$paquete}}</div>
-                  <input type="hidden" name="idPaquete" value="{{ $paquete}}" />
             </div>
               <div class="row">
                 <div class="col-md-10 col-md-offset-4">
-                  <button type="submit" class="btn btn-info ">Registrar</button>
-                  <button type="reset" class="btn btn-warning ">Limpiar</button>
+                  <!-- Verifica si el usuario actual ha copletado su informacion de turista -->
+                    @if(is_int($usuarioreservando))
+                      <p><b>Usted es el turista: {{$usuarioreservando}} <b></p>
+                      <button type="submit" class="btn btn-info ">Completar reserva</button>
+                      <button type="reset" class="btn btn-warning ">Limpiar</button>
+                    @else
+                      <p>ANTES DE REALIZAR LA RESERVA DEBE COMPLETAR SU INFORMACIÓN</p>
+                      <a href="{{ route('usuario.completar.informacion') }}" class="btn btn-default btn-flat">Completar información</a>
+                    @endif
+
                 </div>
 
                 <!-- /.col -->

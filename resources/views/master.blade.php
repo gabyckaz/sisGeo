@@ -299,14 +299,14 @@ desired effect
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">OPCIONES</li>
 
-    <li class="active">
+    <li class="">
       <a href="{{ route('home') }}">
         <i class="fa fa-home"></i>
         <span>Inicio</span>
       </a>
     </li>
     @role('Admin')
-    <li class="active">
+    <li class="">
       <a href="{{ route('adminUser.index') }}">
         <i class="fa fa-users"></i>
         <span>Usuarios</span>
@@ -333,14 +333,31 @@ desired effect
             Agregar Familiar o Amigo</a></li>
         </ul>
     </li>
-    <li class="active">
+    <li class="">
       <a href="{{ route('Reservacion.index') }}">
         <i class="fa fa-calendar"></i>
-        <span>Mis Reservas</span>
+        Mis Reservas <span class="label pull-right bg-green">2</span>
       </a>
     </li>
     @role('Admin')
-     <li class="active treeview menu-open">
+    <li class=" treeview menu-open">
+         <a href="#">
+           <i class="fa fa-map-marker"></i>
+             <i class="fa fa-angle-left pull-right-container"></i>
+             <i class="fa fa-angl-left pull-right"></i>
+             <span>Ruta Turistica</span>
+             <span class="pull-right-container">
+               <ul class="treeview-menu">
+                       <li><a href="{{ route('adminRutaTuristica.index') }}">
+                         <i class="fa fa-star"></i>
+                         Consultar Ruta Turística</a></li>
+                       <li><a href="">
+                         <i class="fa fa-star"></i>
+                           Editar Ruta Turística</a></li>
+             </ul>
+   </li>
+   
+     <li class=" treeview menu-open">
       <a href="#">
         <i class="fa fa-ticket"></i>
           <i class="fa fa-angle-left pull-right-container"></i>
@@ -384,26 +401,9 @@ desired effect
         </ul>
 
     </li>
-
- <li class="active treeview menu-open">
-      <a href="#">
-        <i class="fa fa-map-marker"></i>
-          <i class="fa fa-angle-left pull-right-container"></i>
-          <i class="fa fa-angl-left pull-right"></i>
-          <span>Ruta Turistica</span>
-          <span class="pull-right-container">
-            <ul class="treeview-menu">
-                    <li><a href="{{ route('adminRutaTuristica.index') }}">
-                      <i class="fa fa-star"></i>
-                      Consultar Ruta Turística</a></li>
-                    <li><a href="">
-                      <i class="fa fa-star"></i>
-                        Editar Ruta Turística</a></li>
-          </ul>
-</li>
     @endrole
 
-        <li class="active"><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
+        <li class=""><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
 
 
       <!-- /.sidebar-menu -->

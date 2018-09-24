@@ -105,7 +105,7 @@ Administracion de usuarios
 <div class="row">
 <div class="col-md-7 col-md-offset-2">
 <div class="table-responsive">
- <table class="table table-striped table-bordered" >
+ <table class="table table-striped table-bordered table-hover" >
   <thead class="thead-dark">
     <tr>
 
