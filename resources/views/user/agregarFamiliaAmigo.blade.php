@@ -42,7 +42,7 @@ Agregar familiares o amigos
       </div> 
       <div class="box-body">
    
-    <form id="miForm" method="POST" action="{{route('user.agregar.familiarAmigo.store') }}">
+    <form id="miForm" method="POST" action="{{ route('user.agregar.familiarAmigo.store') }}">
       {!! method_field('PUT') !!}
       {!! csrf_field() !!}
        <div class="row">
