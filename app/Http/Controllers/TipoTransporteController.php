@@ -22,7 +22,7 @@ class TipoTransporteController extends Controller
      */
     public function index()
     {
-      $tipotransporte = TipoTransporte::all();
+      $tipotransporte = TipoTransporte::orderBy('NombreTipoTransporte','asc')->get();
       return view('adminTipoTransporte.index', compact('tipotransporte'));
     }
 

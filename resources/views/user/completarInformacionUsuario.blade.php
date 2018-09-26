@@ -9,12 +9,12 @@ Editar mi informacion de usuario
 @endsection
 @section('contenido')
 <!-- SELECT2 EXAMPLE -->
-      
+
         <!-- /.box-header -->
         @if(session()->has('message'))
-           <script type="text/javascript"> 
+           <script type="text/javascript">
             console.log("Hola");
-              alertify.success('<p class="fa fa-check" style="color: white"></p>{{ session()->get('message') }} ');
+              alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session()->get('message') }} ');
             </script>
          @endif
    <!-- -->
@@ -140,7 +140,7 @@ Editar mi informacion de usuario
                        @else
                        <input type="text" name="dui" class="form-control" id="dui" >
                        @endif
-                 </div>  
+                 </div>
              </div>
              <div class="col-md-3">
                <div class="form-group">
@@ -158,7 +158,7 @@ Editar mi informacion de usuario
                            @endif
                        @endforeach
                    @else
-                     <input  id="fechaVencimientoDUI" type="date" value="{{ old('fechaVencimientoD')}}" name="fechaVencimientoD" class="form-control" >  
+                     <input  id="fechaVencimientoDUI" type="date" value="{{ old('fechaVencimientoD')}}" name="fechaVencimientoD" class="form-control" >
                    @endif
                   @if ($errors->has('fechaVencimientoD'))
                        <span class="help-block">{{ $errors->first('fechaVencimientoD') }}</span>
@@ -171,8 +171,8 @@ Editar mi informacion de usuario
               <div class="col-md-3">
                  <div class="form-group ">
                    <label for="dui" class="control-label">DUI</label>
-                    <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" id="dui">   
-                 </div>  
+                    <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" id="dui">
+                 </div>
              </div>
              <div class="col-md-3">
                <div class="form-group has-feedback{{ $errors->has('fechaVencimientoD') ? ' has-error' : '' }}">
@@ -190,7 +190,7 @@ Editar mi informacion de usuario
                 <!-- /.input group -->
               </div>
              </div>
-             @endif    
+             @endif
         </div>
 
         <div class="row">
@@ -201,7 +201,7 @@ Editar mi informacion de usuario
                 <label>Nacionalidad</label>
                 <select name="nacionalidad" class="form-control" style="width: 100%;">
                     @foreach($nacionalidad as $origen)
-                           <option value="{{ $origen->IdNacionalidad }}" 
+                           <option value="{{ $origen->IdNacionalidad }}"
                             {{ $turista->IdNacionalidad == $origen->IdNacionalidad   ? 'selected' : '' }}> {{ $origen->Nacionalidad }} </option>
                     @endforeach
                 </select>
@@ -213,7 +213,7 @@ Editar mi informacion de usuario
                 <label>Nacionalidad</label>
                 <select name="nacionalidad" class="form-control" style="width: 100%;">
                     @foreach($nacionalidad as $origen)
-                           <option value="{{ $origen->IdNacionalidad }}" 
+                           <option value="{{ $origen->IdNacionalidad }}"
                            {{ old('nacionalidad') == $origen->IdNacionalidad   ? 'selected' : '' }}> {{ $origen->Nacionalidad }} </option>
                     @endforeach
                 </select>
@@ -232,9 +232,9 @@ Editar mi informacion de usuario
                            @endif
                        @endforeach
                    @else
-                      <input  type="text" name="pasaporte" class="form-control" value="{{ old('pasaporte')}}" id="pasaporte" placeholder="Pasaporte">  
+                      <input  type="text" name="pasaporte" class="form-control" value="{{ old('pasaporte')}}" id="pasaporte" placeholder="Pasaporte">
                    @endif
-                    </div> 
+                    </div>
                  </div>
               <div class="col-md-3">
                <div class="form-group has-feedback{{ $errors->has('fechaVencimientoP') ? ' has-error' : '' }}">
@@ -252,7 +252,7 @@ Editar mi informacion de usuario
                            @endif
                        @endforeach
                    @else
-                      <input id="fechaVencimientoP" type="date" name="fechaVencimientoP" value="{{ old('fechaVencimientoP') }}" class="form-control" > 
+                      <input id="fechaVencimientoP" type="date" name="fechaVencimientoP" value="{{ old('fechaVencimientoP') }}" class="form-control" >
                    @endif
                   </div>
                    @if ($errors->has('fechaVencimientoP'))
@@ -266,7 +266,7 @@ Editar mi informacion de usuario
                   <div class="form-group ">
                       <label for="pasaporte" class="control-label">Pasaporte</label>
                         <input  type="text" name="pasaporte" value="{{ old('pasaporte')}}" class="form-control" id="pasaporte" placeholder="Pasaporte">
-                  </div> 
+                  </div>
                 </div>
               <div class="col-md-3">
                <div class="form-group has-feedback{{ $errors->has('fechaVencimientoP') ? ' has-error' : '' }}">
@@ -290,7 +290,7 @@ Editar mi informacion de usuario
           <div class="col-md-3">
           <div class="form-group">
             <label for="inputEmail3" class="control-label">Email</label>
-            <div class="input-group">      
+            <div class="input-group">
                   <div class="input-group-addon">
                        <i class="fa fa-envelope"></i>
                     </div>
@@ -314,7 +314,7 @@ Editar mi informacion de usuario
              </div>
              <div class="col-md-4">
                   <label for="telefono" class="control-label">Telefono</label>
-                  <div class="input-group">      
+                  <div class="input-group">
                    <div class="input-group-addon">
                        <i class="fa fa-phone"></i>
                    </div>
@@ -323,7 +323,7 @@ Editar mi informacion de usuario
              </div>
         </div>
         <div class="row">
-         @if( $existeTurista == 'si') 
+         @if( $existeTurista == 'si')
           <div class="col-md-6">
               <div class="form-group has-feedback{{ $errors->has('direccion') ? ' has-error' : '' }}">
                      <label for="direccion" class="control-label">Direccion</label>
@@ -351,17 +351,17 @@ Editar mi informacion de usuario
           </div>
           @endif
         </div>
-        
+
 
         <div class="row">
-          
+
              <div class="col-md-4">
                 <div class="form-group">
                      <label for="notificaciones" class="control-label">Notificaciones</label>
                       <div >
                         <label class="custom-control custom-radio">
                           <input id="radio1" name="RecibirNotificacion" value="1" type="radio" class="custom-control-input" {{ $usuario->RecibirNotificacion == '1' ? 'checked' : '' }}>
-                          
+
                           <span class="custom-control-indicator"></span>
                           <span class="custom-control-description">Recibir</span>
                         </label>
@@ -375,7 +375,7 @@ Editar mi informacion de usuario
              </div>
 
         </div>
-      
+
          <div class="row">
             <div class="col-md-12">
               <button type="submit" class="btn btn-info center-block">Actualizar</button>

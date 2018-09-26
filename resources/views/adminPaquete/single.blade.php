@@ -190,6 +190,11 @@
 
         <h3 style="text-align:center;"><b>Dificultad:</b> {{ $paquete->Dificultad}}</h3>
         <div style="text-align:center;"><h3>$<b>{{ $paquete->Precio}}</b> por persona</h3></div>
+
+        <form class="form-horizontal" role="form" method="POST" action="{{route('adminPaquete.reserva.add', $paquete) }}" >
+          {{ csrf_field() }}
+            <button type="submit" class="btn btn-info">RESERVAR AHORA</button>
+        </form>
       </div><!-- Fin de columna derecha -->
   </div>
 @endsection

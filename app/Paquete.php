@@ -41,11 +41,11 @@ class Paquete extends Model
     {
           return $this->belongsToMany('App\Transporte', 'Contrata', 'IdPaquete', 'IdTransporte');
     }
-    
+
     //relacion muchos a muchos con Conductor
     public function conductores()
     {
-          return $this->belongsToMany('App\Conductor', 'Conduce', 'IdPaquete', 'Id Conductor');
+          return $this->belongsToMany('App\Conductor', 'Conduce', 'IdPaquete', 'IdConductor');
     }
 
 }

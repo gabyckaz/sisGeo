@@ -161,3 +161,12 @@ Route::resource('turista', 'TuristaController');
             ]);
 
         /*FIN RUTAS PAQUETES*/
+
+Route::group(['middleware' => ['guest']], function () {
+        //solo los visitantes sin login pueden accesar aquí
+        Route::get('/', ['uses' => 'PaqueteController@show',
+          'as' => 'welcome',
+        ]);
+});
+Route::resource('Reservacion', 'ReservacionController');
+Route::post('/{id}/adminPaquete', ['as' => 'adminPaquete.reserva.add', 'uses' =>  'ReservacionController@reservar']);

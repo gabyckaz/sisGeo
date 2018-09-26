@@ -182,8 +182,8 @@
           <h3 class="box-title">Unidades de transporte</h3>
           </div>
                 <div class="box-body">
-
-                  <table class="table table-striped table-bordered" >
+                <div class="table-responsive">
+                  <table class="table table-striped table-bordered table-hover" >
                     <thead class="thead-dark">
                       <tr>
 
@@ -220,6 +220,7 @@
 
                     </tbody>
                   </table>
+                  </div>
                   <center>{!! $transportes->appends(\Request::except('page'))->render() !!}</center>
                 </div>
         </div>

@@ -11,13 +11,13 @@
     @if(session('status'))
       <br>
        <script type="text/javascript">
-      alertify.success("{{ session('status') }}");
+      alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
       </script>
     @endif
     @if(session('fallo'))
       <br>
       <script type="text/javascript">
-     alertify.error("{{ session('fallo') }}");
+     alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
      </script>
     @endif
     @if($errors->has(''))
@@ -108,8 +108,8 @@
         <h3 class="box-title">Listado de Rutas</h3>
         </div>
               <div class="box-body">
-
-                <table class="table table-striped table-bordered" >
+               <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" >
                   <thead class="thead-dark">
                     <tr>
                     <th class="text-center">Nombre</th>
@@ -134,9 +134,10 @@
 
                   </tbody>
                 </table>
-
+               </div>
               </div>
       </div>
+      <center>{!! $rutaturistica->appends(\Request::except('page'))->render() !!}</center>
     </div>
 </div>
 @endsection

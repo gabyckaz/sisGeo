@@ -45,7 +45,7 @@
                 <button type="submit" class="btn btn-info center-block">Agregar transporte</button>
               </div>
               <h3 class="box-title"> </h3>
-              <table class="table table-striped table-bordered" >
+              <table class="table table-striped table-bordered table-hover" >
                 <thead class="thead-dark">
                   <tr>
                   <th>Nombre</th>

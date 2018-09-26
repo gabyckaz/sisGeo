@@ -231,7 +231,7 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                <a href="{{ route('usuario.completar.informacion') }}" class="btn btn-default btn-flat">Perfil</a>
                </div>
                 <div class="pull-right">
                   <form action="{{ route('logout') }}" method="POST">
@@ -303,44 +303,65 @@ desired effect
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">OPCIONES</li>
 
-    <li class="active">
+    <li class="">
       <a href="{{ route('home') }}">
         <i class="fa fa-home"></i>
         <span>Inicio</span>
       </a>
     </li>
-    <li class="active">
+    @role('Admin')
+    <li class="">
       <a href="{{ route('adminUser.index') }}">
         <i class="fa fa-users"></i>
         <span>Usuarios</span>
       </a>
     </li>
-     <li class="active">
-      <a href="{{ route('user.pruebaApi') }}">
-        <i class="fa fa-users"></i>
-        <span>PruebaDatatable</span>
-      </a>
-    </li>
-    <li class="active">
-      <a href="{{ route('user.agregar.familiarAmigo') }}">
-        <i class="fa fa-home"></i>
-        <span>Agregar Familiar o Amigo</span>
-      </a>
-    </li>
-    <li class="active">
-          <a href="{{ route('usuario.completar.informacion') }}">
-            <i class="fa fa-home"></i>
-            <span>Completar Informacion</span>
-          </a>
-        </li>
+    @endrole
 
-    <li class="active">
+    <li class="treeview">
       <a href="#">
         <i class="fa fa-user"></i>
-        <span>Mi Cuenta</span>
+          <i class="fa fa-angle-left pull-right-container"></i>
+          <i class="fa fa-angl-left pull-right"></i>
+        <span>Mi cuenta</span>
+        <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+      </a>
+        <ul class="treeview-menu">
+          <li><a href="{{ route('usuario.completar.informacion') }}">
+            <i class="fa fa-home"></i>
+            Completar Informacion</a></li>
+          <li><a href="{{ route('user.agregar.familiarAmigo') }}">
+            <i class="fa fa-home"></i>
+            Agregar Familiar o Amigo</a></li>
+        </ul>
+    </li>
+    <li class="">
+      <a href="{{ route('Reservacion.index') }}">
+        <i class="fa fa-calendar"></i>
+        Mis Reservas <span class="label pull-right bg-green">2</span>
       </a>
     </li>
-     <li class="active treeview menu-open">
+    @role('Admin')
+    <li class=" treeview menu-open">
+         <a href="#">
+           <i class="fa fa-map-marker"></i>
+             <i class="fa fa-angle-left pull-right-container"></i>
+             <i class="fa fa-angl-left pull-right"></i>
+             <span>Ruta Turistica</span>
+             <span class="pull-right-container">
+               <ul class="treeview-menu">
+                       <li><a href="{{ route('adminRutaTuristica.index') }}">
+                         <i class="fa fa-star"></i>
+                         Consultar Ruta Turística</a></li>
+                       <li><a href="">
+                         <i class="fa fa-star"></i>
+                           Editar Ruta Turística</a></li>
+             </ul>
+   </li>
+   
+     <li class=" treeview menu-open">
       <a href="#">
         <i class="fa fa-ticket"></i>
           <i class="fa fa-angle-left pull-right-container"></i>
@@ -377,38 +398,16 @@ desired effect
                     Empresas</a></li>
                   <li><a href="{{ route('adminTipoTransporte.index') }}">
                     <i class="fa fa-star"></i>
-                    Transportes y Conductores</a></li>
+                    Tipos de Transporte</a></li>
                   <li><a href="{{ route('adminTransporte.index') }}">
                     <i class="fa fa-star"></i>
                       Transporte</a></li>
         </ul>
 
     </li>
+    @endrole
 
-    <li class="active">
-      <a href="{{ route('home') }}">
-        <i class="fa fa-calendar"></i>
-        <span>Reservas</span>
-      </a>
-    </li>
- <li class="active treeview menu-open">
-      <a href="#">
-        <i class="fa fa-map-marker"></i>
-          <i class="fa fa-angle-left pull-right-container"></i>
-          <i class="fa fa-angl-left pull-right"></i>
-          <span>Ruta Turistica</span>
-          <span class="pull-right-container">
-            <ul class="treeview-menu">
-                    <li><a href="{{ route('adminRutaTuristica.index') }}">
-                      <i class="fa fa-star"></i>
-                      Consultar Ruta Turística</a></li>
-                    <li><a href="">
-                      <i class="fa fa-star"></i>
-                        Editar Ruta Turística</a></li>
-          </ul>
-</li>
-
-        <li class="active"><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
+        <li class=""><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
 
 
       <!-- /.sidebar-menu -->

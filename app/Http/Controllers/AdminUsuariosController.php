@@ -20,13 +20,13 @@ class AdminUsuariosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    { 
+    {
        //  $users = DB::table('users')->get();
        // return view('adminUser.index', compact('users'));
 
        // $usuarios=User::orderBy('name','asc')->paginate(6);
          //   return view('adminUser.index')->withUsuarios($usuarios);
-        
+
        // return view('adminUser.index',compact('users'));
         /* $usuarios = User::inicial('x')->orderBy('id','asc')->paginate(2);
         if($request->get('fb') == "fbn"){
@@ -41,9 +41,9 @@ class AdminUsuariosController extends Controller
            $usuarios = User::estado($request->get('estado'))->orderBy('id','asc')->paginate(5);
             return view('adminUser.index', compact('usuarios'));
         } */
-        
+
        // $usuarios = User::nombre($request->get('nombre'))->orderBy('id','asc')->paginate(2);// User::where('name', 'victor')
-        
+
               //lleva el get cuando no tiene paginate $usuarios = User::nombre($request->get('nombre'))->get()
          //   $usuarios = User::nombre($request->get('nombre'))->orderBy('id','asc')->paginate(2);
        $usuarios = User::sortable()
@@ -51,16 +51,16 @@ class AdminUsuariosController extends Controller
        ->email($request->get('email'))
        ->estado($request->get('estado'))
        ->rol($request->get('rol'))
-        ->orderBy('id','asc')->paginate(5);
+        ->orderBy('id','desc')->paginate(5);
 
        // $usuarios= User::sortable()->paginate(5);
- 
+
         $estado = $request->get('estado');
         $rol = $request->get('rol');
         $email = $request->get('email');
         $nombre = $request->get('nombre');
        return view('adminUser.index', compact('usuarios','nombre','email','estado','rol'));
-       
+
     }
 
     /**
@@ -108,12 +108,12 @@ class AdminUsuariosController extends Controller
         $usuario = User::findOrFail($id);
         $roles = Role::All();
         return view("adminUser.edit",compact("usuario","roles"));//$usuario;
-        
+
      // $var = 4;
     //  $data = DB::select('select proc_AgregarPais(?) ', [$var]  );
      // $data =DB::statement('SELECT proc_AgregarPais(?)', [$var]);
      // return $data;
-    
+
     }
 
     /**
@@ -151,7 +151,7 @@ class AdminUsuariosController extends Controller
      }catch(\Exception $e) {
       return redirect()->route('adminUser.index')->with('fallo', 'Error en la eliminación del rol, debe existir al menos 1 administrador');
      }
-    } 
+    }
 
     //Agregar rol
     public function agregarRol(User $usuario, Request $request){
@@ -170,26 +170,26 @@ class AdminUsuariosController extends Controller
      public function cambiarEstado(User $usuario){
         if($usuario->EstadoUsuario === '0'){
         DB::table('users')->where('id', $usuario->id)->update([
-            "EstadoUsuario" => '1',    
-            
+            "EstadoUsuario" => '1',
+
 
         ]);
-      return redirect()->route('adminUser.index');
+      return redirect()->route('adminUser.index')->with('status', 'Estado de '.$usuario->name.' modificado');
      }
         if(($usuario->EstadoUsuario === '1')){
            DB::table('users')->where('id', $usuario->id)->update([
             "EstadoUsuario" => '0',
-            
+
 
         ]);
            return redirect()->route('adminUser.index');
-            
-         //  return "Hola mundo - ".$usuario->estado;
-    } 
 
-     
+         //  return "Hola mundo - ".$usuario->estado;
+    }
+
+
 
      }
 
-    
+
 }
