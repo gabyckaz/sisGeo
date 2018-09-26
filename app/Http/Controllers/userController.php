@@ -471,7 +471,7 @@ class userController extends Controller
 
 
     public function guardarFamiliarAmigo(Request $request){
-    
+       
        $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
               "Apellido" => "required|alpha|min:3|max:25",
@@ -695,6 +695,39 @@ class userController extends Controller
      return redirect()->route('user.agregar.familiarAmigo')->with('message',' Informacion actualizada con éxito');
    }
 
+ public function prueba(){
+    //$ts = Turista::all();
+         /*$sql = 'SELECT "IdTurista", "IdNacionalidad", "IdPersona", "CategoriaTurista", "FechaNacimiento", "DomicilioTurista", "Problemas_Salud"
+          FROM public."Turista"';
+         */ 
+          $sqlUserTurista = 'SELECT   t."IdTurista" as "Id",
+          p."PrimerNombrePersona" as "Nombre",p."PrimerApellidoPersona" as "Apellido"
+          FROM public."users" as u, public."Turista" as t,
+          public."personas" as p
+          WHERE u."IdPersona" = p."IdPersona" and
+          t."IdPersona"=p."IdPersona" and
+          u."id" = '.auth()->user()->id.';';
+          $userTurista = DB::select($sqlUserTurista); 
+          
+          $sqlAmigos = 'SELECT  a."IdTurista" as "Id",
+          p."PrimerNombrePersona" as "Nombre",p."PrimerApellidoPersona" as "Apellido",a."EsFamiliar" as "Tipo",p."Genero"
+          FROM public."Acompanante" as a, public."Turista" as t,
+          public."personas" as p,public."Nacionalidad" as n
+          WHERE a."IdTurista" = t."IdTurista" and
+          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
+          a."IdUsuario" = '.auth()->user()->id.' AND a."EsFamiliar" = \'A\';';
+          $amigos = DB::select($sqlAmigos);  
 
+          $sqlFamilia = 'SELECT  a."IdTurista" as "Id",
+          p."PrimerNombrePersona" as "Nombre",p."PrimerApellidoPersona" as "Apellido",a."EsFamiliar" as "Tipo",p."Genero"
+          FROM public."Acompanante" as a, public."Turista" as t,
+          public."personas" as p,public."Nacionalidad" as n
+          WHERE a."IdTurista" = t."IdTurista" and
+          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
+          a."IdUsuario" = '.auth()->user()->id.' AND a."EsFamiliar" = \'F\';';
+          $familia = DB::select($sqlFamilia);
+         
+       return view('user.pruebaApi',compact('userTurista','amigos','familia'));//\Response::json($resultado);
+ }
 
 }

@@ -35,6 +35,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
    <!-- Select2 -->
   <link rel="stylesheet" href="{{ asset('adminLte/select2/dist/css/select2.min.css')}}">
 
+   <!-- Datatables -->
+  <link rel="stylesheet" href="{{ asset('adminLte/data-tables/css/dataTables.bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('adminLte/data-tables/css/dataTables.checkboxes.css')}}">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -560,6 +564,7 @@ desired effect
 <script src="{{ asset('adminLte/js/adminlte.min.js') }}"></script>
 <!-- Para mascaras-->
 <script src="{{ asset('adminLte/input-mask/jquery.inputmask.js') }}"></script>
+
 <script src="{{ asset('adminLte/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
 <script src="{{ asset('adminLte/input-mask/jquery.inputmask.extensions.js') }}"></script>
 
@@ -568,30 +573,18 @@ desired effect
 
 <script src="{{ asset('adminLte/lightGallery/dist/js/lightgallery.min.js')}}"></script>
 
+<!-- DataTables-->
+<script src="{{ asset('adminLte/data-tables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('adminLte/data-tables/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{ asset('adminLte/data-tables/js/dataTables.checkboxes.min.js')}}"></script>
+<script src="{{ asset('js/script.js')}}"></script>
 
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
 <script type="text/javascript">
-       $(function () {
-        /* var div = document.getElementById("documentos");
-         if(div != null){
-         div.style.display = "none"
-         }*/
-
-      /* $('#datepicker').datepicker({ autoclose: true })
-       $('#datepicker2').datepicker({ autoclose: true }) */
-       $("#dui").inputmask("99999999-9",{ 'placeholder': '00000000-0' })
-       $("#pasaporte").inputmask("999999999",{ 'placeholder': '000000000' })
-       //Initialize Select2 Elements
-       $('.select2').select2()
-
-        })
-
-        $(document).ready(function() {
-            $("#lightgallery").lightGallery();
-        });
+       
      </script>
 
 </body>
