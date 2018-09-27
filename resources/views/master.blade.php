@@ -569,6 +569,13 @@ desired effect
 
 <script src="{{ asset('adminLte/lightGallery/dist/js/lightgallery.min.js')}}"></script>
 
+<script src="{{ asset('adminLte/sweetalert2/sweetalert2.all.js')}}"></script>
+
+<script type="text/javascript" src="{{ asset('/js/scripts/paquetes.js') }}" > </script>
+
+@include('sweetalert::alert')
+
+
 
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.

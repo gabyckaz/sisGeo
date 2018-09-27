@@ -6,7 +6,9 @@
 
 
 
+
 @section('contenido')
+
     <div class="container spark-screen">
         <div class="row">
             <div class="col-md-9 col-md-offset-1">
@@ -37,7 +39,7 @@
                             <label name="idrutaturistica" for="nombrerutaturistica">Nombre de Ruta Turística</label>
 
                                   @if($ruta !=null)
-                                    <select  class="form-control" name="idrutaturistica"  id="idrutaturistica" disabled>
+                                    <select  class="form-control" name="idrutaturistica"  id="idrutaturistica" readonly>
                                     @foreach ($ruta as $ruta)
                                      <option value="{{ $ruta->IdRutaTuristica }}" {{ $ruta->IdRutaTuristica == $ruta->IdRutaTuristica ? 'selected' : '' }}>{{ $ruta->NombreRutaTuristica }}</option>
                                     @endforeach
@@ -123,7 +125,7 @@
                         <div class="form-group">
                           <label for="tipopaquete">Tipo Paquete</label>
                           <br>
-                          <select class="form-control" id="tipopaquete" name="tipopaquete"  disabled>
+                          <select class="form-control" id="tipopaquete" name="tipopaquete"  readonly>
                               <option value="{{ $paquete->TipoPaquete }}" {{ $paquete->TipoPaquete == $paquete->TipoPaquete ? 'selected' : '' }}>{{$paquete->TipoPaquete }}</option>
 
                             </select>
@@ -134,7 +136,7 @@
                         <div class="form-group">
                           <label for="dificultad">Dificultad Paquete</label>
                           <br>
-                          <select class="form-control" id="dificultad" name="dificultad" disabled>
+                          <select class="form-control" id="dificultad" name="dificultad" readonly>
                               <option value="{{ $paquete->Dificultad }}" {{ $paquete->Dificultad == $paquete->Dificultad ? 'selected' : '' }}>{{$paquete->Dificultad }}</option>
 
                             </select>
@@ -152,7 +154,7 @@
                         <label for="re">Recomendaciones</label>
                         @php $x='f';
                         @endphp
-                        
+
 
                         <select class="form-control select2" multiple="multiple" name="recomendaciones[]" >
                           @for ($i = 0; $i < count($recomendaciones); $i++)
@@ -181,22 +183,24 @@
                                                 </h4>
                       <div class="row">
                             <div  id="lightgallery" >
-                                                            @foreach ($imagen as $imagenes)
 
-                                                              <a href="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}">
-                                                                  <img src="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 " >
+                              @for ($i = 0; $i < count($imagen); $i++)
+
+
+                                                            <div class="row">
+
+                                                              <input class="nuevaFoto" type="file" name="imagenpaquete{{$i}}" >
+
+                                                              <a href="{{asset('storage/imagenesPaquete')}}/{{$imagen[$i]->Imagen1}}">
+                                                                  <img src="{{asset('storage/imagenesPaquete')}}/{{$imagen[$i]->Imagen1}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
                                                               </a>
+                                                            </div>
 
 
 
-                                                            @endforeach
+                                                            @endfor
                                                         </div>
-                                                        <div class="form-group">
 
-                                                          <input type="file" multiple="true" name="imagenpaquete[]" >
-
-                                                          <p class="help-block">Subir Hasta 5 Imagenes.</p>
-                                                        </div>
 
 
                                                       </div>
@@ -221,4 +225,5 @@
             </div>
         </div>
     </div>
+
 @endsection

@@ -241,7 +241,27 @@ class PaqueteController extends Controller
 
         $paquete2 = Paquete::latest('IdPaquete')->first();
 
-        $archivo = $request->file('imagenpaquete');
+
+
+        $contador = ImagenPaqueteTuristico::where('id_paquete', $id)->get();
+        $contador2 = $contador->all();
+
+
+
+        for($j=0;$j<count($contador2);$j++){
+          $archivo[$j] = $request->imagenpaquete1;
+          //dd($contador2[$j]->Imagen1);
+          //despues de lograr comparar los nombres de la base de datos con los nuevos agregados al editar se decide si se guarda o no se hace nada
+          /*if(nombrebase = nombreeditar){
+          no hace nada
+          }else {
+          borrar la que ya estaba y guardar la nuevas
+          }*/
+        }
+
+
+
+
             for($i=0;$i<count($archivo);$i++){
             //dd($archivo);
             //Hay Imagen
