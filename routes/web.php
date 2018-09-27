@@ -102,7 +102,7 @@ Route::resource('turista', 'TuristaController');
 
             Route::post('/CrearRutaTuristica', [
                 'uses' => 'RutaTuristicaController@store',
-                'as' => 'adminRutaTuristica.create',
+                'as' => 'adminRutaTuristica.store',
             ]);
 
             //Actualizar paquetes
