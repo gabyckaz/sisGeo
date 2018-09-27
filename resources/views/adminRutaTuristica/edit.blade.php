@@ -50,7 +50,7 @@
                        <label for="pais">País *</label>
                          <select class="form-control" name="pais">
                            @foreach($paises as $pais)
-                             <option value="{{ $pais->IdPais }}"  {{ $pais->IdPaais == $pais->IdPaais ? 'selected="selected"' : '' }}>{{$pais->nombrePais}}</option>
+                             <option value="{{ $pais->IdPais }}"  {{ $pais->IdPaais == $pais->IdPais ? 'selected' : '' }}>{{$pais->nombrePais}}</option>
                            @endforeach
                          </select>
                        </div>
