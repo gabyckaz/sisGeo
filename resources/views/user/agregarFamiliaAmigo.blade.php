@@ -8,6 +8,7 @@
 Agregar familiares o amigos
 @endsection
 @section('contenido')
+  @if($idTuristaUsuario == 'si')
           @if(session()->has('message'))
             <!--div class="alert alert-success">
               { session()->get('message') }}
@@ -280,5 +281,13 @@ Agregar familiares o amigos
 
                   </div>
                 </div>
-
+@else
+<div class="row">
+  <div class="col-md-12 col-md-offset-2">
+   <h2><a href="{{ route('usuario.completar.informacion') }}">
+     Debes completar tu informacion para poder continuar. :)
+   </a></h2>
+  </div>
+</div>
+@endif
 @endsection

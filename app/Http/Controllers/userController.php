@@ -256,7 +256,7 @@ class userController extends Controller
           $persona->save();
 
          //no existe turista entonces lo creo
-         $t = Turista::create([
+         $turista = Turista::create([
               'IdNacionalidad'=> $request->nacionalidad,
               'IdPersona' => auth()->user()->IdPersona,
               "FechaNacimiento" => $request->fechaNacimiento,
@@ -428,12 +428,21 @@ class userController extends Controller
 
     public function agregarFamiliarAmigo(Request $request)
     {
-        
+          $idTuristaUsuario = "si";
        // $usuario = User::findOrFail(auth()->user()->id);
-        $nacionalidad = Nacionalidad::all();
-
-         $familiaAmigos = DB::select('
-           (SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
+         $nacionalidad = Nacionalidad::all();
+         $sqlUserTurista = 'SELECT   t."IdTurista" as "Id"
+          FROM public."users" as u, public."Turista" as t,
+          public."personas" as p
+          WHERE u."IdPersona" = p."IdPersona" and
+          t."IdPersona"=p."IdPersona" and
+          u."id" = '.auth()->user()->id.';';
+          $userTurista = DB::select($sqlUserTurista);
+          if($userTurista == null){
+            $idTuristaUsuario = "no";
+          }
+          
+          $sql = '(SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
           p."PrimerNombrePersona",p."PrimerApellidoPersona",p."Genero",
           n."Nacionalidad",t."FechaNacimiento", t."DomicilioTurista",
           t."Problemas_Salud"
@@ -451,11 +460,11 @@ class userController extends Controller
           public."personas" as p,public."Nacionalidad" as n
           WHERE u."IdPersona" = p."IdPersona" and
           t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
-          u."id" = '.auth()->user()->id.' )
-          ');
+          u."id" = '.auth()->user()->id.')';
+         $familiaAmigos = DB::select($sql);
 
         $familiaAmigos = $this->arrayPaginator($familiaAmigos);
-        return view('user.agregarFamiliaAmigo', compact('nacionalidad','familiaAmigos'));
+        return view('user.agregarFamiliaAmigo', compact('nacionalidad','familiaAmigos','idTuristaUsuario'));
 
     }
 

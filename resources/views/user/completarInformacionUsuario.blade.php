@@ -36,7 +36,7 @@ Editar mi informacion de usuario
         <div class="row">
           <div class="col-md-3">
              <div class="form-group has-feedback{{ $errors->has('PrimerNombrePersona') ? ' has-error' : '' }}" >
-                  <label for="input2" class="control-label">Primer Nombre</label>
+                  <label for="input2" class="control-label">Primer Nombre*</label>
                    <div class="input-group">
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
@@ -61,7 +61,7 @@ Editar mi informacion de usuario
           </div>
           <div class="col-md-3">
              <div class="form-group has-feedback{{ $errors->has('PrimerApellidoPersona') ? ' has-error' : '' }}" >
-                    <label for="input4" class="control-label">Primer Apellido</label>
+                    <label for="input4" class="control-label">Primer Apellido*</label>
                       <div class="input-group">
                         <div class="input-group-addon">
                          <i class="fa fa-user"></i>
@@ -98,7 +98,7 @@ Editar mi informacion de usuario
              @if( $existeTurista == "si")
                  <div class="col-md-3">
                    <div class="form-group ">
-                    <label for="fechaNacimiento" class="control-label">Fecha de Nacimiento</label>
+                    <label for="fechaNacimiento" class="control-label">Fecha de Nacimiento*</label>
                      <div class="input-group date ">
                         <div class="input-group-addon">
                            <i class="fa fa-calendar"></i>
@@ -112,7 +112,7 @@ Editar mi informacion de usuario
                  @else
                   <div class="col-md-3">
                    <div class="form-group">
-                    <label for="fechaNacimiento" class="control-label">Fecha de Nacimiento</label>
+                    <label for="fechaNacimiento" class="control-label">Fecha de Nacimiento*</label>
                      <div class="input-group date ">
                         <div class="input-group-addon">
                            <i class="fa fa-calendar"></i>
@@ -313,7 +313,7 @@ Editar mi informacion de usuario
               </div>
              </div>
              <div class="col-md-4">
-                  <label for="telefono" class="control-label">Telefono</label>
+                  <label for="telefono" class="control-label">Telefono*</label>
                   <div class="input-group">
                    <div class="input-group-addon">
                        <i class="fa fa-phone"></i>
@@ -326,7 +326,7 @@ Editar mi informacion de usuario
          @if( $existeTurista == 'si')
           <div class="col-md-6">
               <div class="form-group has-feedback{{ $errors->has('direccion') ? ' has-error' : '' }}">
-                     <label for="direccion" class="control-label">Direccion</label>
+                     <label for="direccion" class="control-label">Direccion*</label>
                       <textarea   class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." required>{{ $turista->DomicilioTurista }}</textarea>
                   </div>
           </div>
@@ -339,7 +339,7 @@ Editar mi informacion de usuario
           @else
             <div class="col-md-6">
               <div class="form-group ">
-                <label for="direccion" class="control-label">Direccion</label>
+                <label for="direccion" class="control-label">Direccion*</label>
                 <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." required>{{ old('direccion') }}</textarea>
               </div>
           </div>
