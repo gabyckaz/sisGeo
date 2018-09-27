@@ -94,7 +94,7 @@ Route::resource('turista', 'TuristaController');
               'as' => 'adminRutaTuristica.index',
             ]);
 
-            //Crear paquetes
+            //Crear ruta
             Route::get('/CrearRutaTuristica', [
                 'uses' => 'RutaTuristicaController@create',
                 'as' => 'adminRutaTuristica.create',
@@ -105,7 +105,7 @@ Route::resource('turista', 'TuristaController');
                 'as' => 'adminRutaTuristica.store',
             ]);
 
-            //Actualizar paquetes
+            //Actualizar rutas
             Route::get('/EditarRutaTuristica/{id}', [
                 'uses' => 'RutaTuristicaController@edit',
                 'as' => 'adminRutaTuristica.edit',
@@ -116,7 +116,7 @@ Route::resource('turista', 'TuristaController');
                 'as' => 'adminRutaTuristica.update',
             ]);
 
-            //Bloquear paquetes
+            //Bloquear rutas
             Route::get('/EliminarRutaTuristica/{id}',[
                 'uses' =>'RutaTuristicaController@destroy',
                 'as' => 'adminRutaTuristica.destroy'
@@ -124,7 +124,7 @@ Route::resource('turista', 'TuristaController');
 
         /*FIN RUTAS PAQUETES*/
 
-        //INICIO RUTAS PAQUETES
+        //INICIO PAQUETES
 
             //Ver paquetes
             Route::get('/MostrarPaquete', [
