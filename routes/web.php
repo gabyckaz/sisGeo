@@ -166,7 +166,34 @@ Route::resource('turista', 'TuristaController');
                         'uses' => 'OpcionesPaqueteController@guardarrecomendaciones',
                         'as' => 'adminOpcionesPaquete.guardarrecomendaciones',
                     ]);
-
+                    Route::post('/CrearCondiciones', [
+                         'uses' => 'OpcionesPaqueteController@guardarcondiciones',
+                         'as' => 'adminOpcionesPaquete.guardarcondiciones',
+                     ]);
+                     Route::post('/CrearItinerario', [
+                          'uses' => 'OpcionesPaqueteController@guardaritinerario',
+                          'as' => 'adminOpcionesPaquete.guardaritinerario',
+                      ]);
+                      Route::get('/eliminarGastosExtras/{id}', [
+                           'uses' => 'OpcionesPaqueteController@eliminargastosextras',
+                           'as' => 'adminOpcionesPaquete.eliminargastosextras',
+                       ]);
+                       Route::get('/eliminarRecomendaciones/{id}', [
+                            'uses' => 'OpcionesPaqueteController@eliminarrecomendaciones',
+                            'as' => 'adminOpcionesPaquete.eliminarrecomendaciones',
+                        ]);
+                        Route::get('/eliminarIncluye/{id}', [
+                             'uses' => 'OpcionesPaqueteController@eliminarincluye',
+                             'as' => 'adminOpcionesPaquete.eliminarincluye',
+                         ]);
+                         Route::get('/eliminarItinerario/{id}', [
+                              'uses' => 'OpcionesPaqueteController@eliminaritinerario',
+                              'as' => 'adminOpcionesPaquete.eliminaritinerario',
+                          ]);
+                          Route::get('/eliminarCondiciones/{id}', [
+                               'uses' => 'OpcionesPaqueteController@eliminarcondiciones',
+                               'as' => 'adminOpcionesPaquete.eliminarcondiciones',
+                           ]);
                 /*FIN RUTAS PAQUETES*/
         //INICIO RUTAS PAQUETES
 

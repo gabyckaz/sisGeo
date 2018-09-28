@@ -16,6 +16,8 @@ class CreateImagenpaqueteturisticoTable extends Migration
         Schema::create('ImagenPaqueteTuristico', function (Blueprint $table) {
             $table->increments('IdImagenPaqueteTuristico');
             $table->string('Imagen1',1024);//extension:jpg, png
+            $table->string('Imagen2',1024);//extension:jpg, png
+            $table->string('Imagen3',1024);//extension:jpg, png
             $table->integer('id_paquete')->unsigned();
             $table->foreign('id_paquete')->references('IdPaquete')->on('Paquetes');
             $table->timestamps();

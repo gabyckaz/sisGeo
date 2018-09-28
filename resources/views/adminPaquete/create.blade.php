@@ -153,21 +153,24 @@
 
                       </div>
 
-                        <div class="form-group">
-                            <label for="iti">Itinerario</label>
-                            <div class="input-group">
-                              <span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
-                              <textarea name="itinerario" class="form-control" id="itinerario" rows="20" ></textarea>
+                      <div class="form-group">
+                          <label name="itinerario" for="itinerario">Itinerario</label>
+                                  <select class="form-control select2" multiple="multiple" name="gastosextras[]" id="gasto[]" >
+                                  @foreach ($itinerario as $iti)
 
-                              </div>
-                        </div>
+                                  <option value="{{$iti->IdItinerario }}">{{$iti->NombreItinerario}}</option>
+                                  @endforeach
+                                  </select>
+
+                      </div>
+
 
                         <div class="form-group">
                             <label name="gastosextras" for="gastosextras">Gastos Extras</label>
                                     <select class="form-control select2" multiple="multiple" name="gastosextras[]" id="gasto[]" >
                                     @foreach ($gastosextras as $gastos)
 
-                                    <option value="{{$gastos->IdGastosExtras }}">{{$gastos->NombreGastos}}</option>
+                                    <option value="{{$gastos->IdGastosExtras }}">{{$gastos->NombreGastos}} --> ${{$gastos->Gastos}}</option>
                                     @endforeach
                                     </select>
 
@@ -205,11 +208,18 @@
                       </div>
                       <div class="form-group">
                         <label for="exampleInputFile">Imagenes</label>
-                        <input type="file" multiple="true" name="imagenpaquete[]" >
+                        <input type="file" name="imagen1" >
 
-                        <p class="help-block">Subir Hasta 5 Imagenes.</p>
+                        <p class="help-block">Subir Imagen 1.</p>
                       </div>
-
+                      <div class="form-group">
+                        <input type="file"  name="imagen2" >
+                        <p class="help-block">Subir Imagen 2.</p>
+                      </div>
+                      <div class="form-group">
+                        <input type="file" name="imagen3" >
+                        <p class="help-block">Subir Imagen 3.</p>
+                      </div>
 
                         <div class="form-check">
                               <input type='hidden' name='disponibilidadpaquete' value='0'/>

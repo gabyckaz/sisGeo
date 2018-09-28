@@ -145,10 +145,29 @@
                     </div>
                     <div class="form-group">
                         <label for="iti">Itinerario</label>
-                          <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
-                              <input name="itinerario" class="form-control" id="itinerario" rows="20" value="{{$paquete->Itinerario}}" ></input>
-                          </div>
+                        @php $x='f';
+                        @endphp
+
+
+                        <select class="form-control select2" multiple="multiple" name="itinerario[]" >
+                          @for ($i = 0; $i < count($itinerario); $i++)
+
+                           @for ($j = 0; $j < count($itinerariopaquete); $j++)
+                           @if($itinerariopaquete[$j]->itinerario_id == $itinerario[$i]->IdItinerario)
+                                 <option value="{{ $itinerario[$i]->IdItinerario }}"{{ 'selected'}}> {{$itinerario[$i]->NombreItinerario}}</option>
+                                 @php $x='t';
+                                 @endphp
+                            @endif
+                           @endfor
+                           @if($x == 't')
+                             @php $x ='f';
+                             @endphp
+                           @else
+                            <option value="{{ $recomendaciones[$i]->IdRecomendaciones }}" > {{$recomendaciones[$i]->NombreRecomendaciones}}</option>
+                           @endif
+                          @endfor
+
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="re">Recomendaciones</label>
@@ -176,8 +195,58 @@
 
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="in">Que incluye</label>
+                        @php $x='f';
+                        @endphp
 
 
+                        <select class="form-control select2" multiple="multiple" name="incluye[]" >
+                          @for ($i = 0; $i < count($incluye); $i++)
+
+                           @for ($j = 0; $j < count($incluyepaquete); $j++)
+                           @if($incluyepaquete[$j]->incluye_id == $incluye[$i]->IdIncluye)
+                                 <option value="{{ $incluye[$i]->IdIncluye }}"{{ 'selected'}}> {{$incluye[$i]->NombreIncluye}}</option>
+                                 @php $x='t';
+                                 @endphp
+                            @endif
+                           @endfor
+                           @if($x == 't')
+                             @php $x ='f';
+                             @endphp
+                           @else
+                            <option value="{{ $incluye[$i]->IdIncluye }}" > {{$incluye[$i]->NombreIncluye}}</option>
+                           @endif
+                          @endfor
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="con">Condiciones</label>
+                        @php $x='f';
+                        @endphp
+
+
+                        <select class="form-control select2" multiple="multiple" name="condiciones[]" >
+                          @for ($i = 0; $i < count($condiciones); $i++)
+
+                           @for ($j = 0; $j < count($condicionespaquete); $j++)
+                           @if($condicionespaquete[$j]->condiciones_id == $condiciones[$i]->IdCondiciones)
+                                 <option value="{{ $condiciones[$i]->IdCondiciones }}"{{ 'selected'}}> {{$condiciones[$i]->NombreCondiciones}}</option>
+                                 @php $x='t';
+                                 @endphp
+                            @endif
+                           @endfor
+                           @if($x == 't')
+                             @php $x ='f';
+                             @endphp
+                           @else
+                            <option value="{{ $condiciones[$i]->IdCondiciones }}" > {{$condiciones[$i]->NombreCondiciones}}</option>
+                           @endif
+                          @endfor
+
+                        </select>
+                    </div>
                         <h4>
                                         <span class="label label-primary">Imagen</span>
                                                 </h4>
@@ -202,10 +271,7 @@
                                                         </div>
 
 
-
                                                       </div>
-
-
 
                         </div>
                         <!-- /.box-body -->
