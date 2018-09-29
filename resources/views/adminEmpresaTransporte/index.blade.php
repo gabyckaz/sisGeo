@@ -11,13 +11,13 @@
     @if(session('status'))
       <br>
        <script type="text/javascript">
-      alertify.success("{{ session('status') }}");
+      alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
       </script>
     @endif
     @if(session('fallo'))
       <br>
       <script type="text/javascript">
-     alertify.error("{{ session('fallo') }}");
+     alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
      </script>
     @endif
     @if($errors->has('numeroTelefono'))

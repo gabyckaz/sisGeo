@@ -1,7 +1,6 @@
 @extends('master')
 
 @section('head')
-<h1>Hola Mundo</h1>
 
 @endsection
 
@@ -11,17 +10,15 @@
   <div class="col-md-4">
     @if(session('status'))
       <br>
-        <div class="alert alert-success alert-dismissible fade in" role="alert">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
-          {{ session('status') }}
-        </div>
+       <script type="text/javascript">
+      alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
+      </script>
     @endif
     @if(session('fallo'))
       <br>
-        <div class="alert alert-danger alert-dismissible fade in" role="alert">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
-          {{ session('fallo') }}
-      </div>
+      <script type="text/javascript">
+     alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
+     </script>
     @endif
     <div class="box box-warning">
       <div class="box-header">
