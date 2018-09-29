@@ -16,7 +16,7 @@
                     <div class="panel-heading">Actualizar Paquetes Turisticos</div>
 
                       <div class="panel-body">
-                        <form method="POST" action="{{$paquete->IdPaquete}}" files = "true" >
+                        <form method="POST" action="{{$paquete->IdPaquete}}" files = "true" enctype="multipart/form-data" >
                         <input name="_method" type="hidden" value="PUT">
 
                         <div class="col-md-12">
@@ -163,7 +163,7 @@
                              @php $x ='f';
                              @endphp
                            @else
-                            <option value="{{ $recomendaciones[$i]->IdRecomendaciones }}" > {{$recomendaciones[$i]->NombreRecomendaciones}}</option>
+                            <option value="{{ $itinerario[$i]->IdItinerario }}" > {{$itinerario[$i]->NombreItinerario}}</option>
                            @endif
                           @endfor
 
@@ -247,31 +247,62 @@
 
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="gastosextras">Gastos Extras</label>
+                        @php $x='f';
+                        @endphp
+
+
+                        <select class="form-control select2" multiple="multiple" name="gastosextras[]" >
+                          @for ($i = 0; $i < count($gastosextras); $i++)
+
+                           @for ($j = 0; $j < count($gastosextraspaquete); $j++)
+                           @if($gastosextraspaquete[$j]->gastosextras_id == $gastosextras[$i]->IdGastosExtras)
+                                 <option value="{{ $gastosextras[$i]->IdGastosExtras }}"{{ 'selected'}}> {{$gastosextras[$i]->NombreGastos}}--${{$gastosextras[$i]->Gastos}}</option>
+                                 @php $x='t';
+                                 @endphp
+                            @endif
+                           @endfor
+                           @if($x == 't')
+                             @php $x ='f';
+                             @endphp
+                           @else
+                            <option value="{{ $gastosextras[$i]->IdGastosExtras }}" > {{$gastosextras[$i]->NombreGastos}}{{$gastosextras[$i]->Gastos}}</option>
+                           @endif
+                          @endfor
+
+                        </select>
+                    </div>
                         <h4>
-                                        <span class="label label-primary">Imagen</span>
+                                        <span class="label label-primary">Imagenes</span>
                                                 </h4>
-                      <div class="row">
-                            <div  id="lightgallery" >
+                                                <div class="row">
+                                                      <div  id="lightgallery" >
+                                                        <div class="row">
+                                                          <input class="nuevaFoto" type="file" name="imagen1" id="imagen1">
 
-                              @for ($i = 0; $i < count($imagen); $i++)
-
-
-                                                            <div class="row">
-
-                                                              <input class="nuevaFoto" type="file" name="imagenpaquete{{$i}}" >
-
-                                                              <a href="{{asset('storage/imagenesPaquete')}}/{{$imagen[$i]->Imagen1}}">
-                                                                  <img src="{{asset('storage/imagenesPaquete')}}/{{$imagen[$i]->Imagen1}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
-                                                              </a>
-                                                            </div>
-
-
-
-                                                            @endfor
+                                                          <a href="{{asset('storage/imagenesPaquete')}}/{{$imagen->Imagen1}}">
+                                                              <img src="{{asset('storage/imagenesPaquete')}}/{{$imagen->Imagen1}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
+                                                          </a>
                                                         </div>
+                                                        <div class="row">
+                                                          <input class="nuevaFoto2" type="file" name="imagen2" >
+
+                                                          <a href="{{asset('storage/imagenesPaquete')}}/{{$imagen->Imagen2}}">
+                                                              <img src="{{asset('storage/imagenesPaquete')}}/{{$imagen->Imagen2}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" >
+                                                          </a>
+                                                        </div>
+                                                        <div class="row">
+                                                          <input class="nuevaFoto3" type="file" name="imagen3" >
+
+                                                          <a href="{{asset('storage/imagenesPaquete')}}/{{$imagen->Imagen3}}">
+                                                              <img src="{{asset('storage/imagenesPaquete')}}/{{$imagen->Imagen3}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" >
+                                                          </a>
+                                                        </div>
+                                                                                  </div>
 
 
-                                                      </div>
+                                                                                </div>
 
                         </div>
                         <!-- /.box-body -->

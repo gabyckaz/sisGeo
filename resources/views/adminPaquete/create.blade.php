@@ -155,7 +155,7 @@
 
                       <div class="form-group">
                           <label name="itinerario" for="itinerario">Itinerario</label>
-                                  <select class="form-control select2" multiple="multiple" name="gastosextras[]" id="gasto[]" >
+                                  <select class="form-control select2" multiple="multiple" name="itinerario[]" id="itinerario[]" >
                                   @foreach ($itinerario as $iti)
 
                                   <option value="{{$iti->IdItinerario }}">{{$iti->NombreItinerario}}</option>
@@ -206,18 +206,37 @@
                             </select>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label for="exampleInputFile">Imagenes</label>
-                        <input type="file" name="imagen1" >
-
-                        <p class="help-block">Subir Imagen 1.</p>
+                      <label for="exampleInputFile">Imagenes</label>
+                      <br>
+                      <div class="form-group row">
+                        <a href="">
+                            <img src="{{asset('storage/geoturismo.png')}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
+                        </a>
+                        <br>
+                        <br>
+                        <br>
+                            <input class="nuevaFoto" type="file" name="imagen1" required>
+                       <p class="help-block">Subir Imagen 1.</p>
                       </div>
-                      <div class="form-group">
-                        <input type="file"  name="imagen2" >
+
+                      <div class="form-group row">
+                        <a href="">
+                            <img src="{{asset('storage/geoturismo.png')}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" >
+                        </a>
+                        <br>
+                        <br>
+                        <br>
+                        <input  class="nuevaFoto2" type="file"  name="imagen2" required >
                         <p class="help-block">Subir Imagen 2.</p>
                       </div>
-                      <div class="form-group">
-                        <input type="file" name="imagen3" >
+                      <div class="form-group row">
+                        <a href="">
+                            <img src="{{asset('storage/geoturismo.png')}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" >
+                        </a>
+                        <br>
+                        <br>
+                        <br>
+                        <input type="file"  class="nuevaFoto3" name="imagen3" required >
                         <p class="help-block">Subir Imagen 3.</p>
                       </div>
 

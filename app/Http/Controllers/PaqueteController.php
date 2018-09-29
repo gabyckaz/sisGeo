@@ -127,19 +127,19 @@ class PaqueteController extends Controller
           $archivo1->move($path , $nombreimagen1);
           $imagen=new ImagenPaqueteTuristico();
           $imagen->id_paquete=$paquete2->IdPaquete;
-          $imagen->Imagen1=$nombreimagen1;
+          $imagen->Imagen1=$paquete2->NombrePaquete.'/'.$nombreimagen1;
 
           $archivo2=$request->file('imagen2');
           $nombreimagen2='paquete_'.$paquete2->IdPaquete .'_'. $archivo2->getClientOriginalName();
           $path=public_path() . "/storage/imagenesPaquete/".$paquete2->NombrePaquete;
           $archivo2->move($path , $nombreimagen2);
-          $imagen->Imagen2=$nombreimagen2;
+          $imagen->Imagen2=$paquete2->NombrePaquete.'/'.$nombreimagen2;
 
           $archivo3=$request->file('imagen3');
           $nombreimagen3='paquete_'.$paquete2->IdPaquete .'_'. $archivo3->getClientOriginalName();
           $path=public_path() . "/storage/imagenesPaquete/".$paquete2->NombrePaquete;
           $archivo3->move($path , $nombreimagen3);
-          $imagen->Imagen3=$nombreimagen3;
+          $imagen->Imagen3=$paquete2->NombrePaquete.'/'.$nombreimagen3;
 
 
           $imagen->save();
@@ -230,11 +230,12 @@ class PaqueteController extends Controller
       por esta linea ++  */
       $paquete=Paquete::findOrFail($id);
       $ruta =RutaTuristica::all();
-      $imagenes = ImagenPaqueteTuristico::all();
+      $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->first();
       $incluye=Incluye::all();
       $recomendaciones=Recomendaciones::all();
       $condiciones=Condiciones::all();
       $itinerario=Itinerario::all();
+      $gastosextras=GastosExtras::all();
     //  dd($recomendaciones[0]->IdRecomendaciones);
 
       // $recomendacionespaquete = RecomendacionesPaquete::where('paquete_id',$id)->get();
@@ -259,6 +260,11 @@ class PaqueteController extends Controller
               FROM "Itinerario_Paquete"
                WHERE "paquete_id" = '.$id.' ;';
                 $itinerariopaquete= DB::select($sql);
+
+                $sql = 'SELECT "IdGastosExtraPaquete", gastosextras_id , paquete_id
+                      FROM "GastosExtras_Paquete"
+                       WHERE "paquete_id" = '.$id.' ;';
+                        $gastosextraspaquete= DB::select($sql);
       // dd($recomendacionespaquete[0]);
     //  $imagenes2 = $imagenes->all();
       //$imagenes = ImagenPaqueteTuristico::findOrFail(10);
@@ -268,7 +274,8 @@ class PaqueteController extends Controller
       ->with('ruta',$ruta)
         ->with('imagen',$imagenes)->with('recomendaciones', $recomendaciones)->with('recomendacionespaquete',$recomendacionespaquete)->with('incluye',$incluye)->with('incluyepaquete',$incluyepaquete)
         ->with('condiciones', $condiciones)->with('condicionespaquete',$condicionespaquete)
-        ->with('itinerario', $itinerario)->with('itinerariopaquete',$itinerariopaquete);
+        ->with('itinerario', $itinerario)->with('itinerariopaquete',$itinerariopaquete)
+        ->with('gastosextras',$gastosextras)->with('gastosextraspaquete',$gastosextraspaquete);
         //return view('adminPaquete.edit', compact( 'paquete','ruta','imagenes','recomendaciones','recomendacionespaquete') );
     }
 
@@ -296,47 +303,32 @@ class PaqueteController extends Controller
         $paquete->Dificultad=$request->dificultad;
 
         $paquete2 = Paquete::latest('IdPaquete')->first();
+        $archivo3=$request->file('imagen3');
+        dd($archivo3);
+        $archivo1=$request->file('imagen1');
+
+        $nombreimagen1='paquete_'.$paquete2->IdPaquete .'_'. $archivo1->getClientOriginalName();
+        $path=public_path() . "/storage/imagenesPaquete/".$paquete2->NombrePaquete;
+        $archivo1->move($path , $nombreimagen1);
+        $imagen=new ImagenPaqueteTuristico();
+        $imagen->id_paquete=$paquete2->IdPaquete;
+        $imagen->Imagen1=$paquete2->NombrePaquete.'/'.$nombreimagen1;
+
+        $archivo2=$request->file('imagen2');
+        $nombreimagen2='paquete_'.$paquete2->IdPaquete .'_'. $archivo2->getClientOriginalName();
+        $path=public_path() . "/storage/imagenesPaquete/".$paquete2->NombrePaquete;
+        $archivo2->move($path , $nombreimagen2);
+        $imagen->Imagen2=$paquete2->NombrePaquete.'/'.$nombreimagen2;
+
+        $archivo3=$request->file('imagen3');
+        dd($archivo3);
+        $nombreimagen3='paquete_'.$paquete2->IdPaquete .'_'. $archivo3->getClientOriginalName();
+        $path=public_path() . "/storage/imagenesPaquete/".$paquete2->NombrePaquete;
+        $archivo3->move($path , $nombreimagen3);
+        $imagen->Imagen3=$paquete2->NombrePaquete.'/'.$nombreimagen3;
 
 
-
-        $contador = ImagenPaqueteTuristico::where('id_paquete', $id)->get();
-        $contador2 = $contador->all();
-
-
-
-        for($j=0;$j<count($contador2);$j++){
-          $archivo[$j] = $request->imagenpaquete1;
-          //dd($contador2[$j]->Imagen1);
-          //despues de lograr comparar los nombres de la base de datos con los nuevos agregados al editar se decide si se guarda o no se hace nada
-          /*if(nombrebase = nombreeditar){
-          no hace nada
-          }else {
-          borrar la que ya estaba y guardar la nuevas
-          }*/
-        }
-
-
-
-
-            for($i=0;$i<count($archivo);$i++){
-            //dd($archivo);
-            //Hay Imagen
-
-            $nombreimagen[$i] = 'paquete_'. $paquete2->IdPaquete .'_'. $archivo[$i]->getClientOriginalName();
-
-            $path[$i] = public_path() . "/storage/imagenesPaquete";
-
-            $archivo[$i]->move($path[$i] , $nombreimagen[$i]);
-
-            $imagen[$i] = new ImagenPaqueteTuristico();
-
-            $imagen[$i]->id_paquete = $paquete2->IdPaquete;
-            $imagen[$i]->Imagen1 = $nombreimagen[$i];
-
-
-
-            $imagen[$i]->save();
-            }
+        $imagen->save();
 
         for ($i=0; $i<count($request->gastosextras);$i++){
           $gastospaquete = new GastosExtrasPaquete();
