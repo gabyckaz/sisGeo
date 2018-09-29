@@ -281,22 +281,22 @@
                                                         <div class="row">
                                                           <input class="nuevaFoto" type="file" name="imagen1" id="imagen1">
 
-                                                          <a href="{{asset('storage/imagenesPaquete')}}/{{$imagen->Imagen1}}">
-                                                              <img src="{{asset('storage/imagenesPaquete')}}/{{$imagen->Imagen1}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
+                                                          <a href="{{Storage::url($imagen->Imagen1)}}">
+                                                              <img src="{{Storage::url($imagen->Imagen1)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
                                                           </a>
                                                         </div>
                                                         <div class="row">
                                                           <input class="nuevaFoto2" type="file" name="imagen2" >
 
-                                                          <a href="{{asset('storage/imagenesPaquete')}}/{{$imagen->Imagen2}}">
-                                                              <img src="{{asset('storage/imagenesPaquete')}}/{{$imagen->Imagen2}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" >
+                                                          <a href="{{Storage::url($imagen->Imagen2)}}">
+                                                              <img src="{{Storage::url($imagen->Imagen2)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" >
                                                           </a>
                                                         </div>
                                                         <div class="row">
                                                           <input class="nuevaFoto3" type="file" name="imagen3" >
 
-                                                          <a href="{{asset('storage/imagenesPaquete')}}/{{$imagen->Imagen3}}">
-                                                              <img src="{{asset('storage/imagenesPaquete')}}/{{$imagen->Imagen3}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" >
+                                                          <a href="{{Storage::url($imagen->Imagen3)}}">
+                                                              <img src="{{Storage::url($imagen->Imagen3)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" >
                                                           </a>
                                                         </div>
                                                                                   </div>

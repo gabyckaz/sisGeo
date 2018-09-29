@@ -210,7 +210,7 @@
                       <br>
                       <div class="form-group row">
                         <a href="">
-                            <img src="{{asset('storage/geoturismo.png')}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
+                            <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
                         </a>
                         <br>
                         <br>
@@ -221,7 +221,7 @@
 
                       <div class="form-group row">
                         <a href="">
-                            <img src="{{asset('storage/geoturismo.png')}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" >
+                            <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" >
                         </a>
                         <br>
                         <br>
@@ -231,7 +231,7 @@
                       </div>
                       <div class="form-group row">
                         <a href="">
-                            <img src="{{asset('storage/geoturismo.png')}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" >
+                            <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" >
                         </a>
                         <br>
                         <br>
