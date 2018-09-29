@@ -123,8 +123,52 @@ Route::resource('turista', 'TuristaController');
             ]);
 
         /*FIN RUTAS PAQUETES*/
+        //INICIO opciones paquete
 
-        //INICIO PAQUETES
+                    //Ver ruta turistica
+                    Route::get('/MostrarOpcionesPaquete', [
+                      'uses' => 'OpcionesPaqueteController@index',
+                      'as' => 'adminOpcionesPaquete.index',
+                    ]);
+
+                    //Crear paquetes
+                    Route::get('/CrearOpcionesPaquete', [
+                        'uses' => 'OpcionesPaqueteController@create',
+                        'as' => 'adminOpcionesPaquete.create',
+                    ]);
+
+                    Route::post('/CrearOpcionesPaquete', [
+                        'uses' => 'OpcionesPaqueteController@store',
+                        'as' => 'adminOpcionesPaquete.store',
+                    ]);
+
+                    //Actualizar paquetes
+                    Route::get('/EditarOpcionesPaquete/{id}', [
+                        'uses' => 'OpcionesPaqueteController@edit',
+                        'as' => 'adminOpcionesPaquete.edit',
+                    ]);
+
+                    Route::put('/EditarOpcionesPaquete/{id}', [
+                        'uses' => 'OpcionesPaqueteController@update',
+                        'as' => 'adminOpcionesPaquete.update',
+                    ]);
+
+                    //Bloquear paquetes
+                    Route::get('/EliminarOpcionesPaquete/{id}',[
+                        'uses' =>'OpcionesPaqueteController@destroy',
+                        'as' => 'adminOpcionesPaquete.destroy'
+                    ]);
+                   Route::post('/CrearIncluye', [
+                        'uses' => 'OpcionesPaqueteController@guardarincluye',
+                        'as' => 'adminOpcionesPaquete.guardarincluye',
+                    ]);
+                   Route::post('/CrearRecomendaciones', [
+                        'uses' => 'OpcionesPaqueteController@guardarrecomendaciones',
+                        'as' => 'adminOpcionesPaquete.guardarrecomendaciones',
+                    ]);
+
+                /*FIN RUTAS PAQUETES*/
+        //INICIO RUTAS PAQUETES
 
             //Ver paquetes
             Route::get('/MostrarPaquete', [

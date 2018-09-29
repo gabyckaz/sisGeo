@@ -192,14 +192,27 @@ class PaqueteController extends Controller
       por esta linea ++  */
       $paquete=Paquete::findOrFail($id);
       $ruta =RutaTuristica::all();
-      $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->get();
-      $imagenes2 = $imagenes->all();
+      $imagenes = ImagenPaqueteTuristico::all();
+
+      $recomendaciones=Recomendaciones::all();
+    //  dd($recomendaciones[0]->IdRecomendaciones);
+
+      // $recomendacionespaquete = RecomendacionesPaquete::where('paquete_id',$id)->get();
+      // $recomendacionespaquete = $recomendacionespaquete->all();
+    //  dd($recomendacionespaquete );
+    $sql = 'SELECT "IdRecomendacionesPaquete", recomendaciones_id , paquete_id
+     FROM "Recomendaciones_Paquete"
+      WHERE "paquete_id" = '.$id.' ;';
+       $recomendacionespaquete= DB::select($sql);
+      // dd($recomendacionespaquete[0]);
+    //  $imagenes2 = $imagenes->all();
       //$imagenes = ImagenPaqueteTuristico::findOrFail(10);
 
       return view('adminPaquete.edit')
       ->with('paquete',$paquete)
       ->with('ruta',$ruta)
-        ->with('imagen',$imagenes2);
+        ->with('imagen',$imagenes)->with('recomendaciones', $recomendaciones)->with('recomendacionespaquete',$recomendacionespaquete);
+        //return view('adminPaquete.edit', compact( 'paquete','ruta','imagenes','recomendaciones','recomendacionespaquete') );
     }
 
     /**
@@ -226,6 +239,76 @@ class PaqueteController extends Controller
         $paquete->Dificultad=$request->dificultad;
         $paquete->Itinerario=$request->itinerario;
 
+        $paquete2 = Paquete::latest('IdPaquete')->first();
+
+
+
+        $contador = ImagenPaqueteTuristico::where('id_paquete', $id)->get();
+        $contador2 = $contador->all();
+
+
+
+        for($j=0;$j<count($contador2);$j++){
+          $archivo[$j] = $request->imagenpaquete1;
+          //dd($contador2[$j]->Imagen1);
+          //despues de lograr comparar los nombres de la base de datos con los nuevos agregados al editar se decide si se guarda o no se hace nada
+          /*if(nombrebase = nombreeditar){
+          no hace nada
+          }else {
+          borrar la que ya estaba y guardar la nuevas
+          }*/
+        }
+
+
+
+
+            for($i=0;$i<count($archivo);$i++){
+            //dd($archivo);
+            //Hay Imagen
+
+            $nombreimagen[$i] = 'paquete_'. $paquete2->IdPaquete .'_'. $archivo[$i]->getClientOriginalName();
+
+            $path[$i] = public_path() . "/storage/imagenesPaquete";
+
+            $archivo[$i]->move($path[$i] , $nombreimagen[$i]);
+
+            $imagen[$i] = new ImagenPaqueteTuristico();
+
+            $imagen[$i]->id_paquete = $paquete2->IdPaquete;
+            $imagen[$i]->Imagen1 = $nombreimagen[$i];
+
+
+
+            $imagen[$i]->save();
+            }
+
+        for ($i=0; $i<count($request->gastosextras);$i++){
+          $gastospaquete = new GastosExtrasPaquete();
+          $gastospaquete->paquete_id = $paquete2->IdPaquete;
+          $gastospaquete->gastosextras_id = $request->gastosextras[$i];
+          $gastospaquete->save();
+        }
+
+
+        for ($i=0; $i<count($request->condiciones);$i++){
+          $condicionespaquete = new CondicionesPaquete();
+          $condicionespaquete->paquete_id = $paquete2->IdPaquete;
+          $condicionespaquete->condiciones_id = $request->condiciones[$i];
+          $condicionespaquete->save();
+        }
+
+        for ($i=0; $i<count($request->recomendaciones);$i++){
+          $recomendacionespaquete = new RecomendacionesPaquete();
+          $recomendacionespaquete->paquete_id =$paquete2->IdPaquete;
+          $recomendacionespaquete->recomendaciones_id = $request->recomendaciones[$i];
+          $recomendacionespaquete->save();
+        }
+        for ($i=0; $i<count($request->incluye);$i++){
+          $incluyepaquete = new IncluyePaquete();
+          $incluyepaquete->paquete_id = $paquete2->IdPaquete;
+          $incluyepaquete->incluye_id = $request->incluye[$i];
+          $incluyepaquete->save();
+        }
 
 
 
@@ -278,7 +361,7 @@ class PaqueteController extends Controller
 
         $paquetes=Paquete::all();
         return view('adminPaquete.index')
-        ->with('paquete',$paquetes);
+        ->with('paquetes',$paquetes);
 
     }
 

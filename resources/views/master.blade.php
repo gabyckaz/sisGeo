@@ -360,7 +360,7 @@ desired effect
                            Editar Ruta Turística</a></li>
              </ul>
    </li>
-   
+
      <li class=" treeview menu-open">
       <a href="#">
         <i class="fa fa-ticket"></i>
@@ -379,6 +379,9 @@ desired effect
                      <li><a href="{{ route('adminPaquete.index')}}">
                     <i class="fa fa-star"></i>
                     Mostrar Paquete Turístico</a></li>
+                    <li><a href="{{ route('adminOpcionesPaquete.create')}}">
+                      <i class="fa fa-star"></i>
+                      Opciones Paquete</a></li>
 
         </ul>
     </li>
@@ -434,9 +437,8 @@ desired effect
     <!-- Main content -->
     <section class="content container-fluid">
 
-      <!--------------------------
-        | Your Page Content Here |
-        -------------------------->
+
+
          <!-- Default box -->
       <div class="box box-warning">
         <div class="box-header with-border">
@@ -579,12 +581,19 @@ desired effect
 <script src="{{ asset('adminLte/data-tables/js/dataTables.checkboxes.min.js')}}"></script>
 <script src="{{ asset('js/script.js')}}"></script>
 
+<script src="{{ asset('adminLte/sweetalert2/sweetalert2.all.js')}}"></script>
+
+<script type="text/javascript" src="{{ asset('/js/scripts/paquetes.js') }}" > </script>
+
+@include('sweetalert::alert')
+
+
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
 <script type="text/javascript">
-       
+
      </script>
 
 </body>
