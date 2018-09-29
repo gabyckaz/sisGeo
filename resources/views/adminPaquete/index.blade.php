@@ -8,17 +8,15 @@
         <div class="row">
             <div class="col-md-9 col-md-offset-1">
               @if(session('status'))
-              <br>
-               <script type="text/javascript">
-                alertify.success("{{ session('status') }}");
-               </script>
+                 <script type="text/javascript">
+                alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
+                </script>
               @endif
               @if(session('fallo'))
-              <br>
-               <script type="text/javascript">
-                alertify.error("{{ session('fallo') }}");
+                <script type="text/javascript">
+               alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
                </script>
-               @endif
+              @endif
               <div class="table-responsive">
               <div class="row">
                 <div class="col-md-6">
@@ -49,7 +47,7 @@
 					 </div>
 					 	</form>
 					 <div class="panel-body">
-					 	<table class="table table-striped">
+					 	<table class="table table table-striped table-bordered table-hover">
 					 		<thead>
 
 					 				<th>Nombre Paquete</th>

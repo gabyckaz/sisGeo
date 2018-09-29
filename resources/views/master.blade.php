@@ -35,6 +35,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
    <!-- Select2 -->
   <link rel="stylesheet" href="{{ asset('adminLte/select2/dist/css/select2.min.css')}}">
 
+   <!-- Datatables -->
+  <link rel="stylesheet" href="{{ asset('adminLte/data-tables/css/dataTables.bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('adminLte/data-tables/css/dataTables.checkboxes.css')}}">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -95,9 +99,9 @@ desired effect
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu">
+          <!--li class="dropdown messages-menu">
             <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <!--a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
               <span class="label label-success">4</span>
             </a>
@@ -105,35 +109,35 @@ desired effect
               <li class="header">You have 4 messages</li>
               <li>
                 <!-- inner menu: contains the messages -->
-                <ul class="menu">
+                <!--ul class="menu">
                   <li><!-- start message -->
-                    <a href="#">
+                    <!--a href="#">
                       <div class="pull-left">
                         <!-- User Image -->
-                        <img src="{{ Storage::url( auth()->user()->avatar ) }}" class="img-circle" alt="User Image">
+                        <!--img src="{ Storage::url( auth()->user()->avatar ) }}" class="img-circle" alt="User Image">
                       </div>
                       <!-- Message title and timestamp -->
-                      <h4>
+                      <!--h4>
                         Support Team
                         <small><i class="fa fa-clock-o"></i> 5 mins</small>
                       </h4>
                       <!-- The message -->
-                      <p>Why not buy a new awesome theme?</p>
+                      <!--p>Why not buy a new awesome theme?</p>
                     </a>
                   </li>
                   <!-- end message -->
-                </ul>
+                <!--/ul>
                 <!-- /.menu -->
-              </li>
+              <!--/li>
               <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
           </li>
           <!-- /.messages-menu -->
 
           <!-- Notifications Menu -->
-          <li class="dropdown notifications-menu">
+          <!--li class="dropdown notifications-menu">
             <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <!--a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
               <span class="label label-warning">10</span>
             </a>
@@ -141,22 +145,22 @@ desired effect
               <li class="header">You have 10 notifications</li>
               <li>
                 <!-- Inner Menu: contains the notifications -->
-                <ul class="menu">
+                <!--ul class="menu">
                   <li><!-- start notification -->
-                    <a href="#">
+                    <!--a href="#">
                       <i class="fa fa-users text-aqua"></i> 5 new members joined today
                     </a>
                   </li>
                   <!-- end notification -->
-                </ul>
+                <!--/ul>
               </li>
               <li class="footer"><a href="#">View all</a></li>
             </ul>
           </li>
           <!-- Tasks Menu -->
-          <li class="dropdown tasks-menu">
+          <!--li class="dropdown tasks-menu">
             <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <!--a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
               <span class="label label-danger">9</span>
             </a>
@@ -164,18 +168,18 @@ desired effect
               <li class="header">You have 9 tasks</li>
               <li>
                 <!-- Inner menu: contains the tasks -->
-                <ul class="menu">
+                <!--ul class="menu">
                   <li><!-- Task item -->
-                    <a href="#">
+                    <!--a href="#">
                       <!-- Task title and progress text -->
-                      <h3>
+                      <!--h3>
                         Design some buttons
                         <small class="pull-right">20%</small>
                       </h3>
                       <!-- The progress bar -->
-                      <div class="progress xs">
+                      <!--div class="progress xs">
                         <!-- Change the css width attribute to simulate progress -->
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                        <!--div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                           <span class="sr-only">20% Complete</span>
                         </div>
@@ -183,7 +187,7 @@ desired effect
                     </a>
                   </li>
                   <!-- end task item -->
-                </ul>
+                <!--/ul>
               </li>
               <li class="footer">
                 <a href="#">View all tasks</a>
@@ -205,12 +209,12 @@ desired effect
                 <img src="{{ Storage::url(auth()->user()->avatar) }}" class="img-circle" alt="User Image">
 
                 <p>
-                  {{ auth()->user()->name }} - {{ auth()->user()->name }}
-                  <small>Member since Nov. 2012</small>
+                  {{ auth()->user()->persona->PrimerNombrePersona }} - {{ auth()->user()->persona->PrimerApellidoPersona }}
+                  <!--small>Member since Nov. 2012</small-->
                 </p>
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
+              <!--li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -223,11 +227,11 @@ desired effect
                   </div>
                 </div>
                 <!-- /.row -->
-              </li>
+              <!--/li>
               <!-- Menu Footer-->
               <li class="user-footer">
                <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                <a href="{{ route('usuario.completar.informacion') }}" class="btn btn-default btn-flat">Perfil</a>
                </div>
                 <div class="pull-right">
                   <form action="{{ route('logout') }}" method="POST">
@@ -240,7 +244,8 @@ desired effect
           </li>
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <!-- a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a -->
+            <a href="{{ route('home') }}" ><i class="fa fa-home"></i></a>
           </li>
         </ul>
       </div>
@@ -298,14 +303,14 @@ desired effect
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">OPCIONES</li>
 
-    <li class="active">
+    <li class="">
       <a href="{{ route('home') }}">
         <i class="fa fa-home"></i>
         <span>Inicio</span>
       </a>
     </li>
     @role('Admin')
-    <li class="active">
+    <li class="">
       <a href="{{ route('adminUser.index') }}">
         <i class="fa fa-users"></i>
         <span>Usuarios</span>
@@ -332,14 +337,31 @@ desired effect
             Agregar Familiar o Amigo</a></li>
         </ul>
     </li>
-    <li class="active">
-      <a href="{{ route('home') }}">
+    <li class="">
+      <a href="{{ route('Reservacion.index') }}">
         <i class="fa fa-calendar"></i>
-        <span>Reservas</span>
+        Mis Reservas <span class="label pull-right bg-green">2</span>
       </a>
     </li>
     @role('Admin')
-     <li class="active treeview menu-open">
+    <li class=" treeview menu-open">
+         <a href="#">
+           <i class="fa fa-map-marker"></i>
+             <i class="fa fa-angle-left pull-right-container"></i>
+             <i class="fa fa-angl-left pull-right"></i>
+             <span>Ruta Turistica</span>
+             <span class="pull-right-container">
+               <ul class="treeview-menu">
+                       <li><a href="{{ route('adminRutaTuristica.index') }}">
+                         <i class="fa fa-star"></i>
+                         Consultar Ruta Turística</a></li>
+                       <li><a href="">
+                         <i class="fa fa-star"></i>
+                           Editar Ruta Turística</a></li>
+             </ul>
+   </li>
+
+     <li class=" treeview menu-open">
       <a href="#">
         <i class="fa fa-ticket"></i>
           <i class="fa fa-angle-left pull-right-container"></i>
@@ -379,33 +401,16 @@ desired effect
                     Empresas</a></li>
                   <li><a href="{{ route('adminTipoTransporte.index') }}">
                     <i class="fa fa-star"></i>
-                    Transportes y Conductores</a></li>
+                    Tipos de Transporte</a></li>
                   <li><a href="{{ route('adminTransporte.index') }}">
                     <i class="fa fa-star"></i>
                       Transporte</a></li>
         </ul>
 
     </li>
-
- <li class="active treeview menu-open">
-      <a href="#">
-        <i class="fa fa-map-marker"></i>
-          <i class="fa fa-angle-left pull-right-container"></i>
-          <i class="fa fa-angl-left pull-right"></i>
-          <span>Ruta Turistica</span>
-          <span class="pull-right-container">
-            <ul class="treeview-menu">
-                    <li><a href="{{ route('adminRutaTuristica.index') }}">
-                      <i class="fa fa-star"></i>
-                      Consultar Ruta Turística</a></li>
-                    <li><a href="">
-                      <i class="fa fa-star"></i>
-                        Editar Ruta Turística</a></li>
-          </ul>
-</li>
     @endrole
 
-        <li class="active"><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
+        <li class=""><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
 
 
       <!-- /.sidebar-menu -->
@@ -423,10 +428,10 @@ desired effect
         Pagina principal
         <small>Opciones</small>
       </h1>
-      <ol class="breadcrumb">
+      <!--ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
         <li class="active">Aqui</li>
-      </ol>
+      <!--/ol>
     </section>
 
     <!-- Main content -->
@@ -561,6 +566,7 @@ desired effect
 <script src="{{ asset('adminLte/js/adminlte.min.js') }}"></script>
 <!-- Para mascaras-->
 <script src="{{ asset('adminLte/input-mask/jquery.inputmask.js') }}"></script>
+
 <script src="{{ asset('adminLte/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
 <script src="{{ asset('adminLte/input-mask/jquery.inputmask.extensions.js') }}"></script>
 
@@ -577,29 +583,17 @@ desired effect
 
 
 
+<!-- DataTables-->
+<script src="{{ asset('adminLte/data-tables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('adminLte/data-tables/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{ asset('adminLte/data-tables/js/dataTables.checkboxes.min.js')}}"></script>
+<script src="{{ asset('js/script.js')}}"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
 <script type="text/javascript">
-       $(function () {
-        /* var div = document.getElementById("documentos");
-         if(div != null){
-         div.style.display = "none"
-         }*/
 
-      /* $('#datepicker').datepicker({ autoclose: true })
-       $('#datepicker2').datepicker({ autoclose: true }) */
-       $("#dui").inputmask("99999999-9",{ 'placeholder': '00000000-0' })
-       $("#pasaporte").inputmask("999999999",{ 'placeholder': '000000000' })
-       //Initialize Select2 Elements
-       $('.select2').select2()
-
-        })
-
-        $(document).ready(function() {
-            $("#lightgallery").lightGallery();
-        });
      </script>
 
 </body>

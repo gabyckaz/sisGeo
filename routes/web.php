@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
@@ -24,7 +24,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('adminUser', 'AdminUsuariosController');
-
+Route::get('user/pruebaApi', ['as' => 'user.pruebaApi', 'uses' => 'userController@prueba']);
 Route::get('user/completarInformacion', ['as' => 'usuario.completar.informacion', 'uses' => 'userController@editarInformacion']);
 Route::put('user/completarInformacion', ['as' => 'user.completar.informacion.store', 'uses' => 'userController@completarInformacion']);
 Route::get('user/editInfo/{persona}', ['as' => 'user.edit.info', 'uses' => 'userController@editInfoUserTurista']);
@@ -94,7 +94,7 @@ Route::resource('turista', 'TuristaController');
               'as' => 'adminRutaTuristica.index',
             ]);
 
-            //Crear paquetes
+            //Crear ruta
             Route::get('/CrearRutaTuristica', [
                 'uses' => 'RutaTuristicaController@create',
                 'as' => 'adminRutaTuristica.create',
@@ -105,7 +105,7 @@ Route::resource('turista', 'TuristaController');
                 'as' => 'adminRutaTuristica.store',
             ]);
 
-            //Actualizar paquetes
+            //Actualizar rutas
             Route::get('/EditarRutaTuristica/{id}', [
                 'uses' => 'RutaTuristicaController@edit',
                 'as' => 'adminRutaTuristica.edit',
@@ -116,7 +116,7 @@ Route::resource('turista', 'TuristaController');
                 'as' => 'adminRutaTuristica.update',
             ]);
 
-            //Bloquear paquetes
+            //Bloquear rutas
             Route::get('/EliminarRutaTuristica/{id}',[
                 'uses' =>'RutaTuristicaController@destroy',
                 'as' => 'adminRutaTuristica.destroy'
@@ -222,7 +222,7 @@ Route::resource('turista', 'TuristaController');
 
             Route::put('/EditarPaquete/{id}', [
                 'uses' => 'PaqueteController@update',
-                'as' => 'adminPaquete.edit',
+                'as' => 'adminPaquete.update',
             ]);
 
             //Bloquear paquetes
@@ -236,14 +236,12 @@ Route::resource('turista', 'TuristaController');
               'uses' => 'PaqueteController@getSingle',
               'as' => 'adminPaquete.single',
             ]);
-
-            //AGREGAR TRANSPORTE A PAQUETE
+             //AGREGAR TRANSPORTE A PAQUETE
             Route::get('/MostrarPaquete/{id}', [
               'uses' => 'PaqueteController@edittransporte',
               'as' => 'adminPaquete.show',
             ]);
-
-            Route::put('/MostrarPaquete/{id}', [
+             Route::put('/MostrarPaquete/{id}', [
               'uses' => 'PaqueteController@asignartransporte',
               'as' => 'adminPaquete.show',
             ]);
@@ -253,7 +251,6 @@ Route::resource('turista', 'TuristaController');
               'as' => 'adminPaquete.show',
             ]);
 
-
         /*FIN RUTAS PAQUETES*/
 
 Route::group(['middleware' => ['guest']], function () {
@@ -262,3 +259,5 @@ Route::group(['middleware' => ['guest']], function () {
           'as' => 'welcome',
         ]);
 });
+Route::resource('Reservacion', 'ReservacionController');
+Route::post('/{id}/adminPaquete', ['as' => 'adminPaquete.reserva.add', 'uses' =>  'ReservacionController@reservar']);

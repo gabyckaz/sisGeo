@@ -256,7 +256,7 @@ class userController extends Controller
           $persona->save();
 
          //no existe turista entonces lo creo
-         $t = Turista::create([
+         $turista = Turista::create([
               'IdNacionalidad'=> $request->nacionalidad,
               'IdPersona' => auth()->user()->IdPersona,
               "FechaNacimiento" => $request->fechaNacimiento,
@@ -428,12 +428,21 @@ class userController extends Controller
 
     public function agregarFamiliarAmigo(Request $request)
     {
-        
+          $idTuristaUsuario = "si";
        // $usuario = User::findOrFail(auth()->user()->id);
-        $nacionalidad = Nacionalidad::all();
-
-         $familiaAmigos = DB::select('
-           (SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
+         $nacionalidad = Nacionalidad::all();
+         $sqlUserTurista = 'SELECT   t."IdTurista" as "Id"
+          FROM public."users" as u, public."Turista" as t,
+          public."personas" as p
+          WHERE u."IdPersona" = p."IdPersona" and
+          t."IdPersona"=p."IdPersona" and
+          u."id" = '.auth()->user()->id.';';
+          $userTurista = DB::select($sqlUserTurista);
+          if($userTurista == null){
+            $idTuristaUsuario = "no";
+          }
+          
+          $sql = '(SELECT  a."IdUsuario",a."IdFamiliarAmigo",a."IdTurista",a."EsFamiliar",
           p."PrimerNombrePersona",p."PrimerApellidoPersona",p."Genero",
           n."Nacionalidad",t."FechaNacimiento", t."DomicilioTurista",
           t."Problemas_Salud"
@@ -451,11 +460,11 @@ class userController extends Controller
           public."personas" as p,public."Nacionalidad" as n
           WHERE u."IdPersona" = p."IdPersona" and
           t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
-          u."id" = '.auth()->user()->id.' )
-          ');
+          u."id" = '.auth()->user()->id.')';
+         $familiaAmigos = DB::select($sql);
 
         $familiaAmigos = $this->arrayPaginator($familiaAmigos);
-        return view('user.agregarFamiliaAmigo', compact('nacionalidad','familiaAmigos'));
+        return view('user.agregarFamiliaAmigo', compact('nacionalidad','familiaAmigos','idTuristaUsuario'));
 
     }
 
@@ -471,10 +480,10 @@ class userController extends Controller
 
 
     public function guardarFamiliarAmigo(Request $request){
-    
+       
        $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
-              "Apellido" => "required|alpha|min:6|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
               "fechaNacimiento" => "required|date",
               "Direccion" => "required|min:10|max:100",
         ]);
@@ -565,7 +574,7 @@ class userController extends Controller
           'EsFamiliar' => $request->tipo,
          ]);
 
-      return redirect()->route('user.agregar.familiarAmigo')->with('message',' Agregado con éxito');;
+      return redirect()->route('user.agregar.familiarAmigo')->with('message',' Agregado con éxito');
     }
 
    public function editarInformacionFamiliarAmigo($idTurista){
@@ -606,8 +615,128 @@ class userController extends Controller
 
 
    public function guardarInformacionFamiliarAmigoEditado(Request $request){
-      dd('Hola Mundo');
-      
+     //Opcion numero 2
+       /*$hoystr = Carbon::now()->format('d-m-Y');
+       $hoyObj = Carbon::parse($hoystr);
+       $fechaIngresadaObj = Carbon::parse($request->fechaVencimentoD);
+     
+      if($hoyObj > $fechaIngresadaObj){
+
+        return redirect()->back()->withInput()->with('error', 'Fecha de vencimiento incorrecta');
+      }
+
+       $lengthOfAd = $hoyObj->diffInDays($fechaIngresadaObj);
+       dd($lengthOfAd); */
+          $this->validate($request, [
+              "Nombre" => "required|alpha|min:3|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
+              "Direccion" => "required|min:10|max:100",
+        ]);
+
+        if($request->input("dui") != null && $request->input("pasaporte") != null){
+          $hola1 = "Ingresastes los dos documentos";
+             $this->validate($request, [
+             "fechaVencimentoD" => "required",
+             "fechaVencimentoP" => "required",
+           ]);
+        }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
+           $hola1 = "Solo Ingresastes El dui";
+           $this->validate($request, [
+             "fechaVencimentoD" => "required",
+           ]);
+        }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
+           $hola1 = "Solo Ingresastes El pasaporte";
+            $this->validate($request, [
+             "fechaVencimentoP" => "required",
+           ]);
+        }
+
+
+          $turista = Turista::find($request->idTurista);          
+       //Actualizo a la persona
+          $persona = Persona::find($turista->IdPersona);
+          $persona->PrimerNombrePersona = $request->Nombre;
+          $persona->PrimerApellidoPersona = $request->Apellido;
+          $persona->save();
+
+        //Actualizo al turista
+          
+        //$t->CategoriaTurista = $request->;          
+          $turista->DomicilioTurista = $request->Direccion;
+          $turista->Problemas_Salud = $request->psalud;
+          $turista->save();
+
+                  //Actualizo documentos o los creo si no existen
+         if($request->input("dui") != null && $request->input("fechaVencimientoD") != null){
+           $dui = TipoDocumento::where('TipoDocumento','DUI')
+            ->where('IdTurista',$turista->IdTurista)->first();
+            if($dui == null){
+              $dui = TipoDocumento::create([
+                "IdTurista" => $turista->IdTurista,
+                "TipoDocumento" => "DUI",
+                "NumeroDocumento" => $request->dui,
+                "FechaVenceDocumento" => $request->fechaVencimientoD,
+             ]);
+            }else{
+            $dui->FechaVenceDocumento = $request->fechaVencimientoD;
+            $dui->save();
+            }
+         }
+
+          if($request->input("pasaporte") != null && $request->input("fechaVencimientoP") != null){
+            $pasaporte = TipoDocumento::where('TipoDocumento','Pasaporte')
+            ->where('IdTurista',$turista->IdTurista)->first();
+            if($pasaporte == null){
+                $pasaporte = TipoDocumento::create([
+                "IdTurista" => $turista->IdTurista,
+                "TipoDocumento" => "Pasaporte",
+                "NumeroDocumento" => $request->pasaporte,
+                "FechaVenceDocumento" => $request->fechaVencimientoP,
+         ]);
+
+            }else{
+            $pasaporte->FechaVenceDocumento = $request->fechaVencimientoP;
+            $pasaporte->save();
+            }
+
+          }
+
+     return redirect()->route('user.agregar.familiarAmigo')->with('message',' Informacion actualizada con éxito');
    }
+
+ public function prueba(){
+    //$ts = Turista::all();
+         /*$sql = 'SELECT "IdTurista", "IdNacionalidad", "IdPersona", "CategoriaTurista", "FechaNacimiento", "DomicilioTurista", "Problemas_Salud"
+          FROM public."Turista"';
+         */ 
+          $sqlUserTurista = 'SELECT   t."IdTurista" as "Id",
+          p."PrimerNombrePersona" as "Nombre",p."PrimerApellidoPersona" as "Apellido"
+          FROM public."users" as u, public."Turista" as t,
+          public."personas" as p
+          WHERE u."IdPersona" = p."IdPersona" and
+          t."IdPersona"=p."IdPersona" and
+          u."id" = '.auth()->user()->id.';';
+          $userTurista = DB::select($sqlUserTurista); 
+          
+          $sqlAmigos = 'SELECT  a."IdTurista" as "Id",
+          p."PrimerNombrePersona" as "Nombre",p."PrimerApellidoPersona" as "Apellido",a."EsFamiliar" as "Tipo",p."Genero"
+          FROM public."Acompanante" as a, public."Turista" as t,
+          public."personas" as p,public."Nacionalidad" as n
+          WHERE a."IdTurista" = t."IdTurista" and
+          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
+          a."IdUsuario" = '.auth()->user()->id.' AND a."EsFamiliar" = \'A\';';
+          $amigos = DB::select($sqlAmigos);  
+
+          $sqlFamilia = 'SELECT  a."IdTurista" as "Id",
+          p."PrimerNombrePersona" as "Nombre",p."PrimerApellidoPersona" as "Apellido",a."EsFamiliar" as "Tipo",p."Genero"
+          FROM public."Acompanante" as a, public."Turista" as t,
+          public."personas" as p,public."Nacionalidad" as n
+          WHERE a."IdTurista" = t."IdTurista" and
+          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
+          a."IdUsuario" = '.auth()->user()->id.' AND a."EsFamiliar" = \'F\';';
+          $familia = DB::select($sqlFamilia);
+         
+       return view('user.pruebaApi',compact('userTurista','amigos','familia'));//\Response::json($resultado);
+ }
 
 }
