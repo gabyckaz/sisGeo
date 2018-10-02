@@ -10,6 +10,86 @@
 </div>
 
 <div class="row">
+<form action="{{ route('Reservacion.update', $reservacion) }}" method="POST">
+        {!! method_field('PUT') !!}
+        {{ csrf_field() }}
+<input type="hidden" name="realizaReserva" value="{{$realizaReserva}}">
+<input type="hidden" name="paquete" value="{{$reservacion->paquete->IdPaquete}}">
+<div class="col-md-7 col-md-offset-1">
+ <div class="col-md-6">
+   <div class="panel panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{ $reservacion->paquete->NombrePaquete}}</h3>
+  </div>
+  <div class="panel-body">
+    <div class="form-group">
+      <label for="Destino" class="control-label">Ralizo reserva</label>
+      <input type="text" class="form-control"  id="Destino" value="{{ $encargado->full_name}}" readonly >        
+    </div>
+    <div class="form-group">
+      <label for="Destino" class="control-label">Fecha de viaje</label>
+      <input type="text" class="form-control"  id="Destino" value="{{ $reservacion->paquete->FechaSalida}}" readonly>        
+    </div>
+    <div class="form-group">
+      <label for="Destino" class="control-label">Lugar de salida</label>
+      <input type="text" class="form-control"  id="Destino" value="{{ $reservacion->paquete->LugarRegreso}}" readonly>        
+    </div>
+    <div class="form-group">
+      <label for="Destino" class="control-label">Hora de salida</label>
+      <input type="text" class="form-control"  id="Destino" value="{{ $reservacion->paquete->HoraSalida}}" readonly>        
+    </div>
+    {{-- <div class="form-group">
+      <label for="Destino" class="control-label">Destino</label>
+      <input type="text" name="Destino" class="form-control"  id="Destino" value="{{ $reservacion->paquete->NombrePaquete}}" >        
+    </div> --}}
+    <div class="form-group">
+      <label for="Destino" class="control-label">N°. Acompañantes</label>
+      <input type="text" class="form-control"  id="Destino" value="{{ $reservacion->NumeroAcompanantes }}" readonly>        
+    </div>   
+  </div>
+ </div>
+</div>
+ <div class="col-md-6">
+<div class="table-responsive">
+          <table class="table table-striped table-bordered table-hover" >
+            <thead class="thead-dark">
+             <th></th>
+             <th>Nombre</th>
+             <th>Apellido</th>
+             <th>Genero</th>
+            </thead>
+              <tbody>
+                @foreach($acompanantesT as $at)                 
+                 <tr>
+                  @foreach($arryIdsAcompanantes as $idS)
+                   @if($at->Id == $idS)
+                   <td align="center"><input type="checkbox" name="ids[]" value="{{ $at->Id }}" checked></td>
+                   @break
+                   @endif
+                   @endforeach
+                   <td>{{ $at->Nombre }}</td>                               
+                   <td>{{ $at->Apellido }}</td>                               
+                   @if($at->Genero == "M")
+                    <td>Masculino</td>
+                   @else
+                    <td>Femenino</td>
+                   @endif
+                   
+                </tr>
+                @endforeach
+              </tbody>
+          </table>
+      </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+        <button type="submit" class="btn btn-info center-block">Guardar</button>
+      </div>
+  </form>
+  </div>
+
+
+<div class="row">
   <form method="post" action="{{action('ReservacionController@update', $reservacion)}}">
     @csrf
     <input name="_method" type="hidden" value="PATCH">

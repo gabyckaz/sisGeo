@@ -26,14 +26,15 @@ endrole -->
 
 @section('head')
 <h1>Hola Mundo</h1>
-
 @endsection
 @section('Title')
+@role('Admin') 
 Administracion de usuarios
+@endrole
 @endsection
 @section('contenido')
 
-
+@role('Admin') 
 @if(session('status'))
   <br>
    <script type="text/javascript">
@@ -179,6 +180,7 @@ Administracion de usuarios
         <!--  $usuarios->links()}} -->
 </div>
 </div>
+@endrole
 @endsection
 
 

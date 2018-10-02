@@ -130,7 +130,7 @@ Agregar familiares o amigos
           </div>
         </div>
        </div>
-             <div class="row">
+        <div class="row">
           <div class="form-group col-md-8 has-feedback{{ $errors->has('Direccion') ? ' has-error' : '' }}">
             <label for="observacionestransporte">Direccion*</label>
             <div class="input-group">

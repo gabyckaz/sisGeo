@@ -11,4 +11,9 @@ class Persona extends Model
     ];
 
     protected $primaryKey = 'IdPersona';
+
+    public function getFullNameAttribute()
+{
+   return ucfirst(strtolower($this->PrimerNombrePersona)) . ' ' .ucfirst(strtolower($this->PrimerApellidoPersona));
+}
 }

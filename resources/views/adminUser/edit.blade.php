@@ -5,17 +5,23 @@
 
 @endsection
 @section('Title')
-Agregar Rol
+@role('Admin') 
+Administracion de roles a usuario
+@endrole
 @endsection
 
 @section('contenido')
+@role('Admin') 
 <div class="row">
   <div class="col-md-12 ">
          
     <form class="form-horizontal" role="form" method="POST" action="{{route('adminUser.role.add', $usuario->id) }}" >
       {!! method_field('PUT') !!}
       {{ csrf_field()  }}
+        <fieldset>
 
+        <!-- Form Name -->
+        <legend>Asignar rol</legend>
       <!-- Form Name -->
 
       <!-- Text input-->
@@ -37,7 +43,7 @@ Agregar Rol
       </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="rol">Agregar rol</label>
+            <label class="col-md-4 control-label" for="rol">Asignar rol</label>
             <div class="col-md-4 selectContainer">
                 <select class="form-control form-control-sm" name="rol">
                   @foreach($roles as $rol)
@@ -52,7 +58,7 @@ Agregar Rol
               <button type="submit" class="btn btn-primary col-md-offset-3">Agregar rol</button>
           </div>
         </div>
-
+       </fieldset>
       </form>
       <br>
       <br>
@@ -113,5 +119,5 @@ Agregar Rol
         You are logged in!
       </div>
 </div>
-
+@endrole
 @endsection

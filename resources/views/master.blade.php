@@ -50,6 +50,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+<?php function activeMenu($url){
+    return request()->is($url) ? 'active' : '' ;
+  }?>
 <!--
 BODY TAG OPTIONS:
 =================
@@ -303,14 +306,14 @@ desired effect
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">OPCIONES</li>
 
-    <li class="">
+    <li class="{{ activeMenu('home') }}">
       <a href="{{ route('home') }}">
         <i class="fa fa-home"></i>
         <span>Inicio</span>
       </a>
     </li>
     @role('Admin')
-    <li class="">
+    <li class="{{ activeMenu('adminUser') }}">
       <a href="{{ route('adminUser.index') }}">
         <i class="fa fa-users"></i>
         <span>Usuarios</span>
@@ -318,7 +321,7 @@ desired effect
     </li>
     @endrole
 
-    <li class="treeview">
+    <li class="treeview {{ (request()->is('user/completarInformacion') || request()->is('user/agregarFamiliarAmigo')) ? 'active' : '' }}">
       <a href="#">
         <i class="fa fa-user"></i>
           <i class="fa fa-angle-left pull-right-container"></i>
@@ -330,21 +333,21 @@ desired effect
       </a>
         <ul class="treeview-menu">
           <li><a href="{{ route('usuario.completar.informacion') }}">
-            <i class="fa fa-home"></i>
+            <i class="fa fa-star"></i>
             Completar Informacion</a></li>
           <li><a href="{{ route('user.agregar.familiarAmigo') }}">
-            <i class="fa fa-home"></i>
+            <i class="fa fa-star"></i>
             Agregar Familiar o Amigo</a></li>
         </ul>
     </li>
-    <li class="">
+    <li class="{{ activeMenu('Reservacion') }}">
       <a href="{{ route('Reservacion.index') }}">
         <i class="fa fa-calendar"></i>
-        Mis Reservas <span class="label pull-right bg-green">2</span>
+        Mis Reservas <!--span class="label pull-right bg-green">2</span-->
       </a>
     </li>
     @role('Admin')
-    <li class=" treeview menu-open">
+    <li class=" treeview {{ (request()->is('MostrarRutaTuristica') ) ? 'active' : '' }}">
          <a href="#">
            <i class="fa fa-map-marker"></i>
              <i class="fa fa-angle-left pull-right-container"></i>
@@ -361,7 +364,7 @@ desired effect
              </ul>
    </li>
    
-     <li class=" treeview menu-open">
+     <li class=" treeview {{ (request()->is('CrearPaquete') || request()->is('MostrarPaquete')) ? 'active' : '' }}">
       <a href="#">
         <i class="fa fa-ticket"></i>
           <i class="fa fa-angle-left pull-right-container"></i>
@@ -382,7 +385,7 @@ desired effect
 
         </ul>
     </li>
-    <li class="treeview">
+    <li class="treeview {{ (request()->is('adminEmpresaTransporte') || request()->is('adminTipoTransporte') || request()->is('adminTransporte')) ? 'active' : '' }}">
       <a href="#">
         <i class="fa fa-bus"></i>
           <i class="fa fa-angle-left pull-right-container"></i>

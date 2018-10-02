@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use Carbon\Carbon;
 
 class Paquete extends Model
 {
@@ -47,5 +48,29 @@ class Paquete extends Model
     {
           return $this->belongsToMany('App\Conductor', 'Conduce', 'IdPaquete', 'IdConductor');
     }
+    /*
+     1. Si hoy es mayor que fecha de salida return 1.
+     2. Si hoy es menor que fecha de salida return 2.
+     3. si hoy es igual que fecha de salida return 3.
+    */
+    public function getComparaFechasAttribute(){
+       $hoystr = Carbon::now()->format('d-m-Y');
+       $hoyObj = Carbon::parse($hoystr);
+       $fechaIngresadaObj = Carbon::parse($this->FechaSalida);
+     
+      if($hoyObj > $fechaIngresadaObj){
+        return 1;
+      }elseif($hoyObj < $fechaIngresadaObj){
+        return 2;
+      }elseif($hoyObj == $fechaIngresadaObj){
+        return 3;
+      }
+    }
+
+/*Ejemplo de accessors*/
+public function getFullNameAttribute()
+{
+   return $this->NombrePaquete . ' ' . strtoupper($this->NombrePaquete);
+}
 
 }
