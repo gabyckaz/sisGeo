@@ -15,7 +15,7 @@ class ItinerarioPaquete extends Model
     //Cambiando el campo por defecto id a uno personalizado
     protected $primaryKey = 'IdItinerarioPaquete';
 
-    public function incluyepaq()
+    public function itinerariopaq()
     {
       return $this->belongsTo('App\Itinerario','itinerario_id');//Modelo y llave foránea
     }

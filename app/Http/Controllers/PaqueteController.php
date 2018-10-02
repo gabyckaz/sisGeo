@@ -151,7 +151,9 @@ class PaqueteController extends Controller
           $path=public_path() . "/storage/imagenesPaquete/".$paquete2->NombrePaquete;
           $archivo3->move($path , $nombreimagen3);
           $imagen->Imagen3=$paquete2->NombrePaquete.'/'.$nombreimagen3;*/
-
+          $archivo4=$request->file('imagen4');
+          $archivo4->storeAs('public/'.$paquete->NombrePaquete, $archivo4->getClientOriginalName());
+          $imagen->Imagen4=$paquete->NombrePaquete.'/'.$archivo4->getClientOriginalName();
 
           $imagen->save();
 
@@ -354,6 +356,19 @@ class PaqueteController extends Controller
 
         }
 
+        if( $request->hasFile('imagen4')){
+          $archivo4=$request->file('imagen4');
+       if($request->file('imagen4') != $imagen2->Imagen4){
+         $ruta4= 'public/'.$imagen2->Imagen4;
+         Storage::delete($ruta4);
+       }
+       $archivo4=$request->file('imagen4');
+       $archivo4->storeAs('public/'.$paquete->NombrePaquete, $archivo4->getClientOriginalName());
+       $imagen->update(array('Imagen4' => $paquete->NombrePaquete.'/'.$archivo4->getClientOriginalName()));
+
+
+        }
+
 
 
 
@@ -379,18 +394,107 @@ class PaqueteController extends Controller
         $archivo3->move($path , $nombreimagen3);
         $imagen->Imagen3=$paquete2->NombrePaquete.'/'.$nombreimagen3;
 
-
-        */
-
-        for ($i=0; $i<count($request->gastosextras);$i++){
-          $gastospaquete = GastosExtrasPaquete::where('paquete_id',$id)->update(array('gastosextras_id' => $request->gastosextras[$i]));
-
-        }
+        $gastospaquete = GastosExtrasPaquete::where("paquete_id", $id)->get();
+            $gastospaquete2 = $gastospaquete->all();
+            //dd($request->gastosextras);
+            //$gastospaquete2->delete();*/
 
 
-        for ($i=0; $i<count($request->condiciones);$i++){
+      /*if (count($request->gastosextras) > count($gastospaquete2)) {
+            // code...
+            for ($i=0; $i < count($request->gastosextras); $i++) {
+              // code...
+              if ($request->gastosextras[$i] != $gastospaquete2[$i]->gastosextras_id || isset($gastospaquete2[$i]->gastosextras_id) ) {
+                $gasto = new GastosExtrasPaquete();
+                $gasto->gastosextras_id = $request->gastosextras[$i];
+                $gasto->paquete_id = $id;
+                $gasto->save();
+              }
+            }
+          }
+          elseif (count($request->gastosextras) < count($gastospaquete2)) {
+            for ($i=0; $i < count($request->gastosextras); $i++) {
+              // code...
+              if ($request->gastosextras[$i] != $gastospaquete2[$i]->gastosextras_id || isset($request->gastosextras[$i])) {
+                $gastospaquete3 = GastosExtrasPaquete::where("paquete_id", $gastospaquete2[$i]->gastosextras_id)->get();
+                $gastospaquete4 = $gastospaquete3->all();
+                $gastospaquete4->delete();
+
+              }
+            }
+          }else{
+            for ($i=0; $i < count($request->gastosextras); $i++) {
+              // code...
+              if ($request->gastosextras[$i] != $gastospaquete2[$i]->gastosextras_id) {
+
+                $gastospaquete = GastosExtrasPaquete::where('paquete_id',$id)->update(array('gastosextras_id' => $request->gastosextras[$i]));
+
+              }
+            }
+          }
+
+
+
+      */
+      $gastospaquete1 = GastosExtrasPaquete::where('paquete_id',$id);
+      $gastospaquete1->delete();
+
+      $condicionespaquete1 = CondicionesPaquete::where('paquete_id',$id);
+      $condicionespaquete1->delete();
+
+      $recomendacionespaquete1 = RecomendacionesPaquete::where('paquete_id',$id);
+      $recomendacionespaquete1->delete();
+
+      $incluyepaquete1 = IncluyePaquete::where('paquete_id',$id);
+      $incluyepaquete1->delete();
+
+      $itinerariopaquete1 = ItinerarioPaquete::where('paquete_id',$id);
+      $itinerariopaquete1->delete();
+
+
+
+
+      for ($i=0; $i<count($request->gastosextras);$i++){
+        $gastospaquete = new GastosExtrasPaquete();
+        $gastospaquete->paquete_id = $paquete->IdPaquete;
+        $gastospaquete->gastosextras_id = $request->gastosextras[$i];
+        $gastospaquete->save();
+      }
+
+      for ($i=0; $i<count($request->itinerario);$i++){
+        $itinerariopaquete = new ItinerarioPaquete();
+        $itinerariopaquete->paquete_id = $paquete->IdPaquete;
+        $itinerariopaquete->itinerario_id = $request->itinerario[$i];
+        $itinerariopaquete->save();
+      }
+
+      for ($i=0; $i<count($request->condiciones);$i++){
+        $condicionespaquete = new CondicionesPaquete();
+        $condicionespaquete->paquete_id = $paquete->IdPaquete;
+        $condicionespaquete->condiciones_id = $request->condiciones[$i];
+        $condicionespaquete->save();
+      }
+
+      for ($i=0; $i<count($request->recomendaciones);$i++){
+        $recomendacionespaquete = new RecomendacionesPaquete();
+        $recomendacionespaquete->paquete_id =$paquete->IdPaquete;
+        $recomendacionespaquete->recomendaciones_id = $request->recomendaciones[$i];
+        $recomendacionespaquete->save();
+      }
+      for ($i=0; $i<count($request->incluye);$i++){
+        $incluyepaquete = new IncluyePaquete();
+        $incluyepaquete->paquete_id = $paquete->IdPaquete;
+        $incluyepaquete->incluye_id = $request->incluye[$i];
+        $incluyepaquete->save();
+      }
+
+
+
+
+
+
+        /*for ($i=0; $i<count($request->condiciones);$i++){
           $condicionespaquete = CondicionesPaquete::where('paquete_id',$id)->update(array('condiciones_id' =>  $request->condiciones[$i]));
-
         }
 
         for ($i=0; $i<count($request->recomendaciones);$i++){
@@ -405,7 +509,7 @@ class PaqueteController extends Controller
         for ($i=0; $i<count($request->itinerario);$i++){
           $itinerariopaquete = ItinerarioPaquete::where('paquete_id',$id)->update(array('itinerario_id' => $request->itinerario[$i]));
 
-        }
+        }*/
 
 
         $paquete->save();

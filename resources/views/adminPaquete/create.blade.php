@@ -78,6 +78,20 @@
 
 
                     </div>
+
+                    <label for="exampleInputFile">Mapa</label>
+                    <br>
+                    <div class="form-group row">
+                      <a href="">
+                          <img src="{{Storage::url("geoturismo.png")}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar4" >
+                      </a>
+                      <br>
+                      <br>
+                      <br>
+                      <input class="nuevaFoto4" type="file" name="imagen4" required>
+                      <p class="help-block">Subir Imagen del Mapa.</p>
+                    </div>
+
                     <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">

@@ -18,6 +18,7 @@ class CreateImagenpaqueteturisticoTable extends Migration
             $table->string('Imagen1',1024);//extension:jpg, png
             $table->string('Imagen2',1024);//extension:jpg, png
             $table->string('Imagen3',1024);//extension:jpg, png
+            $table->string('Imagen4',1024);
             $table->integer('id_paquete')->unsigned();
             $table->foreign('id_paquete')->references('IdPaquete')->on('Paquetes');
             $table->timestamps();

@@ -27,7 +27,7 @@
           <!-- Que solo muestre 1 foto al inicio -->
       @foreach ($imagen as $key=>$imagenes)
         @php  ++$key @endphp
-              <img src="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}" style=" margin-left: auto; margin-right: 220px; display: block;" class="responsive img-rounded">
+              <img src="{{Storage::url($imagenes->Imagen1)}}" style=" margin-left: auto; margin-right: 220px; display: block;" class="responsive img-rounded">
           </a>
         @if($key == 1)
           @break
@@ -38,8 +38,18 @@
 
       @foreach ($imagen as $imagenes)
         <div class="col-sm-4 galeria" style="height:200px">
-        <a href="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}">
-          <img src="{{asset('storage/imagenesPaquete')}}/{{$imagenes->Imagen1}}"  class="thumbnail responsive" style="height: 100%; margin:10 -38.885%;  width:177.777%; ">
+        <a href="{{Storage::url($imagenes->Imagen1)}}">
+          <img src="{{Storage::url($imagenes->Imagen1)}}"  class="thumbnail responsive" style="height: 100%; margin:10 -38.885%;  width:177.777%; ">
+        </a>
+        </div>
+        <div class="col-sm-4 galeria" style="height:200px">
+        <a href="{{Storage::url($imagenes->Imagen2)}}">
+          <img src="{{Storage::url($imagenes->Imagen2)}}"  class="thumbnail responsive" style="height: 100%; margin:10 -38.885%;  width:177.777%; ">
+        </a>
+        </div>
+        <div class="col-sm-4 galeria" style="height:200px">
+        <a href="{{Storage::url($imagenes->Imagen3)}}">
+          <img src="{{Storage::url($imagenes->Imagen3)}}"  class="thumbnail responsive" style="height: 100%; margin:10 -38.885%;  width:177.777%; ">
         </a>
         </div>
       @endforeach
@@ -96,7 +106,9 @@
         </div>
         <div id="collapseThree" class="panel-collapse collapse">
           <div class="box-body">
-            {{ $paquete->Itinerario}}
+            @foreach ($itinerario as $iti)
+              {{$iti->itinerariopaq->NombreItinerario}}<br>
+            @endforeach
           </div>
         </div>
       </div>
@@ -143,7 +155,7 @@
         <div id="collapseSix" class="panel-collapse collapse">
           <div class="box-body">
             @foreach ($gastosextras as $gastosextra)
-              {{$gastosextra->gastospaq->NombreGastos}}<br>
+              {{$gastosextra->gastospaq->NombreGastos}}->${{$gastosextra->gastospaq->Gastos}}<br>
             @endforeach
           </div>
         </div>
