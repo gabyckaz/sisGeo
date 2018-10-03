@@ -9,6 +9,8 @@ use App\Pais;
 use Input;
 use App\Recomendaciones;
 use App\Incluye;
+use App\Itinerario;
+use App\ItinerarioPaquete;
 use App\Departamento;
 use App\RutaTuristica;
 use App\Paquete;
@@ -20,6 +22,7 @@ use App\CondicionesPaquete;
 use App\ImagenPaqueteTuristico;
 use App\Transporte;
 use App\Conductor;
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -62,10 +65,12 @@ class PaqueteController extends Controller
         $incluye=Incluye::all();
         $condiciones=Condiciones::all();
         $recomendaciones=Recomendaciones::all();
+        $itinerario=Itinerario::all();
         return view('adminPaquete.create')
         ->with('ruta',$rutaturistica)->with('pais',$pais)
         ->with('departamento',$departamento)->with('gastosextras',$gastosextras)
-        ->with('incluye',$incluye)->with('condiciones',$condiciones)->with('recomendaciones',$recomendaciones);
+        ->with('incluye',$incluye)->with('condiciones',$condiciones)->with('recomendaciones',$recomendaciones)
+        ->with('itinerario',$itinerario);
 
 
     }
@@ -78,6 +83,7 @@ class PaqueteController extends Controller
      */
     public function store(Request $request)
     {
+
         $paquete=new Paquete();
         $paquete->IdTuristica=$request->idrutaturistica;
         $paquete->NombrePaquete=$request->nombrepaquete;
@@ -89,14 +95,13 @@ class PaqueteController extends Controller
         $paquete->TipoPaquete=$request->tipopaquete;
         $paquete->Cupos=$request->cupos;
         $paquete->Dificultad=$request->dificultad;
-        $paquete->Itinerario=$request->itinerario;
         $paquete->AprobacionPaquete=$request->aprobacionpaquete;
         $paquete->DisponibilidadPaquete=$request->disponibilidadpaquete;
         $paquete->save();
 
-        $paquete2 = Paquete::latest('IdPaquete')->first();
+      //  $paquete2 = Paquete::latest('IdPaquete')->first();
 
-        $archivo = $request->file('imagenpaquete');
+    /*    $archivo = $request->file('imagenpaquete');
             for($i=0;$i<count($archivo);$i++){
             //dd($archivo);
             //Hay Imagen
@@ -115,32 +120,76 @@ class PaqueteController extends Controller
 
 
             $imagen[$i]->save();
-            }
+          }*/
+
+
+          $archivo1=$request->file('imagen1');
+          $archivo1->storeAs('public/'.$paquete->NombrePaquete, $archivo1->getClientOriginalName());
+          $imagen=new ImagenPaqueteTuristico();
+          $imagen->Imagen1=$paquete->NombrePaquete.'/'.$archivo1->getClientOriginalName();
+        /*  $nombreimagen1='paquete_'.$paquete2->IdPaquete .'_'. $archivo1->getClientOriginalName();
+          $path=public_path() . "/storage/imagenesPaquete/".$paquete2->NombrePaquete;
+          $archivo1->move($path , $nombreimagen1);
+          $imagen=new ImagenPaqueteTuristico();
+          $imagen->id_paquete=$paquete2->IdPaquete;
+          $imagen->Imagen1=$paquete2->NombrePaquete.'/'.$nombreimagen1;*/
+
+          $archivo2=$request->file('imagen2');
+          $archivo2->storeAs('public/'.$paquete->NombrePaquete, $archivo2->getClientOriginalName());
+          $imagen->Imagen2=$paquete->NombrePaquete.'/'.$archivo2->getClientOriginalName();
+
+        /*  $nombreimagen2='paquete_'.$paquete2->IdPaquete .'_'. $archivo2->getClientOriginalName();
+          $path=public_path() . "/storage/imagenesPaquete/".$paquete2->NombrePaquete;
+          $archivo2->move($path , $nombreimagen2);
+          $imagen->Imagen2=$paquete2->NombrePaquete.'/'.$nombreimagen2;*/
+
+          $archivo3=$request->file('imagen3');
+          $archivo3->storeAs('public/'.$paquete->NombrePaquete, $archivo3->getClientOriginalName());
+          $imagen->Imagen3=$paquete->NombrePaquete.'/'.$archivo3->getClientOriginalName();
+          $imagen->id_paquete=$paquete->IdPaquete;
+          /*$nombreimagen.$paquete2->IdPaquete .'_'. $archivo3->getClientOriginalName();
+          $path=public_path() . "/storage/imagenesPaquete/".$paquete2->NombrePaquete;
+          $archivo3->move($path , $nombreimagen3);
+          $imagen->Imagen3=$paquete2->NombrePaquete.'/'.$nombreimagen3;*/
+          $archivo4=$request->file('imagen4');
+          $archivo4->storeAs('public/'.$paquete->NombrePaquete, $archivo4->getClientOriginalName());
+          $imagen->Imagen4=$paquete->NombrePaquete.'/'.$archivo4->getClientOriginalName();
+
+          $imagen->save();
+
+
+
 
         for ($i=0; $i<count($request->gastosextras);$i++){
           $gastospaquete = new GastosExtrasPaquete();
-          $gastospaquete->paquete_id = $paquete2->IdPaquete;
+          $gastospaquete->paquete_id = $paquete->IdPaquete;
           $gastospaquete->gastosextras_id = $request->gastosextras[$i];
           $gastospaquete->save();
         }
 
+        for ($i=0; $i<count($request->itinerario);$i++){
+          $itinerariopaquete = new ItinerarioPaquete();
+          $itinerariopaquete->paquete_id = $paquete->IdPaquete;
+          $itinerariopaquete->itinerario_id = $request->itinerario[$i];
+          $itinerariopaquete->save();
+        }
 
         for ($i=0; $i<count($request->condiciones);$i++){
           $condicionespaquete = new CondicionesPaquete();
-          $condicionespaquete->paquete_id = $paquete2->IdPaquete;
+          $condicionespaquete->paquete_id = $paquete->IdPaquete;
           $condicionespaquete->condiciones_id = $request->condiciones[$i];
           $condicionespaquete->save();
         }
 
         for ($i=0; $i<count($request->recomendaciones);$i++){
           $recomendacionespaquete = new RecomendacionesPaquete();
-          $recomendacionespaquete->paquete_id =$paquete2->IdPaquete;
+          $recomendacionespaquete->paquete_id =$paquete->IdPaquete;
           $recomendacionespaquete->recomendaciones_id = $request->recomendaciones[$i];
           $recomendacionespaquete->save();
         }
         for ($i=0; $i<count($request->incluye);$i++){
           $incluyepaquete = new IncluyePaquete();
-          $incluyepaquete->paquete_id = $paquete2->IdPaquete;
+          $incluyepaquete->paquete_id = $paquete->IdPaquete;
           $incluyepaquete->incluye_id = $request->incluye[$i];
           $incluyepaquete->save();
         }
@@ -153,10 +202,12 @@ class PaqueteController extends Controller
         $incluye=Incluye::all();
         $condiciones=Condiciones::all();
         $recomendaciones=Recomendaciones::all();
+        $itinerario=Itinerario::all();
         return view('adminPaquete.create')
         ->with('ruta',$rutaturistica)->with('pais',$pais)
         ->with('departamento',$departamento)->with('gastosextras',$gastosextras)
-        ->with('incluye',$incluye)->with('condiciones',$condiciones)->with('recomendaciones',$recomendaciones);
+        ->with('incluye',$incluye)->with('condiciones',$condiciones)->with('recomendaciones',$recomendaciones)
+        ->with('itinerario',$itinerario);
 
     }
 
@@ -192,9 +243,12 @@ class PaqueteController extends Controller
       por esta linea ++  */
       $paquete=Paquete::findOrFail($id);
       $ruta =RutaTuristica::all();
-      $imagenes = ImagenPaqueteTuristico::all();
-
+      $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->first();
+      $incluye=Incluye::all();
       $recomendaciones=Recomendaciones::all();
+      $condiciones=Condiciones::all();
+      $itinerario=Itinerario::all();
+      $gastosextras=GastosExtras::all();
     //  dd($recomendaciones[0]->IdRecomendaciones);
 
       // $recomendacionespaquete = RecomendacionesPaquete::where('paquete_id',$id)->get();
@@ -204,6 +258,26 @@ class PaqueteController extends Controller
      FROM "Recomendaciones_Paquete"
       WHERE "paquete_id" = '.$id.' ;';
        $recomendacionespaquete= DB::select($sql);
+
+       $sql = 'SELECT "IdIncluyePaquete", incluye_id , paquete_id
+        FROM "Incluye_Paquete"
+         WHERE "paquete_id" = '.$id.' ;';
+          $incluyepaquete= DB::select($sql);
+
+          $sql = 'SELECT "IdCondicionesPaquete", condiciones_id , paquete_id
+           FROM "Condiciones_Paquete"
+            WHERE "paquete_id" = '.$id.' ;';
+             $condicionespaquete= DB::select($sql);
+
+        $sql = 'SELECT "IdItinerarioPaquete", itinerario_id , paquete_id
+              FROM "Itinerario_Paquete"
+               WHERE "paquete_id" = '.$id.' ;';
+                $itinerariopaquete= DB::select($sql);
+
+                $sql = 'SELECT "IdGastosExtraPaquete", gastosextras_id , paquete_id
+                      FROM "GastosExtras_Paquete"
+                       WHERE "paquete_id" = '.$id.' ;';
+                        $gastosextraspaquete= DB::select($sql);
       // dd($recomendacionespaquete[0]);
     //  $imagenes2 = $imagenes->all();
       //$imagenes = ImagenPaqueteTuristico::findOrFail(10);
@@ -211,7 +285,10 @@ class PaqueteController extends Controller
       return view('adminPaquete.edit')
       ->with('paquete',$paquete)
       ->with('ruta',$ruta)
-        ->with('imagen',$imagenes)->with('recomendaciones', $recomendaciones)->with('recomendacionespaquete',$recomendacionespaquete);
+        ->with('imagen',$imagenes)->with('recomendaciones', $recomendaciones)->with('recomendacionespaquete',$recomendacionespaquete)->with('incluye',$incluye)->with('incluyepaquete',$incluyepaquete)
+        ->with('condiciones', $condiciones)->with('condicionespaquete',$condicionespaquete)
+        ->with('itinerario', $itinerario)->with('itinerariopaquete',$itinerariopaquete)
+        ->with('gastosextras',$gastosextras)->with('gastosextraspaquete',$gastosextraspaquete);
         //return view('adminPaquete.edit', compact( 'paquete','ruta','imagenes','recomendaciones','recomendacionespaquete') );
     }
 
@@ -237,79 +314,202 @@ class PaqueteController extends Controller
         $paquete->TipoPaquete=$request->tipopaquete;
         $paquete->Cupos=$request->cupos;
         $paquete->Dificultad=$request->dificultad;
-        $paquete->Itinerario=$request->itinerario;
-
-        $paquete2 = Paquete::latest('IdPaquete')->first();
 
 
+        $imagen = ImagenPaqueteTuristico::where('id_paquete',$id);
+        $imagen2= $imagen->first();
+        if( $request->hasFile('imagen1')){
+          $archivo1=$request->file('imagen1');
 
-        $contador = ImagenPaqueteTuristico::where('id_paquete', $id)->get();
-        $contador2 = $contador->all();
+
+       if($request->file('imagen1') != $imagen2->Imagen1){
+         $ruta= 'public/'.$imagen2->Imagen1;
+         Storage::delete($ruta);
+       }
+         $archivo1=$request->file('imagen1');
+         $archivo1->storeAs('public/'.$paquete->NombrePaquete, $archivo1->getClientOriginalName());
+         $imagen->update(array('Imagen1' => $paquete->NombrePaquete.'/'.$archivo1->getClientOriginalName()));
+
+        }
+        if( $request->hasFile('imagen2')){
+          $archivo2=$request->file('imagen2');
+       if($request->file('imagen2') != $imagen2->Imagen2){
+         $ruta2= 'public/'.$imagen2->Imagen2;
+         Storage::delete($ruta2);
+       }
+       $archivo2=$request->file('imagen2');
+       $archivo2->storeAs('public/'.$paquete->NombrePaquete, $archivo2->getClientOriginalName());
+       $imagen->update(array('Imagen2' => $paquete->NombrePaquete.'/'.$archivo2->getClientOriginalName()));
+
+        }
+
+        if( $request->hasFile('imagen3')){
+          $archivo3=$request->file('imagen3');
+       if($request->file('imagen3') != $imagen2->Imagen3){
+         $ruta3= 'public/'.$imagen2->Imagen3;
+         Storage::delete($ruta3);
+       }
+       $archivo3=$request->file('imagen3');
+       $archivo3->storeAs('public/'.$paquete->NombrePaquete, $archivo3->getClientOriginalName());
+       $imagen->update(array('Imagen3' => $paquete->NombrePaquete.'/'.$archivo3->getClientOriginalName()));
 
 
+        }
 
-        for($j=0;$j<count($contador2);$j++){
-          $archivo[$j] = $request->imagenpaquete1;
-          //dd($contador2[$j]->Imagen1);
-          //despues de lograr comparar los nombres de la base de datos con los nuevos agregados al editar se decide si se guarda o no se hace nada
-          /*if(nombrebase = nombreeditar){
-          no hace nada
-          }else {
-          borrar la que ya estaba y guardar la nuevas
-          }*/
+        if( $request->hasFile('imagen4')){
+          $archivo4=$request->file('imagen4');
+       if($request->file('imagen4') != $imagen2->Imagen4){
+         $ruta4= 'public/'.$imagen2->Imagen4;
+         Storage::delete($ruta4);
+       }
+       $archivo4=$request->file('imagen4');
+       $archivo4->storeAs('public/'.$paquete->NombrePaquete, $archivo4->getClientOriginalName());
+       $imagen->update(array('Imagen4' => $paquete->NombrePaquete.'/'.$archivo4->getClientOriginalName()));
+
+
         }
 
 
 
 
-            for($i=0;$i<count($archivo);$i++){
-            //dd($archivo);
-            //Hay Imagen
+/*
 
-            $nombreimagen[$i] = 'paquete_'. $paquete2->IdPaquete .'_'. $archivo[$i]->getClientOriginalName();
+        $nombreimagen1='paquete_'.$paquete2->IdPaquete .'_'. $archivo1->getClientOriginalName();
+        $path=public_path() . "/storage/imagenesPaquete/".$paquete2->NombrePaquete;
+        $archivo1->move($path , $nombreimagen1);
+        $imagen=new ImagenPaqueteTuristico();
+        $imagen->id_paquete=$paquete2->IdPaquete;
+        $imagen->Imagen1=$paquete2->NombrePaquete.'/'.$nombreimagen1;
 
-            $path[$i] = public_path() . "/storage/imagenesPaquete";
+        $archivo2=$request->file('imagen2');
+        $nombreimagen2='paquete_'.$paquete2->IdPaquete .'_'. $archivo2->getClientOriginalName();
+        $path=public_path() . "/storage/imagenesPaquete/".$paquete2->NombrePaquete;
+        $archivo2->move($path , $nombreimagen2);
+        $imagen->Imagen2=$paquete2->NombrePaquete.'/'.$nombreimagen2;
 
-            $archivo[$i]->move($path[$i] , $nombreimagen[$i]);
+        $archivo3=$request->file('imagen3');
+        dd($archivo3);
+        $nombreimagen3='paquete_'.$paquete2->IdPaquete .'_'. $archivo3->getClientOriginalName();
+        $path=public_path() . "/storage/imagenesPaquete/".$paquete2->NombrePaquete;
+        $archivo3->move($path , $nombreimagen3);
+        $imagen->Imagen3=$paquete2->NombrePaquete.'/'.$nombreimagen3;
 
-            $imagen[$i] = new ImagenPaqueteTuristico();
+        $gastospaquete = GastosExtrasPaquete::where("paquete_id", $id)->get();
+            $gastospaquete2 = $gastospaquete->all();
+            //dd($request->gastosextras);
+            //$gastospaquete2->delete();*/
 
-            $imagen[$i]->id_paquete = $paquete2->IdPaquete;
-            $imagen[$i]->Imagen1 = $nombreimagen[$i];
 
-
-
-            $imagen[$i]->save();
+      /*if (count($request->gastosextras) > count($gastospaquete2)) {
+            // code...
+            for ($i=0; $i < count($request->gastosextras); $i++) {
+              // code...
+              if ($request->gastosextras[$i] != $gastospaquete2[$i]->gastosextras_id || isset($gastospaquete2[$i]->gastosextras_id) ) {
+                $gasto = new GastosExtrasPaquete();
+                $gasto->gastosextras_id = $request->gastosextras[$i];
+                $gasto->paquete_id = $id;
+                $gasto->save();
+              }
             }
+          }
+          elseif (count($request->gastosextras) < count($gastospaquete2)) {
+            for ($i=0; $i < count($request->gastosextras); $i++) {
+              // code...
+              if ($request->gastosextras[$i] != $gastospaquete2[$i]->gastosextras_id || isset($request->gastosextras[$i])) {
+                $gastospaquete3 = GastosExtrasPaquete::where("paquete_id", $gastospaquete2[$i]->gastosextras_id)->get();
+                $gastospaquete4 = $gastospaquete3->all();
+                $gastospaquete4->delete();
 
-        for ($i=0; $i<count($request->gastosextras);$i++){
-          $gastospaquete = new GastosExtrasPaquete();
-          $gastospaquete->paquete_id = $paquete2->IdPaquete;
-          $gastospaquete->gastosextras_id = $request->gastosextras[$i];
-          $gastospaquete->save();
-        }
+              }
+            }
+          }else{
+            for ($i=0; $i < count($request->gastosextras); $i++) {
+              // code...
+              if ($request->gastosextras[$i] != $gastospaquete2[$i]->gastosextras_id) {
+
+                $gastospaquete = GastosExtrasPaquete::where('paquete_id',$id)->update(array('gastosextras_id' => $request->gastosextras[$i]));
+
+              }
+            }
+          }
 
 
-        for ($i=0; $i<count($request->condiciones);$i++){
-          $condicionespaquete = new CondicionesPaquete();
-          $condicionespaquete->paquete_id = $paquete2->IdPaquete;
-          $condicionespaquete->condiciones_id = $request->condiciones[$i];
-          $condicionespaquete->save();
+
+      */
+      $gastospaquete1 = GastosExtrasPaquete::where('paquete_id',$id);
+      $gastospaquete1->delete();
+
+      $condicionespaquete1 = CondicionesPaquete::where('paquete_id',$id);
+      $condicionespaquete1->delete();
+
+      $recomendacionespaquete1 = RecomendacionesPaquete::where('paquete_id',$id);
+      $recomendacionespaquete1->delete();
+
+      $incluyepaquete1 = IncluyePaquete::where('paquete_id',$id);
+      $incluyepaquete1->delete();
+
+      $itinerariopaquete1 = ItinerarioPaquete::where('paquete_id',$id);
+      $itinerariopaquete1->delete();
+
+
+
+
+      for ($i=0; $i<count($request->gastosextras);$i++){
+        $gastospaquete = new GastosExtrasPaquete();
+        $gastospaquete->paquete_id = $paquete->IdPaquete;
+        $gastospaquete->gastosextras_id = $request->gastosextras[$i];
+        $gastospaquete->save();
+      }
+
+      for ($i=0; $i<count($request->itinerario);$i++){
+        $itinerariopaquete = new ItinerarioPaquete();
+        $itinerariopaquete->paquete_id = $paquete->IdPaquete;
+        $itinerariopaquete->itinerario_id = $request->itinerario[$i];
+        $itinerariopaquete->save();
+      }
+
+      for ($i=0; $i<count($request->condiciones);$i++){
+        $condicionespaquete = new CondicionesPaquete();
+        $condicionespaquete->paquete_id = $paquete->IdPaquete;
+        $condicionespaquete->condiciones_id = $request->condiciones[$i];
+        $condicionespaquete->save();
+      }
+
+      for ($i=0; $i<count($request->recomendaciones);$i++){
+        $recomendacionespaquete = new RecomendacionesPaquete();
+        $recomendacionespaquete->paquete_id =$paquete->IdPaquete;
+        $recomendacionespaquete->recomendaciones_id = $request->recomendaciones[$i];
+        $recomendacionespaquete->save();
+      }
+      for ($i=0; $i<count($request->incluye);$i++){
+        $incluyepaquete = new IncluyePaquete();
+        $incluyepaquete->paquete_id = $paquete->IdPaquete;
+        $incluyepaquete->incluye_id = $request->incluye[$i];
+        $incluyepaquete->save();
+      }
+
+
+
+
+
+
+        /*for ($i=0; $i<count($request->condiciones);$i++){
+          $condicionespaquete = CondicionesPaquete::where('paquete_id',$id)->update(array('condiciones_id' =>  $request->condiciones[$i]));
         }
 
         for ($i=0; $i<count($request->recomendaciones);$i++){
-          $recomendacionespaquete = new RecomendacionesPaquete();
-          $recomendacionespaquete->paquete_id =$paquete2->IdPaquete;
-          $recomendacionespaquete->recomendaciones_id = $request->recomendaciones[$i];
-          $recomendacionespaquete->save();
+          $recomendacionespaquete = RecomendacionesPaquete::where('paquete_id',$id)->update(array('recomendaciones_id' =>  $request->recomendaciones[$i]));
+
         }
         for ($i=0; $i<count($request->incluye);$i++){
-          $incluyepaquete = new IncluyePaquete();
-          $incluyepaquete->paquete_id = $paquete2->IdPaquete;
-          $incluyepaquete->incluye_id = $request->incluye[$i];
-          $incluyepaquete->save();
+          $incluyepaquete = IncluyePaquete::where('paquete_id',$id)->update(array('incluye_id' =>  $request->incluye[$i]));
+
         }
 
+        for ($i=0; $i<count($request->itinerario);$i++){
+          $itinerariopaquete = ItinerarioPaquete::where('paquete_id',$id)->update(array('itinerario_id' => $request->itinerario[$i]));
+
+        }*/
 
 
         $paquete->save();
@@ -360,8 +560,7 @@ class PaqueteController extends Controller
 */
 
         $paquetes=Paquete::all();
-        return view('adminPaquete.index')
-        ->with('paquetes',$paquetes);
+        return back();
 
     }
 
@@ -402,6 +601,9 @@ public fuction postNewImage(Request $request){
       //Trae los 'incluye' relacionadas al paquete
       $incluye = IncluyePaquete::where('paquete_id',$id)->get();
       $incluye = $incluye->all();
+
+      $itinerario = ItinerarioPaquete::where('paquete_id',$id)->get();
+      $itinerario = $itinerario->all();
       //Trae las imagenes relacionadas al paquete
       $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->get();
       $imagenes2 = $imagenes->all();
@@ -412,6 +614,7 @@ public fuction postNewImage(Request $request){
       ->with('recomendaciones',$recomendaciones)
       ->with('gastosextras',$gastosextras)
       ->with('incluye',$incluye)
+      ->with('itinerario',$itinerario)
       ->with('imagen',$imagenes2);
 
     }

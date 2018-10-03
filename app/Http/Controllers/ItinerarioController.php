@@ -7,9 +7,10 @@ use App\Paquete;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\GastosExtras;
-use App\Incluye;
+use App\Itinerario;
+use Illuminate\Http\Request;
 
-class IncluyeController extends Controller
+class ItinerarioController extends Controller
 {
     /**
      * Display a listing of the resource.

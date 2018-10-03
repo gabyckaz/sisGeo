@@ -16,6 +16,7 @@ class CreateGastosextrasTable extends Migration
     Schema::create('GastosExtras', function (Blueprint $table) {
         $table->increments('IdGastosExtras');
         $table->string('NombreGastos');
+        $table->double('Gastos',8,2);
         $table->timestamps();
     });
 

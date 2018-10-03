@@ -78,6 +78,20 @@
 
 
                     </div>
+
+                    <label for="exampleInputFile">Mapa</label>
+                    <br>
+                    <div class="form-group row">
+                      <a href="">
+                          <img src="{{Storage::url("geoturismo.png")}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar4" >
+                      </a>
+                      <br>
+                      <br>
+                      <br>
+                      <input class="nuevaFoto4" type="file" name="imagen4" required>
+                      <p class="help-block">Subir Imagen del Mapa.</p>
+                    </div>
+
                     <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">
@@ -153,21 +167,24 @@
 
                       </div>
 
-                        <div class="form-group">
-                            <label for="iti">Itinerario</label>
-                            <div class="input-group">
-                              <span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
-                              <textarea name="itinerario" class="form-control" id="itinerario" rows="20" ></textarea>
+                      <div class="form-group">
+                          <label name="itinerario" for="itinerario">Itinerario</label>
+                                  <select class="form-control select2" multiple="multiple" name="itinerario[]" id="itinerario[]" >
+                                  @foreach ($itinerario as $iti)
 
-                              </div>
-                        </div>
+                                  <option value="{{$iti->IdItinerario }}">{{$iti->NombreItinerario}}</option>
+                                  @endforeach
+                                  </select>
+
+                      </div>
+
 
                         <div class="form-group">
                             <label name="gastosextras" for="gastosextras">Gastos Extras</label>
                                     <select class="form-control select2" multiple="multiple" name="gastosextras[]" id="gasto[]" >
                                     @foreach ($gastosextras as $gastos)
 
-                                    <option value="{{$gastos->IdGastosExtras }}">{{$gastos->NombreGastos}}</option>
+                                    <option value="{{$gastos->IdGastosExtras }}">{{$gastos->NombreGastos}} --> ${{$gastos->Gastos}}</option>
                                     @endforeach
                                     </select>
 
@@ -203,13 +220,39 @@
                             </select>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label for="exampleInputFile">Imagenes</label>
-                        <input type="file" multiple="true" name="imagenpaquete[]" >
-
-                        <p class="help-block">Subir Hasta 5 Imagenes.</p>
+                      <label for="exampleInputFile">Imagenes</label>
+                      <br>
+                      <div class="form-group row">
+                        <a href="">
+                            <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
+                        </a>
+                        <br>
+                        <br>
+                        <br>
+                            <input class="nuevaFoto" type="file" name="imagen1" required>
+                       <p class="help-block">Subir Imagen 1.</p>
                       </div>
 
+                      <div class="form-group row">
+                        <a href="">
+                            <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" >
+                        </a>
+                        <br>
+                        <br>
+                        <br>
+                        <input  class="nuevaFoto2" type="file"  name="imagen2" required >
+                        <p class="help-block">Subir Imagen 2.</p>
+                      </div>
+                      <div class="form-group row">
+                        <a href="">
+                            <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" >
+                        </a>
+                        <br>
+                        <br>
+                        <br>
+                        <input type="file"  class="nuevaFoto3" name="imagen3" required >
+                        <p class="help-block">Subir Imagen 3.</p>
+                      </div>
 
                         <div class="form-check">
                               <input type='hidden' name='disponibilidadpaquete' value='0'/>
