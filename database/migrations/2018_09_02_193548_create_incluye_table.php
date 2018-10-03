@@ -37,6 +37,7 @@ class CreateIncluyeTable extends Migration
   }
     public function down()
     {
+        Schema::dropIfExists('Incluye_Paquete');
         Schema::dropIfExists('Incluye');
     }
 }

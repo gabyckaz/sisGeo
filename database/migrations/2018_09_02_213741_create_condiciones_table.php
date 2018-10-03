@@ -39,6 +39,7 @@ class CreateCondicionesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('Condiciones_Paquete');
         Schema::dropIfExists('Condiciones');
     }
 }
