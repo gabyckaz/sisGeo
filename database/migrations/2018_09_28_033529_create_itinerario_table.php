@@ -37,6 +37,8 @@ class CreateItinerarioTable extends Migration
   }
     public function down()
     {
+        Schema::dropIfExists('Itinerario_Paquete');
         Schema::dropIfExists('Itinerario');
+
     }
 }
