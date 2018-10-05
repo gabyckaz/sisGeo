@@ -29,7 +29,7 @@ endrole -->
 @endsection
 @section('Title')
 @role('Admin') 
-Administracion de usuarios
+<STRONG>Administracion de usuarios</STRONG>
 @endrole
 @endsection
 @section('contenido')
@@ -38,13 +38,14 @@ Administracion de usuarios
 @if(session('status'))
   <br>
    <script type="text/javascript">
-  alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
+  alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4>{{ session("status") }}');
+
   </script>
 @endif
 @if(session('fallo'))
   <br>
   <script type="text/javascript">
- alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
+ alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
  </script>
 @endif
     <div class="row">
@@ -106,11 +107,11 @@ Administracion de usuarios
 <div class="row">
 <div class="col-md-7 col-md-offset-2">
 <div class="table-responsive">
- <table class="table table-striped table-bordered table-hover" >
+ <table class="table table-striped table-bordered table-hover" id="tablaAdminUser">
   <thead class="thead-dark">
     <tr>
 
-    <th class="text-center">@sortablelink('name', 'Nombre')</th>
+    <th class="text-center">Nombre</th>{{-- @sortablelink('name', 'Nombre')</th> --}}
     <th class="text-center">Correo</th>
     <th class="text-center">Estado</th>
     <th class="text-center">Rol</th>
@@ -123,7 +124,7 @@ Administracion de usuarios
      <tr>
 
            <!--td>{ $usuario->persona->PrimerNombrePersona }} </td -->
-           <td> {{ ucfirst(strtolower($usuario->persona->PrimerNombrePersona)) }}  {{ ucfirst(strtolower($usuario->persona->PrimerApellidoPersona)) }}</td>
+           <td> {{ ucfirst(strtolower($usuario->name)) }}  {{ ucfirst(strtolower($usuario->persona->PrimerApellidoPersona)) }}</td>
            <td>{{ $usuario->email }}</td>
            <td>
               <form class="btn-block" role="form" method="POST" action="{{route('adminUser.state.change', $usuario->id) }}">
@@ -131,17 +132,15 @@ Administracion de usuarios
         {{ csrf_field()  }}
 
          @if($usuario->EstadoUsuario === '1' )
-             <div class="form-group">
-            <div>
-             <button type="submit"  class="btn btn-info btn-sm btn-block">Activo</button>
-
-           </div>
+             
+            <div style="text-align: center;" >
+             <button type="submit"  class="btn btn-info btn-sm fa fa-smile-o btn-block" title="Cambiar estado"></button>
           </div>
             @else
-              <div class="form-group">
-            <div>
-             <button type="submit" class="btn btn-danger btn-sm btn-block">Inactivo</button>
-           </div>
+              
+            <div style="text-align: center;">
+             <button type="submit" class="btn btn-danger btn-sm fa fa-frown-o btn-block" title="Cambiar estado"></button>
+           
           </div>
             @endif
         </form>

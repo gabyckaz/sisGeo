@@ -76,12 +76,11 @@ class ReservacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
-      
+    {   
       $strAcompanantes = '';
       if($request->input("usuario") == null && $request->strFamilia == null && $request->strAmigos == null){
       //  dd('No trae idTurista de usuario y strFamilia es nulo y strAmigos es Null')
-        return redirect()->route('adminPaquete.reserva.add',$request->idPaquete)->with('message','No has reservado para nadie');
+        return redirect()->route('adminPaquete.reserva.add',$request->IdPaquete)->with('message','No has reservado para nadie');
       }elseif($request->input("usuario") != null && $request->strFamilia == null && $request->strAmigos == null){//solo el usuario
         $strAcompanantes = $request->input("usuario");
         //dd('solo va el usuario: '.$strAcompanantes);
@@ -110,7 +109,7 @@ class ReservacionController extends Controller
         $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
         //dd($strAcompanantes);
       }
-      
+      dd($strAcompanantes);
       $sql = 'SELECT t."IdTurista"
           FROM public."users" as u, public."personas" as p, public."Turista" as t
           WHERE u."IdPersona" = p."IdPersona" AND p."IdPersona" = t."IdPersona"
@@ -122,7 +121,7 @@ class ReservacionController extends Controller
          
          $reservacion=new Reservacion;
          $reservacion->IdTurista=$usuarioreservando[0]->IdTurista;
-         $reservacion->IdPaquete=$request->idPaquete;
+         $reservacion->IdPaquete=$request->idPaquete->IdPaquete;
          $reservacion->FechaReservacion= Carbon::now();
          $reservacion->NumeroAcompanantes = $request->total;
          $reservacion->IdsAcompanantes=$strAcompanantes;
@@ -276,6 +275,7 @@ class ReservacionController extends Controller
           a."IdUsuario" = '.auth()->user()->id.' AND a."EsFamiliar" = \'F\';';
           $familia = DB::select($sqlFamilia); 
 
+       $paquete = Paquete::find($paquete);
 
       //Obteniendo el turista actual
 

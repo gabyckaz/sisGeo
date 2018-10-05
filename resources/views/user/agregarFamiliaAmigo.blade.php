@@ -5,7 +5,7 @@
 
 @endsection
 @section('Title')
-Agregar familiares o amigos
+<STRONG>Agregar familiares o amigos</STRONG>
 @endsection
 @section('contenido')
   @if($idTuristaUsuario == 'si')
@@ -15,7 +15,7 @@ Agregar familiares o amigos
             </div -->
            <script type="text/javascript">
             console.log("Hola");
-             alertify.success('<p class="fa fa-check" style="color: white"></p>{{ session()->get('message') }} ');
+             alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4>{{ session()->get('message') }} ');
            // alertify.set('notifier','position', 'top-center');
            // alertify.success('Current position : ' + alertify.get('notifier','position'));
             </script>
@@ -36,7 +36,7 @@ Agregar familiares o amigos
      <div class="box box-warning collapsed-box">
      @endif
       <div class="box-header">
-        <h3 class="box-title">Agregar familiares o amigos</h3>
+        <h3 class="box-title"><STRONG>Agregar familiares o amigos</STRONG></h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
         </div>
@@ -220,58 +220,60 @@ Agregar familiares o amigos
            <div class="row">
 
               <div class="col-md-10 col-md-offset-4">
-                      <button type="submit" class="btn btn-info ">Registrar</button>
-                      <button type="reset" class="btn btn-warning ">Limpiar</button>
+                      <button type="submit" class="btn btn-info "><STRONG>Registrar</STRONG></button>
+                      <button type="reset" class="btn btn-warning "><STRONG>Limpiar</STRONG></button>
                     </div>
                     <!-- /.col -->
             </div>
          </form>
          </div>
          <div class="box-footer">
-              * Estos campos son obligatorios
+               <p>*Estos campos son obligatorios</p>
               <p>Es necesario ingresar almenos un documento</p>
-              </div>
+         </div>
       </div>
      </div>
        <div class="col-md-8  col-md-offset-2">
         <div class="box box-warning">
         <div class="box-header">
-          <h3 class="box-title">Familiares y amigos</h3>
+          <h3 class="box-title"><STRONG>Mis familiares y mis amigos</STRONG></h3>
           </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                      <table class="table table-striped table-bordered table-hover" >
+                      <table class="table table-striped table-bordered table-hover" id="tblAgregarFamiliarAmigo" >
                         <thead class="thead-dark">
                          <th>Tipo</th>
                          <th>Nombre</th>
-                         <th>Apellido</th>
                          <th>Genero</th>
                          <th>Nacionalidad</th>
                          <th>Opciones</th>
                         </thead>
                           <tbody>
-                            @foreach($familiaAmigos as $a)
+                            @foreach($familiaAmigos as $familiaAmigo)
                              <tr>
-                               @if(strtoupper($a->EsFamiliar) == strtoupper("a"))
+                               @if(strtoupper($familiaAmigo->EsFamiliar) == strtoupper("a"))
                                 <td>Amigo</td>
                                @endif
-                               @if(strtoupper($a->EsFamiliar) == strtoupper("f"))
+                               @if(strtoupper($familiaAmigo->EsFamiliar) == strtoupper("f"))
                                 <td>Familia</td>
                                @endif
-                               @if(strtoupper($a->EsFamiliar) == strtoupper("af"))
-                                <td>*</td>
+                               @if(strtoupper($familiaAmigo->EsFamiliar) == strtoupper("af"))
+                                <td>Usuario</td>
                                @endif
-                               <td>{{ $a->PrimerNombrePersona }}</td>
-                               <td>{{ $a->PrimerApellidoPersona }}</td>
-                               @if($a->Genero == "M")
+                               <td>{{ ucfirst(strtolower($familiaAmigo->PrimerNombrePersona)) }}  {{ ucfirst(strtolower($familiaAmigo->PrimerApellidoPersona)) }}</td>                               
+                               @if($familiaAmigo->Genero == "M")
                                 <td>Masculino</td>
                                @else
                                 <td>Femenino</td>
                                @endif
-                               <td>{{ $a->Nacionalidad }}</td>
+                               <td>{{ $familiaAmigo->Nacionalidad }}</td>
                                <td>
+                                @if(strtoupper($familiaAmigo->EsFamiliar) == strtoupper("af"))
+                                <a href="{{ route('usuario.completar.informacion') }}" class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editar"></a>
+                                @else
                                  <a class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editar"
-                                 href="{{ route('user.editar.informacion.familaAmigo', $a->IdTurista) }}"></a>
+                                 href="{{ route('user.editar.informacion.familaAmigo', $familiaAmigo->IdTurista) }}"></a>
+                                 @endif
                                </td>
                             </tr>
                             @endforeach

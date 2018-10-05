@@ -265,8 +265,8 @@ desired effect
       </div>
 
       <ul class="nav navbar-nav">
-        <li><a style="text-align: right"href="/login">Iniciar Sesión</a></li>
-        <li><a href="/register">Crear Cuenta</a></li>
+        <li><a style="text-align: right"href="/login"><strong>Iniciar Sesión</strong></a></li>
+        <li><a href="/register"><strong>Crear Cuenta</strong></a></li>
       </ul>
     </nav>
     @endguest
@@ -425,8 +425,8 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Pagina principal
-        <small>Opciones</small>
+        Geoturismo
+        <small>El Salvador</small>
       </h1>
       <!--ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>

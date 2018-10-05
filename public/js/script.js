@@ -1,6 +1,23 @@
 $(document).ready(function(){
+        $('#tablaAdminUser').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": false,
+            "bInfo": false,
+            "autoWidth": true,
+        });
+        $('#tblAgregarFamiliarAmigo').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": false,
+            "bInfo": false,
+            "autoWidth": true,
+        });
+
         if($('#usuario').is(':checked') ){
-             $('#total').val(1);              
+             $('#total').val(1); 
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);         
              }
         var mytable = $("#tablaAmigos").DataTable({
             //ajax: 'https://api.myjson.com/bins/1us28',
@@ -34,9 +51,12 @@ $(document).ready(function(){
             if(varStrFamilia.length == 0 && varStrAmigos.length == 0){
              if( $('#usuario').is(':checked') ) {
                $('#total').val(1);
+               $('#ctotal').val($('#total').val()*$('#cpersona').val());
+               $('#minimoPago').val($('#ctotal').val() * 0.3);
              }else{
-              
              $('#total').val(0);
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);
              }
             }
             else if(varStrFamilia.length > 0 && varStrAmigos.length > 0){
@@ -46,24 +66,36 @@ $(document).ready(function(){
             console.log('Longitud Amigos: '+arrayAmigos.length);
             if( $('#usuario').is(':checked') ) {
             $('#total').val(arrayFamilia.length+arrayAmigos.length+1);
+            $('#ctotal').val($('#total').val()*$('#cpersona').val());
+            $('#minimoPago').val($('#ctotal').val() * 0.3);
             }else{
-              $('#total').val(arrayFamilia.length+arrayAmigos.length);  
+              $('#total').val(arrayFamilia.length+arrayAmigos.length);
+              $('#ctotal').val($('#total').val()*$('#cpersona').val());
+              $('#minimoPago').val($('#ctotal').val() * 0.3);
             }
             }else if(varStrFamilia.length == 0 && varStrAmigos.length > 0){
             var arrayAmigos = varStrAmigos.split(",");
             console.log('Longitud Amigos: '+arrayAmigos.length);
             if($('#usuario').is(':checked') ){
             $('#total').val(arrayAmigos.length +1);
+            $('#ctotal').val($('#total').val()*$('#cpersona').val());
+            $('#minimoPago').val($('#ctotal').val() * 0.3);
             }else{
              $('#total').val(arrayAmigos.length);
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);
             }
             }else if(varStrFamilia.length > 0 && varStrAmigos.length == 0){
              var arrayFamilia = varStrFamilia.split(",");
              console.log('Longitud Familia: '+arrayFamilia.length);
              if($('#usuario').is(':checked') ){
              $('#total').val(arrayFamilia.length+1);
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);
              }else{
                 $('#total').val(arrayFamilia.length);
+                $('#ctotal').val($('#total').val()*$('#cpersona').val());
+                $('#minimoPago').val($('#ctotal').val() * 0.3);
              }
             }
             $('#strAmigos').val(rowsel.join(","));
@@ -105,8 +137,12 @@ $(document).ready(function(){
             if(varStrFamilia.length == 0 && varStrAmigos.length == 0){
              if( $('#usuario').is(':checked') ) {
                $('#total').val(1);
+               $('#ctotal').val($('#total').val()*$('#cpersona').val());
+               $('#minimoPago').val($('#ctotal').val() * 0.3);
              }else{              
              $('#total').val(0);
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);
              }
             }
             else if(varStrFamilia.length > 0 && varStrAmigos.length > 0){
@@ -116,24 +152,36 @@ $(document).ready(function(){
             console.log('Longitud Amigos: '+arrayAmigos.length);
             if( $('#usuario').is(':checked') ) {
             $('#total').val(arrayFamilia.length+arrayAmigos.length+1);
+            $('#ctotal').val($('#total').val()*$('#cpersona').val());
+            $('#minimoPago').val($('#ctotal').val() * 0.3);
             }else{
-              $('#total').val(arrayFamilia.length+arrayAmigos.length);  
+              $('#total').val(arrayFamilia.length+arrayAmigos.length);
+              $('#ctotal').val($('#total').val()*$('#cpersona').val());
+              $('#minimoPago').val($('#ctotal').val() * 0.3);  
             }
             }else if(varStrFamilia.length == 0 && varStrAmigos.length > 0){
             var arrayAmigos = varStrAmigos.split(",");
             console.log('Longitud Amigos: '+arrayAmigos.length);
             if($('#usuario').is(':checked') ){
             $('#total').val(arrayAmigos.length +1);
+            $('#ctotal').val($('#total').val()*$('#cpersona').val());
+            $('#minimoPago').val($('#ctotal').val() * 0.3);
             }else{
              $('#total').val(arrayAmigos.length);
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);
             }
             }else if(varStrFamilia.length > 0 && varStrAmigos.length == 0){
              var arrayFamilia = varStrFamilia.split(",");
              console.log('Longitud Familia: '+arrayFamilia.length);
              if($('#usuario').is(':checked') ){
              $('#total').val(arrayFamilia.length+1);
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);
              }else{
                 $('#total').val(arrayFamilia.length);
+                $('#ctotal').val($('#total').val()*$('#cpersona').val());
+                $('#minimoPago').val($('#ctotal').val() * 0.3);
              }
             }
             $('#strFamilia').val(rowsel.join(","));
@@ -146,10 +194,14 @@ $(document).ready(function(){
     $('#usuario').on('change', function(e){
     if (this.checked) {
         console.log('Checkbox  checked');
-        $('#total').val(parseInt($('#total').val())+1); 
+        $('#total').val(parseInt($('#total').val())+1);
+        $('#ctotal').val($('#total').val()*$('#cpersona').val());
+        $('#minimoPago').val($('#ctotal').val() * 0.3);
     } else {
         console.log('Checkbox  unchecked');
         $('#total').val($('#total').val()-1);
+        $('#ctotal').val($('#total').val()*$('#cpersona').val());
+        $('#minimoPago').val($('#ctotal').val() * 0.3);
     }
    });    
 
@@ -171,3 +223,38 @@ $(document).ready(function(){
         $(document).ready(function() {
             $("#lightgallery").lightGallery();
         });
+
+function filterFloat(evt,input){
+    // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
+    var key = window.Event ? evt.which : evt.keyCode;    
+    var chark = String.fromCharCode(key);
+    var tempValue = input.value+chark;
+    if(key >= 48 && key <= 57){
+        if(filter(tempValue)=== false){
+            return false;
+        }else{       
+            return true;
+        }
+    }else{
+          if(key == 8 || key == 13 || key == 0) {     
+              return true;              
+          }else if(key == 46){
+                if(filter(tempValue)=== false){
+                    return false;
+                }else{       
+                    return true;
+                }
+          }else{
+              return false;
+          }
+    }
+};
+function filter(__val__){
+    var preg = /^([0-9]+\.?[0-9]{0,2})$/; 
+    if(preg.test(__val__) === true){
+        return true;
+    }else{
+       return false;
+    }
+    
+};

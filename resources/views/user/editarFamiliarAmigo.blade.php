@@ -11,13 +11,13 @@ Editar familiar o amigo
    @if(session()->has('message'))
           <script type="text/javascript"> 
            console.log("Hola");
-           alertify.error('{{ session()->get('message') }} ');
+           alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4>{{ session()->get('message') }} ');
           </script>
     @endif
     @if(session()->has('error'))
         <script type="text/javascript"> 
            console.log("Hola");
-           alertify.error('{{ session()->get('error') }} ');
+           alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4>{{ session()->get('error') }} ');
         </script>
     @endif
  <div class="box box-solid">

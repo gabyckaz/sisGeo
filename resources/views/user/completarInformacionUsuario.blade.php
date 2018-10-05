@@ -5,7 +5,7 @@
 
 @endsection
 @section('Title')
-Editar mi informacion de usuario
+<STRONG>Editar mi informacion de usuario</STRONG>
 @endsection
 @section('contenido')
 <!-- SELECT2 EXAMPLE -->
@@ -14,7 +14,7 @@ Editar mi informacion de usuario
         @if(session()->has('message'))
            <script type="text/javascript">
             console.log("Hola");
-              alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session()->get('message') }} ');
+              alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session()->get('message') }} ');
             </script>
          @endif
    <!-- -->
@@ -330,7 +330,10 @@ Editar mi informacion de usuario
           <div class="col-md-6">
               <div class="form-group has-feedback{{ $errors->has('direccion') ? ' has-error' : '' }}">
                      <label for="direccion" class="control-label">Direccion*</label>
-                      <textarea   class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >{{ old('direccion',$turista->DomicilioTurista) }}</textarea>
+                     <div class="input-group">
+                       <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
+                       <textarea   class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >{{ old('direccion',$turista->DomicilioTurista) }}</textarea>
+                     </div>
                 @if ($errors->has('direccion'))
                   <span class="help-block">{{ $errors->first('direccion') }}</span>
                 @endif
@@ -339,14 +342,21 @@ Editar mi informacion de usuario
           <div class="col-md-6">
               <div class="form-group ">
                      <label for="psalud" class="control-label">Problemas de salud</label>
-                      <textarea   class="form-control" name="psalud" maxlength="256" placeholder="Problemas de salud..." >{{ $turista->Problemas_Salud }}</textarea>
+                     <div class="input-group">
+                      <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
+                        <textarea   class="form-control" name="psalud" maxlength="256" placeholder="Problemas de salud..." >{{ $turista->Problemas_Salud }}</textarea>
+                      </div>
                   </div>
           </div>
           @else
             <div class="col-md-6">
               <div class="form-group has-feedback{{ $errors->has('direccion') ? ' has-error' : '' }}">
                 <label for="direccion" class="control-label">Direccion*</label>
-                <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >{{ old('direccion') }}</textarea>
+                <div class="input-group">
+                <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
+                <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >
+                </textarea>
+                {{ old('direccion') }}</textarea>
                 @if ($errors->has('direccion'))
                   <span class="help-block">{{ $errors->first('direccion') }}</span>
                 @endif
@@ -354,8 +364,11 @@ Editar mi informacion de usuario
           </div>
           <div class="col-md-6">
               <div class="form-group ">
+                    <div class="input-group">
+                     <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                      <label for="psalud" class="control-label">Problemas de salud</label>
                       <textarea   class="form-control" name="psalud" maxlength="256" placeholder="Problemas de salud..." >{{ old('psalud','Ninguno') }}</textarea>
+                     </div>
                   </div>
           </div>
           @endif
@@ -387,7 +400,7 @@ Editar mi informacion de usuario
 
          <div class="row">
             <div class="col-md-12">
-              <button type="submit" class="btn btn-info center-block">Actualizar</button>
+              <button type="submit" class="btn btn-info center-block"><STRONG>Actualizar</STRONG></button>
             </div>
             <!-- /.col -->
           </div>

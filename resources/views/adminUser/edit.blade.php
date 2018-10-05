@@ -55,7 +55,7 @@ Administracion de roles a usuario
 
         <div class="form-group">
           <div>
-              <button type="submit" class="btn btn-primary col-md-offset-3">Agregar rol</button>
+              <button type="submit" class="btn btn-info col-md-offset-3">Agregar rol</button>
           </div>
         </div>
        </fieldset>
@@ -103,7 +103,7 @@ Administracion de roles a usuario
 
           <div class="form-group">
             <div>
-                <button type="submit" class="btn btn-primary col-md-offset-3">Eliminar rol</button>
+                <button type="submit" class="btn btn-danger col-md-offset-3">Eliminar rol</button>
             </div>
           </div>
 

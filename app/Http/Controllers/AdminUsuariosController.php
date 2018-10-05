@@ -46,8 +46,8 @@ class AdminUsuariosController extends Controller
 
               //lleva el get cuando no tiene paginate $usuarios = User::nombre($request->get('nombre'))->get()
          //   $usuarios = User::nombre($request->get('nombre'))->orderBy('id','asc')->paginate(2);
-       $usuarios = User::sortable()
-       ->nombre($request->get('nombre'))
+       $usuarios = User::/*sortable()->*/
+         nombre($request->get('nombre'))
        ->email($request->get('email'))
        ->estado($request->get('estado'))
        ->rol($request->get('rol'))

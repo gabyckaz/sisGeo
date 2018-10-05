@@ -47,11 +47,6 @@ class User extends Authenticatable
          //return $this->hasOne('App\Persona');
     }
 
-    public function scopeInicial($query, $v){
-        
-      
-     }
-
      public function scopeNombre($query, $nombre){
       if(trim($nombre) != ""){       
          

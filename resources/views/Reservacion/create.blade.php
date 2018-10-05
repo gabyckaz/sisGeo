@@ -8,7 +8,7 @@
 @section('contenido')
     @if(session()->has('message'))
       <script type="text/javascript">
-        alertify.error('{{ session()->get('message') }}');
+        alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4>{{ session()->get('message') }}');
       </script>
     @endif
     @if(session('fallo'))
@@ -119,7 +119,8 @@
       <form action="{{ route('adminPaquete.reserva.add.store') }}" method="POST">
         {!! method_field('PUT') !!}
         {{ csrf_field() }}
-        <div class="col-md-3">
+        <div class="row">
+        <div class="col-md-4">
           <div class="form-group">
             <div class="checkbox">
               <label><input id="usuario" type="checkbox" name="usuario" value="{{$userTurista[0]->Id}}" checked>
@@ -128,61 +129,84 @@
             </div>
           </div>
          </div>
-         <div class="col-md-3">
-           <div class="form-group">
-            <label>Familia</label>
-            <input type="text" name="strFamilia" id="strFamilia" readonly>
-           </div>
-          </div>
-         <div class="col-md-3">
+         </div>
+        <div class="row">
+          <div class="col-md-4">
           <div class="form-group">
-            <label>Amigos</label>
-            <input type="text" name="strAmigos" id="strAmigos" readonly>
+            <label>Cupos a reservar</label>
+             <div class="input-group">
+                <span class="input-group-addon">N°</span>
+                <input type="text" class="form-control" name="total" id="total" readonly>
+             </div>
            </div>
           </div>
-          <div class="col-md-3">
-          <div class="form-group">
-            <label>Total</label>
-            <input type="text" name="total" id="total" readonly>
-           </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Costo por persona</label>
+              <div class="input-group">
+                  <span class="input-group-addon">$</span>
+                  <input type="text" class="form-control" name="cpersona" id="cpersona" value="{{ $paquete->Precio }}" readonly>
+              </div>
+            </div>   
           </div>
-
-        {{-- <div class="form-group col-md-3 has-feedback{{ $errors->has('numeroacompanantes') ? ' has-error' : '' }}">
-          <label for="numeroacompanantes">No. Acompañantes *</label>
-            <div class="input-group">
-              <span class="input-group-addon"><span class="fa fa-users"></span></span>
-              <input id="numeroacompanantes" type="number" min="0" class="form-control" name="numeroacompanantes"  placeholder="0" required>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Costo total</label>
+                <div class="input-group">
+                  <span class="input-group-addon">$</span>
+                  <input type="text" class="form-control" name="ctotal" id="ctotal" readonly>
+                </div>
             </div>
-            @if ($errors->has('numeroacompanantes'))
-              <span class="help-block">{{ $errors->first('numeroacompanantes') }}</span>
+          </div>
+          <input type="hidden" class="form-control" name="strFamilia" id="strFamilia">
+          <input type="hidden" class="form-control" name="strAmigos" id="strAmigos" >
+          <input type="hidden" class="form-control" name="IdPaquete" value="{{ $paquete->IdPaquete }}" >
+           {{-- </div>
+          </div> --}}          
+        </div>
+        @if(is_int($usuarioreservando))
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>% Anticipado requerido</label>
+              <div class="input-group">
+                  <span class="input-group-addon">$</span>
+                 <input type="text" class="form-control" name="minimoPago" id="minimoPago" readonly>
+              </div>
+             </div>
+          </div>
+        </div>
+         <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Cantidad a abonar</label>
+              <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" class="form-control" name="abono" id="abono" placeholder="0.00" onkeypress="return filterFloat(event,this);">
+              </div>
+             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+           <div class="form-group">
+            <button type="submit" class="btn btn-info">Completar reserva</button>
+           </div>
+          </div>
+        <!-- button type="reset" class="btn btn-warning ">Limpiar</button -->
+            @else
+             <div class="col-md-4">
+                 <div class="form-group">
+              <p>ANTES DE REALIZAR LA RESERVA DEBE COMPLETAR SU INFORMACIÓN</p>
+              <a href="{{ route('usuario.completar.informacion') }}" class="btn btn-default btn-flat">Completar información</a>
+              </div>
+                </div>
             @endif
         </div>
-        <div class="form-group col-md-5 has-feedback{{ $errors->has('idacompanantes') ? ' has-error' : '' }}">
-          <label for="idacompanantes">Acompañantes *</label>
-            <div class="input-group">
-              <span class="input-group-addon"><span class="fa fa-users"></span></span>
-              <input id="idacompanantes" type="text" class="form-control" name="idacompanantes"  placeholder="3,1,4" required>
-            </div>
-            @if ($errors->has('idacompanantes'))
-              <span class="help-block">{{ $errors->first('idacompanantes') }}</span>
-            @endif
-        </div> --}}
-        <hr>
-        {{-- Paquete seleccionado:{{$paquete}}</div>
-        <hr>
-        Usted es el turista: {{$usuarioreservando}} --}}
-        <input type="text" name="idPaquete" value="{{ $paquete}}" />
-         <div class="col-md-10 col-md-offset-4">
-    <!-- Verifica si el usuario actual ha copletado su informacion de turista -->
-      @if(is_int($usuarioreservando))        
-        <button type="submit" class="btn btn-info ">Completar reserva</button>
-        <button type="reset" class="btn btn-warning ">Limpiar</button>
-      @else
-        <p>ANTES DE REALIZAR LA RESERVA DEBE COMPLETAR SU INFORMACIÓN</p>
-        <a href="{{ route('usuario.completar.informacion') }}" class="btn btn-default btn-flat">Completar información</a>
-      @endif
-
-      </div>
+      <hr>
+       <div class="box-footer">
+              <p>*Para poder realizar una reserva debes pagar almenos el 30%</p>
+         </div>
       </form>    
     </div>
   </div>
