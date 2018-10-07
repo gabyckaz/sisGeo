@@ -8,6 +8,7 @@ use App\GastosExtras;
 use App\Recomendaciones;
 use App\Incluye;
 use App\Condiciones;
+use App\Itinerario;
 use DB;
 
 
@@ -34,8 +35,9 @@ class OpcionesPaqueteController extends Controller
       $recomendaciones = Recomendaciones::all();
       $incluye= Incluye::all();
       $condiciones=Condiciones::all();
+      $itinerario=Itinerario::all();
       return view('adminOpcionesPaquete.create')->with('gastosextras',$gastosextras)
-      ->with('incluye',$incluye)->with('condiciones',$condiciones)->with('recomendaciones',$recomendaciones);
+      ->with('incluye',$incluye)->with('condiciones',$condiciones)->with('recomendaciones',$recomendaciones)->with('itinerario',$itinerario);
     }
 
     /**
@@ -54,10 +56,11 @@ class OpcionesPaqueteController extends Controller
        //campo de BD -> campo del formulario
        $gastosextras=new GastosExtras;
        $gastosextras->NombreGastos = $request->gastosextras;
+       $gastosextras->Gastos= $request->gastos;
 
        $gastosextras->save();
-       $gastosextras3 = GastosExtras::all();
-        return view('adminOpcionesPaquete.create')->with('gastosextras',$gastosextras3);
+
+       return back();
 
 
     }
@@ -99,7 +102,9 @@ class OpcionesPaqueteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $paquete=Paquete::findOrFail($id);
+        $paquete->delete();
+
     }
 
    public function guardarincluye(Request $request){
@@ -108,7 +113,7 @@ class OpcionesPaqueteController extends Controller
              $incluye->NombreIncluye = $request->incluye;
 
              $incluye->save();
-    
+
                    return back();
              /*return view('adminOpcionesPaquete.create')->with('incluye',$incluye3);*/
 
@@ -121,12 +126,60 @@ class OpcionesPaqueteController extends Controller
             return back();
     /*  return view('adminOpcionesPaquete.create')->with('recomendaciones',$recomendaciones);*/
     }
-/*    public function guardargastosextras(Request $request){
-      $gastosextras=new GastosExtras;
-      $gastosextras->NombreGastos = $request->gastosextras;
+    public function guardarcondiciones(Request $request){
 
-      $gastosextras->save();
-      $gastosextras3 = GastosExtras::all();
-          return view('adminOpcionesPaquete.create')->with('gastosextras',$gastosextras3);
-    }*/
+         $condiciones=new Condiciones;
+         $condiciones->NombreCondiciones = $request->condiciones;
+         $condiciones->save();
+               return back();
+       /*  return view('adminOpcionesPaquete.create')->with('recomendaciones',$recomendaciones);*/
+       }
+
+       public function guardaritinerario(Request $request){
+
+            $itinerario=new Itinerario;
+            $itinerario->NombreItinerario = $request->itinerario;
+            $itinerario->save();
+                  return back();
+          /*  return view('adminOpcionesPaquete.create')->with('recomendaciones',$recomendaciones);*/
+          }
+
+          public function eliminargastosextras($id){
+
+            $gastosextras=GastosExtras::findOrFail($id);
+            $gastosextras->delete();
+            return back();
+
+
+             }
+          public function eliminarincluye($id){
+
+               $incluye=Incluye::findOrFail($id);
+               $incluye->delete();
+               return back();
+
+              }
+              public function eliminarrecomendaciones($id){
+
+                   $recomendaciones=Recomendaciones::findOrFail($id);
+                   $recomendaciones->delete();
+                   return back();
+
+
+                  }
+                  public function eliminarcondiciones($id){
+
+                       $condiciones=Condiciones::findOrFail($id);
+                       $condiciones->delete();
+                       return back();
+                      }
+                      public function eliminaritinerario($id){
+
+                           $itinerario=Itinerario::findOrFail($id);
+
+                           $itinerario->delete();
+                           return back();
+                          }
+
+
 }

@@ -16,7 +16,7 @@
                     <div class="panel-heading">Actualizar Paquetes Turisticos</div>
 
                       <div class="panel-body">
-                        <form method="POST" action="{{$paquete->IdPaquete}}" files = "true" >
+                        <form method="POST" action="{{$paquete->IdPaquete}}" files = "true" enctype="multipart/form-data" >
                         <input name="_method" type="hidden" value="PUT">
 
                         <div class="col-md-12">
@@ -143,12 +143,45 @@
                       </div>
                       </div>
                     </div>
+
+                    <label for="exampleInputFile">Mapa</label>
+                    <br>
+                    <div class="form-group row">
+                      <a href="">
+                          <img src="{{Storage::url($imagen->Imagen4)}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar4" >
+                      </a>
+                      <br>
+                      <br>
+                      <br>
+                      <input class="nuevaFoto4" type="file" name="imagen4" required>
+                      <p class="help-block">Subir Imagen del Mapa.</p>
+                    </div>
+
                     <div class="form-group">
                         <label for="iti">Itinerario</label>
-                          <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
-                              <input name="itinerario" class="form-control" id="itinerario" rows="20" value="{{$paquete->Itinerario}}" ></input>
-                          </div>
+                        @php $x='f';
+                        @endphp
+
+
+                        <select class="form-control select2" multiple="multiple" name="itinerario[]" >
+                          @for ($i = 0; $i < count($itinerario); $i++)
+
+                           @for ($j = 0; $j < count($itinerariopaquete); $j++)
+                           @if($itinerariopaquete[$j]->itinerario_id == $itinerario[$i]->IdItinerario)
+                                 <option value="{{ $itinerario[$i]->IdItinerario }}"{{ 'selected'}}> {{$itinerario[$i]->NombreItinerario}}</option>
+                                 @php $x='t';
+                                 @endphp
+                            @endif
+                           @endfor
+                           @if($x == 't')
+                             @php $x ='f';
+                             @endphp
+                           @else
+                            <option value="{{ $itinerario[$i]->IdItinerario }}" > {{$itinerario[$i]->NombreItinerario}}</option>
+                           @endif
+                          @endfor
+
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="re">Recomendaciones</label>
@@ -176,36 +209,114 @@
 
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="in">Que incluye</label>
+                        @php $x='f';
+                        @endphp
 
 
+                        <select class="form-control select2" multiple="multiple" name="incluye[]" >
+                          @for ($i = 0; $i < count($incluye); $i++)
+
+                           @for ($j = 0; $j < count($incluyepaquete); $j++)
+                           @if($incluyepaquete[$j]->incluye_id == $incluye[$i]->IdIncluye)
+                                 <option value="{{ $incluye[$i]->IdIncluye }}"{{ 'selected'}}> {{$incluye[$i]->NombreIncluye}}</option>
+                                 @php $x='t';
+                                 @endphp
+                            @endif
+                           @endfor
+                           @if($x == 't')
+                             @php $x ='f';
+                             @endphp
+                           @else
+                            <option value="{{ $incluye[$i]->IdIncluye }}" > {{$incluye[$i]->NombreIncluye}}</option>
+                           @endif
+                          @endfor
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="con">Condiciones</label>
+                        @php $x='f';
+                        @endphp
+
+
+                        <select class="form-control select2" multiple="multiple" name="condiciones[]" >
+                          @for ($i = 0; $i < count($condiciones); $i++)
+
+                           @for ($j = 0; $j < count($condicionespaquete); $j++)
+                           @if($condicionespaquete[$j]->condiciones_id == $condiciones[$i]->IdCondiciones)
+                                 <option value="{{ $condiciones[$i]->IdCondiciones }}"{{ 'selected'}}> {{$condiciones[$i]->NombreCondiciones}}</option>
+                                 @php $x='t';
+                                 @endphp
+                            @endif
+                           @endfor
+                           @if($x == 't')
+                             @php $x ='f';
+                             @endphp
+                           @else
+                            <option value="{{ $condiciones[$i]->IdCondiciones }}" > {{$condiciones[$i]->NombreCondiciones}}</option>
+                           @endif
+                          @endfor
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="gastosextras">Gastos Extras</label>
+                        @php $x='f';
+                        @endphp
+
+
+                        <select class="form-control select2" multiple="multiple" name="gastosextras[]" >
+                          @for ($i = 0; $i < count($gastosextras); $i++)
+
+                           @for ($j = 0; $j < count($gastosextraspaquete); $j++)
+                           @if($gastosextraspaquete[$j]->gastosextras_id == $gastosextras[$i]->IdGastosExtras)
+                                 <option value="{{ $gastosextras[$i]->IdGastosExtras }}"{{ 'selected'}}> {{$gastosextras[$i]->NombreGastos}}--${{$gastosextras[$i]->Gastos}}</option>
+                                 @php $x='t';
+                                 @endphp
+                            @endif
+                           @endfor
+                           @if($x == 't')
+                             @php $x ='f';
+                             @endphp
+                           @else
+                            <option value="{{ $gastosextras[$i]->IdGastosExtras }}" > {{$gastosextras[$i]->NombreGastos}}{{$gastosextras[$i]->Gastos}}</option>
+                           @endif
+                          @endfor
+
+                        </select>
+                    </div>
                         <h4>
-                                        <span class="label label-primary">Imagen</span>
+                                        <span class="label label-primary">Imagenes</span>
                                                 </h4>
-                      <div class="row">
-                            <div  id="lightgallery" >
+                                                <div class="row">
+                                                      <div  id="lightgallery" >
+                                                        <div class="row">
+                                                          <input class="nuevaFoto" type="file" name="imagen1" id="imagen1">
 
-                              @for ($i = 0; $i < count($imagen); $i++)
-
-
-                                                            <div class="row">
-
-                                                              <input class="nuevaFoto" type="file" name="imagenpaquete{{$i}}" >
-
-                                                              <a href="{{asset('storage/imagenesPaquete')}}/{{$imagen[$i]->Imagen1}}">
-                                                                  <img src="{{asset('storage/imagenesPaquete')}}/{{$imagen[$i]->Imagen1}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
-                                                              </a>
-                                                            </div>
-
-
-
-                                                            @endfor
+                                                          <a href="{{Storage::url($imagen->Imagen1)}}">
+                                                              <img src="{{Storage::url($imagen->Imagen1)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
+                                                          </a>
                                                         </div>
+                                                        <div class="row">
+                                                          <input class="nuevaFoto2" type="file" name="imagen2" >
+
+                                                          <a href="{{Storage::url($imagen->Imagen2)}}">
+                                                              <img src="{{Storage::url($imagen->Imagen2)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" >
+                                                          </a>
+                                                        </div>
+                                                        <div class="row">
+                                                          <input class="nuevaFoto3" type="file" name="imagen3" >
+
+                                                          <a href="{{Storage::url($imagen->Imagen3)}}">
+                                                              <img src="{{Storage::url($imagen->Imagen3)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" >
+                                                          </a>
+                                                        </div>
+                                                                                  </div>
 
 
-
-                                                      </div>
-
-
+                                                                                </div>
 
                         </div>
                         <!-- /.box-body -->

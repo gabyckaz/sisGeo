@@ -24,7 +24,6 @@ class CreatePaqueteTable extends Migration
             $table->string('TipoPaquete',20);
             $table->integer('Cupos');
             $table->string('Dificultad',20);
-            $table->string('Itinerario',1024);
             $table->string('AprobacionPaquete',1);
             $table->string('DisponibilidadPaquete',1);
             $table->integer('IdTuristica')->unsigned();

@@ -41,6 +41,7 @@ class CreateRecomendacionesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('Recomendaciones_Paquete');
         Schema::dropIfExists('Recomendaciones');
     }
 }

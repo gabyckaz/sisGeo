@@ -199,6 +199,7 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
+
               <img src="{{ Storage::url( auth()->user()->avatar ) }}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{ auth()->user()->name }}</span>
@@ -575,12 +576,6 @@ desired effect
 
 <script src="{{ asset('adminLte/lightGallery/dist/js/lightgallery.min.js')}}"></script>
 
-<!-- DataTables-->
-<script src="{{ asset('adminLte/data-tables/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('adminLte/data-tables/js/dataTables.bootstrap.min.js')}}"></script>
-<script src="{{ asset('adminLte/data-tables/js/dataTables.checkboxes.min.js')}}"></script>
-<script src="{{ asset('js/script.js')}}"></script>
-
 <script src="{{ asset('adminLte/sweetalert2/sweetalert2.all.js')}}"></script>
 
 <script type="text/javascript" src="{{ asset('/js/scripts/paquetes.js') }}" > </script>
@@ -588,6 +583,12 @@ desired effect
 @include('sweetalert::alert')
 
 
+
+<!-- DataTables-->
+<script src="{{ asset('adminLte/data-tables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('adminLte/data-tables/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{ asset('adminLte/data-tables/js/dataTables.checkboxes.min.js')}}"></script>
+<script src="{{ asset('js/script.js')}}"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
