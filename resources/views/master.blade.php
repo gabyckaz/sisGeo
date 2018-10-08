@@ -582,7 +582,7 @@ desired effect
 
 <script type="text/javascript" src="{{ asset('/js/scripts/paquetes.js') }}" > </script>
 
-@include('sweetalert::alert')
+{{-- @include('sweetalert::alert') --}}
 
 
 

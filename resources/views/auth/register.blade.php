@@ -70,10 +70,16 @@ Formulario de Registro</div>
       <label for="Genero" class="col-md-4 col-form-label text-md-right">{{ __('Sexo') }}</label>
 
         <div class="col-md-6">
-           <select  class="form-control" name="Genero" id="Genero" value="{{ old('Genero') }}">
-               <option value="M">Masculino</option>
-               <option value="F">Femenino</option>
-           </select>
+           <div class="form-check">
+             <label class="form-check-label col-md-6">
+             <input type="radio" class="form-check-input" name="Genero" value="F" {{(old('Genero') == 'F') ? 'checked' : ''}}>Femenino
+             </label>
+           </div>
+            <div class="form-check">
+               <label class="form-check-label col-md-6">
+               <input type="radio" class="form-check-input" name="Genero" value="M" {{(old('Genero') == 'M') || (old('Genero') != 'F') ? 'checked' : ''}}>Masculino
+              </label>
+            </div>
         </div>
     </div>
 
@@ -123,17 +129,21 @@ Formulario de Registro</div>
             @endif
         </div>
     </div>
-
-       <div class="form-check ">
-         <label class="form-check-label col-md-6 offset-md-4">
-         <input type="radio" class="form-check-input" name="RecibirNotificacion" value="1" {{(old('RecibirNotificacion') == '1') || (old('RecibirNotificacion') != '2') ? 'checked' : ''}}>Recibir Notificacion
-        </label>
+      <div class="form-group row">
+         <label for="Genero" class="col-md-4 col-form-label text-md-right">{{ __('Notificaciones') }}</label>
+        <div class="col-md-6">
+          <div class="form-check ">
+           <label class="form-check-label col-md-6">
+            <input type="radio" class="form-check-input" name="RecibirNotificacion" value="1" {{(old('RecibirNotificacion') == '1') || (old('RecibirNotificacion') != '2') ? 'checked' : ''}}>Si
+           </label>
+          </div>
+            <div class="form-check">
+             <label class="form-check-label col-md-6">
+             <input type="radio" class="form-check-input" name="RecibirNotificacion" value="2" {{(old('RecibirNotificacion') == '2') ? 'checked' : ''}}>No
+             </label>
+           </div>
+       </div>
       </div>
-      <div class="form-check mb-3">
-       <label class="form-check-label col-md-6 offset-md-4">
-       <input type="radio" class="form-check-input" name="RecibirNotificacion" value="2" {{(old('RecibirNotificacion') == '2') ? 'checked' : ''}}>No Recibir Notificacion
-       </label>
-     </div>
 
         <div class="form-group row">
             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Contraseña') }}</label>
@@ -162,6 +172,7 @@ Formulario de Registro</div>
           </div>
       <!-- /.col -->
         </div>
+        <center><a href="{{ route('login') }}" class="text-center"><strong>¡¡Ya tengo una cuenta de usuario!!</strong></a></center>
   </form>
 </div>
 
@@ -173,7 +184,7 @@ Formulario de Registro</div>
     Google+</a>
   </div> --}}
 
-  <a href="{{ route('login') }}" class="text-center"><strong>¡¡Ya tengo una cuenta de usuario!!</strong></a>
+  {{-- <a href="{{ route('login') }}" class="text-center"><strong>¡¡Ya tengo una cuenta de usuario!!</strong></a> --}}
     </div>
   </div>
   </div>

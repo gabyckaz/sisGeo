@@ -56,16 +56,17 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-secondary">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-secondary btn-block btn-flat">
                                     <strong>{{ __('Iniciar sesión') }}</strong>
                                 </button>
 
-                                <a style="text" class="btn btn-link" href="{{ route('password.request') }}">
-                                    <strong>{{ __('Olvide mi contraseña?') }}</strong>
-                                </a>
-                            </div>
+                                
+                            </div>                            
                         </div>
+                        <center><a style="text" class="btn btn-link" href="{{ route('password.request') }}">
+                                    <strong>{{ __('Olvide mi contraseña?') }}</strong>
+                                </a></center>
                     </form>
                 </div>
             </div>
