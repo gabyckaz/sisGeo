@@ -548,8 +548,8 @@ class userController extends Controller
             "PrimerNombrePersona" => $request->Nombre,
             "PrimerApellidoPersona" => $request->Apellido,
             "Genero" => $request->genero,
-            "AreaTelContacto"=>'503',
-            "TelefonoContacto" => '76788859',
+           // "AreaTelContacto"=>'503',
+          //  "TelefonoContacto" => '76788859',
 
          ]);
       $turista = Turista::create([
