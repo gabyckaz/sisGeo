@@ -122,7 +122,7 @@ h4 span {
       @if($imagen->id_paquete == $paquete->IdPaquete )
       @php  ++$key @endphp
         <a href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}">
-          <img src="{{Storage::url($imagen->Imagen3)}}" class="responsive figure"/>
+          <img src="{{Storage::url($imagen->Imagen1)}}" class="responsive figure"/>
         </a>
       @endif
       @if($key == 1)
