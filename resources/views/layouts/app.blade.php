@@ -37,7 +37,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-success navbar-laravel  ">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    SisGeo
+                    <strong>SisGeo</strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -54,10 +54,10 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar Sesión') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}"><strong>{{ __('Iniciar Sesión') }}</strong></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}"><strong>{{ __('Registrarse') }}<strong></a>
                             </li>
                         @else
                             <li class="nav-item dropdown">

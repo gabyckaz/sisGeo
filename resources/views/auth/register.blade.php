@@ -5,7 +5,7 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
   <div class="card">
-<div class="card-header bg-primary text-white" style="text-align: center; font-weight: bold;">
+<div class="card-header bg-dark text-white" style="text-align: center; font-weight: bold;">
 Formulario de Registro</div>
 <div class="card-body">
   <form action="{{ route('register') }}" method="POST">
@@ -83,8 +83,13 @@ Formulario de Registro</div>
                 <div class="col-md-6">
 
                  <select class="form-control" name="AreaTelContacto" id="AreaTelContacto" value="{{ old('AreaTelContacto') }}">
-                   <option value="503">503</option>
-                    <option value="502">502</option>
+                  <option value="503" >503 - El Salvador</option>
+                  <option value="501" >501 - Belize</option>
+                  <option value="502" >502 - Guatemala</option>
+                  <option value="504" >504 - Honduras</option>
+                  <option value="505" >505 - Nicaragua</option>
+                  <option value="506" >506 - Costa Rica</option>
+                  <option value="507" >507 - Panama</option>
                 </select>
           </div>
       </div>
@@ -94,7 +99,7 @@ Formulario de Registro</div>
 
           <div class="col-md-6">
 
-         <input id="TelefonoContacto" type="text" class="form-control" name="TelefonoContacto" value="{{ old('TelefonoContacto') }}" required autofocus >
+         <input id="TelefonoContacto" type="text" onkeypress="return filterInt(event,this);" class="form-control" name="TelefonoContacto" value="{{ old('TelefonoContacto') }}" required autofocus >
               @if ($errors->has('TelefonoContacto'))
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $errors->first('TelefonoContacto') }}</strong>
@@ -121,7 +126,7 @@ Formulario de Registro</div>
 
        <div class="form-check ">
          <label class="form-check-label col-md-6 offset-md-4">
-         <input type="radio" class="form-check-input" name="RecibirNotificacion" value="1" {{(old('RecibirNotificacion') == '1') ? 'checked' : ''}}>Recibir Notificacion
+         <input type="radio" class="form-check-input" name="RecibirNotificacion" value="1" {{(old('RecibirNotificacion') == '1') || (old('RecibirNotificacion') != '2') ? 'checked' : ''}}>Recibir Notificacion
         </label>
       </div>
       <div class="form-check mb-3">
@@ -153,7 +158,7 @@ Formulario de Registro</div>
         </div>
         <div class="row">
             <div class="col-md-12">
-            <button type="submit" class="btn btn-secondary btn-block btn-flat">Registrarme</button>
+            <button type="submit" class="btn btn-secondary btn-block btn-flat"><strong>Registrarme</strong></button>
           </div>
       <!-- /.col -->
         </div>
@@ -168,10 +173,57 @@ Formulario de Registro</div>
     Google+</a>
   </div> --}}
 
-  <a href="{{ route('login') }}" class="text-center">¡¡Ya tengo una cuenta de usuario!!</a>
+  <a href="{{ route('login') }}" class="text-center"><strong>¡¡Ya tengo una cuenta de usuario!!</strong></a>
     </div>
   </div>
   </div>
 </div>
 <!-- /.form-box -->
+<script type="text/javascript">
+  function filterInt(evt,input){
+    // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
+    var key = window.Event ? evt.which : evt.keyCode;    
+    var chark = String.fromCharCode(key);
+    var tempValue = input.value+chark;
+    if(key >= 48 && key <= 57){
+        if(filter(tempValue)=== false){
+            return false;
+        }else{       
+            return true;
+        }
+    }else{
+          if(key == 8 || key == 13 || key == 0) {     
+              return true;              
+          }else if(key == 46){
+                if(filterN(tempValue)=== false){
+                    return false;
+                }else{       
+                    return true;
+                }
+          }else{
+              return false;
+          }
+    }
+};
+function filterN(__val__){
+    var preg = /^[0-9]+$/;//[0-9]/;//^([0-9]/)$/;//patron =/[0-9]/;
+    if(preg.test(__val__) === true){
+        return true;
+    }else{
+       return false;
+    }
+    
+};
+function numeros(e){
+   var tecla = e.keyCode;
+
+    if (tecla==8 || tecla==9 || tecla==13){
+        return true;
+    }
+        
+    var patron =/[0-9]/;
+    var tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+</script>
 @endsection

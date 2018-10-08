@@ -191,36 +191,55 @@ class userController extends Controller
     {
         $documentos = "";
         $existeTurista ="";
+
         
         if( $request->input("dui") == null && $request->input("pasaporte") == null){
-            $hola1 = "Debes introducir por lo menos un documento";            
+            $hola1 = "Debes introducir por lo menos un documento"; 
+            $this->validate($request, [
+            "PrimerNombrePersona" => "required|alpha|min:2|max:25",
+            "PrimerApellidoPersona" => "required|alpha|min:2|max:25",
+            "TelefonoContacto" => "required",
+            "fechaNacimiento" => "required", 
+            "dui" => "required",
+            "pasaporte" => "required",
+            "direccion" => "required|min:10|max:100",           
+          ]);      
             return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
         }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
           $hola1 = "Ingresastes los dos documentos";            
              $this->validate($request, [
+             "PrimerNombrePersona" => "required|alpha|min:2|max:25",
+             "PrimerApellidoPersona" => "required|alpha|min:2|max:25",
+            "TelefonoContacto" => "required",
+            "fechaNacimiento" => "required", 
              "fechaVencimientoD" => "required",
              "fechaVencimientoP" => "required",
+             "direccion" => "required|min:10|max:100",
            ]);
         }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
            $hola1 = "Solo Ingresastes El dui";
            
            $this->validate($request, [
-             "fechaVencimientoD" => "required",
+              "PrimerNombrePersona" => "required|alpha|min:2|max:25",
+              "PrimerApellidoPersona" => "required|alpha|min:2|max:25",
+              "TelefonoContacto" => "required",
+              "fechaNacimiento" => "required", 
+              "fechaVencimientoD" => "required",
+              "direccion" => "required|min:10|max:100",
            ]);
            
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
            $hola1 = "Solo Ingresastes El pasaporte";            
             $this->validate($request, [
+             "PrimerNombrePersona" => "required|alpha|min:2|max:25",
+             "PrimerApellidoPersona" => "required|alpha|min:2|max:25",
+             "TelefonoContacto" => "required",
+             "fechaNacimiento" => "required", 
              "fechaVencimientoP" => "required",
+             "direccion" => "required|min:10|max:100",
            ]);
         }
          
-        $this->validate($request, [
-              "PrimerNombrePersona" => "required|alpha|min:2|max:25",
-              "PrimerApellidoPersona" => "required|alpha|min:2|max:25",
-              "TelefonoContacto" => "required",
-              "fechaNacimiento" => "required",
-        ]);
         
          $existeTurista ="";
          $turista = Turista::where('IdPersona',auth()->user()->IdPersona)->first();
@@ -348,7 +367,7 @@ class userController extends Controller
           $persona->save();
 
         //Actualizo al turista
-          $turista->IdNacionalidad = $request->nacionalidad;
+        //  $turista->IdNacionalidad = $request->nacionalidad;
           $turista->IdPersona = $persona->IdPersona;
         //$t->CategoriaTurista = $request->;
           $turista->FechaNacimiento = $request->fechaNacimiento;
@@ -480,39 +499,47 @@ class userController extends Controller
 
 
     public function guardarFamiliarAmigo(Request $request){
-       
-       $this->validate($request, [
-              "Nombre" => "required|alpha|min:3|max:25",
-              "Apellido" => "required|alpha|min:3|max:25",
-              "fechaNacimiento" => "required|date",
-              "Direccion" => "required|min:10|max:100",
-        ]);
          
       if( $request->input("dui") == null && $request->input("pasaporte") == null){
             $hola1 = "Debes introducir por lo menos un documento";
 
        $this->validate($request, [
-              "dui" => "required",
-              "pasaporte" => "required",
-
+          "Nombre" => "required|alpha|min:3|max:25",
+          "Apellido" => "required|alpha|min:3|max:25",
+          "fechaNacimiento" => "required|date",
+          "Direccion" => "required|min:10|max:100",
+          "dui" => "required",
+          "pasaporte" => "required",
         ]);
 
       //return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
         }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
           $hola1 = "Ingresastes los dos documentos";
              $this->validate($request, [
-             "fechaVencimentoD" => "required",
-             "fechaVencimentoP" => "required",
+            "Nombre" => "required|alpha|min:3|max:25",
+            "Apellido" => "required|alpha|min:3|max:25",
+            "fechaNacimiento" => "required|date",
+            "Direccion" => "required|min:10|max:100",
+            "fechaVencimentoD" => "required",
+            "fechaVencimentoP" => "required",
            ]);
         }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
            $hola1 = "Solo Ingresastes El dui";
            $this->validate($request, [
-             "fechaVencimentoD" => "required",
+              "Nombre" => "required|alpha|min:3|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
+              "fechaNacimiento" => "required|date",
+              "Direccion" => "required|min:10|max:100",
+              "fechaVencimentoD" => "required",
            ]);
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
            $hola1 = "Solo Ingresastes El pasaporte";
             $this->validate($request, [
-             "fechaVencimentoP" => "required",
+              "Nombre" => "required|alpha|min:3|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
+              "fechaNacimiento" => "required|date",
+              "Direccion" => "required|min:10|max:100",
+              "fechaVencimentoP" => "required",
            ]);
         }
 
@@ -521,8 +548,8 @@ class userController extends Controller
             "PrimerNombrePersona" => $request->Nombre,
             "PrimerApellidoPersona" => $request->Apellido,
             "Genero" => $request->genero,
-            "AreaTelContacto"=>'503',
-            "TelefonoContacto" => '76788859',
+           // "AreaTelContacto"=>'503',
+          //  "TelefonoContacto" => '76788859',
 
          ]);
       $turista = Turista::create([

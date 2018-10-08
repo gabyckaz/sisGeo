@@ -67,7 +67,12 @@ h4 span {
       <h3 style="text-align:center">Reservaciones</h3>
         @php $hoy= date("Y-m-d");  @endphp
       @foreach($reservaciones as $reservacion)
-       @if($reservacion->paquete->FechaSalida > $hoy)
+      {{-- La fecha de salida debe de ser mayor que la fecha de hoy para que se muestresn
+           para eso poner el 2
+           verificar que para que pueda editar sean dos dias antes es decir 48 horas
+           preguntar sobre eso
+       --}}
+       @if($reservacion->paquete->compara_fechas == 3 )
         <div class="col-sm-12 ">
           <!-- box info de cada paquete-->
           <div class="small-box  disabled color-palette" style="background-color:#dbdde0">

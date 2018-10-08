@@ -5,7 +5,7 @@
 
 @endsection
 @section('Title')
-Editar mi informacion de usuario
+<STRONG>Editar mi informacion de usuario</STRONG>
 @endsection
 @section('contenido')
 <!-- SELECT2 EXAMPLE -->
@@ -14,7 +14,7 @@ Editar mi informacion de usuario
         @if(session()->has('message'))
            <script type="text/javascript">
             console.log("Hola");
-              alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session()->get('message') }} ');
+              alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session()->get('message') }} ');
             </script>
          @endif
    <!-- -->
@@ -23,7 +23,7 @@ Editar mi informacion de usuario
         {!! csrf_field() !!}
         <div class="row">
             <div class="col-md-4">
-              <div class="form-group">
+              <div class="form-group has-feedback{{ $errors->has('avatar') ? ' has-error' : '' }}">
                 <label for="avatar" class="control-label">Imagen Para Perfil</label>
                     <input id='input1' type="file" name="avatar" style="width: 100%;">
                     @if ($errors->has('avatar'))
@@ -35,7 +35,7 @@ Editar mi informacion de usuario
 
         <div class="row">
           <div class="col-md-3">
-             <div class="form-group has-feedback{{ $errors->has('PrimerNombrePersona') ? ' has-error' : '' }}" >
+            <div class="form-group has-feedback{{ $errors->has('PrimerNombrePersona') ? ' has-error' : '' }}" >
                   <label for="input2" class="control-label">Primer Nombre*</label>
                    <div class="input-group">
                     <div class="input-group-addon">
@@ -43,10 +43,10 @@ Editar mi informacion de usuario
                     </div>
                     <input type="text" name="PrimerNombrePersona" class="form-control" id="input2" value="{{ $usuario->persona->PrimerNombrePersona }}" placeholder="Primer Nombre">
                    </div>
-                </div>
                 @if ($errors->has('PrimerNombrePersona'))
-                       <span class="help-block">{{ $errors->first('PrimerNombrePersona') }}</span>
-                     @endif
+                  <span class="help-block">{{ $errors->first('PrimerNombrePersona') }}</span>
+                @endif
+            </div>
           </div>
           <div class="col-md-3">
             <div class="form-group">
@@ -70,8 +70,8 @@ Editar mi informacion de usuario
                       </div>
                   </div>
                   @if ($errors->has('PrimerApellidoPersona'))
-                       <span class="help-block">{{ $errors->first('PrimerApellidoPersona') }}</span>
-                     @endif
+                    <span class="help-block">{{ $errors->first('PrimerApellidoPersona') }}</span>
+                  @endif
           </div>
           <div class="col-md-3">
             <div class="form-group">
@@ -103,7 +103,6 @@ Editar mi informacion de usuario
                         <div class="input-group-addon">
                            <i class="fa fa-calendar"></i>
                         </div>
-                      <!--input type="text" name="fechaNacimiento" class="form-control pull-right" id="datepicker" required -->
                       <input  id="fechaNacimiento" type="date" name="fechaNacimiento" value="{{ $turista->FechaNacimiento }}" class="form-control" readonly>
                       </div>
                     <!-- /.input group -->
@@ -111,18 +110,19 @@ Editar mi informacion de usuario
                  </div>
                  @else
                   <div class="col-md-3">
-                   <div class="form-group">
+                   <div class="form-group has-feedback{{ $errors->has('fechaNacimiento') ? ' has-error' : '' }}">
                     <label for="fechaNacimiento" class="control-label">Fecha de Nacimiento*</label>
                      <div class="input-group date ">
                         <div class="input-group-addon">
                            <i class="fa fa-calendar"></i>
                         </div>
-                      <!--input type="text" name="fechaNacimiento" class="form-control pull-right" id="datepicker" required -->
-                      <!--input  id="fechaNacimiento" type="text" name="fechaNacimiento" value="{old('fechaNacimiento')}}" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask required -->
                       <input  id="fechaNacimiento" type="date" name="fechaNacimiento" value="{{ old('fechaNacimiento')}}" class="form-control" >
                       </div>
-                    <!-- /.input group -->
+                      @if ($errors->has('fechaNacimiento'))
+                       <span class="help-block">{{ $errors->first('fechaNacimiento') }}</span>
+                      @endif
                   </div>
+
                  </div>
               @endif
 
@@ -149,7 +149,6 @@ Editar mi informacion de usuario
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
                     </div>
-                  <!--input type="text" name="fechaNacimiento" class="form-control pull-right" id="datepicker" required -->
                   @if($documentos == 'duiPasaporte' || $documentos == 'dui')
                        @foreach($turista->documentos as $documento)
                            @if($documento->TipoDocumento == "DUI")
@@ -169,9 +168,12 @@ Editar mi informacion de usuario
              </div>
              @else
               <div class="col-md-3">
-                 <div class="form-group ">
+                 <div class="form-group has-feedback{{ $errors->has('dui') ? ' has-error' : '' }}">
                    <label for="dui" class="control-label">DUI</label>
                     <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" id="dui">
+                     @if ($errors->has('dui'))
+                       <span class="help-block">Un documento es requerido</span>
+                     @endif
                  </div>
              </div>
              <div class="col-md-3">
@@ -180,8 +182,7 @@ Editar mi informacion de usuario
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
-                    </div>
-                  <!--input type="text" name="fechaNacimiento" class="form-control pull-right" id="datepicker" required -->
+                    </div>                  
                   <input  id="fechaVencimientoD" type="date" name="fechaVencimientoD" value="{{ old('fechaVencimientoD')}}" class="form-control" >
                   </div>
                   @if ($errors->has('fechaVencimientoD'))
@@ -199,7 +200,7 @@ Editar mi informacion de usuario
              <div class="col-md-3">
               <div class="form-group">
                 <label>Nacionalidad</label>
-                <select name="nacionalidad" class="form-control" style="width: 100%;">
+                <select name="nacionalidad" class="form-control" style="width: 100%;" disabled>
                     @foreach($nacionalidad as $origen)
                            <option value="{{ $origen->IdNacionalidad }}"
                             {{ $turista->IdNacionalidad == $origen->IdNacionalidad   ? 'selected' : '' }}> {{ $origen->Nacionalidad }} </option>
@@ -243,7 +244,7 @@ Editar mi informacion de usuario
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
                     </div>
-                  <!--input type="text" name="fechaNacimiento" class="form-control pull-right" id="datepicker" required -->
+                  
                   @if($documentos == 'duiPasaporte' || $documentos == 'Pasaporte')
                    @foreach($turista->documentos as $documento)
                     @if($documento->TipoDocumento == "Pasaporte")
@@ -263,9 +264,12 @@ Editar mi informacion de usuario
              </div>
               @else
                 <div class="col-md-3">
-                  <div class="form-group ">
+                  <div class="form-group has-feedback{{ $errors->has('pasaporte') ? ' has-error' : '' }}">
                       <label for="pasaporte" class="control-label">Pasaporte</label>
                         <input  type="text" name="pasaporte" value="{{ old('pasaporte')}}" class="form-control" id="pasaporte" placeholder="Pasaporte">
+                      @if ($errors->has('pasaporte'))
+                        <span class="help-block">Un documento es requerido</span>
+                      @endif
                   </div>
                 </div>
               <div class="col-md-3">
@@ -274,8 +278,7 @@ Editar mi informacion de usuario
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
-                    </div>
-                  <!--input type="text" name="fechaNacimiento" class="form-control pull-right" id="datepicker" required -->
+                    </div>                  
                   <input id="fechaVencimientoP" type="date" name="fechaVencimientoP" value="{{ old('fechaVencimientoP')}}" class="form-control" >
                   </div>
                    @if ($errors->has('fechaVencimientoP'))
@@ -327,26 +330,45 @@ Editar mi informacion de usuario
           <div class="col-md-6">
               <div class="form-group has-feedback{{ $errors->has('direccion') ? ' has-error' : '' }}">
                      <label for="direccion" class="control-label">Direccion*</label>
-                      <textarea   class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." required>{{ $turista->DomicilioTurista }}</textarea>
-                  </div>
-          </div>
-          <div class="col-md-6">
-              <div class="form-group ">
-                     <label for="psalud" class="control-label">Problemas de salud</label>
-                      <textarea   class="form-control" name="psalud" maxlength="256" placeholder="Problemas de salud..." >{{ $turista->Problemas_Salud }}</textarea>
-                  </div>
-          </div>
-          @else
-            <div class="col-md-6">
-              <div class="form-group ">
-                <label for="direccion" class="control-label">Direccion*</label>
-                <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." required>{{ old('direccion') }}</textarea>
+                     <div class="input-group">
+                       <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
+                       <textarea   class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >{{ old('direccion',$turista->DomicilioTurista) }}</textarea>
+                     </div>
+                @if ($errors->has('direccion'))
+                  <span class="help-block">{{ $errors->first('direccion') }}</span>
+                @endif
               </div>
           </div>
           <div class="col-md-6">
               <div class="form-group ">
                      <label for="psalud" class="control-label">Problemas de salud</label>
-                      <textarea   class="form-control" name="psalud" maxlength="256" placeholder="Problemas de salud..." >{{ old('psalud') }}</textarea>
+                     <div class="input-group">
+                      <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
+                        <textarea   class="form-control" name="psalud" maxlength="256" placeholder="Problemas de salud..." >{{ $turista->Problemas_Salud }}</textarea>
+                      </div>
+                  </div>
+          </div>
+          @else
+            <div class="col-md-6">
+              <div class="form-group has-feedback{{ $errors->has('direccion') ? ' has-error' : '' }}">
+                <label for="direccion" class="control-label">Direccion*</label>
+                <div class="input-group">
+                <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
+                <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >
+                </textarea>
+                {{ old('direccion') }}</textarea>
+                @if ($errors->has('direccion'))
+                  <span class="help-block">{{ $errors->first('direccion') }}</span>
+                @endif
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group ">
+                    <div class="input-group">
+                     <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
+                     <label for="psalud" class="control-label">Problemas de salud</label>
+                      <textarea   class="form-control" name="psalud" maxlength="256" placeholder="Problemas de salud..." >{{ old('psalud','Ninguno') }}</textarea>
+                     </div>
                   </div>
           </div>
           @endif
@@ -378,7 +400,7 @@ Editar mi informacion de usuario
 
          <div class="row">
             <div class="col-md-12">
-              <button type="submit" class="btn btn-info center-block">Actualizar</button>
+              <button type="submit" class="btn btn-info center-block"><STRONG>Actualizar</STRONG></button>
             </div>
             <!-- /.col -->
           </div>

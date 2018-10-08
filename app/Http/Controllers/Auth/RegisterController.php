@@ -55,9 +55,14 @@ class RegisterController extends Controller
         *
         */
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|min:2|max:25',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            "PrimerNombrePersona" => "required|alpha|min:2|max:25",
+            "PrimerApellidoPersona" => "required|alpha|min:2|max:25",
+            "TelefonoContacto" => "required|numeric|integer",
+            "RecibirNotificacion" => "required",
+            
             /*'segundoNombre' => 'string|max:255',
             'primerApellido' => 'required|string|max:255',
             'segundoApellido' => 'string|max:255',
@@ -74,7 +79,7 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {  
+    {          dd($data);
         /**
         *Extraemos el rol de usuario de la Bd para luego asignarselo al nuevo usuario de la *aplicacion.
         */

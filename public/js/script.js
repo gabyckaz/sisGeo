@@ -1,5 +1,25 @@
 $(document).ready(function(){
-        var mytable = $("#mytable").DataTable({
+        $('#tablaAdminUser').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": false,
+            "bInfo": false,
+            "autoWidth": true,
+        });
+        $('#tblAgregarFamiliarAmigo').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": false,
+            "bInfo": false,
+            "autoWidth": true,
+        });
+
+        if($('#usuario').is(':checked') ){
+             $('#total').val(1); 
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);         
+             }
+        var mytable = $("#tablaAmigos").DataTable({
             //ajax: 'https://api.myjson.com/bins/1us28',
             "searching": true,
             "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
@@ -15,8 +35,8 @@ $(document).ready(function(){
                 style: 'multi'
             },
             order: [[1, 'asc']]
-        })
-        $("#myform").on('submit', function(e){
+        });
+        $("#formularioAmigos").on('submit', function(e){
             var form = this
             var rowsel = mytable.column(0).checkboxes.selected();
             $.each(rowsel, function(index, rowId){
@@ -24,17 +44,68 @@ $(document).ready(function(){
                     $('<input>').attr('type','hidden').attr('name','id[]').val(rowId)
                 )
             })
-            $("#view-rows").text(rowsel.join(","))
-            console.log(rowsel.join(","));
-            $('#XXX').val(rowsel.join(","));
+            $("#view-rows").text(rowsel.join(","));            
+            var varStrAmigos = rowsel.join(",");
+            var varStrFamilia = $('#strFamilia').val();
+            console.log('*****************');
+            if(varStrFamilia.length == 0 && varStrAmigos.length == 0){
+             if( $('#usuario').is(':checked') ) {
+               $('#total').val(1);
+               $('#ctotal').val($('#total').val()*$('#cpersona').val());
+               $('#minimoPago').val($('#ctotal').val() * 0.3);
+             }else{
+             $('#total').val(0);
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);
+             }
+            }
+            else if(varStrFamilia.length > 0 && varStrAmigos.length > 0){
+            var arrayFamilia = varStrFamilia.split(",");
+            console.log('Longitud Familia: '+arrayFamilia.length);
+            var arrayAmigos = varStrAmigos.split(",");
+            console.log('Longitud Amigos: '+arrayAmigos.length);
+            if( $('#usuario').is(':checked') ) {
+            $('#total').val(arrayFamilia.length+arrayAmigos.length+1);
+            $('#ctotal').val($('#total').val()*$('#cpersona').val());
+            $('#minimoPago').val($('#ctotal').val() * 0.3);
+            }else{
+              $('#total').val(arrayFamilia.length+arrayAmigos.length);
+              $('#ctotal').val($('#total').val()*$('#cpersona').val());
+              $('#minimoPago').val($('#ctotal').val() * 0.3);
+            }
+            }else if(varStrFamilia.length == 0 && varStrAmigos.length > 0){
+            var arrayAmigos = varStrAmigos.split(",");
+            console.log('Longitud Amigos: '+arrayAmigos.length);
+            if($('#usuario').is(':checked') ){
+            $('#total').val(arrayAmigos.length +1);
+            $('#ctotal').val($('#total').val()*$('#cpersona').val());
+            $('#minimoPago').val($('#ctotal').val() * 0.3);
+            }else{
+             $('#total').val(arrayAmigos.length);
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);
+            }
+            }else if(varStrFamilia.length > 0 && varStrAmigos.length == 0){
+             var arrayFamilia = varStrFamilia.split(",");
+             console.log('Longitud Familia: '+arrayFamilia.length);
+             if($('#usuario').is(':checked') ){
+             $('#total').val(arrayFamilia.length+1);
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);
+             }else{
+                $('#total').val(arrayFamilia.length);
+                $('#ctotal').val($('#total').val()*$('#cpersona').val());
+                $('#minimoPago').val($('#ctotal').val() * 0.3);
+             }
+            }
+            $('#strAmigos').val(rowsel.join(","));
             $("#view-form").text($(form).serialize())
             $('input[name="id\[\]"]', form).remove()
             e.preventDefault()
-        })
-    });
+        });
     
-           $(document).ready(function(){
-        var mytable2 = $("#mytable2").DataTable({
+
+        var mytable2 = $("#tablaFamilia").DataTable({
             //ajax: 'https://api.myjson.com/bins/1us28',
             "searching": true,
             "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
@@ -50,8 +121,8 @@ $(document).ready(function(){
                 style: 'multi'
             },
             order: [[1, 'asc']]
-        })
-        $("#myform2").on('submit', function(e){
+        });
+        $("#formularioFamilia").on('submit', function(e){
             var form = this
             var rowsel = mytable2.column(0).checkboxes.selected();
             $.each(rowsel, function(index, rowId){
@@ -59,14 +130,80 @@ $(document).ready(function(){
                     $('<input>').attr('type','hidden').attr('name','id[]').val(rowId)
                 )
             })
-            $("#view-rows2").text(rowsel.join(","))
-            console.log(rowsel.join(","));
-            $('#XXX2').val(rowsel.join(","));
+            $("#view-rows2").text(rowsel.join(","));
+            var varStrFamilia = rowsel.join(",");
+            var varStrAmigos = $('#strAmigos').val();
+            console.log('*****************');
+            if(varStrFamilia.length == 0 && varStrAmigos.length == 0){
+             if( $('#usuario').is(':checked') ) {
+               $('#total').val(1);
+               $('#ctotal').val($('#total').val()*$('#cpersona').val());
+               $('#minimoPago').val($('#ctotal').val() * 0.3);
+             }else{              
+             $('#total').val(0);
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);
+             }
+            }
+            else if(varStrFamilia.length > 0 && varStrAmigos.length > 0){
+            var arrayFamilia = varStrFamilia.split(",");
+            console.log('Longitud Familia: '+arrayFamilia.length);
+            var arrayAmigos = varStrAmigos.split(",");
+            console.log('Longitud Amigos: '+arrayAmigos.length);
+            if( $('#usuario').is(':checked') ) {
+            $('#total').val(arrayFamilia.length+arrayAmigos.length+1);
+            $('#ctotal').val($('#total').val()*$('#cpersona').val());
+            $('#minimoPago').val($('#ctotal').val() * 0.3);
+            }else{
+              $('#total').val(arrayFamilia.length+arrayAmigos.length);
+              $('#ctotal').val($('#total').val()*$('#cpersona').val());
+              $('#minimoPago').val($('#ctotal').val() * 0.3);  
+            }
+            }else if(varStrFamilia.length == 0 && varStrAmigos.length > 0){
+            var arrayAmigos = varStrAmigos.split(",");
+            console.log('Longitud Amigos: '+arrayAmigos.length);
+            if($('#usuario').is(':checked') ){
+            $('#total').val(arrayAmigos.length +1);
+            $('#ctotal').val($('#total').val()*$('#cpersona').val());
+            $('#minimoPago').val($('#ctotal').val() * 0.3);
+            }else{
+             $('#total').val(arrayAmigos.length);
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);
+            }
+            }else if(varStrFamilia.length > 0 && varStrAmigos.length == 0){
+             var arrayFamilia = varStrFamilia.split(",");
+             console.log('Longitud Familia: '+arrayFamilia.length);
+             if($('#usuario').is(':checked') ){
+             $('#total').val(arrayFamilia.length+1);
+             $('#ctotal').val($('#total').val()*$('#cpersona').val());
+             $('#minimoPago').val($('#ctotal').val() * 0.3);
+             }else{
+                $('#total').val(arrayFamilia.length);
+                $('#ctotal').val($('#total').val()*$('#cpersona').val());
+                $('#minimoPago').val($('#ctotal').val() * 0.3);
+             }
+            }
+            $('#strFamilia').val(rowsel.join(","));
             $("#view-form2").text($(form).serialize())
             $('input[name="id\[\]"]', form).remove()
             e.preventDefault()
-        })
-    });    
+        });
+    });
+
+    $('#usuario').on('change', function(e){
+    if (this.checked) {
+        console.log('Checkbox  checked');
+        $('#total').val(parseInt($('#total').val())+1);
+        $('#ctotal').val($('#total').val()*$('#cpersona').val());
+        $('#minimoPago').val($('#ctotal').val() * 0.3);
+    } else {
+        console.log('Checkbox  unchecked');
+        $('#total').val($('#total').val()-1);
+        $('#ctotal').val($('#total').val()*$('#cpersona').val());
+        $('#minimoPago').val($('#ctotal').val() * 0.3);
+    }
+   });    
 
        $(function () {
         /* var div = document.getElementById("documentos");
@@ -86,3 +223,38 @@ $(document).ready(function(){
         $(document).ready(function() {
             $("#lightgallery").lightGallery();
         });
+
+function filterFloat(evt,input){
+    // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
+    var key = window.Event ? evt.which : evt.keyCode;    
+    var chark = String.fromCharCode(key);
+    var tempValue = input.value+chark;
+    if(key >= 48 && key <= 57){
+        if(filter(tempValue)=== false){
+            return false;
+        }else{       
+            return true;
+        }
+    }else{
+          if(key == 8 || key == 13 || key == 0) {     
+              return true;              
+          }else if(key == 46){
+                if(filter(tempValue)=== false){
+                    return false;
+                }else{       
+                    return true;
+                }
+          }else{
+              return false;
+          }
+    }
+};
+function filter(__val__){
+    var preg = /^([0-9]+\.?[0-9]{0,2})$/; 
+    if(preg.test(__val__) === true){
+        return true;
+    }else{
+       return false;
+    }
+    
+};
