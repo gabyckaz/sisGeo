@@ -499,10 +499,11 @@ class userController extends Controller
 
 
     public function guardarFamiliarAmigo(Request $request){
-         
+     //  $date = Carbon::createFromDate(1989, 8, 15)->age;
+       $edad = Carbon::parse($request->fechaNacimiento)->age;
       if( $request->input("dui") == null && $request->input("pasaporte") == null){
             $hola1 = "Debes introducir por lo menos un documento";
-
+       if($edad >= 18 ){
        $this->validate($request, [
           "Nombre" => "required|alpha|min:3|max:25",
           "Apellido" => "required|alpha|min:3|max:25",
@@ -511,10 +512,19 @@ class userController extends Controller
           "dui" => "required",
           "pasaporte" => "required",
         ]);
+     }else{
+      $this->validate($request, [
+          "Nombre" => "required|alpha|min:3|max:25",
+          "Apellido" => "required|alpha|min:3|max:25",
+          "fechaNacimiento" => "required|date",
+          "Direccion" => "required|min:10|max:100",
+        ]);
+     }
 
       //return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
         }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
           $hola1 = "Ingresastes los dos documentos";
+          if($edad >= 18 ){
              $this->validate($request, [
             "Nombre" => "required|alpha|min:3|max:25",
             "Apellido" => "required|alpha|min:3|max:25",
@@ -523,8 +533,17 @@ class userController extends Controller
             "fechaVencimentoD" => "required",
             "fechaVencimentoP" => "required",
            ]);
+           }else{
+             $this->validate($request, [
+            "Nombre" => "required|alpha|min:3|max:25",
+            "Apellido" => "required|alpha|min:3|max:25",
+            "fechaNacimiento" => "required|date",
+            "Direccion" => "required|min:10|max:100",
+           ]);
+           }
         }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
            $hola1 = "Solo Ingresastes El dui";
+           if($edad >= 18 ){
            $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
               "Apellido" => "required|alpha|min:3|max:25",
@@ -532,8 +551,17 @@ class userController extends Controller
               "Direccion" => "required|min:10|max:100",
               "fechaVencimentoD" => "required",
            ]);
+         }else{
+          $this->validate($request, [
+              "Nombre" => "required|alpha|min:3|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
+              "fechaNacimiento" => "required|date",
+              "Direccion" => "required|min:10|max:100",
+           ]);
+         }
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
            $hola1 = "Solo Ingresastes El pasaporte";
+           if($edad >= 18 ){
             $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
               "Apellido" => "required|alpha|min:3|max:25",
@@ -541,8 +569,16 @@ class userController extends Controller
               "Direccion" => "required|min:10|max:100",
               "fechaVencimentoP" => "required",
            ]);
-        }
+          }else{
+            $this->validate($request, [
+              "Nombre" => "required|alpha|min:3|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
+              "fechaNacimiento" => "required|date",
+              "Direccion" => "required|min:10|max:100",
+           ]);
+          }
 
+        }
       
       $persona = Persona::create([
             "PrimerNombrePersona" => $request->Nombre,
@@ -561,7 +597,7 @@ class userController extends Controller
               "Problemas_Salud" => $request->psalud,
         ]);
 
-
+       if($edad >= 18 ){
         if($request->input("dui") != null && $request->input("pasaporte") != null){
           $hola1 = "Ingresastes los dos documentos";
             $documentoDui = TipoDocumento::create([
@@ -594,6 +630,7 @@ class userController extends Controller
             "FechaVenceDocumento" => $request->fechaVencimentoP,
          ]);
         }
+      }
 
          $familiarAmigo = Acompanante::create([
           'IdTurista' => $turista->IdTurista,
