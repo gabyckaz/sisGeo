@@ -38,7 +38,7 @@
                   {{ csrf_field() }}
                   <div class="row">
                   <div class="form-group col-md-6 has-feedback{{ $errors->has('nombreempresa') ? ' has-error' : '' }}">
-                    <label for="nombreempresa">Nombre de la empresa *</label>
+                    <label for="nombreempresa">Nombre de la empresa</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-road"></span></span>
                      <input id="nombreempresa" type="text" class="form-control" name="nombreempresa" value="{{ old('nombreempresa') }}" placeholder="" required autofocus>
@@ -48,7 +48,7 @@
                     @endif
                   </div>
                   <div class="form-group col-sm-6 has-feedback{{ $errors->has('nombrecontacto') ? ' has-error' : '' }}">
-                    <label for="nombrecontacto">Nombre del contacto *</label>
+                    <label for="nombrecontacto">Nombre del contacto</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-user-circle"></span></span>
                     <input id="nombrecontacto" type="nombrecontacto" class="form-control" name="nombrecontacto"  value="{{ old('nombrecontacto') }}" required placeholder="">
@@ -58,7 +58,7 @@
                     @endif
                   </div>
                   <div class="form-group col-sm-6 has-feedback{{ $errors->has('numeroTelefono') ? ' has-error' : '' }}">
-                    <label for="numeroTelefono">Teléfono de contacto *</label>
+                    <label for="numeroTelefono">Teléfono de contacto</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-phone"></span></span>
                     <input id="numeroTelefono" type="number" min="00000000" max="99999999" class="form-control" name="numeroTelefono" value="{{ old('numeroTelefono') }}" placeholder="(Sin guiones. Ej: 22324560) " required>
@@ -69,7 +69,7 @@
                   </div>
 
                   <div class="form-group col-sm-6 has-feedback{{ $errors->has('emailempresa') ? ' has-error' : '' }}">
-                    <label for="emailempresa">Correo electrónico *</label>
+                    <label for="emailempresa">Correo electrónico</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-envelope"></span></span>
                     <input id="emailempresa" type="email" class="form-control" name="emailempresa" value="{{ old('emailempresa') }}" placeholder="" required>
@@ -79,7 +79,7 @@
                     @endif
                   </div>
                   <div class="form-group col-sm-12 has-feedback{{ $errors->has('observacionesempresa') ? ' has-error' : '' }}">
-                    <label for="observacionesempresa">Observaciones</label>
+                    <label for="observacionesempresa">Observaciones - <span style="color:gray"><i>Opcional</i></span></label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                     <textarea id="observacionesempresa" type="observacionesempresa" class="form-control" name="observacionesempresa" value="{{ old('observacionesempresa') }}" placeholder="Observaciones" >{{ old('observacionesempresa') }}</textarea>
@@ -101,9 +101,6 @@
 
 
 
-      </div>
-      <div class="box-footer">
-      * Estos campos son obligatorios
       </div>
     </div>
   </div>

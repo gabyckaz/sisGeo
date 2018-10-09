@@ -72,7 +72,10 @@
                       class="btn btn-info"> <font color="black" size="2"> <b> Asignaciones</b>
                       </font>
                       </a>
-
+                      <a href="{{route('adminPaquete.createcopia', $paquete['IdPaquete'])}}"
+                      class="btn btn-info"> <font color="black" size="2"> <b>Nuevo</b>
+                      </font>
+                      </a>
 					 				    </td>
 					 				 </tr>
 

@@ -705,5 +705,141 @@ public fuction postNewImage(Request $request){
 
     }
 
+    /**
+     * Creacion de un paquete desde otro paquete
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function createcopia($id, Request $requestt)
+    {
+      $paquete=Paquete::findOrFail($id);
+      $ruta =RutaTuristica::all();
+      $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->first();
+      $incluye=Incluye::all();
+      $recomendaciones=Recomendaciones::all();
+      $condiciones=Condiciones::all();
+      $itinerario=Itinerario::all();
+      $gastosextras=GastosExtras::all();
+
+      $sql = 'SELECT "IdRecomendacionesPaquete", recomendaciones_id , paquete_id
+              FROM "Recomendaciones_Paquete"
+              WHERE "paquete_id" = '.$id.' ;';
+      $recomendacionespaquete= DB::select($sql);
+
+      $sql = 'SELECT "IdIncluyePaquete", incluye_id , paquete_id
+              FROM "Incluye_Paquete"
+             WHERE "paquete_id" = '.$id.' ;';
+      $incluyepaquete= DB::select($sql);
+
+      $sql = 'SELECT "IdCondicionesPaquete", condiciones_id , paquete_id
+              FROM "Condiciones_Paquete"
+              WHERE "paquete_id" = '.$id.' ;';
+      $condicionespaquete= DB::select($sql);
+
+      $sql = 'SELECT "IdItinerarioPaquete", itinerario_id , paquete_id
+              FROM "Itinerario_Paquete"
+              WHERE "paquete_id" = '.$id.' ;';
+      $itinerariopaquete= DB::select($sql);
+
+      $sql = 'SELECT "IdGastosExtraPaquete", gastosextras_id , paquete_id
+              FROM "GastosExtras_Paquete"
+              WHERE "paquete_id" = '.$id.' ;';
+      $gastosextraspaquete= DB::select($sql);
+
+
+      return view('adminPaquete.createcopia')
+            ->with('paquete',$paquete)
+            ->with('ruta',$ruta)
+            ->with('imagen',$imagenes)->with('recomendaciones', $recomendaciones)->with('recomendacionespaquete',$recomendacionespaquete)->with('incluye',$incluye)->with('incluyepaquete',$incluyepaquete)
+            ->with('condiciones', $condiciones)->with('condicionespaquete',$condicionespaquete)
+            ->with('itinerario', $itinerario)->with('itinerariopaquete',$itinerariopaquete)
+            ->with('gastosextras',$gastosextras)->with('gastosextraspaquete',$gastosextraspaquete);
+
+    }
+
+    public function storecopia(Request $request)
+    {
+        $c= DB::table('Paquetes')->select('IdPaquete')->orderBy('IdPaquete', 'desc')->first();
+        $c=$c->IdPaquete;
+        $c=$c+1;
+
+        $paquete=new Paquete();
+        $paquete->IdPaquete=$c;
+        $paquete->IdTuristica=$request->idrutaturistica;
+        $paquete->NombrePaquete=$request->nombrepaquete;
+        $paquete->FechaSalida=$request->fechasalida;
+        $paquete->HoraSalida=$request->hora;
+        $paquete->FechaRegreso=$request->fecharegreso;
+        $paquete->LugarRegreso=$request->lugarsalida;
+        $paquete->Precio=$request->precio;
+        $paquete->TipoPaquete=$request->tipopaquete;
+        $paquete->Cupos=$request->cupos;
+        $paquete->Dificultad=$request->dificultad;
+        $paquete->AprobacionPaquete=0;
+        $paquete->DisponibilidadPaquete=0;
+        $paquete->save();
+
+
+          $archivo1=$request->file('imagen1');
+          $archivo1->storeAs('public/'.$paquete->NombrePaquete.$paquete->IdPaquete, $archivo1->getClientOriginalName());
+          $imagen=new ImagenPaqueteTuristico();
+          $imagen->Imagen1=$paquete->NombrePaquete.$paquete->IdPaquete.'/'.$archivo1->getClientOriginalName();
+
+          $archivo2=$request->file('imagen2');
+          $archivo2->storeAs('public/'.$paquete->NombrePaquete.$paquete->IdPaquete, $archivo2->getClientOriginalName());
+          $imagen->Imagen2=$paquete->NombrePaquete.$paquete->IdPaquete.'/'.$archivo2->getClientOriginalName();
+
+          $archivo3=$request->file('imagen3');
+          $archivo3->storeAs('public/'.$paquete->NombrePaquete.$paquete->IdPaquete, $archivo3->getClientOriginalName());
+          $imagen->Imagen3=$paquete->NombrePaquete.$paquete->IdPaquete.'/'.$archivo3->getClientOriginalName();
+          $imagen->id_paquete=$paquete->IdPaquete;
+
+          $archivo4=$request->file('imagen4');
+          $archivo4->storeAs('public/'.$paquete->NombrePaquete.$paquete->IdPaquete, $archivo4->getClientOriginalName());
+          $imagen->Imagen4=$paquete->NombrePaquete.'/'.$archivo4->getClientOriginalName();
+
+          $imagen->save();
+
+        for ($i=0; $i<count($request->gastosextras);$i++){
+          $gastospaquete = new GastosExtrasPaquete();
+          $gastospaquete->paquete_id = $paquete->IdPaquete;
+          $gastospaquete->gastosextras_id = $request->gastosextras[$i];
+          $gastospaquete->save();
+        }
+
+        for ($i=0; $i<count($request->itinerario);$i++){
+          $itinerariopaquete = new ItinerarioPaquete();
+          $itinerariopaquete->paquete_id = $paquete->IdPaquete;
+          $itinerariopaquete->itinerario_id = $request->itinerario[$i];
+          $itinerariopaquete->save();
+        }
+
+        for ($i=0; $i<count($request->condiciones);$i++){
+          $condicionespaquete = new CondicionesPaquete();
+          $condicionespaquete->paquete_id = $paquete->IdPaquete;
+          $condicionespaquete->condiciones_id = $request->condiciones[$i];
+          $condicionespaquete->save();
+        }
+
+        for ($i=0; $i<count($request->recomendaciones);$i++){
+          $recomendacionespaquete = new RecomendacionesPaquete();
+          $recomendacionespaquete->paquete_id =$paquete->IdPaquete;
+          $recomendacionespaquete->recomendaciones_id = $request->recomendaciones[$i];
+          $recomendacionespaquete->save();
+        }
+        for ($i=0; $i<count($request->incluye);$i++){
+          $incluyepaquete = new IncluyePaquete();
+          $incluyepaquete->paquete_id = $paquete->IdPaquete;
+          $incluyepaquete->incluye_id = $request->incluye[$i];
+          $incluyepaquete->save();
+        }
+
+
+       $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(5);
+
+        return view('adminPaquete.index',compact('paquetes'));
+
+    }
 
 }
