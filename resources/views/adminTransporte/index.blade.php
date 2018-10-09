@@ -38,7 +38,7 @@
                 <div class="row">
                   <div class="col-md-6">
                   <div class="form-group">
-                    <label for="empresalquiler">Empresa *</label>
+                    <label for="empresalquiler">Empresa</label>
                       <select class="form-control" name="empresalquiler">
                         @foreach($empresalquiler as $empresa)
                           <option value="{{ $empresa->IdEmpresaTransporte }}" {{ old('empresalquiler') == $empresa->IdEmpresaTransporte ? 'selected' : '' }}>{{ $empresa->NombreEmpresaTransporte }}</option>
@@ -49,7 +49,7 @@
 
                  <div class="col-md-6">
                   <div class="form-group">
-                    <label for="tipotransporte">Tipo de transporte *</label>
+                    <label for="tipotransporte">Tipo de transporte</label>
                       <select class="form-control" name="tipotransporte">
                         @foreach($tipotransportes as $tipotransporte)
                           <option value="{{ $tipotransporte->IdTipoTransporte }}" {{ old('tipotransporte') == $tipotransporte->IdTipoTransporte ? 'selected' : '' }} >{{ $tipotransporte->NombreTipoTransporte }}</option>
@@ -62,7 +62,7 @@
                  <div class="row">
                  <div class="col-md-6">
                  <div class="form-group">
-                  <label for="marca">Marca *</label>
+                  <label for="marca">Marca</label>
                   <select  class="form-control" name="marca">
                     <option value="Toyota" {{ old('marca') == 'Toyota' ? 'selected' : '' }}>Toyota</option>
                     <option value="Blue Bird" {{ old('marca') == 'Blue Bird' ? 'selected' : '' }} >Blue Bird</option>
@@ -74,7 +74,7 @@
 
                  <div class="col-md-6">
                  <div class="form-group">
-                  <label for="modelo">Modelo *</label>
+                  <label for="modelo">Modelo</label>
                   <select  class="form-control" name="modelo">
                     <option value="Coaster" {{ old('modelo') == 'Coaster' ? 'selected' : '' }}>Coaster</option>
                     <option value="Hiace" {{ old('modelo') == 'Hiace' ? 'selected' : '' }} >Hiace</option>
@@ -88,7 +88,7 @@
                  <div class="row">
                  <div class="col-md-4">
                    <div class="form-group">
-                    <label for="color">Color *</label>
+                    <label for="color">Color</label>
                     <select  class="form-control" name="color">
                       <option value="Negro"  {{ old('color') == 'Negro' ? 'selected' : '' }} style="background-color: Black;color: #FFFFFF;">Negro</option>
                       <option value="Gris"  {{ old('color') == 'Gris' ? 'selected' : '' }} style="background-color: Gray;">Gris</option>
@@ -101,7 +101,7 @@
                    </div>
 
                   <div class="col-md-4 has-feedback{{ $errors->has('placa') ? ' has-error' : '' }}">
-                    <label for="placa">Placa *</label>
+                    <label for="placa">Placa</label>
                     <div class="input-group">
                     <span class="input-group-addon">#</span></span>
                     <input id="placa" type="text" class="form-control" name="placa" placeholder="Ej: B776123" size="7" required>
@@ -112,7 +112,7 @@
                   </div>
 
                   <div class="form-group col-md-4 has-feedback{{ $errors->has('numeroasientos') ? ' has-error' : '' }}">
-                    <label for="numeroasientos">No. Asientos *</label>
+                    <label for="numeroasientos">No. Asientos</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-bus"></span></span>
                     <input id="numeroasientos" type="number" min="10" class="form-control" name="numeroasientos" value="{{ old('numeroasientos') }}" placeholder="No. de asientos" required>
@@ -147,7 +147,7 @@
 
                   <div class="row">
                   <div class="form-group col-md-12 has-feedback{{ $errors->has('observacionestransporte') ? ' has-error' : '' }}">
-                    <label for="observacionestransporte">Observaciones</label>
+                    <label for="observacionestransporte">Observaciones - <span style="color:gray"><i>Opcional</i></span></label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                       <textarea id="observacionestransporte" type="text" class="form-control" name="observacionestransporte" placeholder="Observaciones">{{ old('observacionestransporte') }}</textarea>
@@ -169,9 +169,6 @@
                 </form>
 
 
-              </div>
-              <div class="box-footer">
-              * Estos campos son obligatorios
               </div>
       </div>
       </div>
