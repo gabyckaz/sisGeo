@@ -7,6 +7,7 @@ use App\Paquete;
 use App\Reservacion;
 use App\Turista;
 use App\User;
+use App\Persona;
 use DB;
 use App\ImagenPaqueteTuristico;
 
@@ -32,18 +33,8 @@ class HomeController extends Controller
       try{
         $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
         $imagenes = ImagenPaqueteTuristico::all();
-
-        $usuarioreservando= User::where('IdPersona','=',auth()->user()->id)->first();
-        $turistas =Turista::all();
-        foreach ($turistas as $key => $turista) {
-          if ($turista->IdPersona == $usuarioreservando->IdPersona) {
-          $usuarioreservando=$turista->IdTurista;
-            break;
-          }
-        }
-        //Para que solo muestre las reservas del usuario actual por orden de fecha
-        $reservaciones = Reservacion::where('IdTurista', $usuarioreservando)->orderBy('FechaReservacion','desc')->get();
-
+        $usuarioreservando = Turista::where('IdPersona',auth()->user()->IdPersona)->first();     
+        $reservaciones = Reservacion::where('IdTurista', $usuarioreservando->IdTurista)->orderBy('FechaReservacion','desc')->get();
         return view('home')
         ->with('imagenes',$imagenes)
         ->with('reservaciones',$reservaciones)

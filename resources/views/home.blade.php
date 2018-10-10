@@ -76,9 +76,8 @@ h4 span {
       <p>No hay Reservas registradas<p>
     @elseif (count($reservaciones) >= 1)
       <h3 style="text-align:center">Reservaciones</h3>
-        @php $hoy= date("Y-m-d");  @endphp
       @foreach($reservaciones as $reservacion)
-       @if($reservacion->paquete->FechaSalida > $hoy)
+       @if($reservacion->paquete->compara_fechas == 2)
         <div class="col-sm-12 ">
           <!-- box info de cada paquete-->
           <div class="small-box  disabled color-palette" style="background-color:#dbdde0">
@@ -113,7 +112,7 @@ h4 span {
 <div class="row">
 
   @foreach($paquetes as $paquete)
-
+  @if($paquete->compara_fechas == 2 && $paquete->AprobacionPaquete == 1 && $paquete->DisponibilidadPaquete == 1)
   <div class="col-sm-4 ">
    <div class="fadein figure">
     <!-- muestra 1 imagen de cada paquete-->
@@ -146,7 +145,7 @@ h4 span {
       </a>
     </div> <!--/ box info de cada paquete-->
   </div><!-- /. colm-d-->
-
+  @endif
   @endforeach
 
 </div><!-- /.row -->

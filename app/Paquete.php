@@ -60,7 +60,7 @@ class Paquete extends Model
      
       if($hoyObj > $fechaIngresadaObj){
         return 1;
-      }elseif($hoyObj < $fechaIngresadaObj){
+      }elseif($hoyObj <= $fechaIngresadaObj){
         return 2;
       }elseif($hoyObj == $fechaIngresadaObj){
         return 3;

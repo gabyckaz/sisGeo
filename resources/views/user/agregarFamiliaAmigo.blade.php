@@ -10,16 +10,11 @@
 @section('contenido')
   @if($idTuristaUsuario == 'si')
           @if(session()->has('message'))
-            <!--div class="alert alert-success">
-              { session()->get('message') }}
-            </div -->
            <script type="text/javascript">
             console.log("Hola");
              alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4>{{ session()->get('message') }} ');
-           // alertify.set('notifier','position', 'top-center');
-           // alertify.success('Current position : ' + alertify.get('notifier','position'));
             </script>
-         @endif
+      @endif
    <div class="col-md-8 col-md-offset-2">
      @if($errors->first('Nombre') ||
          $errors->first('Apellido') ||
@@ -28,7 +23,8 @@
          $errors->has('dui') ||
          $errors->has('fechaVencimentoD') ||
          $errors->first('fechaVencimentoP') ||
-         $errors->first('Direccion')
+         $errors->first('Direccion') ||
+         session()->has('ErrorFechaNac')
 
       )
       <div class="box box-solid">
@@ -114,7 +110,7 @@
           </div>
         </div>
         <div class="col-md-3">
-          <div class="form-group has-feedback{{ $errors->has('fechaNacimiento') ? ' has-error' : '' }}">
+          <div class="form-group has-feedback{{ ($errors->has('fechaNacimiento') || session()->has('ErrorFechaNac') ) ? ' has-error' : '' }}">
             <label for="fechaNacimiento" class="control-label">Fecha de Nacimiento*</label>
                <div class="">
                  <div class="input-group date ">
@@ -125,6 +121,9 @@
                   </div>
                   @if ($errors->has('fechaNacimiento'))
                        <span class="help-block">{{ $errors->first('fechaNacimiento') }}</span>
+                  @endif
+                  @if (session()->has('ErrorFechaNac'))
+                      <span class="help-block">{{ session()->get('ErrorFechaNac') }}</span>
                   @endif
                 </div>
           </div>
