@@ -10,6 +10,18 @@
     <div class="container spark-screen" CONTENT="no-cache">
         <div class="row">
             <div class="col-md-8 col-md-offset-1">
+              @if(session('status'))
+                <br>
+                 <script type="text/javascript">
+                alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
+                </script>
+              @endif
+              @if(session('fallo'))
+                <br>
+                <script type="text/javascript">
+               alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
+               </script>
+              @endif
                 <div class="panel panel-warning">
                     <div class="panel-heading">Paquetes Turisticos</div>
 
@@ -27,10 +39,10 @@
                         <div class="box-body">
 
                         <div class="form-group">
-                            <label for="nombrepaquete" class="control-label">Nombre de Paquete Turístico</label>
+                            <label for="nombrepaquete"  class="control-label">Nombre de Paquete Turístico</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-automobile"></i></span>
-                              <input type="text" name="nombrepaquete" class="form-control" id="nombrepaquete" placeholder="Nombre paquete" >
+                              <input type="text" name="nombrepaquete" class="form-control" id="nombrepaquete" placeholder="Nombre paquete" pattern="[A-Za-z]" required >
                               </div>
                         </div>
 
@@ -56,7 +68,7 @@
                             <div class="form-group">
                               <label for="tipopaquete">Tipo Paquete</label>
                               <br>
-                              <select class="form-control" id="tipopaquete" name="tipopaquete">
+                              <select class="form-control" id="tipopaquete" name="tipopaquete" required>
                                   <option value="Nacional">Nacional</option>
                                   <option value="Internacional">Internacional</option>
                                 </select>
@@ -67,7 +79,7 @@
                             <div class="form-group">
                               <label for="dificultad">Dificultad Paquete</label>
                               <br>
-                              <select class="form-control" id="dificultad" name="dificultad">
+                              <select class="form-control" id="dificultad" name="dificultad" required>
                                   <option value="Baja">Baja</option>
                                   <option value="Media">Media</option>
                                   <option value="Alta">Alta</option>
@@ -100,7 +112,7 @@
                            <div class="input-group-addon">
                                  <i class="fa fa-calendar"></i>
                            </div>
-                          <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida" placeholder="Fecha de Salida">
+                          <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida" placeholder="Fecha de Salida" required>
                         </div>
                       </div>
                     </div>
@@ -111,7 +123,7 @@
                            <div class="input-group-addon">
                                  <i class="fa fa-history"></i>
                            </div>
-                          <input name="hora" type="time" id="hora" value="06:00:00"  max="24:00:00" min="00:00:00" class="form-control pull-right" >
+                          <input name="hora" type="time" id="hora" value="06:00:00"  max="24:00:00" min="00:00:00" class="form-control pull-right" required>
 
                         </div>
                         </div>
@@ -124,7 +136,7 @@
                            <div class="input-group-addon">
                                   <i class="fa fa-calendar"></i>
                            </div>
-                          <input name="fecharegreso" type="date" class="form-control pull-right" id="fecharegreso" placeholder="Fecha de Regreso">
+                          <input name="fecharegreso" type="date" class="form-control pull-right" id="fecharegreso" placeholder="Fecha de Regreso" required>
 
                         </div>
                         </div>
@@ -138,7 +150,7 @@
                           <span class="input-group-addon">
                             <i class="fa fa-child"></i>
                             </span>
-                            <input  class="form-control" name="cupos" type="number" min="1" step="1" max="10,0000" placeholder="10" id="cupos">
+                            <input  class="form-control" name="cupos" type="number" min="1" step="1" max="10,0000" placeholder="10" id="cupos" required>
 
                           </div>
                           </div>
@@ -150,7 +162,7 @@
                               <span class="input-group-addon">
                                 <i class="fa fa-money"></i> $
                                 </span>
-                                <input class="form-control" name="precio" type="number" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio">
+                                <input class="form-control" name="precio" type="number" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio" required>
                           </div>
                                 </div>
                           </div>
@@ -159,7 +171,7 @@
                               <label for="lugar">Lugar de Salida</label>
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-map"></i></span>
-                                <input type="text" name="lugarsalida" class="form-control" id="lugarsalida" placeholder="Lugar" >
+                                <input type="text" name="lugarsalida" class="form-control" id="lugarsalida" placeholder="Lugar" required>
 
                               </div>
                           </div>
@@ -169,7 +181,7 @@
 
                       <div class="form-group">
                           <label name="itinerario" for="itinerario">Itinerario</label>
-                                  <select class="form-control select2" multiple="multiple" name="itinerario[]" id="itinerario[]" >
+                                  <select class="form-control select2" multiple="multiple" name="itinerario[]" id="itinerario[]" required>
                                   @foreach ($itinerario as $iti)
 
                                   <option value="{{$iti->IdItinerario }}">{{$iti->NombreItinerario}}</option>
@@ -181,7 +193,7 @@
 
                         <div class="form-group">
                             <label name="gastosextras" for="gastosextras">Gastos Extras</label>
-                                    <select class="form-control select2" multiple="multiple" name="gastosextras[]" id="gasto[]" >
+                                    <select class="form-control select2" multiple="multiple" name="gastosextras[]" id="gasto[]" required>
                                     @foreach ($gastosextras as $gastos)
 
                                     <option value="{{$gastos->IdGastosExtras }}">{{$gastos->NombreGastos}} --> ${{$gastos->Gastos}}</option>
@@ -192,7 +204,7 @@
 
                         <div class="form-group">
                             <label for="queincluye">Que incluye</label>
-                            <select class="form-control select2" multiple="multiple" name="incluye[]" >
+                            <select class="form-control select2" multiple="multiple" name="incluye[]" required>
                             @foreach ($incluye as $incluye)
 
                             <option value="{{ $incluye->IdIncluye }}"> {{$incluye->NombreIncluye}}</option>
@@ -202,7 +214,7 @@
 
                         <div class="form-group">
                             <label for="con">Condiciones</label>
-                            <select class="form-control select2" multiple="multiple" name="condiciones[]" >
+                            <select class="form-control select2" multiple="multiple" name="condiciones[]" required>
                             @foreach ($condiciones as $condiciones)
 
                             <option value="{{$condiciones->IdCondiciones}}">{{$condiciones->NombreCondiciones}} </option>
@@ -212,7 +224,7 @@
 
                         <div class="form-group">
                             <label for="re">Recomendaciones</label>
-                            <select class="form-control select2" multiple="multiple" name="recomendaciones[]" >
+                            <select class="form-control select2" multiple="multiple" name="recomendaciones[]" required>
                             @foreach ($recomendaciones as $recomendaciones)
 
                             <option value="{{ $recomendaciones->IdRecomendaciones }}"> {{$recomendaciones->NombreRecomendaciones}}</option>

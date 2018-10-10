@@ -83,6 +83,19 @@ class PaqueteController extends Controller
      */
     public function store(Request $request)
     {
+      $this->validate($request,array(
+       'nombrepaquete' => 'required',
+       'fechasalida' => 'required',
+       'fechasalida' => 'required',
+       'hora'=>'required',
+       'fecharegreso'=>'required',
+       'lugarsalida'=>'required|max:200',
+       'precio'=>'required',
+       'tipopaquete'=>'required|max:20',
+       'cupos'=>'required|min:10',
+       'dificultad'=>'required|max:20',
+     ));
+
 
         $paquete=new Paquete();
         $paquete->IdTuristica=$request->idrutaturistica;
