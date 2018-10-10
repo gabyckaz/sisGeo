@@ -17,6 +17,12 @@
               alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session()->get('message') }} ');
             </script>
          @endif
+         @if(session()->has('ErrorEdadMenor'))
+          <script type="text/javascript">
+            console.log("Hola");
+              alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{ session()->get('ErrorEdadMenor') }} ');
+            </script>
+         @endif
    <!-- -->
        <form id="miForm" method="POST" enctype="multipart/form-data" action="{{route('user.completar.informacion.store') }}">
         {!! method_field('PUT') !!}
@@ -97,7 +103,7 @@
              </div>
              @if( $existeTurista == "si")
                  <div class="col-md-3">
-                   <div class="form-group ">
+                   <div class="form-group">
                     <label for="fechaNacimiento" class="control-label">Fecha de Nacimiento*</label>
                      <div class="input-group date ">
                         <div class="input-group-addon">
@@ -110,7 +116,7 @@
                  </div>
                  @else
                   <div class="col-md-3">
-                   <div class="form-group has-feedback{{ $errors->has('fechaNacimiento') ? ' has-error' : '' }}">
+                   <div class="form-group has-feedback{{ ( $errors->has('fechaNacimiento') || session()->has('ErrorFechaNac')) ? ' has-error' : '' }}">
                     <label for="fechaNacimiento" class="control-label">Fecha de Nacimiento*</label>
                      <div class="input-group date ">
                         <div class="input-group-addon">
@@ -120,6 +126,9 @@
                       </div>
                       @if ($errors->has('fechaNacimiento'))
                        <span class="help-block">{{ $errors->first('fechaNacimiento') }}</span>
+                      @endif
+                      @if (session()->has('ErrorFechaNac'))
+                       <span class="help-block">{{ session()->get('ErrorFechaNac') }}</span>
                       @endif
                   </div>
 

@@ -92,7 +92,7 @@ Editar familiar o amigo
           <div class="form-group">
             <label for="nacionalidad" class="control-label">Nacionalidad*</label>
               <div class="">
-                  <select  class="form-control" name="nacionalidad" id="nacionalidad" >             
+                  <select  class="form-control" name="nacionalidad" id="nacionalidad"  disabled>             
                     @foreach($nacionalidad as $origen)
                      <option value="{{ $origen->IdNacionalidad }}" @if ($turista->IdNacionalidad == $origen->IdNacionalidad ) {{ 'selected' }} @endif>{{ $origen->Nacionalidad }}</option>
                     @endforeach
@@ -145,7 +145,7 @@ Editar familiar o amigo
                            @endif
                        @endforeach
                    @else
-                   <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" id="dui" readonly>
+                   <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" id="dui" >
                    @endif
 
                    @if ($errors->has('dui'))
@@ -194,7 +194,7 @@ Editar familiar o amigo
                         @endif
                     @endforeach
                   @else
-                  <input type="text" name="pasaporte" class="form-control" id="pasaporte" placeholder="Pasaporte" value="{{ old('pasaporte') }}">
+                  <input type="text" name="pasaporte" class="form-control" id="pasaporte" value="{{ old('pasaporte') }}">
                   @endif
                     @if ($errors->has('pasaporte'))
                        <span class="help-block">Un documento es requerido</span>
@@ -225,7 +225,7 @@ Editar familiar o amigo
             <label for="psalud">Problemas de salud</label>
             <div class="input-group">
             <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-              <textarea id="psalud" type="text" class="form-control" name="psalud" placeholder="ninguno">{{ old('psalud') }}</textarea>
+              <textarea id="psalud" type="text" class="form-control" name="psalud" placeholder="ninguno">{{ old('psalud', $turista->Problemas_Salud) }}</textarea>
             </div>
             @if ($errors->has('psalud'))
             <span class="help-block">{{ $errors->first('psalud') }}</span>
@@ -244,8 +244,8 @@ Editar familiar o amigo
          </form>
          </div>
          <div class="box-footer">
-              * Estos campos son obligatorios
-              <p>Es necesario ingresar almenos un documento</p>
+             <p>*Estos campos son obligatorios</p>
+             <p>Es necesario ingresar almenos un documento si es mayor de edad</p>
               </div>
       </div>
      </div> 

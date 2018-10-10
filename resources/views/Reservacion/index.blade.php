@@ -72,7 +72,7 @@ h4 span {
            verificar que para que pueda editar sean dos dias antes es decir 48 horas
            preguntar sobre eso
        --}}
-       @if($reservacion->paquete->compara_fechas == 3 )
+       @if($reservacion->paquete->compara_fechas == 2 )
         <div class="col-sm-12 ">
           <!-- box info de cada paquete-->
           <div class="small-box  disabled color-palette" style="background-color:#dbdde0">
@@ -96,7 +96,7 @@ h4 span {
       <p style="text-align:center">Reservaciones pasadas </p>
       @foreach($reservaciones as $reservacion)
 
-       @if($reservacion->paquete->FechaSalida < $hoy)
+       @if($reservacion->paquete->compara_fechas == 1)
         <div class="col-sm-6">
           <!-- box info de cada paquete-->
           <div class="small-box  disabled color-palette" style="background-color:#dbdde0">

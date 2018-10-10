@@ -239,8 +239,21 @@ class userController extends Controller
              "direccion" => "required|min:10|max:100",
            ]);
         }
-         
-        
+        //1. verificar que la fecha ingresada no sea futura
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           $fechaIngresadaObj = Carbon::parse($request->fechaNacimiento);
+           
+          if($fechaIngresadaObj >= $hoyObj){
+
+            return redirect()->back()->withInput()->with('ErrorFechaNac', 'Error fecha incorrecta');
+          }
+        //2. verificar que tenga mas de 18 años a partir de fecha de nacimiento
+        $edad = Carbon::parse($request->fechaNacimiento)->age;
+        if($edad < 18 ){
+          return redirect()->back()->withInput()->with('ErrorEdadMenor', 'Debes ser mayor de edad para poder continuar!');
+        }
+       
          $existeTurista ="";
          $turista = Turista::where('IdPersona',auth()->user()->IdPersona)->first();
          
@@ -500,6 +513,18 @@ class userController extends Controller
 
     public function guardarFamiliarAmigo(Request $request){
      //  $date = Carbon::createFromDate(1989, 8, 15)->age;
+          $this->validate($request, [
+          "Nombre" => "required|alpha|min:3|max:25",
+          "Apellido" => "required|alpha|min:3|max:25",
+          "fechaNacimiento" => "required",
+          "Direccion" => "required|min:10|max:100",
+        ]);
+         $hoystr = Carbon::now()->format('d-m-Y');
+         $hoyObj = Carbon::parse($hoystr);
+         $fechaIngresadaObj = Carbon::parse($request->fechaNacimiento);
+          if($fechaIngresadaObj >= $hoyObj ){
+            return redirect()->back()->withInput()->with('ErrorFechaNac', 'Error fecha incorrecta');
+          }
        $edad = Carbon::parse($request->fechaNacimiento)->age;
       if( $request->input("dui") == null && $request->input("pasaporte") == null){
             $hola1 = "Debes introducir por lo menos un documento";
@@ -658,6 +683,9 @@ class userController extends Controller
         $tipo = DB::select($sqltipo);
         $tipo = $tipo[0]->EsFamiliar;
          $documentos="";
+        if($turista->documentos->count() == 0){
+           $documentos = "menorDeEdad";
+        }else{
         if($turista->documentos->count() == 2){
             $documentos = "duiPasaporte";
         }else{
@@ -672,8 +700,7 @@ class userController extends Controller
                 break;
             }
            }
-         } 
-       //dd($turista->documentos);
+         } }
     return view('user.editarFamiliarAmigo', compact('turista','documentos','nacionalidad','tipo'));
    }
 
@@ -691,30 +718,64 @@ class userController extends Controller
 
        $lengthOfAd = $hoyObj->diffInDays($fechaIngresadaObj);
        dd($lengthOfAd); */
+
+       $edad = Carbon::parse($request->fechaNacimiento)->age;
+    
+/*          $this->validate($request, [
+              "Nombre" => "required|alpha|min:3|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
+              "Direccion" => "required|min:10|max:100",
+        ]);*/
+        if($request->input("dui") != null && $request->input("pasaporte") != null){
+          $hola1 = "Ingresastes los dos documentos";
+          if($edad >= 18){
+             $this->validate($request, [
+             "Nombre" => "required|alpha|min:3|max:25",
+             "Apellido" => "required|alpha|min:3|max:25",
+             "Direccion" => "required|min:10|max:100",
+             "fechaVencimentoD" => "required",
+             "fechaVencimentoP" => "required",
+           ]);
+           }else{
+            $this->validate($request, [
+              "Nombre" => "required|alpha|min:3|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
+              "Direccion" => "required|min:10|max:100",
+        ]);
+           }
+        }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
+           $hola1 = "Solo Ingresastes El dui";
+           if($edad >= 18){
+           $this->validate($request, [
+              "Nombre" => "required|alpha|min:3|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
+              "Direccion" => "required|min:10|max:100",
+              "fechaVencimentoD" => "required",
+           ]);
+         }else{
           $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
               "Apellido" => "required|alpha|min:3|max:25",
               "Direccion" => "required|min:10|max:100",
         ]);
-
-        if($request->input("dui") != null && $request->input("pasaporte") != null){
-          $hola1 = "Ingresastes los dos documentos";
-             $this->validate($request, [
-             "fechaVencimentoD" => "required",
-             "fechaVencimentoP" => "required",
-           ]);
-        }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
-           $hola1 = "Solo Ingresastes El dui";
-           $this->validate($request, [
-             "fechaVencimentoD" => "required",
-           ]);
+         }
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
            $hola1 = "Solo Ingresastes El pasaporte";
+            if($edad >= 18){
             $this->validate($request, [
+             "Nombre" => "required|alpha|min:3|max:25",
+             "Apellido" => "required|alpha|min:3|max:25",
+             "Direccion" => "required|min:10|max:100",
              "fechaVencimentoP" => "required",
            ]);
+          }else{
+            $this->validate($request, [
+              "Nombre" => "required|alpha|min:3|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
+              "Direccion" => "required|min:10|max:100",
+        ]);
+          }
         }
-
 
           $turista = Turista::find($request->idTurista);          
        //Actualizo a la persona
@@ -729,8 +790,8 @@ class userController extends Controller
           $turista->DomicilioTurista = $request->Direccion;
           $turista->Problemas_Salud = $request->psalud;
           $turista->save();
-
-                  //Actualizo documentos o los creo si no existen
+          //Actualizo documentos o los creo si no existen
+         if($edad >= 18){
          if($request->input("dui") != null && $request->input("fechaVencimientoD") != null){
            $dui = TipoDocumento::where('TipoDocumento','DUI')
             ->where('IdTurista',$turista->IdTurista)->first();
@@ -764,6 +825,7 @@ class userController extends Controller
             }
 
           }
+      }
 
      return redirect()->route('user.agregar.familiarAmigo')->with('message',' Informacion actualizada con éxito');
    }
