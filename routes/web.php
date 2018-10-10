@@ -251,6 +251,18 @@ Route::resource('turista', 'TuristaController');
               'as' => 'adminPaquete.show',
             ]);
 
+            //CREAR COPIA DE PAQUETE
+            Route::get('/CrearCopiaPaquete/{id}', [
+              'uses' => 'PaqueteController@createcopia',
+              'as' => 'adminPaquete.createcopia',
+            ]);
+
+            //GUARDAR COPIA DE PAQUETE
+            Route::post('/CrearCopiaPaquete/{id}', [
+                'uses' => 'PaqueteController@storecopia',
+                'as' => 'adminPaquete.createcopia',
+            ]);
+
         /*FIN RUTAS PAQUETES*/
 
 Route::group(['middleware' => ['guest']], function () {

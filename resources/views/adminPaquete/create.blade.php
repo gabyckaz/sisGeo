@@ -42,7 +42,7 @@
                             <label for="nombrepaquete"  class="control-label">Nombre de Paquete Turístico</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-automobile"></i></span>
-                              <input type="text" name="nombrepaquete" class="form-control" id="nombrepaquete" placeholder="Nombre paquete" pattern="[A-Za-z]" required >
+                              <input type="text" name="nombrepaquete" class="form-control" id="nombrepaquete" placeholder="Nombre paquete" required >
                               </div>
                         </div>
 
