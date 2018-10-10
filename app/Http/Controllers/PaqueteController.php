@@ -760,12 +760,7 @@ public fuction postNewImage(Request $request){
 
     public function storecopia(Request $request)
     {
-        // $c= DB::table('Paquetes')->select('IdPaquete')->orderBy('IdPaquete', 'desc')->first();
-        // $c=$c->IdPaquete;
-        // $c=$c+1;
-
         $paquete=new Paquete();
-      //  $paquete->IdPaquete=$c;
         $paquete->IdTuristica=$request->idrutaturistica;
         $paquete->NombrePaquete=$request->nombrepaquete;
         $paquete->FechaSalida=$request->fechasalida;
