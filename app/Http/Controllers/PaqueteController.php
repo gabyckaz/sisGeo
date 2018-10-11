@@ -84,25 +84,15 @@ class PaqueteController extends Controller
     public function store(Request $request)
     {
      $this->validate($request,array(
-       'nombrepaquete' => 'required',
-       'fechasalida' => 'required',
-       'fechasalida' => 'required',
+       'nombrepaquete'=>'required',
+       'fechasalida'=>'required',
        'hora'=>'required',
        'fecharegreso'=>'required',
        'lugarsalida'=>'required|max:200',
        'precio'=>'required',
        'tipopaquete'=>'required|max:20',
-       'cupos'=>'required|min:10',
+       'cupos'=>'required',
        'dificultad'=>'required|max:20',
-       'imagen1'=>'required',
-       'imagen2'=>'required',
-       'imagen3'=>'required',
-       'imagen4'=>'required',
-       'gastosextras'=>'required',
-       'itinerario'=>'required',
-       'condiciones'=>'required',
-       'recomendaciones'=>'required',
-
      ));
 
 
@@ -229,7 +219,7 @@ class PaqueteController extends Controller
         ->with('ruta',$rutaturistica)->with('pais',$pais)
         ->with('departamento',$departamento)->with('gastosextras',$gastosextras)
         ->with('incluye',$incluye)->with('condiciones',$condiciones)->with('recomendaciones',$recomendaciones)
-        ->with('itinerario',$itinerario)->with('status', "Guardado con éxito");
+        ->with('itinerario',$itinerario);
 
 
     }
