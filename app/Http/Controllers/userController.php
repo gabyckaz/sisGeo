@@ -216,6 +216,9 @@ class userController extends Controller
              "fechaVencimientoP" => "required",
              "direccion" => "required|min:10|max:100",
            ]);
+            if(!$this->validaDui($request->dui)){
+            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
+           }
         }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
            $hola1 = "Solo Ingresastes El dui";
            
@@ -227,6 +230,10 @@ class userController extends Controller
               "fechaVencimientoD" => "required",
               "direccion" => "required|min:10|max:100",
            ]);
+           if(!$this->validaDui($request->dui)){
+            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
+           }
+       
            
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
            $hola1 = "Solo Ingresastes El pasaporte";            
@@ -558,6 +565,9 @@ class userController extends Controller
             "fechaVencimentoD" => "required",
             "fechaVencimentoP" => "required",
            ]);
+             if(!$this->validaDui($request->dui)){
+            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
+           }
            }else{
              $this->validate($request, [
             "Nombre" => "required|alpha|min:3|max:25",
@@ -576,6 +586,9 @@ class userController extends Controller
               "Direccion" => "required|min:10|max:100",
               "fechaVencimentoD" => "required",
            ]);
+           if(!$this->validaDui($request->dui)){
+            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
+           }
          }else{
           $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
@@ -604,7 +617,7 @@ class userController extends Controller
           }
 
         }
-      
+      dd("Detener Aqui");
       $persona = Persona::create([
             "PrimerNombrePersona" => $request->Nombre,
             "PrimerApellidoPersona" => $request->Apellido,
@@ -736,6 +749,9 @@ class userController extends Controller
              "fechaVencimentoD" => "required",
              "fechaVencimentoP" => "required",
            ]);
+             if(!$this->validaDui($request->dui)){
+            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
+           }
            }else{
             $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
@@ -752,6 +768,9 @@ class userController extends Controller
               "Direccion" => "required|min:10|max:100",
               "fechaVencimentoD" => "required",
            ]);
+           if(!$this->validaDui($request->dui)){
+            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
+           }
          }else{
           $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
@@ -863,6 +882,33 @@ class userController extends Controller
           $familia = DB::select($sqlFamilia);
          
        return view('user.pruebaApi',compact('userTurista','amigos','familia'));//\Response::json($resultado);
+ }
+/*
+Para el del DUI el proceso que recuerdo es este:
+-el numero que esta a la derecha del guion se conoce como digito verificador
+-se coloca el numero sin guiones y con ceros a la izquierda
+-deben ser 9 caracters
+-se toman los primeros 8 caracteres (sin el digito verificador) y a cada uno se le multiplica por la posicion en la que se encuentra. Partiendo que la posicion 9 es el primer numero de la izquierda.
+-se suman todos los resultados
+-se hace un mod de la suma dividido por 10 (osea toma el remanente de esa division)
+-Resta 10 menos el remanente de la division
+-si la resta da 0 el DUI es correcto
+-si la resta es igual al digito verificador el DUI es correcto
+-si la resta es distinta al digito verificador el DUI es incorrecto
+*/
+ public function validaDui($dui){  
+      $separador ='-';
+      $partesDui = explode('-', $dui);
+      $numeroDui = $partesDui[0];
+      $digitoVerificador = $partesDui[1];
+      $arrayNumeroDui = str_split($numeroDui);  
+      $suma = (9*$arrayNumeroDui[0])+(8*$arrayNumeroDui[1])+(7*$arrayNumeroDui[2])+(6*$arrayNumeroDui[3])+(5*$arrayNumeroDui[4])+(4*$arrayNumeroDui[5])+(3*$arrayNumeroDui[6])+(2*$arrayNumeroDui[7]);
+      $moduloDiv = $suma%10;
+      $resta = 10-$moduloDiv;
+      if($resta == 0 || $resta == $digitoVerificador){
+        return true;
+      }
+      return false;
  }
 
 }

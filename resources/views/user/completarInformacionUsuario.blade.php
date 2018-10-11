@@ -177,11 +177,14 @@
              </div>
              @else
               <div class="col-md-3">
-                 <div class="form-group has-feedback{{ $errors->has('dui') ? ' has-error' : '' }}">
+                 <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('Errordui') ) ? ' has-error' : '' }}">
                    <label for="dui" class="control-label">DUI</label>
                     <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" id="dui">
                      @if ($errors->has('dui'))
                        <span class="help-block">Un documento es requerido</span>
+                     @endif
+                     @if(session()->has('Errordui'))
+                     <span class="help-block">{{ session()->get('Errordui') }}</span>
                      @endif
                  </div>
              </div>

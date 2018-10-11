@@ -24,7 +24,8 @@
          $errors->has('fechaVencimentoD') ||
          $errors->first('fechaVencimentoP') ||
          $errors->first('Direccion') ||
-         session()->has('ErrorFechaNac')
+         session()->has('ErrorFechaNac') ||
+         session()->has('Errordui')
 
       )
       <div class="box box-solid">
@@ -145,13 +146,16 @@
       <div class="row">
 
         <div class="col-md-3">
-          <div class="form-group has-feedback{{ $errors->has('dui') ? ' has-error' : '' }}">
+          <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('Errordui') ) ? ' has-error' : '' }}">
               <label for="dui" class="control-label">DUI</label>
                 <div class="">
                   <input type="text" name="dui" class="form-control" id="dui" placeholder="Dui" value="{{ old('dui') }}">
                    @if ($errors->has('dui'))
                        <span class="help-block">Un documento es requerido</span>
                   @endif
+                  @if(session()->has('Errordui'))
+                     <span class="help-block">{{ session()->get('Errordui') }}</span>
+                     @endif
                 </div>
            </div>
         </div>
