@@ -1,10 +1,8 @@
 @extends('master')
 
 @section('head')
-    Crear Paquetes
+    @section('Title','Paquetes Turísticos')
 @endsection
-
-
 
 @section('contenido')
     <div class="container spark-screen" CONTENT="no-cache">
@@ -22,16 +20,12 @@
                alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
                </script>
               @endif
-                <div class="panel panel-warning">
-                    <div class="panel-heading">Paquetes Turisticos</div>
+                <div class="panel">
+                    <div class="panel-heading">Registrar de Paquete Turistico</div>
 
                       <div class="panel-body">
                         <form method="post" action="/CrearPaquete" enctype="multipart/form-data">
-                        <div class="col-md-12">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Crear paquetes turísticos</h3>
-                            </div>
-                        </div>
+
 
                         <div class="box box-warning">
                         <!-- /.box-header -->
@@ -150,7 +144,7 @@
                           <span class="input-group-addon">
                             <i class="fa fa-child"></i>
                             </span>
-                            <input  class="form-control" name="cupos" type="number" min="1" step="1" max="10,0000" placeholder="10" id="cupos" required>
+                            <input  class="form-control" name="cupos" type="number" min="10" step="1" max="10,0000" placeholder="10" id="cupos" required>
 
                           </div>
                           </div>
@@ -280,12 +274,14 @@
                         </div>
                         <!-- /.box-body -->
 
-                         <div class="box-footer" align="center">
-                                    <button  type="submit" class="btn  btn-primary btn-flat">Guardar</button>
-                                    <button  type="reset" class="btn  btn-warning btn-flat">Limpiar</button>
-                                </div>
+                        <div class="row">
+                          <div class="col-md-10 col-md-offset-4">
+                            <button type="submit" class="btn btn-info ">Registrar</button>
+                            <button type="reset" class="btn btn-warning ">Limpiar</button>
+                          </div>
 
-
+                          <!-- /.col -->
+                        </div>
 
                         </div>
                         </form>
