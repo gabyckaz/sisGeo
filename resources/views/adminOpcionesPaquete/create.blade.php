@@ -26,7 +26,7 @@
           {{ session('fallo') }}
       </div>
     @endif
-    <div class="box box-info">
+    <div class="box box-warning">
       <div class="box-header">
         <h3 class="box-title">Agregar Gastos Extras</h3>
         <div class="box-body">
@@ -88,7 +88,7 @@
 
     <div class="col-md-4">
     <div class="">
-    <div class="box box-info">
+    <div class="box box-warning">
       <div class="box-header">
         <h3 class="box-title">Agregar Que incluye Paquete</h3>
               <div class="box-body">
@@ -142,7 +142,7 @@
 
    <div class="col-md-4">
      <div class="">
-    <div class="box box-info">
+    <div class="box box-warning">
       <div class="box-header">
         <h3 class="box-title">Agregar Recomendaciones</h3>
               <div class="box-body">
@@ -195,7 +195,7 @@
 </div>
 <div class="col-md-4">
   <div class="">
- <div class="box box-info">
+ <div class="box box-warning">
    <div class="box-header">
      <h3 class="box-title">Agregar Condiciones</h3>
            <div class="box-body">
@@ -247,7 +247,7 @@
 </div>
 <div class="col-md-4">
   <div class="">
- <div class="box box-info">
+ <div class="box box-warning">
    <div class="box-header">
      <h3 class="box-title">Agregar Itinerario</h3>
            <div class="box-body">

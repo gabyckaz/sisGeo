@@ -83,6 +83,28 @@ class PaqueteController extends Controller
      */
     public function store(Request $request)
     {
+     $this->validate($request,array(
+       'nombrepaquete' => 'required',
+       'fechasalida' => 'required',
+       'fechasalida' => 'required',
+       'hora'=>'required',
+       'fecharegreso'=>'required',
+       'lugarsalida'=>'required|max:200',
+       'precio'=>'required',
+       'tipopaquete'=>'required|max:20',
+       'cupos'=>'required|min:10',
+       'dificultad'=>'required|max:20',
+       'imagen1'=>'required',
+       'imagen2'=>'required',
+       'imagen3'=>'required',
+       'imagen4'=>'required',
+       'gastosextras'=>'required',
+       'itinerario'=>'required',
+       'condiciones'=>'required',
+       'recomendaciones'=>'required',
+
+     ));
+
 
         $paquete=new Paquete();
         $paquete->IdTuristica=$request->idrutaturistica;
@@ -203,11 +225,12 @@ class PaqueteController extends Controller
         $condiciones=Condiciones::all();
         $recomendaciones=Recomendaciones::all();
         $itinerario=Itinerario::all();
-        return view('adminPaquete.create')
+       return view('adminPaquete.create')
         ->with('ruta',$rutaturistica)->with('pais',$pais)
         ->with('departamento',$departamento)->with('gastosextras',$gastosextras)
         ->with('incluye',$incluye)->with('condiciones',$condiciones)->with('recomendaciones',$recomendaciones)
-        ->with('itinerario',$itinerario);
+        ->with('itinerario',$itinerario)->with('status', "Guardado con éxito");
+
 
     }
 
