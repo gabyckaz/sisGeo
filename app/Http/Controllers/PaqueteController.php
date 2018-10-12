@@ -215,11 +215,8 @@ class PaqueteController extends Controller
         $condiciones=Condiciones::all();
         $recomendaciones=Recomendaciones::all();
         $itinerario=Itinerario::all();
-       return view('adminPaquete.create')
-        ->with('ruta',$rutaturistica)->with('pais',$pais)
-        ->with('departamento',$departamento)->with('gastosextras',$gastosextras)
-        ->with('incluye',$incluye)->with('condiciones',$condiciones)->with('recomendaciones',$recomendaciones)
-        ->with('itinerario',$itinerario);
+
+        return redirect('MostrarPaquete')->with('status', "Guardado con éxito");
 
 
     }
@@ -571,9 +568,7 @@ class PaqueteController extends Controller
           $incluyepaquete->save();
         }
 */
-
-        $paquetes=Paquete::all();
-        return back();
+        return redirect('MostrarPaquete')->with('status', "Actualizado con éxito");
 
     }
 
@@ -843,10 +838,7 @@ public fuction postNewImage(Request $request){
           $incluyepaquete->save();
         }
 
-
-       $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(5);
-
-        return view('adminPaquete.index',compact('paquetes'));
+        return redirect('MostrarPaquete')->with('status', "Guardado con éxito");
 
     }
 
