@@ -191,7 +191,10 @@ class userController extends Controller
     {
         $documentos = "";
         $existeTurista ="";
-
+        $edad = Carbon::parse($request->fechaNacimiento)->age;
+        if($edad < 18 ){
+          return redirect()->back()->withInput()->with('ErrorEdadMenor', 'Debes ser mayor de edad para poder continuar!');
+        }
         
         if( $request->input("dui") == null && $request->input("pasaporte") == null){
             $hola1 = "Debes introducir por lo menos un documento"; 
@@ -219,6 +222,16 @@ class userController extends Controller
             if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
            }
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           $fechaVencimientoIngresadaD = Carbon::parse($request->fechaVencimentoD);
+           $fechaVencimientoIngresadaP = Carbon::parse($request->fechaVencimentoP);
+          if($fechaVencimientoIngresadaD <= $hoyObj ){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
+          }
+          if($fechaVencimientoIngresadaP <= $hoyObj){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
+          }
         }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
            $hola1 = "Solo Ingresastes El dui";
            
@@ -233,8 +246,14 @@ class userController extends Controller
            if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
            }
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           $fechaVencimientoIngresadaD = Carbon::parse($request->fechaVencimientoD);
+          
+          if($fechaVencimientoIngresadaD <= $hoyObj ){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
+          }
        
-           
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
            $hola1 = "Solo Ingresastes El pasaporte";            
             $this->validate($request, [
@@ -245,6 +264,13 @@ class userController extends Controller
              "fechaVencimientoP" => "required",
              "direccion" => "required|min:10|max:100",
            ]);
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           
+           $fechaVencimientoIngresadaP = Carbon::parse($request->fechaVencimentoP);
+          if($fechaVencimientoIngresadaP <= $hoyObj){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
+          }
         }
         //1. verificar que la fecha ingresada no sea futura
            $hoystr = Carbon::now()->format('d-m-Y');
@@ -526,6 +552,16 @@ class userController extends Controller
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
         ]);
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           $fechaIngresadaObj = Carbon::parse($request->fechaNacimiento);
+           
+          if($fechaIngresadaObj >= $hoyObj){
+
+            return redirect()->back()->withInput()->with('ErrorFechaNac', 'Error fecha incorrecta');
+          }
+          
+
          $hoystr = Carbon::now()->format('d-m-Y');
          $hoyObj = Carbon::parse($hoystr);
          $fechaIngresadaObj = Carbon::parse($request->fechaNacimiento);
@@ -533,6 +569,16 @@ class userController extends Controller
             return redirect()->back()->withInput()->with('ErrorFechaNac', 'Error fecha incorrecta');
           }
        $edad = Carbon::parse($request->fechaNacimiento)->age;
+       if($edad > 18){
+        $this->validate($request, [
+          "Nombre" => "required|alpha|min:3|max:25",
+          "Apellido" => "required|alpha|min:3|max:25",
+          "fechaNacimiento" => "required|date",
+          "Direccion" => "required|min:10|max:100",
+          "dui" => "required",
+          "pasaporte" => "required",
+        ]);
+       }
       if( $request->input("dui") == null && $request->input("pasaporte") == null){
             $hola1 = "Debes introducir por lo menos un documento";
        if($edad >= 18 ){
@@ -568,6 +614,16 @@ class userController extends Controller
              if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
            }
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           $fechaVencimientoIngresadaD = Carbon::parse($request->fechaVencimentoD);
+           $fechaVencimientoIngresadaP = Carbon::parse($request->fechaVencimentoP);
+          if($fechaVencimientoIngresadaD <= $hoyObj ){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
+          }
+          if($fechaVencimientoIngresadaP <= $hoyObj){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
+          }
            }else{
              $this->validate($request, [
             "Nombre" => "required|alpha|min:3|max:25",
@@ -589,6 +645,13 @@ class userController extends Controller
            if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
            }
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           $fechaVencimientoIngresadaD = Carbon::parse($request->fechaVencimentoD);
+          if($fechaVencimientoIngresadaD <= $hoyObj ){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
+          }
+
          }else{
           $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
@@ -607,6 +670,12 @@ class userController extends Controller
               "Direccion" => "required|min:10|max:100",
               "fechaVencimentoP" => "required",
            ]);
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           $fechaVencimientoIngresadaP = Carbon::parse($request->fechaVencimentoP);
+          if($fechaVencimientoIngresadaP <= $hoyObj){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
+          }
           }else{
             $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
@@ -617,7 +686,7 @@ class userController extends Controller
           }
 
         }
-      dd("Detener Aqui");
+      //dd("Detener Aqui");
       $persona = Persona::create([
             "PrimerNombrePersona" => $request->Nombre,
             "PrimerApellidoPersona" => $request->Apellido,
@@ -905,7 +974,7 @@ Para el del DUI el proceso que recuerdo es este:
       $suma = (9*$arrayNumeroDui[0])+(8*$arrayNumeroDui[1])+(7*$arrayNumeroDui[2])+(6*$arrayNumeroDui[3])+(5*$arrayNumeroDui[4])+(4*$arrayNumeroDui[5])+(3*$arrayNumeroDui[6])+(2*$arrayNumeroDui[7]);
       $moduloDiv = $suma%10;
       $resta = 10-$moduloDiv;
-      if($resta == 0 || $resta == $digitoVerificador){
+      if($resta == 0 || $resta == $digitoVerificador || $moduloDiv == 0){
         return true;
       }
       return false;
