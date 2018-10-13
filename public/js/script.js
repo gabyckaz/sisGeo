@@ -1,4 +1,25 @@
 $(document).ready(function(){
+        $('#tablaadminTransporte').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": false,
+            "bInfo": false,
+            "autoWidth": true,
+        });
+        $('#tablaadminEmpresa').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": false,
+            "bInfo": false,
+            "autoWidth": true,
+        });
+        $('#tablaadminRutaTuristica').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": true,
+            "bInfo": false,
+            "autoWidth": true,
+        });
         $('#tablaAdminUser').DataTable({
             "paging": false,
             "bpaging": false,
@@ -15,9 +36,9 @@ $(document).ready(function(){
         });
 
         if($('#usuario').is(':checked') ){
-             $('#total').val(1); 
+             $('#total').val(1);
              $('#ctotal').val($('#total').val()*$('#cpersona').val());
-             $('#minimoPago').val($('#ctotal').val() * 0.3);         
+             $('#minimoPago').val($('#ctotal').val() * 0.3);
              }
         var mytable = $("#tablaAmigos").DataTable({
             //ajax: 'https://api.myjson.com/bins/1us28',
@@ -44,7 +65,7 @@ $(document).ready(function(){
                     $('<input>').attr('type','hidden').attr('name','id[]').val(rowId)
                 )
             })
-            $("#view-rows").text(rowsel.join(","));            
+            $("#view-rows").text(rowsel.join(","));
             var varStrAmigos = rowsel.join(",");
             var varStrFamilia = $('#strFamilia').val();
             console.log('*****************');
@@ -103,7 +124,7 @@ $(document).ready(function(){
             $('input[name="id\[\]"]', form).remove()
             e.preventDefault()
         });
-    
+
 
         var mytable2 = $("#tablaFamilia").DataTable({
             //ajax: 'https://api.myjson.com/bins/1us28',
@@ -139,7 +160,7 @@ $(document).ready(function(){
                $('#total').val(1);
                $('#ctotal').val($('#total').val()*$('#cpersona').val());
                $('#minimoPago').val($('#ctotal').val() * 0.3);
-             }else{              
+             }else{
              $('#total').val(0);
              $('#ctotal').val($('#total').val()*$('#cpersona').val());
              $('#minimoPago').val($('#ctotal').val() * 0.3);
@@ -157,7 +178,7 @@ $(document).ready(function(){
             }else{
               $('#total').val(arrayFamilia.length+arrayAmigos.length);
               $('#ctotal').val($('#total').val()*$('#cpersona').val());
-              $('#minimoPago').val($('#ctotal').val() * 0.3);  
+              $('#minimoPago').val($('#ctotal').val() * 0.3);
             }
             }else if(varStrFamilia.length == 0 && varStrAmigos.length > 0){
             var arrayAmigos = varStrAmigos.split(",");
@@ -203,7 +224,7 @@ $(document).ready(function(){
         $('#ctotal').val($('#total').val()*$('#cpersona').val());
         $('#minimoPago').val($('#ctotal').val() * 0.3);
     }
-   });    
+   });
 
        $(function () {
         /* var div = document.getElementById("documentos");
@@ -226,22 +247,22 @@ $(document).ready(function(){
 
 function filterFloat(evt,input){
     // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
-    var key = window.Event ? evt.which : evt.keyCode;    
+    var key = window.Event ? evt.which : evt.keyCode;
     var chark = String.fromCharCode(key);
     var tempValue = input.value+chark;
     if(key >= 48 && key <= 57){
         if(filter(tempValue)=== false){
             return false;
-        }else{       
+        }else{
             return true;
         }
     }else{
-          if(key == 8 || key == 13 || key == 0) {     
-              return true;              
+          if(key == 8 || key == 13 || key == 0) {
+              return true;
           }else if(key == 46){
                 if(filter(tempValue)=== false){
                     return false;
-                }else{       
+                }else{
                     return true;
                 }
           }else{
@@ -250,11 +271,11 @@ function filterFloat(evt,input){
     }
 };
 function filter(__val__){
-    var preg = /^([0-9]+\.?[0-9]{0,2})$/; 
+    var preg = /^([0-9]+\.?[0-9]{0,2})$/;
     if(preg.test(__val__) === true){
         return true;
     }else{
        return false;
     }
-    
+
 };

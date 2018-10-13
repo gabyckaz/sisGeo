@@ -18,8 +18,7 @@ class RutaTuristica extends Model
     //Cambiando el campo por defecto id a uno personalizado
     protected $primaryKey = 'IdRutaTuristica';
 
-  //  public $sortable = ['NombreEmpresaTransporte','NombreTipoTransporte','NumeroAsientos'];
-
+    //Relacion con Pais
     public function pais()
     {
         return $this->belongsTo('App\Pais','IdPais');//Modelo y llave foránea

@@ -348,22 +348,12 @@ desired effect
       </a>
     </li>
     @role('Admin')
-    <li class=" treeview {{ (request()->is('MostrarRutaTuristica') ) ? 'active' : '' }}">
-         <a href="#">
-           <i class="fa fa-map-marker"></i>
-             <i class="fa fa-angle-left pull-right-container"></i>
-             <i class="fa fa-angl-left pull-right"></i>
-             <span>Ruta Turistica</span>
-             <span class="pull-right-container">
-               <ul class="treeview-menu">
-                       <li><a href="{{ route('adminRutaTuristica.index') }}">
-                         <i class="fa fa-star"></i>
-                         Consultar Ruta Turística</a></li>
-                       <li><a href="">
-                         <i class="fa fa-star"></i>
-                           Editar Ruta Turística</a></li>
-             </ul>
-   </li>
+    <li class="{{ activeMenu('MostrarRutaTuristica') }}">
+      <a href="{{ route('adminRutaTuristica.index') }}">
+        <i class="fa fa-map-marker"></i>
+        <span>Ruta Turistica</span>
+      </a>
+    </li>
      <li class=" treeview {{ (request()->is('CrearPaquete') || request()->is('MostrarPaquete')) ? 'active' : '' }}">
       <a href="#">
         <i class="fa fa-ticket"></i>
@@ -399,15 +389,15 @@ desired effect
               </span>
       </a>
         <ul class="treeview-menu">
-                  <li><a href="{{ route('adminEmpresaTransporte.index') }}">
-                    <i class="fa fa-star"></i>
-                    Empresas</a></li>
-                  <li><a href="{{ route('adminTipoTransporte.index') }}">
-                    <i class="fa fa-star"></i>
-                    Tipos de Transporte</a></li>
-                  <li><a href="{{ route('adminTransporte.index') }}">
-                    <i class="fa fa-star"></i>
-                      Transporte</a></li>
+          <li><a href="{{ route('adminTipoTransporte.index') }}">
+            <i class="fa fa-star"></i>
+            Tipos de Transporte</a></li>
+          <li><a href="{{ route('adminEmpresaTransporte.index') }}">
+            <i class="fa fa-star"></i>
+            Empresas</a></li>
+          <li><a href="{{ route('adminTransporte.index') }}">
+            <i class="fa fa-star"></i>
+            Transporte</a></li>
         </ul>
 
     </li>

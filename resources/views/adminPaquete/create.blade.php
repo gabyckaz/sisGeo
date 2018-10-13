@@ -137,7 +137,7 @@
                       </div>
                     </div>
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                            <div class="form-group">
                             <label for="cupos">Número de Cupos</label>
                             <div class="input-group">
@@ -149,7 +149,7 @@
                           </div>
                           </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                           <div class="form-group">
                               <label for="precio">Precio</label>
                                 <div class="input-group">
@@ -160,12 +160,12 @@
                           </div>
                                 </div>
                           </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <div class="form-group">
                               <label for="lugar">Lugar de Salida</label>
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-map"></i></span>
-                                <input type="text" name="lugarsalida" class="form-control" id="lugarsalida" placeholder="Lugar" required>
+                                <input type="text" name="lugarsalida" class="form-control" id="lugarsalida" value="Gasolinera UNO, Boulevard de Los Héroes" required>
 
                               </div>
                           </div>

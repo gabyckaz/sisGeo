@@ -1,6 +1,8 @@
 @extends('master')
 
 @section('head')
+@section('Title')
+<STRONG>Transportes</STRONG>
 
 @endsection
 
@@ -10,23 +12,23 @@
     @if(session('status'))
       <br>
        <script type="text/javascript">
-      alertify.success("{{ session('status') }}");
+      alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
       </script>
     @endif
     @if(session('fallo'))
       <br>
       <script type="text/javascript">
-     alertify.error("{{ session('fallo') }}");
+     alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
      </script>
     @endif
     @if($errors->has('placa'))
       <div class="box box-solid">
     @else
-      <div class="box box-solid collapsed-box">
+      <div class="box box-warning collapsed-box">
     @endif
 
       <div class="box-header">
-        <h3 class="box-title">Agregar unidad de transporte</h3>
+        <h3 class="box-title"><STRONG>Agregar nueva unidad de transporte</STRONG></h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
         </div>
@@ -161,8 +163,8 @@
 
                   <div class="row">
                     <div class="col-md-10 col-md-offset-4">
-                      <button type="submit" class="btn btn-info">Registrar</button>
-                      <button type="reset" class="btn btn-warning">Limpiar</button>
+                      <button type="submit" class="btn btn-info"><STRONG>Registrar</STRONG></button>
+                      <button type="reset" class="btn btn-warning"><STRONG>Limpiar</STRONG></button>
                     </div>
                     <!-- /.col -->
                   </div>
@@ -174,21 +176,21 @@
       </div>
     </div>      <!-- Fin de vista create -->
     <div class="col-md-7  col-md-offset-2"><!-- Vista index -->
-      <div class="box box-solid">
+      <div class="box box-warning">
         <div class="box-header">
-          <h3 class="box-title">Unidades de transporte</h3>
+          <h3 class="box-title"><STRONG>Listado de unidades de transporte</STRONG></h3>
           </div>
                 <div class="box-body">
                 <div class="table-responsive">
-                  <table class="table table-striped table-bordered table-hover" >
+                  <table class="table table-striped table-bordered table-hover" id='tablaadminTransporte'>
                     <thead class="thead-dark">
                       <tr>
 
-                      <th class="text-center">@sortablelink('empresaalquilertransporte.NombreEmpresaTransporte','Empresa')</th>
-                      <th class="text-center">@sortablelink('TipoTransporte.NombreTipoTransporte','Tipo')</th>
+                      <th class="text-center">Empresa</th>
+                      <th class="text-center">Tipo</th>
                   <!--    <th>Info</th> -->
                   <!--    <th>Matrícula</th>-->
-                      <th class="text-center">@sortablelink('NumeroAsientos','No. Asientos')</th>
+                      <th class="text-center">No. Asientos</th>
                       <th class="text-center">Extras</th>
                       <th class="text-center">Observaciones</th>
                       <th class="text-center">Opciones</th>
