@@ -219,7 +219,9 @@ class PaqueteController extends Controller
         ->with('ruta',$rutaturistica)->with('pais',$pais)
         ->with('departamento',$departamento)->with('gastosextras',$gastosextras)
         ->with('incluye',$incluye)->with('condiciones',$condiciones)->with('recomendaciones',$recomendaciones)
-        ->with('itinerario',$itinerario);
+        ->with('itinerario',$itinerario)
+        ->with('status',"Guardado con Exito");
+
 
 
     }
