@@ -16,7 +16,7 @@ $(document).ready(function(){
         $('#tablaadminRutaTuristica').DataTable({
             "paging": false,
             "bpaging": false,
-            "bFilter": false,
+            "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
         });

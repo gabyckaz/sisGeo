@@ -116,12 +116,6 @@
         <h3 class="box-title"><STRONG>Listado de Rutas</STRONG></h3>
         </div>
         <div class="col-md-7">
-        <form class="navbar-form navbar-left " action="{{ route('adminRutaTuristica.index') }}" method="get" role="search">
-               <div class="form-group">
-                 <input type="text" name="ruta" class="form-control" placeholder="Ruta turística">
-                  <button type="submit" class="btn btn-default" >Buscar <span class="glyphicon glyphicon-search"></span></button>
-               </div>
-         </form>
          </div>
          </div>
         </div>
