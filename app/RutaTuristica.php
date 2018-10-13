@@ -18,12 +18,6 @@ class RutaTuristica extends Model
     //Cambiando el campo por defecto id a uno personalizado
     protected $primaryKey = 'IdRutaTuristica';
 
-    //Filtro de busqueda
-    public function scopeRuta($query, $ruta){
-      if(trim($ruta) != " "){
-        $query->where('NombreRutaTuristica', "Like", "%$ruta%");
-      }
-    }
     //Relacion con Pais
     public function pais()
     {

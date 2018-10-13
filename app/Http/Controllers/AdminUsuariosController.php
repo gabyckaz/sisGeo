@@ -51,7 +51,7 @@ class AdminUsuariosController extends Controller
        ->email($request->get('email'))
        ->estado($request->get('estado'))
        ->rol($request->get('rol'))
-        ->orderBy('id','desc')->paginate(5);
+        ->orderBy('id','desc')->paginate(10);
 
        // $usuarios= User::sortable()->paginate(5);
 

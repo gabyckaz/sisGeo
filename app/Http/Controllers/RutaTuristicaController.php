@@ -20,7 +20,7 @@ class RutaTuristicaController extends Controller
      */
     public function index()
     {
-      $rutaturistica = RutaTuristica::orderBy('IdRutaTuristica','desc')->paginate(5);//Para el rdenamiento en la tabla index
+      $rutaturistica = RutaTuristica::all();
       $paises = Pais::all();
       return view('adminRutaTuristica.index',compact('rutaturistica','paises'));
     }
