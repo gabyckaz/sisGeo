@@ -149,7 +149,6 @@
                </div>
               </div>
       </div>
-      <center>{!! $rutaturistica->appends(\Request::except('page'))->render() !!}</center>
     </div>
 </div>
 @endsection
