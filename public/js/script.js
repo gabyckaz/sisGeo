@@ -14,9 +14,10 @@ $(document).ready(function(){
             "autoWidth": true,
         });
         $('#tablaadminRutaTuristica').DataTable({
-            "paging": false,
-            "bpaging": false,
-            "bFilter": false,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
         });
