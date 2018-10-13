@@ -1,6 +1,8 @@
 @extends('master')
 
 @section('head')
+@section('Title')
+<STRONG>Transportes</STRONG>
 
 @endsection
 
@@ -10,23 +12,23 @@
     @if(session('status'))
       <br>
        <script type="text/javascript">
-      alertify.success("{{ session('status') }}");
+      alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
       </script>
     @endif
     @if(session('fallo'))
       <br>
       <script type="text/javascript">
-     alertify.error("{{ session('fallo') }}");
+     alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
      </script>
     @endif
     @if($errors->has('placa'))
       <div class="box box-solid">
     @else
-      <div class="box box-solid collapsed-box">
+      <div class="box box-warning collapsed-box">
     @endif
 
       <div class="box-header">
-        <h3 class="box-title">Agregar unidad de transporte</h3>
+        <h3 class="box-title"><STRONG>Agregar nueva unidad de transporte</STRONG></h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
         </div>
@@ -38,7 +40,7 @@
                 <div class="row">
                   <div class="col-md-6">
                   <div class="form-group">
-                    <label for="empresalquiler">Empresa *</label>
+                    <label for="empresalquiler">Empresa</label>
                       <select class="form-control" name="empresalquiler">
                         @foreach($empresalquiler as $empresa)
                           <option value="{{ $empresa->IdEmpresaTransporte }}" {{ old('empresalquiler') == $empresa->IdEmpresaTransporte ? 'selected' : '' }}>{{ $empresa->NombreEmpresaTransporte }}</option>
@@ -49,7 +51,7 @@
 
                  <div class="col-md-6">
                   <div class="form-group">
-                    <label for="tipotransporte">Tipo de transporte *</label>
+                    <label for="tipotransporte">Tipo de transporte</label>
                       <select class="form-control" name="tipotransporte">
                         @foreach($tipotransportes as $tipotransporte)
                           <option value="{{ $tipotransporte->IdTipoTransporte }}" {{ old('tipotransporte') == $tipotransporte->IdTipoTransporte ? 'selected' : '' }} >{{ $tipotransporte->NombreTipoTransporte }}</option>
@@ -62,7 +64,7 @@
                  <div class="row">
                  <div class="col-md-6">
                  <div class="form-group">
-                  <label for="marca">Marca *</label>
+                  <label for="marca">Marca</label>
                   <select  class="form-control" name="marca">
                     <option value="Toyota" {{ old('marca') == 'Toyota' ? 'selected' : '' }}>Toyota</option>
                     <option value="Blue Bird" {{ old('marca') == 'Blue Bird' ? 'selected' : '' }} >Blue Bird</option>
@@ -74,7 +76,7 @@
 
                  <div class="col-md-6">
                  <div class="form-group">
-                  <label for="modelo">Modelo *</label>
+                  <label for="modelo">Modelo</label>
                   <select  class="form-control" name="modelo">
                     <option value="Coaster" {{ old('modelo') == 'Coaster' ? 'selected' : '' }}>Coaster</option>
                     <option value="Hiace" {{ old('modelo') == 'Hiace' ? 'selected' : '' }} >Hiace</option>
@@ -88,7 +90,7 @@
                  <div class="row">
                  <div class="col-md-4">
                    <div class="form-group">
-                    <label for="color">Color *</label>
+                    <label for="color">Color</label>
                     <select  class="form-control" name="color">
                       <option value="Negro"  {{ old('color') == 'Negro' ? 'selected' : '' }} style="background-color: Black;color: #FFFFFF;">Negro</option>
                       <option value="Gris"  {{ old('color') == 'Gris' ? 'selected' : '' }} style="background-color: Gray;">Gris</option>
@@ -101,7 +103,7 @@
                    </div>
 
                   <div class="col-md-4 has-feedback{{ $errors->has('placa') ? ' has-error' : '' }}">
-                    <label for="placa">Placa *</label>
+                    <label for="placa">Placa</label>
                     <div class="input-group">
                     <span class="input-group-addon">#</span></span>
                     <input id="placa" type="text" class="form-control" name="placa" placeholder="Ej: B776123" size="7" required>
@@ -112,7 +114,7 @@
                   </div>
 
                   <div class="form-group col-md-4 has-feedback{{ $errors->has('numeroasientos') ? ' has-error' : '' }}">
-                    <label for="numeroasientos">No. Asientos *</label>
+                    <label for="numeroasientos">No. Asientos</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-bus"></span></span>
                     <input id="numeroasientos" type="number" min="10" class="form-control" name="numeroasientos" value="{{ old('numeroasientos') }}" placeholder="No. de asientos" required>
@@ -147,7 +149,7 @@
 
                   <div class="row">
                   <div class="form-group col-md-12 has-feedback{{ $errors->has('observacionestransporte') ? ' has-error' : '' }}">
-                    <label for="observacionestransporte">Observaciones</label>
+                    <label for="observacionestransporte">Observaciones - <span style="color:gray"><i>Opcional</i></span></label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                       <textarea id="observacionestransporte" type="text" class="form-control" name="observacionestransporte" placeholder="Observaciones">{{ old('observacionestransporte') }}</textarea>
@@ -161,8 +163,8 @@
 
                   <div class="row">
                     <div class="col-md-10 col-md-offset-4">
-                      <button type="submit" class="btn btn-info">Registrar</button>
-                      <button type="reset" class="btn btn-warning">Limpiar</button>
+                      <button type="submit" class="btn btn-info"><STRONG>Registrar</STRONG></button>
+                      <button type="reset" class="btn btn-warning"><STRONG>Limpiar</STRONG></button>
                     </div>
                     <!-- /.col -->
                   </div>
@@ -170,28 +172,25 @@
 
 
               </div>
-              <div class="box-footer">
-              * Estos campos son obligatorios
-              </div>
       </div>
       </div>
     </div>      <!-- Fin de vista create -->
     <div class="col-md-7  col-md-offset-2"><!-- Vista index -->
-      <div class="box box-solid">
+      <div class="box box-warning">
         <div class="box-header">
-          <h3 class="box-title">Unidades de transporte</h3>
+          <h3 class="box-title"><STRONG>Listado de unidades de transporte</STRONG></h3>
           </div>
                 <div class="box-body">
                 <div class="table-responsive">
-                  <table class="table table-striped table-bordered table-hover" >
+                  <table class="table table-striped table-bordered table-hover" id='tablaadminTransporte'>
                     <thead class="thead-dark">
                       <tr>
 
-                      <th class="text-center">@sortablelink('empresaalquilertransporte.NombreEmpresaTransporte','Empresa')</th>
-                      <th class="text-center">@sortablelink('TipoTransporte.NombreTipoTransporte','Tipo')</th>
+                      <th class="text-center">Empresa</th>
+                      <th class="text-center">Tipo</th>
                   <!--    <th>Info</th> -->
                   <!--    <th>Matrícula</th>-->
-                      <th class="text-center">@sortablelink('NumeroAsientos','No. Asientos')</th>
+                      <th class="text-center">No. Asientos</th>
                       <th class="text-center">Extras</th>
                       <th class="text-center">Observaciones</th>
                       <th class="text-center">Opciones</th>

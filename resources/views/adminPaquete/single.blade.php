@@ -27,7 +27,7 @@
           <!-- Que solo muestre 1 foto al inicio -->
       @foreach ($imagen as $key=>$imagenes)
         @php  ++$key @endphp
-              <img src="{{Storage::url($imagenes->Imagen1)}}" style=" margin-left: auto; margin-right: 220px; display: block;" class="responsive img-rounded">
+              <img src="{{Storage::url($imagenes->Imagen4)}}" style=" margin-left: auto; margin-right: 220px; display: block;" class="responsive img-rounded">
           </a>
         @if($key == 1)
           @break

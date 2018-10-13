@@ -348,22 +348,12 @@ desired effect
       </a>
     </li>
     @role('Admin')
-    <li class=" treeview {{ (request()->is('MostrarRutaTuristica') ) ? 'active' : '' }}">
-         <a href="#">
-           <i class="fa fa-map-marker"></i>
-             <i class="fa fa-angle-left pull-right-container"></i>
-             <i class="fa fa-angl-left pull-right"></i>
-             <span>Ruta Turistica</span>
-             <span class="pull-right-container">
-               <ul class="treeview-menu">
-                       <li><a href="{{ route('adminRutaTuristica.index') }}">
-                         <i class="fa fa-star"></i>
-                         Consultar Ruta Turística</a></li>
-                       <li><a href="">
-                         <i class="fa fa-star"></i>
-                           Editar Ruta Turística</a></li>
-             </ul>
-   </li>
+    <li class="{{ activeMenu('MostrarRutaTuristica') }}">
+      <a href="{{ route('adminRutaTuristica.index') }}">
+        <i class="fa fa-map-marker"></i>
+        <span>Ruta Turistica</span>
+      </a>
+    </li>
      <li class=" treeview {{ (request()->is('CrearPaquete') || request()->is('MostrarPaquete')) ? 'active' : '' }}">
       <a href="#">
         <i class="fa fa-ticket"></i>
@@ -399,15 +389,15 @@ desired effect
               </span>
       </a>
         <ul class="treeview-menu">
-                  <li><a href="{{ route('adminEmpresaTransporte.index') }}">
-                    <i class="fa fa-star"></i>
-                    Empresas</a></li>
-                  <li><a href="{{ route('adminTipoTransporte.index') }}">
-                    <i class="fa fa-star"></i>
-                    Tipos de Transporte</a></li>
-                  <li><a href="{{ route('adminTransporte.index') }}">
-                    <i class="fa fa-star"></i>
-                      Transporte</a></li>
+          <li><a href="{{ route('adminTipoTransporte.index') }}">
+            <i class="fa fa-star"></i>
+            Tipos de Transporte</a></li>
+          <li><a href="{{ route('adminEmpresaTransporte.index') }}">
+            <i class="fa fa-star"></i>
+            Empresas</a></li>
+          <li><a href="{{ route('adminTransporte.index') }}">
+            <i class="fa fa-star"></i>
+            Transporte</a></li>
         </ul>
 
     </li>
@@ -578,6 +568,12 @@ desired effect
 
 <script src="{{ asset('adminLte/lightGallery/dist/js/lightgallery.min.js')}}"></script>
 
+<!-- DataTables-->
+<script src="{{ asset('adminLte/data-tables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('adminLte/data-tables/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{ asset('adminLte/data-tables/js/dataTables.checkboxes.min.js')}}"></script>
+<script src="{{ asset('js/script.js')}}"></script>
+
 <script src="{{ asset('adminLte/sweetalert2/sweetalert2.all.js')}}"></script>
 
 <script type="text/javascript" src="{{ asset('/js/scripts/paquetes.js') }}" > </script>
@@ -585,12 +581,6 @@ desired effect
 {{-- @include('sweetalert::alert') --}}
 
 
-
-<!-- DataTables-->
-<script src="{{ asset('adminLte/data-tables/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('adminLte/data-tables/js/dataTables.bootstrap.min.js')}}"></script>
-<script src="{{ asset('adminLte/data-tables/js/dataTables.checkboxes.min.js')}}"></script>
-<script src="{{ asset('js/script.js')}}"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

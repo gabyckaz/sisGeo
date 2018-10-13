@@ -1,7 +1,8 @@
 @extends('master')
 
 @section('head')
-@section('Title','Rutas Turísticas')
+@section('Title')
+<STRONG>Rutas Turísticas</STRONG>
 
 @endsection
 
@@ -20,14 +21,16 @@
      alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
      </script>
     @endif
-    @if($errors->has(''))
+
+    <!-- Validaciones para que si hay un error, quede a la vista y no se cierre el box -->
+    @if($errors->has('nombrerutaturistica') || $errors->has('datosgenerales') || $errors->has('descripcionrutaturistica'))
       <div class="box box-solid">
     @else
-      <div class="box box-solid collapsed-box">
+      <div class="box box-warning collapsed-box">
     @endif
 
       <div class="box-header">
-        <h3 class="box-title">Registrar nueva Ruta Turística</h3>
+        <h3 class="box-title"><STRONG>Agregar nueva Ruta Turística</STRONG></h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
         </div>
@@ -38,7 +41,7 @@
                   {{ csrf_field() }}
                   <div class="row">
                   <div class="form-group col-md-6 has-feedback{{ $errors->has('nombrerutaturistica') ? ' has-error' : '' }}">
-                    <label for="nombrerutaturistica">Nombre de la ruta *</label>
+                    <label for="nombrerutaturistica">Nombre de la ruta</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-road"></span></span>
                      <input id="nombrerutaturistica" type="text" class="form-control" name="nombrerutaturistica" value="{{ old('nombrerutaturistica') }}" placeholder="Nombre" required autofocus>
@@ -50,7 +53,7 @@
 
                   <div class="col-md-6">
                   <div class="form-group">
-                    <label for="pais">País *</label>
+                    <label for="pais">País</label>
                       <select class="form-control" name="pais">
                         @foreach($paises as $pais)
                           <option value="{{ $pais->IdPais }}" {{ old('pais') == $pais->IdPais ? 'selected' : '' }}>{{ $pais->nombrePais }}</option>
@@ -60,7 +63,7 @@
                  </div>
 
                   <div class="form-group col-sm-12 has-feedback{{ $errors->has('datosgenerales') ? ' has-error' : '' }}">
-                    <label for="datosgenerales">Datos generales *</label>
+                    <label for="datosgenerales">Datos generales</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                     <textarea id="datosgenerales" type="datosgenerales" class="form-control" name="datosgenerales" value="{{ old('datosgenerales') }}" placeholder="Datos generales..." >{{ old('datosgenerales') }}</textarea>
@@ -71,7 +74,7 @@
                   </div>
 
                   <div class="form-group col-sm-12 has-feedback{{ $errors->has('descripcionrutaturistica') ? ' has-error' : '' }}">
-                    <label for="descripcionrutaturistica">Descripción *</label>
+                    <label for="descripcionrutaturistica">Descripción...</label>
                     <div class="input-group">
                     <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                     <textarea id="descripcionrutaturistica" type="descripcionrutaturistica" class="form-control" name="descripcionrutaturistica" value="{{ old('descripcionrutaturistica') }}" placeholder="Descripción" >{{ old('descripcionrutaturistica') }}</textarea>
@@ -85,8 +88,8 @@
                 </div>
                   <div class="row">
                     <div class="col-md-10 col-md-offset-4">
-                      <button type="submit" class="btn btn-info ">Registrar</button>
-                      <button type="reset" class="btn btn-warning ">Limpiar</button>
+                      <button type="submit" class="btn btn-info "><STRONG>Registrar</STRONG></button>
+                      <button type="reset" class="btn btn-warning "><STRONG>Limpiar</STRONG></button>
                     </div>
 
                     <!-- /.col -->
@@ -97,19 +100,34 @@
 
       </div>
       <div class="box-footer">
-      * Estos campos son obligatorios
+      Todos los campos son obligatorios
       </div>
     </div>
   </div>
 
   <div class="col-md-7 col-md-offset-2">
-    <div class="">
+
+</div>
+  <div class="col-md-7 col-md-offset-2">
+    <div class="box box-warning">
       <div class="box-header">
-        <h3 class="box-title">Listado de Rutas</h3>
+       <div class="row">
+        <div class="col-md-3">
+        <h3 class="box-title"><STRONG>Listado de Rutas</STRONG></h3>
+        </div>
+        <div class="col-md-7">
+        <form class="navbar-form navbar-left " action="{{ route('adminRutaTuristica.index') }}" method="get" role="search">
+               <div class="form-group">
+                 <input type="text" name="ruta" class="form-control" placeholder="Ruta turística">
+                  <button type="submit" class="btn btn-default" >Buscar <span class="glyphicon glyphicon-search"></span></button>
+               </div>
+         </form>
+         </div>
+         </div>
         </div>
               <div class="box-body">
                <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover" >
+                <table class="table table-striped table-bordered table-hover" id=tablaadminRutaTuristica>
                   <thead class="thead-dark">
                     <tr>
                     <th class="text-center">Nombre</th>
@@ -122,7 +140,7 @@
                     @foreach($rutaturistica as $ruta)
                      <tr>
                        <td>{{$ruta->NombreRutaTuristica}}</td>
-                       <td>{{$ruta->DatosGenerales}}</td>
+                       <td>{{ substr(($ruta->DatosGenerales),0,170) }}{{ strlen($ruta->DatosGenerales) > 10 ? "..." : "" }}</td>
                        <td>{{$ruta->pais->nombrePais}}</td>
                            <td>
 

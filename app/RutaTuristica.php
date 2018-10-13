@@ -18,8 +18,13 @@ class RutaTuristica extends Model
     //Cambiando el campo por defecto id a uno personalizado
     protected $primaryKey = 'IdRutaTuristica';
 
-  //  public $sortable = ['NombreEmpresaTransporte','NombreTipoTransporte','NumeroAsientos'];
-
+    //Filtro de busqueda
+    public function scopeRuta($query, $ruta){
+      if(trim($ruta) != " "){
+        $query->where('NombreRutaTuristica', "Like", "%$ruta%");
+      }
+    }
+    //Relacion con Pais
     public function pais()
     {
         return $this->belongsTo('App\Pais','IdPais');//Modelo y llave foránea

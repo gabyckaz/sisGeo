@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('head')
-@section('Title','Empresas de Transporte')
-
+@section('Title')
+<STRONG>Empresas de Transporte</STRONG>
 @endsection
 
 @section('contenido')
@@ -85,7 +85,7 @@
 
                   <div class="row">
                     <div class="col-md-12">
-                      <button type="submit" class="btn btn-info center-block">Guardar</button>
+                      <button type="submit" class="btn btn-info center-block"><STRONG>Guardar</STRONG></button>
                     </div>
                     <!-- /.col -->
                   </div>
@@ -118,7 +118,7 @@
                     @endif
                   </div>
                 </div>
-                    <button type="submit" class="btn btn-info center-block">Agregar conductor</button>
+                    <button type="submit" class="btn btn-info center-block"><STRONG>Agregar conductor<STRONG></button>
 
 
                 </fieldset>
