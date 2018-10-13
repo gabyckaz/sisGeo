@@ -3,7 +3,9 @@
 @section('head')
 
 @endsection
-@section('Title','Unidad de Transporte')
+@section('Title')
+<STRONG>Unidad de Transporte</STRONG>
+@endsection
 
 @section('contenido')
 <div class="row">
@@ -271,7 +273,7 @@
 
                   <div class="row">
                     <div class="col-md-12">
-                      <button type="submit" class="btn btn-info center-block">Guardar</button>
+                      <button type="submit" class="btn btn-info center-block"><STRONG>Guardar</STRONG></button>
                     </div>
                   </div>
                 </form>

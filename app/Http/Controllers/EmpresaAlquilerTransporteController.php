@@ -48,11 +48,11 @@ class EmpresaAlquilerTransporteController extends Controller
       //try{
             //validando la informacion
           $this->validate($request,array(
-           'nombreempresa' => 'required|max:80',
-           'nombrecontacto' => 'required|max:40',
+           'nombreEmpresa' => 'required|max:80',
+           'nombreContacto' => 'required|max:40',
            'numeroTelefono'=>'required|size:8',
-           'emailempresa'=>'required|max:30',
-           'observacionesempresa'=>'max:255',
+           'emailEmpresa'=>'required|max:30',
+           'observacionesEmpresa'=>'max:255',
 
          ));
 
@@ -61,11 +61,11 @@ class EmpresaAlquilerTransporteController extends Controller
          //Relacionando campo de BD con formulario
          //campo de BD -> campo del formulario
          $empresalquiler=new EmpresaAlquilerTransporte;
-         $empresalquiler->NombreEmpresaTransporte=$request->nombreempresa;
-         $empresalquiler->NombreContacto=$request->nombrecontacto;
+         $empresalquiler->NombreEmpresaTransporte=$request->nombreEmpresa;
+         $empresalquiler->NombreContacto=$request->nombreContacto;
          $empresalquiler->NumeroTelefonoContacto=$request->numeroTelefono;
-         $empresalquiler->EmailEmpresaTransporte=$request->emailempresa;
-         $empresalquiler->ObservacionesEmpresaTransporte=$request->observacionesempresa;
+         $empresalquiler->EmailEmpresaTransporte=$request->emailEmpresa;
+         $empresalquiler->ObservacionesEmpresaTransporte=$request->observacionesEmpresa;
 
          $empresalquiler->save();
            return redirect('adminEmpresaTransporte')->with('status', "Guardado con éxito");

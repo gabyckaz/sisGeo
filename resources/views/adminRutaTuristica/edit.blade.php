@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('head')
-
+@section('Title')
+<STRONG>Editar Ruta Turística</STRONG>
 @endsection
-@section('Title','Editar Ruta Turística')
 
 @section('contenido')
 <div class="row">
@@ -34,7 +34,7 @@
 
                    <div class="row">
                      <div class="form-group col-md-6 has-feedback{{ $errors->has('nombrerutaturistica') ? ' has-error' : '' }}">
-                       <label for="nombrerutaturistica">Nombre de la ruta *</label>
+                       <label for="nombrerutaturistica">Nombre de la ruta</label>
                        <div class="input-group">
                        <span class="input-group-addon"><span class="fa fa-road"></span></span>
                         <input id="nombrerutaturistica" title="Nombre" class="form-control" name="nombrerutaturistica" value="{{$rutaturistica->NombreRutaTuristica }}" placeholder="Nombre" required autofocus>
@@ -47,10 +47,10 @@
 
                     <div class="col-md-6">
                      <div class="form-group">
-                       <label for="pais">País *</label>
+                       <label for="pais">País</label>
                          <select class="form-control" name="pais">
                            @foreach($paises as $pais)
-                             <option value="{{ $pais->IdPais }}"  {{ $pais->IdPaais == $pais->IdPais ? 'selected' : '' }}>{{$pais->nombrePais}}</option>
+                             <option value="{{ $pais->IdPais }}"  {{ $rutaturistica->IdPais == $pais->IdPais ? 'selected' : '' }}>{{$pais->nombrePais}}</option>
                            @endforeach
                          </select>
                        </div>
@@ -58,10 +58,10 @@
 
 
                  <div class="form-group col-sm-12 has-feedback{{ $errors->has('datosgenerales') ? ' has-error' : '' }}">
-                   <label for="datosgenerales">Datos generales *</label>
+                   <label for="datosgenerales">Datos generales</label>
                    <div class="input-group">
                    <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-                   <textarea id="datosgenerales" type="datosgenerales" class="form-control" name="datosgenerales" value="{{ old('datosgenerales') }}" placeholder="Datos generales..." >{{ $rutaturistica->DatosGenerales }}</textarea>
+                   <textarea id="datosgenerales" type="datosgenerales" class="form-control" name="datosgenerales" value="{{ $rutaturistica->DatosGenerales }}" placeholder="Datos generales..." >{{ $rutaturistica->DatosGenerales }}</textarea>
                  </div>
                    @if ($errors->has('datosgenerales'))
                    <span class="help-block">{{ $errors->first('datosgenerales') }}</span>
@@ -69,10 +69,10 @@
                  </div>
 
                  <div class="form-group col-sm-12 has-feedback{{ $errors->has('descripcionrutaturistica') ? ' has-error' : '' }}">
-                   <label for="descripcionrutaturistica">Descripción *</label>
+                   <label for="descripcionrutaturistica">Descripción</label>
                    <div class="input-group">
                    <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-                   <textarea id="descripcionrutaturistica" type="descripcionrutaturistica" class="form-control" name="descripcionrutaturistica" value="{{ old('descripcionrutaturistica') }}" placeholder="Descripción" >{{ $rutaturistica->DescripcionRutaTuristica }}</textarea>
+                   <textarea id="descripcionrutaturistica" type="descripcionrutaturistica" class="form-control" name="descripcionrutaturistica" value="{{ $rutaturistica->DescripcionRutaTuristica }}" placeholder="Descripción" >{{ $rutaturistica->DescripcionRutaTuristica }}</textarea>
                  </div>
                    @if ($errors->has('descripcionrutaturistica'))
                    <span class="help-block">{{ $errors->first('descripcionrutaturistica') }}</span>
@@ -83,7 +83,7 @@
 
                   <div class="row">
                     <div class="col-md-12">
-                      <button type="submit" class="btn btn-info center-block">Guardar</button>
+                      <button type="submit" class="btn btn-info center-block"><STRONG>Guardar</STRONG></button>
                     </div>
                   </div>
                 </form>
