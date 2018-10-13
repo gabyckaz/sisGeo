@@ -536,7 +536,7 @@ class userController extends Controller
     public function arrayPaginator($array)
 {
     $page = Input::get('page', 1);
-    $perPage = 5;
+    $perPage = 10;
     $offset = ($page * $perPage) - $perPage;
 
     return new LengthAwarePaginator(array_slice($array, $offset, $perPage, true), count($array), $perPage, $page,
