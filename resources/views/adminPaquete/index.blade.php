@@ -47,9 +47,9 @@
 					 </div>
 					 	</form>
 					 <div class="panel-body">
-					 	<table class="table table table-striped table-bordered table-hover">
-					 		<thead>
-
+					 	<table class="table table-striped table-bordered table-hover" id=tablaadminPaquete>
+					 		<thead class="thead-dark">
+                <tr>
 					 				<th>Nombre Paquete</th>
 					 				<th>Fecha Salida</th>
 					 				<th>Hora Salida</th>
@@ -78,18 +78,12 @@
                       </a>
 					 				    </td>
 					 				 </tr>
-
-      @endforeach
+                    @endforeach
 					 				</tbody>
 					 			</table>
-
               {!! $paquetes->appends(\Request::except('page'))->render() !!}
 
-
-
 					 		</div>
-
-
 					 	</div>
 					 </div>
 

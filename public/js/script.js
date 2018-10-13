@@ -34,7 +34,13 @@ $(document).ready(function(){
             "bInfo": false,
             "autoWidth": true,
         });
-
+        $('#tablaActualizarPaquete').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": false,
+            "bInfo": false,
+            "autoWidth": true,
+        });
         if($('#usuario').is(':checked') ){
              $('#total').val(1);
              $('#ctotal').val($('#total').val()*$('#cpersona').val());

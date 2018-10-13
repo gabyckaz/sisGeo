@@ -842,4 +842,36 @@ public fuction postNewImage(Request $request){
 
     }
 
+
+    public function cambiarEstado(Request $request)
+    {
+      //$aprobacionpaquete = Paquete::where('paquete_id',$id)->update(array('AprobacionPaquete' => $request->aprobacionpaquete));
+      $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(10);
+
+      return view('adminPaquete.estado', compact('paquetes'));
+
+    }
+
+    public function cambiarEstado2(Request $request, $id)
+    {
+   $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(10);
+
+      $paquete = Paquete::where('IdPaquete',$id)->first();
+
+      if($paquete->AprobacionPaquete === '1'){
+        DB::table('Paquetes')->where('IdPaquete', $id)->update(array('AprobacionPaquete' => '0'));
+        return redirect('/ActualizarEstado')
+              ->with('status',"Actualizado con éxito")->with('paquetes',$paquetes);
+
+      }else {
+        DB::table('Paquetes')->where('IdPaquete', $id)->update(array('AprobacionPaquete' => '1'));
+        return redirect('/ActualizarEstado')
+              ->with('status',"Actualizado con éxito")->with('paquetes',$paquetes);
+      }
+
+
+
+    }
+
+
 }

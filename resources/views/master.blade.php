@@ -406,8 +406,6 @@ desired effect
         <li class=""><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
 
 
-      <!-- /.sidebar-menu -->
-          <li class="active"><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
     </section>
     <!-- /.sidebar -->
   </aside>

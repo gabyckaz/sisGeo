@@ -21,7 +21,8 @@ class OpcionesPaqueteController extends Controller
      */
     public function index()
     {
-        //
+      $gastosextras = GastosExtras::orderBy('IdRutaTuristica','desc')->paginate(5);//Para el rdenamiento en la tabla index
+      return view('/CrearOpcionesPaquete',compact('gastosextras'));
     }
 
     /**
