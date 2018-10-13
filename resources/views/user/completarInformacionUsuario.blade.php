@@ -152,7 +152,7 @@
                  </div>
              </div>
              <div class="col-md-3">
-               <div class="form-group">
+               <div class="form-group has-feedback{{ session()->has('ErrorFechaVenceD')  ? ' has-error' : '' }}">
                 <label for="inputEmail3" class="control-label">Fecha de Vencimiento de DUI</label>
                  <div class="input-group date ">
                     <div class="input-group-addon">
@@ -168,25 +168,31 @@
                    @else
                      <input  id="fechaVencimientoDUI" type="date" value="{{ old('fechaVencimientoD')}}" name="fechaVencimientoD" class="form-control" >
                    @endif
+                  </div>
                   @if ($errors->has('fechaVencimientoD'))
                        <span class="help-block">{{ $errors->first('fechaVencimientoD') }}</span>
                   @endif
-                  </div>
+                  @if (session()->has('ErrorFechaVenceD'))
+                       <span class="help-block">{{ session()->get('ErrorFechaVenceD') }}</span>
+                  @endif
                 <!-- /.input group -->
               </div>
              </div>
              @else
               <div class="col-md-3">
-                 <div class="form-group has-feedback{{ $errors->has('dui') ? ' has-error' : '' }}">
+                 <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('Errordui') ) ? ' has-error' : '' }}">
                    <label for="dui" class="control-label">DUI</label>
                     <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" id="dui">
                      @if ($errors->has('dui'))
                        <span class="help-block">Un documento es requerido</span>
                      @endif
+                     @if(session()->has('Errordui'))
+                     <span class="help-block">{{ session()->get('Errordui') }}</span>
+                     @endif
                  </div>
              </div>
              <div class="col-md-3">
-               <div class="form-group has-feedback{{ $errors->has('fechaVencimientoD') ? ' has-error' : '' }}">
+               <div class="form-group has-feedback{{  ( $errors->has('fechaVencimientoD') || session()->has('ErrorFechaVenceD') ) ? ' has-error' : '' }}">
                 <label for="inputEmail3" class="control-label">Fecha de Vencimiento de DUI</label>
                  <div class="input-group date ">
                     <div class="input-group-addon">
@@ -197,6 +203,10 @@
                   @if ($errors->has('fechaVencimientoD'))
                        <span class="help-block">{{ $errors->first('fechaVencimientoD') }}</span>
                   @endif
+                  @if (session()->has('ErrorFechaVenceD'))
+                       <span class="help-block">{{ session()->get('fechaVencimientoD') }}</span>
+                  @endif
+                  
                 <!-- /.input group -->
               </div>
              </div>
@@ -247,7 +257,7 @@
                     </div>
                  </div>
               <div class="col-md-3">
-               <div class="form-group has-feedback{{ $errors->has('fechaVencimientoP') ? ' has-error' : '' }}">
+               <div class="form-group has-feedback{{ ( $errors->has('fechaVencimientoP') || session()->has('ErrorFechaVenceP') ) ? ' has-error' : '' }}">
                 <label for="fechaVencimientoP" class="control-label">Fecha de Vencimiento de Pasaporte</label>
                  <div class="input-group date ">
                     <div class="input-group-addon">
@@ -268,6 +278,9 @@
                    @if ($errors->has('fechaVencimientoP'))
                        <span class="help-block">{{ $errors->first('fechaVencimientoP') }}</span>
                   @endif
+                  @if (session()->has('ErrorFechaVenceP'))
+                       <span class="help-block">{{ session()->get('ErrorFechaVenceP') }}</span>
+                  @endif
                 <!-- /.input group -->
               </div>
              </div>
@@ -282,7 +295,7 @@
                   </div>
                 </div>
               <div class="col-md-3">
-               <div class="form-group has-feedback{{ $errors->has('fechaVencimientoP') ? ' has-error' : '' }}">
+               <div class="form-group has-feedback{{ ( $errors->has('fechaVencimientoP') || session()->has('ErrorFechaVenceP') ) ? ' has-error' : '' }}">
                 <label for="fechaVencimientoP" class="control-label">Fecha de Vencimiento de Pasaporte</label>
                  <div class="input-group date ">
                     <div class="input-group-addon">
@@ -292,6 +305,9 @@
                   </div>
                    @if ($errors->has('fechaVencimientoP'))
                        <span class="help-block">{{ $errors->first('fechaVencimientoP') }}</span>
+                  @endif
+                  @if (session()->has('ErrorFechaVenceP'))
+                       <span class="help-block">{{ session()->get('ErrorFechaVenceP') }}</span>
                   @endif
                 <!-- /.input group -->
               </div>
@@ -363,13 +379,11 @@
                 <label for="direccion" class="control-label">Direccion*</label>
                 <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-                <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >
-                </textarea>
-                {{ old('direccion') }}</textarea>
-                @if ($errors->has('direccion'))
+                <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >{{ old('direccion') }}</textarea>
+              </div>
+              @if ($errors->has('direccion'))
                   <span class="help-block">{{ $errors->first('direccion') }}</span>
                 @endif
-              </div>
           </div>
           <div class="col-md-6">
               <div class="form-group ">
@@ -409,7 +423,7 @@
 
          <div class="row">
             <div class="col-md-12">
-              <button type="submit" class="btn btn-info center-block"><STRONG>Actualizar</STRONG></button>
+              <button type="submit" class="btn btn-info  col-xs-12 col-sm-3 center-block"><STRONG>Actualizar</STRONG></button>
             </div>
             <!-- /.col -->
           </div>

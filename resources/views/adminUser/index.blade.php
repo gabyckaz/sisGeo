@@ -50,22 +50,42 @@ endrole -->
 @endif
     <div class="row">
     <div class="col-md-offset-2 col-md-7 ">
-       <form class="navbar-form navbar-left pull-right" action="{{ route('adminUser.index') }}" method="get" role="search">
+       <form class="" action="{{ route('adminUser.index') }}" method="get" role="search">
+              <div class="row"> 
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" name="nombre" class="form-control" placeholder="Nombre">
+                   </div>
+                </div>
+                <div class="col-md-6">
+                   <div class="form-group">
+                    <input type="text" name="email" class="form-control" placeholder="Email">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+              <div class="col-sm-6 col-md-6"> 
               <div class="form-group">
-                <input type="text" name="nombre" class="form-control" placeholder="Nombre">
-                <input type="text" name="email" class="form-control" placeholder="Email">
                 <select  class="form-control" name="estado" id="estado" >
                   <option value="">Estado</option>
                   <option value="1">Activo</option>
                   <option value="0">Inactivo</option>
               </select>
+            </div>
+            </div>
+            <div class="col-sm-6 col-md-6"> 
+            <div class="form-group">
               <select  class="form-control" name="rol" id="rol" >
                 <option value="">Rol</option>
                 <option value="2">User</option>
                 <option value="1">Admin</option>
               </select>
-              </div>
-              <button type="submit" class="btn btn-default" >Buscar<span class="glyphicon glyphicon-search"></span></button>
+            </div>
+            </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-default col-xs-12 col-sm-3" ><span class="glyphicon glyphicon-search"></span>Buscar</button>
+            </div>
           </form>
         </div>
      </div>
