@@ -24,7 +24,10 @@
          $errors->has('fechaVencimentoD') ||
          $errors->first('fechaVencimentoP') ||
          $errors->first('Direccion') ||
-         session()->has('ErrorFechaNac')
+         session()->has('ErrorFechaNac') ||
+         session()->has('Errordui') ||
+         session()->has('ErrorFechaVenceD') ||
+         session()->has('ErrorFechaVenceP')
 
       )
       <div class="box box-solid">
@@ -145,18 +148,21 @@
       <div class="row">
 
         <div class="col-md-3">
-          <div class="form-group has-feedback{{ $errors->has('dui') ? ' has-error' : '' }}">
+          <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('Errordui') ) ? ' has-error' : '' }}">
               <label for="dui" class="control-label">DUI</label>
                 <div class="">
                   <input type="text" name="dui" class="form-control" id="dui" placeholder="Dui" value="{{ old('dui') }}">
                    @if ($errors->has('dui'))
                        <span class="help-block">Un documento es requerido</span>
                   @endif
+                  @if(session()->has('Errordui'))
+                     <span class="help-block">{{ session()->get('Errordui') }}</span>
+                     @endif
                 </div>
            </div>
         </div>
         <div class="col-md-3">
-           <div class="form-group has-feedback{{ $errors->has('fechaVencimentoD') ? ' has-error' : '' }}">
+           <div class="form-group has-feedback{{ ( $errors->has('fechaVencimentoD') || session()->get('ErrorFechaVenceD')) ? ' has-error' : '' }}">
             <label for="fechaVencimentoD" class="control-label">Fecha de vencimiento</label>
                <div class="">
                  <div class="input-group date ">
@@ -168,6 +174,10 @@
                   @if ($errors->has('fechaVencimentoD'))
                        <span class="help-block">{{ $errors->first('fechaVencimentoD') }}</span>
                   @endif
+                  @if (session()->has('ErrorFechaVenceD'))
+                       <span class="help-block">{{ session()->get('ErrorFechaVenceD') }}</span>
+                  @endif
+                  
                 </div>
           </div>
         </div>
@@ -186,7 +196,7 @@
             </div>
         </div>
           <div class="col-md-3">
-           <div class="form-group has-feedback{{ $errors->has('fechaVencimentoP') ? ' has-error' : '' }}">
+           <div class="form-group has-feedback{{ ( $errors->has('fechaVencimentoP') || session()->has('ErrorFechaVenceP')) ? ' has-error' : '' }}">
             <label for="fechaVencimentoP" class="control-label">Fecha de vencimiento</label>
                <div class="">
                  <div class="input-group date ">
@@ -197,6 +207,9 @@
                   </div>
                    @if ($errors->has('fechaVencimentoP'))
                        <span class="help-block">{{ $errors->first('fechaVencimentoP') }}</span>
+                    @endif
+                    @if (session()->has('ErrorFechaVenceP'))
+                       <span class="help-block">{{ session()->get('ErrorFechaVenceP') }}</span>
                     @endif
                 </div>
           </div>
