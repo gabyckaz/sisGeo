@@ -220,7 +220,7 @@
                     </tbody>
                   </table>
                   </div>
-                  <center>{!! $transportes->appends(\Request::except('page'))->render() !!}</center>
+                  {{-- <center>{!! $transportes->appends(\Request::except('page'))->render() !!}</center> --}}
                 </div>
         </div>
       </div><!-- Fin de vista index -->

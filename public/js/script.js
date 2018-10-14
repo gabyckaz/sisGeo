@@ -1,15 +1,17 @@
 $(document).ready(function(){
         $('#tablaadminTransporte').DataTable({
-            "paging": false,
-            "bpaging": false,
-            "bFilter": false,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
         });
         $('#tablaadminEmpresa').DataTable({
-            "paging": false,
-            "bpaging": false,
-            "bFilter": false,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
         });
@@ -35,6 +37,15 @@ $(document).ready(function(){
             "bInfo": false,
             "autoWidth": true,
         });
+        $('#tablaAdminPaquetes').DataTable({
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
+            "bInfo": false,
+            "autoWidth": true,
+        });
+        
 
         if($('#usuario').is(':checked') ){
              $('#total').val(1);

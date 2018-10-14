@@ -147,7 +147,7 @@
                   </tbody>
                 </table>
                 </div>
-              <center>{!! $empresalquiler->appends(\Request::except('page'))->render() !!}</center>
+              {{-- <center>{!! $empresalquiler->appends(\Request::except('page'))->render() !!}</center> --}}
             </div>
       </div>
     </div>

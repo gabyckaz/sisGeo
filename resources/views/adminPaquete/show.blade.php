@@ -11,13 +11,13 @@
     @if(session('status'))
     <br>
      <script type="text/javascript">
-      alertify.success("{{ session('status') }}");
+      alertify.success("<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{ session('status') }}");
      </script>
     @endif
     @if(session('fallo'))
     <br>
      <script type="text/javascript">
-      alertify.error("{{ session('fallo') }}");
+      alertify.error("<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{ session('fallo') }}");
      </script>
     @endif
       <div class="box-header">

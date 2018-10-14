@@ -38,7 +38,7 @@ class PaqueteController extends Controller
     {
 
 
-      $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(5);
+      $paquetes = Paquete::all();//nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(5;
       /*$paquetes = Paquete::sortable()->paginate(5);*/
 
 
