@@ -3,28 +3,32 @@
 @section('head')
 
 @endsection
-@section('Title','Opciones Paquete')
-
+@section('Title')
+<strong>Opciones Paquete</strong>
+@endsection
 @section('contenido')
 <div class="row">
 
   <div class="col-md-4">
     @if(session('status'))
-      <br>
+  
       <script type="text/javascript">
-     alertify.success("{{ session('status') }}");
+     alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session('status') }}');
      </script>
-        <div class="alert alert-success alert-dismissible fade in" role="alert">
+        <{{-- div class="alert alert-success alert-dismissible fade in" role="alert">
           <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
           {{ session('status') }}
-        </div>
+        </div> --}}
     @endif
     @if(session('fallo'))
-      <br>
+    <script type="text/javascript">
+     alertify.success('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{ session('status') }}');
+     </script>
+     {{--  <br>
         <div class="alert alert-danger alert-dismissible fade in" role="alert">
           <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
           {{ session('fallo') }}
-      </div>
+      </div> --}}
     @endif
     <div class="box box-warning">
       <div class="box-header">

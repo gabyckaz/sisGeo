@@ -3,6 +3,9 @@
 @section('head')
     Ver Paquete
 @endsection
+@section('Title')
+  <strong>Administracion de paquetes turisticos</strong>
+@endsection
 @section('contenido')
     <div class="container spark-screen">
         <div class="row">
@@ -73,7 +76,7 @@
                       class="btn btn-info fa fa-user-plus " title="Completar Información"><span class="fa fa-bus"></span>
                       </a>
                       <a href="{{route('adminPaquete.createcopia', $paquete['IdPaquete'])}}"
-                      class="btn btn-info fa fa-files-o" title="Crear copia"> 
+                      class="btn btn-info fa fa-files-o" title="Crear copia de paquete"> 
                       </a>
 					 				    </td>
 					 				 </tr>

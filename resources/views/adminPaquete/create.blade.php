@@ -1,7 +1,10 @@
 @extends('master')
 
 @section('head')
-    @section('Title','Paquetes Turísticos')
+    
+@endsection
+@section('Title')
+<strong>Paquetes Turísticos</strong>
 @endsection
 
 @section('contenido')
@@ -21,7 +24,7 @@
                </script>
               @endif
                 <div class="panel">
-                    <div class="panel-heading">Registrar de Paquete Turistico</div>
+                    <div class="panel-heading"><strong>Registrar un nuevo Paquete Turistico</strong></div>
 
                       <div class="panel-body">
                         <form method="post" action="/CrearPaquete" enctype="multipart/form-data">

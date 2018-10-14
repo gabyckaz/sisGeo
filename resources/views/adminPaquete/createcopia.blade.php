@@ -3,6 +3,9 @@
 @section('head')
 
 @endsection
+@section('Title')
+<strong>Crear paquete a partir de paquete existente</strong>
+@endsection
 
 @section('contenido')
       @if(session('status'))

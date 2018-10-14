@@ -36,11 +36,12 @@
               <span class="help-block">{{ $errors->first('tipotransporte') }}</span>
               @endif
             </div>
-
-            <div class="row">
-              <div class="col-md-12">
+            <div class="col-md-12">
                 <button type="submit" class="btn btn-info center-block">Agregar transporte</button>
               </div>
+          </form>
+            <div class="row">
+              
               <h3 class="box-title"> </h3>
               <table class="table table-striped table-bordered table-hover" >
                 <thead class="thead-dark">
@@ -59,7 +60,7 @@
 
 
             </div>
-          </form>
+          
         </div>
       </div>
     </div>

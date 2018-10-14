@@ -6,7 +6,7 @@
 @endsection
 @section('Title')
 @role('Admin') 
-Administracion de roles a usuario
+<strong> Administracion de roles a usuario </strong>
 @endrole
 @endsection
 

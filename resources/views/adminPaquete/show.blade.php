@@ -2,7 +2,8 @@
 
 @section('head')
 
-@section('Title','Asignación de transporte')
+@section('Title')
+<strong>Asignación de transporte</strong>
 @endsection
 
 @section('contenido')
