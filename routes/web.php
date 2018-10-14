@@ -28,7 +28,7 @@ Route::group(['middleware' => ['role:Admin']], function() {
 });
 
 //Rutas a las que puede accesar el Cliente
-Route::group(['middleware' => ['role:Cliente']], function() {
+Route::group(['middleware' => ['role:User']], function() {
   Route::get('user/completarInformacion', ['as' => 'usuario.completar.informacion', 'uses' => 'userController@editarInformacion']);
   Route::put('user/completarInformacion', ['as' => 'user.completar.informacion.store', 'uses' => 'userController@completarInformacion']);
   Route::get('user/editInfo/{persona}', ['as' => 'user.edit.info', 'uses' => 'userController@editInfoUserTurista']);
@@ -41,7 +41,6 @@ Route::group(['middleware' => ['role:Cliente']], function() {
   //Rutas de reserva
   Route::get('Reservacion/{id}/crear', ['as' => 'adminPaquete.reserva.add', 'uses' => 'ReservacionController@reservar']);
   Route::put('Reservacion/crear', ['as' => 'adminPaquete.reserva.add.store', 'uses' => 'ReservacionController@store']);
-
   Route::resource('Reservacion', 'ReservacionController');
   //Route::put('/{id}/adminPaquete', ['as' => 'adminPaquete.reserva.add', 'uses' =>  'ReservacionController@reservar']);
 });
@@ -89,7 +88,7 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::get('/eliminarCondiciones/{id}', ['uses' => 'OpcionesPaqueteController@eliminarcondiciones', 'as' => 'adminOpcionesPaquete.eliminarcondiciones']);
   //INICIO  PAQUETES
   //Ver paquetes
-  Route::get('/MostrarPaquete', ['uses' => 'PaqueteController@index',b'as' => 'adminPaquete.index']);
+  Route::get('/MostrarPaquete', ['uses' => 'PaqueteController@index','as' => 'adminPaquete.index']);
   //Crear paquetes
   Route::get('/CrearPaquete', ['uses' => 'PaqueteController@create', 'as' => 'adminPaquete.create']);
   Route::post('/CrearPaquete', ['uses' => 'PaqueteController@store', 'as' => 'adminPaquete.create']);
@@ -98,8 +97,6 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::put('/EditarPaquete/{id}', ['uses' => 'PaqueteController@update', 'as' => 'adminPaquete.update']);
   //Bloquear paquetes
   Route::get('/EliminarPaquete/{id}',['uses' =>'PaqueteController@destroy', 'as' => 'adminPaquete.destroy']);
-  //MOSTRAR PAQUETES A CLIENTES
-  Route::get('/MostrarPaqueteCliente/{id}', ['uses' => 'PaqueteController@getSingle', 'as' => 'adminPaquete.single']);
   //AGREGAR TRANSPORTE A PAQUETE
   Route::get('/MostrarPaquete/{id}', ['uses' => 'PaqueteController@edittransporte', 'as' => 'adminPaquete.show']);
   Route::put('/MostrarPaquete/{id}', ['uses' => 'PaqueteController@asignartransporte', 'as' => 'adminPaquete.show']);
@@ -110,10 +107,12 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   //GUARDAR COPIA DE PAQUETE
   Route::post('/CrearCopiaPaquete/{id}', ['uses' => 'PaqueteController@storecopia', 'as' => 'adminPaquete.createcopia']);
   //FIN RUTAS PAQUETES
-
 });
 
-//Rutas a las que puede accesar visitante sin hacer login
+//MOSTRAR PAQUETES A USUARIOS COMO VISITANTES
+Route::get('/MostrarPaqueteCliente/{id}', ['uses' => 'PaqueteController@getSingle', 'as' => 'adminPaquete.single']);
+
+//Rutas a las que solo puede accesar visitante sin hacer login
 Route::group(['middleware' => ['guest']], function () {
         Route::get('/', ['uses' => 'PaqueteController@show',
           'as' => 'welcome',

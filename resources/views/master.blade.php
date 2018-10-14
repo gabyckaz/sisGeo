@@ -350,7 +350,7 @@ desired effect
     </li>
     @endrole
 
-    @role('Agente' , 'Director')
+    @role(['Director','Agente'])
     <li class="{{ activeMenu('MostrarRutaTuristica') }}">
       <a href="{{ route('adminRutaTuristica.index') }}">
         <i class="fa fa-map-marker"></i>
