@@ -12,13 +12,13 @@
     @if(session('status'))
     <br>
      <script type="text/javascript">
-      alertify.success("<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{ session('status') }}");
+      alertify.success('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{ session('status') }}');
      </script>
     @endif
     @if(session('fallo'))
     <br>
      <script type="text/javascript">
-      alertify.error("<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{ session('fallo') }}");
+      alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{ session('fallo') }}');
      </script>
     @endif
       <div class="box-header">
@@ -28,9 +28,10 @@
         </div><!-- /.box-tools -->
         </div>
               <div class="box-body">
-                <form method="POST" action="{{$paquete->IdPaquete}}" files = "true" >
-                <input name="_method" type="hidden" value="PUT">
-
+                <form method="POST" action="{{ route('adminPaquete.asignaTransCondPaquete', $paquete->IdPaquete) }}" >
+                {{-- <input name="_method" type="hidden" value="PUT"> --}}
+                 {!! method_field('PUT') !!}
+                 {!! csrf_field() !!}
                 <div class="col-md-12">
                 <div class="box box-warning">
                 <!-- /.box-header -->
@@ -103,42 +104,40 @@
             </div>
             <div class="row">
               <div class="col-md-6">
-              <div class="form-group">
+              <div class="form-group has-feedback{{ session()->has('etransporte') ? ' has-error' : '' }}">
                 <label for="transporte">Transporte</label>
-                  <select class="form-control" name="transporte">
+                  <select class="form-control" name="transporte" id="selectIdTransporte">
+                    <option value="idDefault">Selecciona un transporte</option>
                     @foreach($transportes as $transporte)
                       <option value="{{ $transporte->IdTransporte }}">{{ $transporte->tipotransporte->NombreTipoTransporte}} de {{ $transporte->EmpresaAlquilerTransporte->NombreEmpresaTransporte }}.   Cupos: {{ $transporte->NumeroAsientos }}</option>
                     @endforeach
                   </select>
-                  <p>Actualmente seleccionado el de cupos: {{$consulta}}</p>
+                  @if(session()->has('etransporte'))
+                   <span class="help-block">{{ session()->get('etransporte') }}</span>
+                  @endif
                 </div>
               </div>
-             </div>
+              <div class="col-md-6" >
+                <div class="form-group has-feedback{{ session()->has('econductor') ? ' has-error' : '' }}">
+                  <label for="conductor">Conductor</label>
+                    <select class="form-control" name="conductor" id="selectConductor">
+                    </select>
+                    @if(session()->has('econductor'))
+                   <span class="help-block">{{ session()->get('econductor') }}</span>
+                  @endif
+                  </div>
+                </div>
 
+             </div>
 
               </div>
                 <!-- /.box-body -->
-            <div class="row">
+             <div class="row">
                   <div class="col-md-6" >
                     <button type="submit" class="btn btn-info">Asignar transporte</button>
                   </div>
               </form>
-
-              <div class="col-md-6">
-              <form method="POST" action="{{$paquete->IdPaquete}}" files = "true" >
-                <div class="form-group">
-                  <label for="conductor">Conductor</label>
-                    <select class="form-control" name="conductor">
-                      @foreach($conductores as $conductor)
-                        <option value="{{ $conductor->IdConductor}}">{{ $conductor->NombreConductor }} de {{$conductor->empresa->NombreEmpresaTransporte}}</option>
-                      @endforeach
-                    </select>
-                      <p>Actualmente seleccionado el conductor: {{$consultaconductor}}</p>
-                  </div>
-                <button type="submit" class="btn btn-info">Asignar conductor</button>
-                  </form>
-                </div>
-
+            
         </div>
       </div>
     </div>

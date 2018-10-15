@@ -291,3 +291,34 @@ function filter(__val__){
     }
 
 };
+
+  $(document).ready(function() {
+/*
+Permite llenar dinamicamente el select  de condcutores
+*/
+$( "#selectIdTransporte" )
+  .change(function() {
+    var idTransporte = "";
+    idTransporte = $( "#selectIdTransporte" ).val();
+    console.log(idTransporte);
+    $.ajax({
+        type: 'get',
+        url: 'http://sisgeo.dev.com:89/ListarConductores' ,
+        dataType: "json",
+        data: {
+            id: idTransporte//'1'
+        }, success: function (data) {
+                console.log(data);                
+                var response = data.conductores;
+                $("#selectConductor").empty();
+                 if(response.length > 0 && response.valor !== 'idDefault'){
+                  for (var i = 0; i < response.length; i++) {
+                    $('#selectConductor').append('<option value="' + response[i].IdConductor + '">' + response[i].NombreConductor + '</option>');
+                    }
+                  }else{
+                    $('#selectConductor').append('<option value="defecto" >' + 'Selecciona un conductor' + '</option>');
+                  }
+        }
+      });
+  }).trigger( "change" );
+});

@@ -245,12 +245,19 @@ Route::resource('turista', 'TuristaController');
               'uses' => 'PaqueteController@asignartransporte',
               'as' => 'adminPaquete.show',
             ]);
+             Route::get('/ListarConductores', [
+              'uses' => 'PaqueteController@listarConductores',
+              'as' => 'adminPaquete.listaConductores',
+            ]);
             //AGREGAR CONDUCTOR A PAQUETE
             Route::post('/MostrarPaquete/{id}', [
               'uses' => 'PaqueteController@asignarconductor',
               'as' => 'adminPaquete.show',
             ]);
-
+             Route::put('/asignaTransCondPaquete/{id}', [
+              'uses' => 'PaqueteController@asignaTransCondPaquete',
+              'as' => 'adminPaquete.asignaTransCondPaquete',
+            ]);
             //CREAR COPIA DE PAQUETE
             Route::get('/CrearCopiaPaquete/{id}', [
               'uses' => 'PaqueteController@createcopia',
