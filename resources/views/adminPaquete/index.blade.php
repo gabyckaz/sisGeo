@@ -50,8 +50,8 @@
 					 </div>
 					 	</form>
 					 <div class="panel-body">
-					 	<table class="table table table-striped table-bordered table-hover" id="tablaAdminPaquetes">
-					 		<thead class="thead-dark">
+					 	<table class="table table-striped table-bordered table-hover" id="tablaAdminPaquetes">
+					 		<thead>
                 <tr>
 					 				<th>Nombre Paquete</th>
 					 				<th>Fecha Salida</th>
@@ -83,13 +83,7 @@
                     @endforeach
 					 				</tbody>
 					 			</table>
-<<<<<<< HEAD
-
               {{-- {!! $paquetes->appends(\Request::except('page'))->render() !!} --}}
-=======
-              {!! $paquetes->appends(\Request::except('page'))->render() !!}
->>>>>>> a8d79cc355c5712fb5d60f820e2fa787d38be880
-
 					 		</div>
 					 	</div>
 					 </div>
