@@ -95,8 +95,6 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   //Actualizar paquetes
   Route::get('/EditarPaquete/{id}', ['uses' => 'PaqueteController@edit', 'as' => 'adminPaquete.edit']);
   Route::put('/EditarPaquete/{id}', ['uses' => 'PaqueteController@update', 'as' => 'adminPaquete.update']);
-  Route::get('/ActualizarEstado', ['uses' => 'PaqueteController@cambiarEstado', 'as' => 'adminPaquete.estado']);
-  Route::put('/ActualizarEstado/{id}', ['uses' => 'PaqueteController@cambiarEstado2', 'as' => 'adminPaquete.estado2']);
   //Bloquear paquetes
   Route::get('/EliminarPaquete/{id}',['uses' =>'PaqueteController@destroy', 'as' => 'adminPaquete.destroy']);
   //AGREGAR TRANSPORTE A PAQUETE
@@ -105,6 +103,7 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   //AGREGAR CONDUCTOR A PAQUETE
   Route::post('/MostrarPaquete/{id}', ['uses' => 'PaqueteController@asignarconductor', 'as' => 'adminPaquete.show']);
   //CREAR COPIA DE PAQUETE
+  Route::put('/asignaTransCondPaquete/{id}', ['uses' => 'PaqueteController@asignaTransCondPaquete', 'as' => 'adminPaquete.asignaTransCondPaquete']);
   Route::get('/CrearCopiaPaquete/{id}', ['uses' => 'PaqueteController@createcopia', 'as' => 'adminPaquete.createcopia']);
   //GUARDAR COPIA DE PAQUETE
   Route::post('/CrearCopiaPaquete/{id}', ['uses' => 'PaqueteController@storecopia', 'as' => 'adminPaquete.createcopia']);
@@ -119,4 +118,10 @@ Route::group(['middleware' => ['guest']], function () {
         Route::get('/', ['uses' => 'PaqueteController@show',
           'as' => 'welcome',
         ]);
+});
+
+//Rutas a las que solo puede accesar el Director
+Route::group(['middleware' => ['role:Director']], function () {
+  Route::get('/ActualizarEstado', ['uses' => 'PaqueteController@cambiarEstado', 'as' => 'adminPaquete.estado']);
+  Route::put('/ActualizarEstado/{id}', ['uses' => 'PaqueteController@cambiarEstado2', 'as' => 'adminPaquete.estado2']);
 });
