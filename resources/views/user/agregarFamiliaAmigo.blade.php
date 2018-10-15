@@ -46,7 +46,7 @@
       {!! method_field('PUT') !!}
       {!! csrf_field() !!}
        <div class="row">
-         <div class="col-md-2">
+         <div class="col-md-3">
           <div class="form-group">
             <label for="tipo" class="control-label">Tipo*</label>
               <div class="">
@@ -64,21 +64,21 @@
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                    <input type="text" name="Nombre" class="form-control"  id="Nombre" placeholder="Nombre" value="{{old('Nombre')}}" >
+                    <input type="text" name="Nombre" class="form-control"  id="Nombre" placeholder="Nombre" value="{{old('Nombre')}}" required>
                   </div>
                   @if ($errors->has('Nombre'))
                        <span class="help-block">{{ $errors->first('Nombre') }}</span>
                     @endif
             </div>
          </div>
-         <div class="col-md-3">
+         <div class="col-md-4">
             <div class="form-group has-feedback{{ $errors->has('Apellido') ? ' has-error' : '' }}">
               <label for="Apellido" class="control-label">Apellido*</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                  <input type="text" name="Apellido" class="form-control" id="Apellido" placeholder="Apellido" value="{{ old('Apellido') }}">
+                  <input type="text" name="Apellido" class="form-control" id="Apellido" placeholder="Apellido" value="{{ old('Apellido') }}" required>
                 </div>
                 @if ($errors->has('Apellido'))
                        <span class="help-block">{{ $errors->first('Apellido') }}</span>
@@ -88,7 +88,7 @@
 
        </div>
        <div class="row">
-         <div class="col-md-2">
+         <div class="col-md-3">
            <div class="form-group">
               <label for="Genero" class="col-sm-2 control-label">Genero*</label>
 
@@ -120,7 +120,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
                     </div>
-                  <input type="date" name="fechaNacimiento" class="form-control pull-right" value="{{ old('fechaNacimiento') }}">
+                  <input type="date" name="fechaNacimiento" class="form-control pull-right" value="{{ old('fechaNacimiento') }}" required>
                   </div>
                   @if ($errors->has('fechaNacimiento'))
                        <span class="help-block">{{ $errors->first('fechaNacimiento') }}</span>
@@ -137,7 +137,7 @@
             <label for="observacionestransporte">Direccion*</label>
             <div class="input-group">
             <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-              <textarea id="Direccion" type="text" class="form-control" name="Direccion" placeholder="Direccion">{{ old('Direccion') }}</textarea>
+              <textarea id="Direccion" type="text" class="form-control" name="Direccion" placeholder="Direccion" required autofocus>{{ old('Direccion') }}</textarea>
             </div>
             @if ($errors->has('Direccion'))
             <span class="help-block">{{ $errors->first('Direccion') }}</span>
@@ -241,7 +241,7 @@
          </div>
          <div class="box-footer">
                <p>*Estos campos son obligatorios</p>
-              <p>Es necesario ingresar almenos un documento</p>
+              <p>Es necesario un documento para mayores de edad</p>
          </div>
       </div>
      </div>

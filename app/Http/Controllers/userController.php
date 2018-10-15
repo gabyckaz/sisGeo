@@ -569,7 +569,7 @@ class userController extends Controller
             return redirect()->back()->withInput()->with('ErrorFechaNac', 'Error fecha incorrecta');
           }
        $edad = Carbon::parse($request->fechaNacimiento)->age;
-       if($edad > 18){
+      /* if($edad > 18 ){
         $this->validate($request, [
           "Nombre" => "required|alpha|min:3|max:25",
           "Apellido" => "required|alpha|min:3|max:25",
@@ -578,8 +578,8 @@ class userController extends Controller
           "dui" => "required",
           "pasaporte" => "required",
         ]);
-       }
-      if( $request->input("dui") == null && $request->input("pasaporte") == null){
+       }*/
+      if( $edad > 18 && $request->input("dui") == null && $request->input("pasaporte") == null){
             $hola1 = "Debes introducir por lo menos un documento";
        if($edad >= 18 ){
        $this->validate($request, [
