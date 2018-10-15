@@ -869,10 +869,10 @@ public fuction postNewImage(Request $request){
     public function listarConductores(Request $request){
 
        if ($request->ajax())
-        { 
+        {
           if($request->id == 'idDefault'){
             $arrayDefault = array('' => '' );
-           
+
             return \Response::json(array(
                     "exito" => 'Llegamos al controlador',
                      "valor" => $request->id,
@@ -880,7 +880,7 @@ public fuction postNewImage(Request $request){
                  ));
           }else{
           $this->conductores = Conductor::where('IdEmpresaTransporte',$request->id)->get();
-          
+
           return \Response::json(array(
                     "exito" => 'Llegamos al controlador',
                      "valor" => $request->id,
@@ -896,25 +896,56 @@ public fuction postNewImage(Request $request){
          if($request->transporte == "idDefault" || $request->conductor == "defecto" ){
           return back()->with('etransporte',"Transporte requerido")
           ->with('econductor',"Conductor requerido");
-         }  
+         }
      try{
           $transporte = Transporte::find($request->get('transporte'));
           $conductor = Conductor::find($request->get('conductor'));
 
           $transporte->paquetes()->attach($paquete);
           $conductor->paquetescon()->attach($paquete);
-           
+
           $paquete= Paquete::where('IdPaquete','=',$paquete)->first();
           $transportes =Conductor::all();
           $this->conductores = '';//Conductor::all();
           $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','asc')->paginate(5);
-         
+
           return back()
           ->with('paquetes',$paquetes)
           ->with('status',"Asignado exitosamente");
         } catch(\Exception $e) {
           return back()->with('fallo', "El paquete ya tiene asignado el conductor o el transporte");
         }
+
+    }
+
+
+    public function cambiarEstado(Request $request)
+    {
+      //$aprobacionpaquete = Paquete::where('paquete_id',$id)->update(array('AprobacionPaquete' => $request->aprobacionpaquete));
+      $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(10);
+
+      return view('adminPaquete.estado', compact('paquetes'));
+
+    }
+
+    public function cambiarEstado2(Request $request, $id)
+    {
+   $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(10);
+
+      $paquete = Paquete::where('IdPaquete',$id)->first();
+
+      if($paquete->AprobacionPaquete === '1'){
+        DB::table('Paquetes')->where('IdPaquete', $id)->update(array('AprobacionPaquete' => '0'));
+        return redirect('/ActualizarEstado')
+              ->with('status',"Actualizado con éxito")->with('paquetes',$paquetes);
+
+      }else {
+        DB::table('Paquetes')->where('IdPaquete', $id)->update(array('AprobacionPaquete' => '1'));
+        return redirect('/ActualizarEstado')
+              ->with('status',"Actualizado con éxito")->with('paquetes',$paquetes);
+      }
+
+
 
     }
 

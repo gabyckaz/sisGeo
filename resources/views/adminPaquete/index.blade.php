@@ -51,7 +51,7 @@
 					 	</form>
 					 <div class="panel-body">
 					 	<table class="table table table-striped table-bordered table-hover" id="tablaAdminPaquetes">
-					 		<thead>
+					 		<thead class="thead-dark">
                 <tr>
 					 				<th>Nombre Paquete</th>
 					 				<th>Fecha Salida</th>
@@ -68,30 +68,29 @@
 					 					<td>{{$horasalida=$paquete->HoraSalida}}</td>
 					 					<td>{{$preciopaquete=$paquete->Precio}}</td>
 					 					<td>
-                       
+
 					 						<a href="{{route('adminPaquete.edit', $paquete['IdPaquete'])}}"
-					 						class="btn btn-warning fa fa-cog" title="Editar"> 
+					 						class="btn btn-warning fa fa-cog" title="Editar">
 					 						</a>
                       <a href="{{route('adminPaquete.show', $paquete['IdPaquete'])}}"
                       class="btn btn-info fa fa-user-plus " title="Completar Información"><span class="fa fa-bus"></span>
                       </a>
                       <a href="{{route('adminPaquete.createcopia', $paquete['IdPaquete'])}}"
-                      class="btn btn-info fa fa-files-o" title="Crear copia de paquete"> 
+                      class="btn btn-info fa fa-files-o" title="Crear copia de paquete">
                       </a>
 					 				    </td>
 					 				 </tr>
-
-      @endforeach
+                    @endforeach
 					 				</tbody>
 					 			</table>
+<<<<<<< HEAD
 
               {{-- {!! $paquetes->appends(\Request::except('page'))->render() !!} --}}
-
-
+=======
+              {!! $paquetes->appends(\Request::except('page'))->render() !!}
+>>>>>>> a8d79cc355c5712fb5d60f820e2fa787d38be880
 
 					 		</div>
-
-
 					 	</div>
 					 </div>
 

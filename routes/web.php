@@ -225,6 +225,18 @@ Route::resource('turista', 'TuristaController');
                 'as' => 'adminPaquete.update',
             ]);
 
+            Route::get('/ActualizarEstado', [
+            'uses' => 'PaqueteController@cambiarEstado',
+            'as' => 'adminPaquete.estado',
+              ]);
+
+            Route::put('/ActualizarEstado/{id}', [
+                'uses' => 'PaqueteController@cambiarEstado2',
+                'as' => 'adminPaquete.estado2',
+            ]);
+
+
+
             //Bloquear paquetes
             Route::get('/EliminarPaquete/{id}',[
                 'uses' =>'PaqueteController@destroy',

@@ -45,8 +45,14 @@ $(document).ready(function(){
             "bInfo": false,
             "autoWidth": true,
         });
-        
 
+        $('#tablaActualizarPaquete').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": false,
+            "bInfo": false,
+            "autoWidth": true,
+        });
         if($('#usuario').is(':checked') ){
              $('#total').val(1);
              $('#ctotal').val($('#total').val()*$('#cpersona').val());
@@ -308,7 +314,7 @@ $( "#selectIdTransporte" )
         data: {
             id: idTransporte//'1'
         }, success: function (data) {
-                console.log(data);                
+                console.log(data);
                 var response = data.conductores;
                 $("#selectConductor").empty();
                  if(response.length > 0 && response.valor !== 'idDefault'){
