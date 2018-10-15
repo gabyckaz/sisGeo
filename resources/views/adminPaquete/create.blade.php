@@ -260,17 +260,7 @@
                         <p class="help-block">Subir Imagen 3.</p>
                       </div>
 
-                        <div class="form-check">
-                              <input type='hidden' name='disponibilidadpaquete' value='0'/>
-                              <input type='checkbox' name='disponibilidadpaquete' value='1'/>
-                          <label class="form-check-label" for="disponibilidadpaquete">Disponibilidad de paquete</label>
-                        </div>
-                        <div class="form-check">
-                              <input type='hidden' name='aprobacionpaquete' value='0'/>
-                              <input type='checkbox' name='aprobacionpaquete' value='1'/>
-                          <label class="form-check-label" for="aprobacionpaquete">Aprobacion de paquete</label>
-                        </div>
-                        </div>
+                  
                         </div>
                         <!-- /.box-body -->
 

@@ -122,6 +122,7 @@
               <div class="box-body">
                <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover" id=tablaadminRutaTuristica>
+
                   <thead class="thead-dark">
                     <tr>
                     <th class="text-center">Nombre</th>

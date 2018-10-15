@@ -375,6 +375,9 @@ desired effect
                     <li><a href="{{ route('adminOpcionesPaquete.create')}}">
                       <i class="fa fa-star"></i>
                       Opciones Paquete</a></li>
+                    <li><a href="{{ route('adminPaquete.estado')}}">
+                      <i class="fa fa-star"></i>
+                      Aprobar Paquete Turistico</a></li>
 
         </ul>
     </li>

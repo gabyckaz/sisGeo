@@ -107,8 +107,8 @@ class PaqueteController extends Controller
         $paquete->TipoPaquete=$request->tipopaquete;
         $paquete->Cupos=$request->cupos;
         $paquete->Dificultad=$request->dificultad;
-        $paquete->AprobacionPaquete=$request->aprobacionpaquete;
-        $paquete->DisponibilidadPaquete=$request->disponibilidadpaquete;
+        $paquete->AprobacionPaquete="0";
+        $paquete->DisponibilidadPaquete="1";
         $paquete->save();
 
       //  $paquete2 = Paquete::latest('IdPaquete')->first();
