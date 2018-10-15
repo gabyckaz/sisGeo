@@ -322,6 +322,7 @@ desired effect
     </li>
     @endrole
 
+    @role('User')
     <li class="treeview {{ (request()->is('user/completarInformacion') || request()->is('user/agregarFamiliarAmigo')) ? 'active' : '' }}">
       <a href="#">
         <i class="fa fa-user"></i>
@@ -347,7 +348,9 @@ desired effect
         Mis Reservas <!--span class="label pull-right bg-green">2</span-->
       </a>
     </li>
-    @role('Admin')
+    @endrole
+
+    @role(['Director','Agente'])
     <li class="{{ activeMenu('MostrarRutaTuristica') }}">
       <a href="{{ route('adminRutaTuristica.index') }}">
         <i class="fa fa-map-marker"></i>
@@ -404,8 +407,7 @@ desired effect
     @endrole
 
         <li class=""><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
-
-
+      <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
   </aside>

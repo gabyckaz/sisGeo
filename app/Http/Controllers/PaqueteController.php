@@ -747,7 +747,6 @@ public fuction postNewImage(Request $request){
     {
       $paquete=Paquete::findOrFail($id);
       $ruta =RutaTuristica::all();
-      $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->first();
       $incluye=Incluye::all();
       $recomendaciones=Recomendaciones::all();
       $condiciones=Condiciones::all();
@@ -783,7 +782,7 @@ public fuction postNewImage(Request $request){
       return view('adminPaquete.createcopia')
             ->with('paquete',$paquete)
             ->with('ruta',$ruta)
-            ->with('imagen',$imagenes)->with('recomendaciones', $recomendaciones)->with('recomendacionespaquete',$recomendacionespaquete)->with('incluye',$incluye)->with('incluyepaquete',$incluyepaquete)
+            ->with('recomendaciones', $recomendaciones)->with('recomendacionespaquete',$recomendacionespaquete)->with('incluye',$incluye)->with('incluyepaquete',$incluyepaquete)
             ->with('condiciones', $condiciones)->with('condicionespaquete',$condicionespaquete)
             ->with('itinerario', $itinerario)->with('itinerariopaquete',$itinerariopaquete)
             ->with('gastosextras',$gastosextras)->with('gastosextraspaquete',$gastosextraspaquete);

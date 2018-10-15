@@ -125,7 +125,7 @@
                         <div class="form-group">
                           <label for="tipopaquete">Tipo Paquete</label>
                           <br>
-                          <select class="form-control" id="tipopaquete" name="tipopaquete"  readonly>
+                          <select class="form-control" id="tipopaquete" name="tipopaquete">
                               <option value="{{ $paquete->TipoPaquete }}" {{ $paquete->TipoPaquete == $paquete->TipoPaquete ? 'selected' : '' }}>{{$paquete->TipoPaquete }}</option>
                             </select>
                       </div>
@@ -134,7 +134,7 @@
                         <div class="form-group">
                           <label for="dificultad">Dificultad Paquete</label>
                           <br>
-                          <select class="form-control" id="dificultad" name="dificultad" readonly>
+                          <select class="form-control" id="dificultad" name="dificultad">
                             <option value="{{ $paquete->Dificultad }}" {{ $paquete->Dificultad == $paquete->Dificultad ? 'selected' : '' }}>{{$paquete->Dificultad }}</option>
                           </select>
                        </div>
@@ -144,7 +144,7 @@
                     <br>
                     <div class="form-group row">
                       <a href="">
-                          <img src="{{Storage::url($imagen->Imagen4)}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar4" >
+                          <img src="{{Storage::url("geoturismo.png")}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar4" >
                       </a>
                       <br>
                       <br>
@@ -277,20 +277,20 @@
                           <div  id="lightgallery" >
                             <div class="row">
                               <input class="nuevaFoto" type="file" name="imagen1" id="imagen1">
-                              <a href="{{Storage::url($imagen->Imagen1)}}">
-                               <img src="{{Storage::url($imagen->Imagen1)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
+                              <a href="">
+                               <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
                               </a>
                             </div>
                             <div class="row">
                               <input class="nuevaFoto2" type="file" name="imagen2" >
-                                <a href="{{Storage::url($imagen->Imagen2)}}">
-                                  <img src="{{Storage::url($imagen->Imagen2)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" >
+                                <a href="">
+                                  <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" >
                                 </a>
                             </div>
                             <div class="row">
                                 <input class="nuevaFoto3" type="file" name="imagen3" >
-                                  <a href="{{Storage::url($imagen->Imagen3)}}">
-                                    <img src="{{Storage::url($imagen->Imagen3)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" >
+                                  <a href="">
+                                    <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" >
                                   </a>
                             </div>
                            </div>
