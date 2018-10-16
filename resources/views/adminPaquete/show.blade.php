@@ -3,7 +3,7 @@
 @section('head')
 
 @section('Title')
-<strong>Asignación de transporte</strong>
+<strong>Asignación de transporte y conductor</strong>
 @endsection
 
 @section('contenido')
@@ -126,8 +126,9 @@
                    <span class="help-block">{{ session()->get('econductor') }}</span>
                   @endif
                   </div>
+                  <input type="hidden" id="rutaListaConductores" value="{{ route('adminPaquete.listaConductores') }}">
                 </div>
-
+               
              </div>
 
               </div>

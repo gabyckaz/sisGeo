@@ -309,7 +309,7 @@ $( "#selectIdTransporte" )
     console.log(idTransporte);
     $.ajax({
         type: 'get',
-        url: 'http://sisgeo.dev.com:89/ListarConductores' ,
+        url: $('#rutaListaConductores').val() ,
         dataType: "json",
         data: {
             id: idTransporte//'1'

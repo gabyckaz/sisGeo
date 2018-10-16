@@ -23,6 +23,7 @@ use App\ImagenPaqueteTuristico;
 use App\Transporte;
 use App\Conductor;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 
 
@@ -94,8 +95,20 @@ class PaqueteController extends Controller
        'cupos'=>'required',
        'dificultad'=>'required|max:20',
      ));
+       $hoystr = Carbon::now()->format('d-m-Y');
+       $hoyObj = Carbon::parse($hoystr);
+       $fechaSalidaObj = Carbon::parse($request->fechasalida);
+       $fechaRegresoObj = Carbon::parse($request->fecharegreso);
+        if($fechaSalidaObj <= $hoyObj  ){
+          return redirect()->back()->withInput()->with('ErrorFs', 'Error en fecha');
+        }elseif($fechaRegresoObj <= $hoyObj){
+         return redirect()->back()->withInput()->with('ErrorFr', 'Error en fecha');
+        }
+        elseif($fechaRegresoObj < $fechaSalidaObj){
+          return redirect()->back()->withInput()->with('ErrorFeschas', 'Error en fecha');
+        }
 
-
+        dd($request);
         $paquete=new Paquete();
         $paquete->IdTuristica=$request->idrutaturistica;
         $paquete->NombrePaquete=$request->nombrepaquete;
