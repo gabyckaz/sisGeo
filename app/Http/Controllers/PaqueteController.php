@@ -108,7 +108,6 @@ class PaqueteController extends Controller
           return redirect()->back()->withInput()->with('ErrorFeschas', 'Error en fecha');
         }
 
-        dd($request);
         $paquete=new Paquete();
         $paquete->IdTuristica=$request->idrutaturistica;
         $paquete->NombrePaquete=$request->nombrepaquete;
@@ -324,7 +323,17 @@ class PaqueteController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+      $this->validate($request,array(
+        'nombrepaquete'=>'required',
+        'fechasalida'=>'required',
+        'hora'=>'required',
+        'fecharegreso'=>'required',
+        'lugarsalida'=>'required|max:200',
+        'precio'=>'required',
+        'tipopaquete'=>'required|max:20',
+        'cupos'=>'required',
+        'dificultad'=>'required|max:20',
+      ));
 
         $paquete = Paquete::findOrFail($id);
         $paquete->IdTuristica=$request->idrutaturistica;
@@ -804,6 +813,31 @@ public fuction postNewImage(Request $request){
 
     public function storecopia(Request $request)
     {
+
+      $this->validate($request,array(
+        'nombrepaquete'=>'required',
+        'fechasalida'=>'required',
+        'hora'=>'required',
+        'fecharegreso'=>'required',
+        'lugarsalida'=>'required|max:200',
+        'precio'=>'required',
+        'tipopaquete'=>'required|max:20',
+        'cupos'=>'required',
+        'dificultad'=>'required|max:20',
+      ));
+        $hoystr = Carbon::now()->format('d-m-Y');
+        $hoyObj = Carbon::parse($hoystr);
+        $fechaSalidaObj = Carbon::parse($request->fechasalida);
+        $fechaRegresoObj = Carbon::parse($request->fecharegreso);
+         if($fechaSalidaObj <= $hoyObj  ){
+           return back()->with('ErrorFs', 'Error en fecha');
+         }elseif($fechaRegresoObj <= $hoyObj){
+          return redirect()->back()->withInput()->with('ErrorFr', 'Error en fecha');
+         }
+         elseif($fechaRegresoObj < $fechaSalidaObj){
+           return redirect()->back()->withInput()->with('ErrorFeschas', 'Error en fecha');
+         }
+
         $paquete=new Paquete();
         $paquete->IdTuristica=$request->idrutaturistica;
         $paquete->NombrePaquete=$request->nombrepaquete;
