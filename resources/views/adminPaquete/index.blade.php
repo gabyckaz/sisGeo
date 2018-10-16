@@ -30,7 +30,6 @@
                 <div class="col-md-6">
              {{--  <form class="navbar-form navbar-left " action="{{ route('adminPaquete.index') }}" method="get" role="search">
                      <div class="form-group">
-
                        <input type="text" name="nombre" class="form-control" placeholder="Nombre Paquete">
                         <button type="submit" class="btn btn-default" >Buscar<span class="glyphicon glyphicon-search"></span></button>
                      </div>
@@ -63,7 +62,7 @@
 					 		<tbody>
 					 			@foreach($paquetes as $paquete)
 					 				<tr>
-					 					<td><a href="{{ route('adminPaquete.single', $paquete->IdPaquete) }}">{{$nombrepaquete=$paquete->NombrePaquete}}</a></td>
+					 					<td>{{$nombrepaquete=$paquete->NombrePaquete}}</td>
 					 					<td>{{$fechasalida=$paquete->FechaSalida}}</td>
 					 					<td>{{$horasalida=$paquete->HoraSalida}}</td>
 					 					<td>{{$preciopaquete=$paquete->Precio}}</td>
@@ -83,8 +82,7 @@
                     @endforeach
 					 				</tbody>
 					 			</table>
-              <center>  {!! $paquetes->appends(\Request::except('page'))->render() !!}</center>
-
+              {{-- {!! $paquetes->appends(\Request::except('page'))->render() !!} --}}
 					 		</div>
 					 	</div>
 					 </div>
