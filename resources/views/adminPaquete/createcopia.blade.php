@@ -65,8 +65,8 @@
                              </div>
                             <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida" placeholder="Fecha de Salida" required>
                           </div>
-                          @if ($errors->has('nombrepaquete'))
-                          <span class="help-block">{{ $errors->first('nombrepaquete') }}</span>
+                          @if ($errors->has('fechasalida'))
+                          <span class="help-block">{{ $errors->first('fechasalida') }}</span>
                           @endif
                       </div>
                     </div>
