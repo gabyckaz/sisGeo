@@ -12,13 +12,13 @@
     @if(session('status'))
       <br>
        <script type="text/javascript">
-      alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
+      alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session("status") }}');
       </script>
     @endif
     @if(session('fallo'))
       <br>
       <script type="text/javascript">
-     alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
+     alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
      </script>
     @endif
     @if($errors->has('placa'))
@@ -220,7 +220,7 @@
                     </tbody>
                   </table>
                   </div>
-                  <center>{!! $transportes->appends(\Request::except('page'))->render() !!}</center>
+                  {{-- <center>{!! $transportes->appends(\Request::except('page'))->render() !!}</center> --}}
                 </div>
         </div>
       </div><!-- Fin de vista index -->

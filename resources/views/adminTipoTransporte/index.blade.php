@@ -11,13 +11,13 @@
     @if(session('status'))
       <br>
        <script type="text/javascript">
-      alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
+      alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session("status") }}');
       </script>
     @endif
     @if(session('fallo'))
       <br>
       <script type="text/javascript">
-     alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
+     alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
      </script>
     @endif
     <div class="box box-warning">
@@ -36,11 +36,12 @@
               <span class="help-block">{{ $errors->first('tipotransporte') }}</span>
               @endif
             </div>
-
-            <div class="row">
-              <div class="col-md-12">
+            <div class="col-md-12">
                 <button type="submit" class="btn btn-info center-block">Agregar transporte</button>
               </div>
+          </form>
+            <div class="row">
+              
               <h3 class="box-title"> </h3>
               <table class="table table-striped table-bordered table-hover" >
                 <thead class="thead-dark">
@@ -59,7 +60,7 @@
 
 
             </div>
-          </form>
+          
         </div>
       </div>
     </div>

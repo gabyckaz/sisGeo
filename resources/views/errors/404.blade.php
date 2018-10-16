@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('master')
 
-@section('content-title', '404 Error Page')
-@section('content-subtitle', '')
+@section('head')
+@endsection
 
-@section('content')
+@section('contenido')
 <div class="error-page">
   <h2 class="headline text-yellow"> 404</h2>
 

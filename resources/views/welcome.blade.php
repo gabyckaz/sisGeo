@@ -175,7 +175,7 @@ desired effect
           <div class="row">
 
             @foreach($paquetes as $paquete)
-
+            @if($paquete->compara_fechas == 2 && $paquete->AprobacionPaquete == 1 && $paquete->DisponibilidadPaquete == 1)
             <div class="col-sm-4 ">
              <div class="fadein figure">
               <!-- muestra 1 imagen de cada paquete-->
@@ -208,7 +208,7 @@ desired effect
                 </a>
               </div> <!--/ box info de cada paquete-->
             </div><!-- /. colm-d-->
-
+            @endif
             @endforeach
 
           </div><!-- /.row -->

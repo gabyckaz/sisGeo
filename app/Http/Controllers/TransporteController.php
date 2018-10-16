@@ -22,7 +22,7 @@ class TransporteController extends Controller
     public function index()
     {
   //    return view('adminTransporte.index',['transportes'=> Transporte::all(),'tipotransportes'=> TipoTransporte::all(),
-    $transportes = Transporte::sortable()->orderBy('IdTransporte','desc')->paginate(10);//Para el rdenamiento en la tabla index
+    $transportes = Transporte::all();//sortable()->orderBy('IdTransporte','desc')->paginate(10);//Para el rdenamiento en la tabla index
     $tipotransportes= TipoTransporte::all();
     $empresalquiler = EmpresaAlquilerTransporte::all();
     return view('adminTransporte.index', compact('transportes','tipotransportes','empresalquiler'));

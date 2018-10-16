@@ -1,7 +1,10 @@
 @extends('master')
 
 @section('head')
-    @section('Title','Paquetes Turísticos')
+
+@endsection
+@section('Title')
+<strong>Paquetes Turísticos</strong>
 @endsection
 
 @section('contenido')
@@ -11,17 +14,17 @@
               @if(session('status'))
                 <br>
                  <script type="text/javascript">
-                alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
+                alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session("status") }}');
                 </script>
               @endif
               @if(session('alert'))
                 <br>
                 <script type="text/javascript">
-               alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("alert") }}');
+               alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
                </script>
               @endif
                 <div class="panel">
-                    <div class="panel-heading">Registrar de Paquete Turistico</div>
+                    <div class="panel-heading"><strong>Registrar un nuevo Paquete Turistico</strong></div>
 
                       <div class="panel-body">
                         <form method="post" action="/CrearPaquete" enctype="multipart/form-data">
@@ -36,7 +39,7 @@
                             <label for="nombrepaquete"  class="control-label">Nombre de Paquete Turístico</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-automobile"></i></span>
-                              <input type="text" name="nombrepaquete" class="form-control" id="nombrepaquete" placeholder="Nombre paquete" required >
+                              <input type="text" name="nombrepaquete" class="form-control" id="nombrepaquete" value="{{ old('nombrepaquete')}}" placeholder="Nombre paquete" required >
                               </div>
                         </div>
 
@@ -49,7 +52,7 @@
                                         <select  class="form-control" name="idrutaturistica"  id="idrutaturisticas" data-placeholder="Seleccionar la ruta...">
                                         @foreach ($ruta as $ruta)
 
-                                        <option value="{{ $ruta->IdRutaTuristica }}"> {{$ruta->NombreRutaTuristica}}</option>
+                                        <option value="{{ $ruta->IdRutaTuristica }}" @if (old('idrutaturistica') == $ruta->IdRutaTuristica ) {{ 'selected' }} @endif> {{$ruta->NombreRutaTuristica}}</option>
                                         @endforeach
                                         </select>
                                         <hr>
@@ -63,8 +66,8 @@
                               <label for="tipopaquete">Tipo Paquete</label>
                               <br>
                               <select class="form-control" id="tipopaquete" name="tipopaquete" required>
-                                  <option value="Nacional">Nacional</option>
-                                  <option value="Internacional">Internacional</option>
+                                  <option value="Nacional" @if (old('tipopaquete') == "Nacional" ) {{ 'selected' }} @endif>Nacional</option>
+                                  <option value="Internacional" @if (old('tipopaquete') == "Internacional" ) {{ 'selected' }} @endif>Internacional</option>
                                 </select>
                           </div>
                         </div>
@@ -74,10 +77,10 @@
                               <label for="dificultad">Dificultad Paquete</label>
                               <br>
                               <select class="form-control" id="dificultad" name="dificultad" required>
-                                  <option value="Baja">Baja</option>
-                                  <option value="Media">Media</option>
-                                  <option value="Alta">Alta</option>
-                                  <option value="Extrema">Extrema</option>
+                                  <option value="Baja" @if (old('dificultad') == "Baja" ) {{ 'selected' }} @endif>Baja</option>
+                                  <option value="Media" @if (old('dificultad') == "Media" ) {{ 'selected' }} @endif>Media</option>
+                                  <option value="Alta" @if (old('dificultad') == "Alta" ) {{ 'selected' }} @endif>Alta</option>
+                                  <option value="Extrema" @if (old('dificultad') == "Extrema" ) {{ 'selected' }} @endif>Extrema</option>
                                 </select>
                           </div>
                           </div>
@@ -100,15 +103,21 @@
 
                     <div class="row">
                       <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group has-feedback{{ ( session()->has('ErrorFs') || session()->has('ErrorFeschas') ) ? ' has-error' : '' }}">
                           <label for="fechadesalida">Fecha de Salida</label>
                          <div class="input-group date">
                            <div class="input-group-addon">
                                  <i class="fa fa-calendar"></i>
                            </div>
-                          <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida" placeholder="Fecha de Salida" required>
+                          <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida" value="{{ old('fechasalida')}}" placeholder="Fecha de Salida" required>
                         </div>
                       </div>
+                      @if(session()->has('ErrorFs'))
+                       <span class="help-block">{{ session()->get('ErrorFs') }}</span>
+                      @endif
+                      @if(session()->has('ErrorFeschas'))
+                       <span class="help-block">{{ session()->get('ErrorFeschas') }}</span>
+                      @endif
                     </div>
                       <div class="col-md-4">
                          <div class="form-group">
@@ -117,23 +126,27 @@
                            <div class="input-group-addon">
                                  <i class="fa fa-history"></i>
                            </div>
-                          <input name="hora" type="time" id="hora" value="06:00:00"  max="24:00:00" min="00:00:00" class="form-control pull-right" required>
+                          <input name="hora" type="time" id="hora" value="06:00:00"  max="24:00:00" min="00:00:00" value="{{ old('hora')}}" class="form-control pull-right" required>
 
                         </div>
                         </div>
                       </div>
                       <div class="col-md-4">
-
-                        <div class="form-group">
+                        <div class="form-group has-feedback{{ ( session()->has('ErrorFr') || session()->has('ErrorFeschas') ) ? ' has-error' : '' }}">
                           <label for="fechaderegreso">Fecha de Regreso</label>
                          <div class="input-group date">
                            <div class="input-group-addon">
                                   <i class="fa fa-calendar"></i>
                            </div>
-                          <input name="fecharegreso" type="date" class="form-control pull-right" id="fecharegreso" placeholder="Fecha de Regreso" required>
-
+                          <input name="fecharegreso" type="date" class="form-control pull-right" id="fecharegreso" value="{{ old('fecharegreso')}}" placeholder="Fecha de Regreso" required>
                         </div>
                         </div>
+                        @if(session()->has('ErrorFr'))
+                       <span class="help-block">{{ session()->get('ErrorFr') }}</span>
+                      @endif
+                      @if(session()->has('ErrorFeschas'))
+                       <span class="help-block">{{ session()->get('ErrorFeschas') }}</span>
+                      @endif
                       </div>
                     </div>
                       <div class="row">
@@ -144,7 +157,7 @@
                           <span class="input-group-addon">
                             <i class="fa fa-child"></i>
                             </span>
-                            <input  class="form-control" name="cupos" type="number" min="10" step="1" max="10,0000" placeholder="10" id="cupos" required>
+                            <input  class="form-control" name="cupos" type="number" min="10" step="1" max="10,0000" value="{{ old('cupos')}}" placeholder="10" id="cupos" required>
 
                           </div>
                           </div>
@@ -156,7 +169,7 @@
                               <span class="input-group-addon">
                                 <i class="fa fa-money"></i> $
                                 </span>
-                                <input class="form-control" name="precio" type="number" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio" required>
+                                <input class="form-control" name="precio" type="number" min="0.01" step="0.01" max="10,0000" value="{{ old('precio')}}" placeholder="25,00" id="precio" required>
                           </div>
                                 </div>
                           </div>
@@ -165,7 +178,7 @@
                               <label for="lugar">Lugar de Salida</label>
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-map"></i></span>
-                                <input type="text" name="lugarsalida" class="form-control" id="lugarsalida" value="Gasolinera UNO, Boulevard de Los Héroes" required>
+                                <input type="text" name="lugarsalida" class="form-control" id="lugarsalida" value="{{ old('lugarsalida','Gasolinera UNO, Boulevard de Los Héroes')}}" required>
 
                               </div>
                           </div>
@@ -178,7 +191,7 @@
                                   <select class="form-control select2" multiple="multiple" name="itinerario[]" id="itinerario[]" required>
                                   @foreach ($itinerario as $iti)
 
-                                  <option value="{{$iti->IdItinerario }}">{{$iti->NombreItinerario}}</option>
+                                  <option value="{{$iti->IdItinerario }}" {{ (collect(old('itinerario'))->contains($iti->IdItinerario)) ? 'selected':'' }} >{{$iti->NombreItinerario}}</option>
                                   @endforeach
                                   </select>
 
@@ -190,7 +203,7 @@
                                     <select class="form-control select2" multiple="multiple" name="gastosextras[]" id="gasto[]" required>
                                     @foreach ($gastosextras as $gastos)
 
-                                    <option value="{{$gastos->IdGastosExtras }}">{{$gastos->NombreGastos}} --> ${{$gastos->Gastos}}</option>
+                                    <option value="{{$gastos->IdGastosExtras }}" {{ (collect(old('gastosextras'))->contains($gastos->IdGastosExtras)) ? 'selected':'' }}>{{$gastos->NombreGastos}} --> ${{$gastos->Gastos}}</option>
                                     @endforeach
                                     </select>
 
@@ -201,7 +214,7 @@
                             <select class="form-control select2" multiple="multiple" name="incluye[]" required>
                             @foreach ($incluye as $incluye)
 
-                            <option value="{{ $incluye->IdIncluye }}"> {{$incluye->NombreIncluye}}</option>
+                            <option value="{{ $incluye->IdIncluye }}" {{ (collect(old('incluye'))->contains($incluye->IdIncluye )) ? 'selected':'' }}> {{$incluye->NombreIncluye}}</option>
                             @endforeach
                             </select>
                               </div>
@@ -211,7 +224,7 @@
                             <select class="form-control select2" multiple="multiple" name="condiciones[]" required>
                             @foreach ($condiciones as $condiciones)
 
-                            <option value="{{$condiciones->IdCondiciones}}">{{$condiciones->NombreCondiciones}} </option>
+                            <option value="{{$condiciones->IdCondiciones}}" {{ (collect(old('condiciones'))->contains($condiciones->IdCondiciones )) ? 'selected':'' }}>{{$condiciones->NombreCondiciones}} </option>
                             @endforeach
                             </select>
                         </div>
@@ -221,7 +234,7 @@
                             <select class="form-control select2" multiple="multiple" name="recomendaciones[]" required>
                             @foreach ($recomendaciones as $recomendaciones)
 
-                            <option value="{{ $recomendaciones->IdRecomendaciones }}"> {{$recomendaciones->NombreRecomendaciones}}</option>
+                            <option value="{{ $recomendaciones->IdRecomendaciones }}" {{ (collect(old('recomendaciones'))->contains($recomendaciones->IdRecomendaciones )) ? 'selected':'' }}> {{$recomendaciones->NombreRecomendaciones}}</option>
                             @endforeach
                             </select>
                         </div>

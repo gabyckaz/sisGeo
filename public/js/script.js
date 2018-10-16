@@ -1,21 +1,24 @@
 $(document).ready(function(){
         $('#tablaadminTransporte').DataTable({
-            "paging": false,
-            "bpaging": false,
-            "bFilter": false,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
         });
         $('#tablaadminEmpresa').DataTable({
-            "paging": false,
-            "bpaging": false,
-            "bFilter": false,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
         });
         $('#tablaadminRutaTuristica').DataTable({
-            "paging": false,
-            "bpaging": false,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
             "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
@@ -30,10 +33,19 @@ $(document).ready(function(){
         $('#tblAgregarFamiliarAmigo').DataTable({
             "paging": false,
             "bpaging": false,
-            "bFilter": false,
+            "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
         });
+        $('#tablaAdminPaquetes').DataTable({
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
+            "bInfo": false,
+            "autoWidth": true,
+        });
+
         $('#tablaActualizarPaquete').DataTable({
             "paging": false,
             "bpaging": false,
@@ -316,3 +328,34 @@ function filter(__val__){
     }
 
 };
+
+  $(document).ready(function() {
+/*
+Permite llenar dinamicamente el select  de condcutores
+*/
+$( "#selectIdTransporte" )
+  .change(function() {
+    var idTransporte = "";
+    idTransporte = $( "#selectIdTransporte" ).val();
+    console.log(idTransporte);
+    $.ajax({
+        type: 'get',
+        url: $('#rutaListaConductores').val() ,
+        dataType: "json",
+        data: {
+            id: idTransporte//'1'
+        }, success: function (data) {
+                console.log(data);
+                var response = data.conductores;
+                $("#selectConductor").empty();
+                 if(response.length > 0 && response.valor !== 'idDefault'){
+                  for (var i = 0; i < response.length; i++) {
+                    $('#selectConductor').append('<option value="' + response[i].IdConductor + '">' + response[i].NombreConductor + '</option>');
+                    }
+                  }else{
+                    $('#selectConductor').append('<option value="defecto" >' + 'Selecciona un conductor' + '</option>');
+                  }
+        }
+      });
+  }).trigger( "change" );
+});

@@ -3,8 +3,9 @@
 @section('head')
     Actualizar Paquetes
 @endsection
-
-
+@section('Title')
+<strong>Editar Paquete turistico</strong>
+@endsection
 
 
 @section('contenido')

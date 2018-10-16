@@ -5,7 +5,7 @@
 
 @endsection
 @section('Title')
-Editar familiar o amigo
+<strong>Editar familiar o amigo</strong>
 @endsection
 @section('contenido')
    @if(session()->has('message'))
@@ -22,7 +22,7 @@ Editar familiar o amigo
     @endif
  <div class="box box-solid">
   <div class="box-header">
-        <h3 class="box-title">Editar familiares o amigos</h3>
+        <h3 class="box-title"><strong>Editar familiares o amigos</strong></h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
         </div>

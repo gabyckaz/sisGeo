@@ -3,18 +3,21 @@
 @section('head')
     Ver Paquete
 @endsection
+@section('Title')
+  <strong>Administracion de paquetes turisticos</strong>
+@endsection
 @section('contenido')
     <div class="container spark-screen">
         <div class="row">
             <div class="col-md-9 col-md-offset-1">
               @if(session('status'))
                  <script type="text/javascript">
-                alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
+                alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session("status") }}');
                 </script>
               @endif
               @if(session('fallo'))
                 <script type="text/javascript">
-               alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
+               alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
                </script>
               @endif
               <div class="table-responsive">
@@ -25,13 +28,13 @@
                </div>
              </div>
                 <div class="col-md-6">
-              <form class="navbar-form navbar-left " action="{{ route('adminPaquete.index') }}" method="get" role="search">
+             {{--  <form class="navbar-form navbar-left " action="{{ route('adminPaquete.index') }}" method="get" role="search">
                      <div class="form-group">
 
                        <input type="text" name="nombre" class="form-control" placeholder="Nombre Paquete">
                         <button type="submit" class="btn btn-default" >Buscar<span class="glyphicon glyphicon-search"></span></button>
                      </div>
-               </form>
+               </form> --}}
              </div>
 
         </div>
@@ -47,13 +50,14 @@
 					 </div>
 					 	</form>
 					 <div class="panel-body">
-					 	<table class="table table-striped table-bordered table-hover" id=tablaadminPaquete>
-					 		<thead class="thead-dark">
+					 	<table class="table table-striped table-bordered table-hover" id="tablaAdminPaquetes">
+					 		<thead>
                 <tr>
 					 				<th>Nombre Paquete</th>
 					 				<th>Fecha Salida</th>
 					 				<th>Hora Salida</th>
 					 				<th>Precio Paquete</th>
+                  <th>Opciones</th>
 					 			</tr>
 					 		</thead>
 					 		<tbody>
@@ -64,17 +68,15 @@
 					 					<td>{{$horasalida=$paquete->HoraSalida}}</td>
 					 					<td>{{$preciopaquete=$paquete->Precio}}</td>
 					 					<td>
+
 					 						<a href="{{route('adminPaquete.edit', $paquete['IdPaquete'])}}"
-					 						class="btn btn-warning"> <font color="black" size="2"> <b> Editar</b>
-					 						</font>
+					 						class="btn btn-warning fa fa-cog" title="Editar">
 					 						</a>
                       <a href="{{route('adminPaquete.show', $paquete['IdPaquete'])}}"
-                      class="btn btn-info"> <font color="black" size="2"> <b> Asignaciones</b>
-                      </font>
+                      class="btn btn-info fa fa-user-plus " title="Completar Información"><span class="fa fa-bus"></span>
                       </a>
                       <a href="{{route('adminPaquete.createcopia', $paquete['IdPaquete'])}}"
-                      class="btn btn-info"> <font color="black" size="2"> <b>Nuevo</b>
-                      </font>
+                      class="btn btn-info fa fa-files-o" title="Crear copia de paquete">
                       </a>
 					 				    </td>
 					 				 </tr>

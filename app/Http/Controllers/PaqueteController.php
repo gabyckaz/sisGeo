@@ -23,6 +23,7 @@ use App\ImagenPaqueteTuristico;
 use App\Transporte;
 use App\Conductor;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 
 
@@ -38,7 +39,7 @@ class PaqueteController extends Controller
     {
 
 
-      $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(5);
+      $paquetes = Paquete::all();//nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(5;
       /*$paquetes = Paquete::sortable()->paginate(5);*/
 
 
@@ -94,7 +95,18 @@ class PaqueteController extends Controller
        'cupos'=>'required',
        'dificultad'=>'required|max:20',
      ));
-
+       $hoystr = Carbon::now()->format('d-m-Y');
+       $hoyObj = Carbon::parse($hoystr);
+       $fechaSalidaObj = Carbon::parse($request->fechasalida);
+       $fechaRegresoObj = Carbon::parse($request->fecharegreso);
+        if($fechaSalidaObj <= $hoyObj  ){
+          return redirect()->back()->withInput()->with('ErrorFs', 'Error en fecha');
+        }elseif($fechaRegresoObj <= $hoyObj){
+         return redirect()->back()->withInput()->with('ErrorFr', 'Error en fecha');
+        }
+        elseif($fechaRegresoObj < $fechaSalidaObj){
+          return redirect()->back()->withInput()->with('ErrorFeschas', 'Error en fecha');
+        }
 
         $paquete=new Paquete();
         $paquete->IdTuristica=$request->idrutaturistica;
@@ -311,7 +323,17 @@ class PaqueteController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+      $this->validate($request,array(
+        'nombrepaquete'=>'required',
+        'fechasalida'=>'required',
+        'hora'=>'required',
+        'fecharegreso'=>'required',
+        'lugarsalida'=>'required|max:200',
+        'precio'=>'required',
+        'tipopaquete'=>'required|max:20',
+        'cupos'=>'required',
+        'dificultad'=>'required|max:20',
+      ));
 
         $paquete = Paquete::findOrFail($id);
         $paquete->IdTuristica=$request->idrutaturistica;
@@ -633,12 +655,36 @@ public fuction postNewImage(Request $request){
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public $conductores;
     public function edittransporte($id)
     {
       $paquete= Paquete::where('IdPaquete','=',$id)->first();
-      $transportes =Transporte::all();
-      $conductores =Conductor::all();
+      $transportes = Transporte::all();
+      /*$sql = 'SELECT DISTINCT(ct."IdEmpresaTransporte") as "a"
+        FROM public."EmpresaAlquilerTransporte" as et, public."Conductor" as ct
+       WHERE et."IdEmpresaTransporte" = ct."IdEmpresaTransporte";';
+      $idtransportes = DB::select($sql);//Transporte::all(); //deben ser transportes que tengan almenos un conductor
+      $cad = '';
+      $contador = count($idtransportes);
+      $detenerAgregarComa = $contador-1;
+      for ( $i=0; $i < $contador ; $i++) {
+        if( $detenerAgregarComa == $i ){
+          $cad = $cad.$idtransportes[$i]->a;
+          }else{
+         $cad = $cad.$idtransportes[$i]->a.",";
+         }
+      }
+      /*$idtransportes = implode(',', $idtransportes);
+      dd($idtransportes);
+      $cad = explode(',',$cad);
+      sort($cad);
+      $transportes = DB::table('Transporte')
+                      ->whereIn('IdEmpresaTransporte', $cad)
+                       ->get();
+       dd($transportes);*/
 
+      $this->conductores = '';
+      //Traeme los conductores de esta empresa de transporte
       $consulta = DB::table('Contrata')
             ->join('Transporte', 'Contrata.IdTransporte', '=', 'Transporte.IdTransporte')
             ->select('Transporte.NumeroAsientos')
@@ -653,7 +699,7 @@ public fuction postNewImage(Request $request){
 
       return view('adminPaquete.show')
       ->with('transportes',$transportes)
-      ->with('conductores',$conductores)
+      ->with('conductores',$this->conductores)
       ->with('paquete',$paquete)
       ->with('consulta',$consulta)
       ->with('consultaconductor',$consultaconductor);
@@ -667,7 +713,7 @@ public fuction postNewImage(Request $request){
      * @return \Illuminate\Http\Response
      */
     public function asignartransporte($paquete, Request $request)
-    {
+    { dd($request);
       try{
         $transporte = Transporte::find($request->get('transporte'));
         // insert into "Contrata" ("IdPaquete", "IdTransporte") values (5, 25)
@@ -723,7 +769,6 @@ public fuction postNewImage(Request $request){
     {
       $paquete=Paquete::findOrFail($id);
       $ruta =RutaTuristica::all();
-      $imagenes = ImagenPaqueteTuristico::where('id_paquete',$id)->first();
       $incluye=Incluye::all();
       $recomendaciones=Recomendaciones::all();
       $condiciones=Condiciones::all();
@@ -759,7 +804,7 @@ public fuction postNewImage(Request $request){
       return view('adminPaquete.createcopia')
             ->with('paquete',$paquete)
             ->with('ruta',$ruta)
-            ->with('imagen',$imagenes)->with('recomendaciones', $recomendaciones)->with('recomendacionespaquete',$recomendacionespaquete)->with('incluye',$incluye)->with('incluyepaquete',$incluyepaquete)
+            ->with('recomendaciones', $recomendaciones)->with('recomendacionespaquete',$recomendacionespaquete)->with('incluye',$incluye)->with('incluyepaquete',$incluyepaquete)
             ->with('condiciones', $condiciones)->with('condicionespaquete',$condicionespaquete)
             ->with('itinerario', $itinerario)->with('itinerariopaquete',$itinerariopaquete)
             ->with('gastosextras',$gastosextras)->with('gastosextraspaquete',$gastosextraspaquete);
@@ -768,6 +813,31 @@ public fuction postNewImage(Request $request){
 
     public function storecopia(Request $request)
     {
+
+      $this->validate($request,array(
+        'nombrepaquete'=>'required',
+        'fechasalida'=>'required',
+        'hora'=>'required',
+        'fecharegreso'=>'required',
+        'lugarsalida'=>'required|max:200',
+        'precio'=>'required',
+        'tipopaquete'=>'required|max:20',
+        'cupos'=>'required',
+        'dificultad'=>'required|max:20',
+      ));
+        $hoystr = Carbon::now()->format('d-m-Y');
+        $hoyObj = Carbon::parse($hoystr);
+        $fechaSalidaObj = Carbon::parse($request->fechasalida);
+        $fechaRegresoObj = Carbon::parse($request->fecharegreso);
+         if($fechaSalidaObj <= $hoyObj  ){
+           return back()->with('ErrorFs', 'Error en fecha');
+         }elseif($fechaRegresoObj <= $hoyObj){
+          return redirect()->back()->withInput()->with('ErrorFr', 'Error en fecha');
+         }
+         elseif($fechaRegresoObj < $fechaSalidaObj){
+           return redirect()->back()->withInput()->with('ErrorFeschas', 'Error en fecha');
+         }
+
         $paquete=new Paquete();
         $paquete->IdTuristica=$request->idrutaturistica;
         $paquete->NombrePaquete=$request->nombrepaquete;
@@ -842,6 +912,58 @@ public fuction postNewImage(Request $request){
 
     }
 
+    public function listarConductores(Request $request){
+
+       if ($request->ajax())
+        {
+          if($request->id == 'idDefault'){
+            $arrayDefault = array('' => '' );
+
+            return \Response::json(array(
+                    "exito" => 'Llegamos al controlador',
+                     "valor" => $request->id,
+                     "conductores" => $arrayDefault,
+                 ));
+          }else{
+          $this->conductores = Conductor::where('IdEmpresaTransporte',$request->id)->get();
+
+          return \Response::json(array(
+                    "exito" => 'Llegamos al controlador',
+                     "valor" => $request->id,
+                     "conductores" => $this->conductores,
+                 ));
+          }
+
+        }
+      return \Response::json(array("error" => "response was not JSON"));
+    }
+
+    public function asignaTransCondPaquete($paquete, Request $request){
+         if($request->transporte == "idDefault" || $request->conductor == "defecto" ){
+          return back()->with('etransporte',"Transporte requerido")
+          ->with('econductor',"Conductor requerido");
+         }
+     try{
+          $transporte = Transporte::find($request->get('transporte'));
+          $conductor = Conductor::find($request->get('conductor'));
+
+          $transporte->paquetes()->attach($paquete);
+          $conductor->paquetescon()->attach($paquete);
+
+          $paquete= Paquete::where('IdPaquete','=',$paquete)->first();
+          $transportes =Conductor::all();
+          $this->conductores = '';//Conductor::all();
+          $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','asc')->paginate(5);
+
+          return back()
+          ->with('paquetes',$paquetes)
+          ->with('status',"Asignado exitosamente");
+        } catch(\Exception $e) {
+          return back()->with('fallo', "El paquete ya tiene asignado el conductor o el transporte");
+        }
+
+    }
+
 
     public function cambiarEstado(Request $request)
     {
@@ -872,6 +994,5 @@ public fuction postNewImage(Request $request){
 
 
     }
-
 
 }

@@ -3,8 +3,9 @@
 @section('head')
 
 @endsection
-@section('Title','Opciones Paquete')
-
+@section('Title')
+<strong>Opciones Paquete</strong>
+@endsection
 @section('contenido')
 @if(session('status'))
   <br>
@@ -28,7 +29,26 @@
 <div class="row">
 
   <div class="col-md-4">
+    @if(session('status'))
 
+      <script type="text/javascript">
+     alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session('status') }}');
+     </script>
+        <{{-- div class="alert alert-success alert-dismissible fade in" role="alert">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
+          {{ session('status') }}
+        </div> --}}
+    @endif
+    @if(session('fallo'))
+    <script type="text/javascript">
+     alertify.success('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{ session('status') }}');
+     </script>
+     {{--  <br>
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
+          {{ session('fallo') }}
+      </div> --}}
+    @endif
     <div class="box box-warning">
       <div class="box-header">
         <h3 class="box-title">Agregar Gastos Extras</h3>
