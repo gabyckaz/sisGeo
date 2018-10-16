@@ -62,7 +62,7 @@
 					 		<tbody>
 					 			@foreach($paquetes as $paquete)
 					 				<tr>
-					 					<td>{{$nombrepaquete=$paquete->NombrePaquete}}</td>
+					 					<td><a href="{{ route('adminPaquete.single', $paquete->IdPaquete) }}">{{$nombrepaquete=$paquete->NombrePaquete}}</a></td>
 					 					<td>{{$fechasalida=$paquete->FechaSalida}}</td>
 					 					<td>{{$horasalida=$paquete->HoraSalida}}</td>
 					 					<td>{{$preciopaquete=$paquete->Precio}}</td>
