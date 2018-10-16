@@ -81,7 +81,7 @@
                     @endforeach
 					 				</tbody>
 					 			</table>
-              {!! $paquetes->appends(\Request::except('page'))->render() !!}
+              <center>  {!! $paquetes->appends(\Request::except('page'))->render() !!}</center>
 
 					 		</div>
 					 	</div>

@@ -41,6 +41,41 @@ $(document).ready(function(){
             "bInfo": false,
             "autoWidth": true,
         });
+        $('#tablaGastosExtras').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": false,
+            "bInfo": false,
+            "autoWidth": true,
+        });
+        $('#tablaQueIncluye').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": false,
+            "bInfo": false,
+            "autoWidth": true,
+        });
+        $('#tablaRecomendaciones').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": false,
+            "bInfo": false,
+            "autoWidth": true,
+        });
+        $('#tablaCondiciones').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": false,
+            "bInfo": false,
+            "autoWidth": true,
+        });
+        $('#tablaItinerario').DataTable({
+            "paging": false,
+            "bpaging": false,
+            "bFilter": false,
+            "bInfo": false,
+            "autoWidth": true,
+        });
         if($('#usuario').is(':checked') ){
              $('#total').val(1);
              $('#ctotal').val($('#total').val()*$('#cpersona').val());
@@ -246,10 +281,6 @@ $(document).ready(function(){
        $('.select2').select2()
 
         })
-
-        $(document).ready(function() {
-            $("#lightgallery").lightGallery();
-        });
 
 function filterFloat(evt,input){
     // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43

@@ -30,7 +30,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script type="text/javascript" src="{{ asset('lib/alertify.js')}}"></script>
    <link rel="stylesheet" href="{{ asset('themes/alertify.core.css')}}">
    <link rel="stylesheet" href="{{ asset('themes/alertify.default.css')}}">
-   <link rel="stylesheet" href="{{ asset('adminLte/lightGallery/dist/css/lightgallery.min.css')}}">
+
 
    <!-- Select2 -->
   <link rel="stylesheet" href="{{ asset('adminLte/select2/dist/css/select2.min.css')}}">
@@ -567,7 +567,7 @@ desired effect
 <!-- Select2 -->
 <script src="{{ asset('adminLte/select2/dist/js/select2.full.min.js')}}"></script>
 
-<script src="{{ asset('adminLte/lightGallery/dist/js/lightgallery.min.js')}}"></script>
+
 
 <!-- DataTables-->
 <script src="{{ asset('adminLte/data-tables/js/jquery.dataTables.min.js')}}"></script>

@@ -19,7 +19,7 @@
 
 					 				<th>Nombre Paquete</th>
 					 				<th>Fecha Salida</th>
-                  <th>Opciones</th>
+                  <th>Aprobar</th>
 					 			</tr>
 					 		</thead>
 					 		<tbody>
@@ -51,7 +51,7 @@
 
 					 				</tbody>
 					 			</table>
-              {!! $paquetes->appends(\Request::except('page'))->render() !!}
+            <center>  {!! $paquetes->appends(\Request::except('page'))->render() !!}</center>
 
 					 		</div>
 					 	</div>

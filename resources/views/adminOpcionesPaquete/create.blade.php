@@ -6,26 +6,29 @@
 @section('Title','Opciones Paquete')
 
 @section('contenido')
+@if(session('status'))
+  <br>
+  <script type="text/javascript">
+ alertify.success("{{ session('status') }}");
+ </script>
+    <div class="alert alert-success alert-dismissible fade in" role="alert">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
+      {{ session('status') }}
+    </div>
+@endif
+@if(session('fallo'))
+  <br>
+    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
+      {{ session('fallo') }}
+  </div>
+@endif
+
+
 <div class="row">
 
   <div class="col-md-4">
-    @if(session('status'))
-      <br>
-      <script type="text/javascript">
-     alertify.success("{{ session('status') }}");
-     </script>
-        <div class="alert alert-success alert-dismissible fade in" role="alert">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
-          {{ session('status') }}
-        </div>
-    @endif
-    @if(session('fallo'))
-      <br>
-        <div class="alert alert-danger alert-dismissible fade in" role="alert">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
-          {{ session('fallo') }}
-      </div>
-    @endif
+
     <div class="box box-warning">
       <div class="box-header">
         <h3 class="box-title">Agregar Gastos Extras</h3>
@@ -53,13 +56,14 @@
                     <button type="submit" class="btn btn-info center-block">Agregar Gasto Extra</button>
             </fieldset>
           </form>
+            <h3 class="box-title"> </h3>
             <div class="row">
-              <h3 class="box-title"> </h3>
-              <table class="table table-striped table-bordered" >
+               <div class="panel-body">
+              <table class="table table-striped table-bordered table-hover" id="tablaGastosExtras">
                 <thead class="thead-dark">
                   <tr>
-                  <th align="center">Nombre Gastos Extras</th>
-                  <th align="center">Gastos Extras</th>
+                  <th align="center">Gastos</th>
+                  <th align="center">Valor</th>
                   <th align="center">Eliminar</th>
                   </tr>
                 </thead>
@@ -76,10 +80,10 @@
                   @endforeach
                 </tbody>
               </table>
-
-
-
+                  <center>{!! $gastosextras->appends(\Request::except('page'))->render() !!}</center>
             </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -112,8 +116,11 @@
                   <div class="row">
 
                     <h3 class="box-title"> </h3>
-                    <table class="table table-striped table-bordered" >
+                    <table class="table table-striped table-bordered table-hover" id="tablaQueIncluye">
                       <thead class="thead-dark">
+                        <br>
+                        <br>
+                        <br>
                         <tr>
                         <th align="center">Que incluye</th>
                         <th align="center">Eliminar</th>
@@ -131,7 +138,7 @@
                         @endforeach
                       </tbody>
                     </table>
-
+                    <center>{!! $incluye->appends(\Request::except('page'))->render() !!}</center>
 
                   </div>
               </div>
@@ -165,8 +172,11 @@
               </form>
                   <div class="row">
                     <h3 class="box-title"> </h3>
-                    <table class="table table-striped table-bordered" >
+                    <table class="table table-striped table-bordered table-hover" id="tablaRecomendaciones" >
                       <thead class="thead-dark">
+                        <br>
+                        <br>
+                        <br>
                         <tr>
                         <th align="center">Recomendaciones</th>
                         <th align="center">Eliminar</th>
@@ -184,7 +194,7 @@
                         @endforeach
                       </tbody>
                     </table>
-
+                      <center>{!! $recomendaciones->appends(\Request::except('page'))->render() !!}</center>
 
                   </div>
               </div>
@@ -218,7 +228,7 @@
            </form>
                <div class="row">
                  <h3 class="box-title"> </h3>
-                 <table class="table table-striped table-bordered" >
+                 <table class="table table-striped table-bordered table-hover" id="tablaCondiciones">
                    <thead class="thead-dark">
                      <tr>
                      <th align="center">Condiciones</th>
@@ -237,7 +247,7 @@
                      @endforeach
                    </tbody>
                  </table>
-
+                   <center>{!! $condiciones->appends(\Request::except('page'))->render() !!}</center>
 
                </div>
            </div>
@@ -270,7 +280,7 @@
            </form>
                <div class="row">
                  <h3 class="box-title"> </h3>
-                 <table class="table table-striped table-bordered" >
+                 <table class="table table-striped table-bordered table-hover" id="tablaItinerario">
                    <thead class="thead-dark">
                      <tr>
                      <th  align="center">Itinerario</th>
@@ -289,6 +299,7 @@
                      @endforeach
                    </tbody>
                  </table>
+                    <center>{!! $itinerario->appends(\Request::except('page'))->render() !!}</center>
 
 
                </div>

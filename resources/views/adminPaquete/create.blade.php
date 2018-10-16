@@ -14,10 +14,10 @@
                 alertify.success('<p class="fa fa-check" style="color: white"></p> {{ session("status") }}');
                 </script>
               @endif
-              @if(session('fallo'))
+              @if(session('alert'))
                 <br>
                 <script type="text/javascript">
-               alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("fallo") }}');
+               alertify.error('<p class="fa fa-close" style="color: white"></p> {{session("alert") }}');
                </script>
               @endif
                 <div class="panel">
@@ -260,7 +260,7 @@
                         <p class="help-block">Subir Imagen 3.</p>
                       </div>
 
-                  
+
                         </div>
                         <!-- /.box-body -->
 

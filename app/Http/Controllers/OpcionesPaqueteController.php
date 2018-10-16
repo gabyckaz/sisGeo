@@ -21,8 +21,10 @@ class OpcionesPaqueteController extends Controller
      */
     public function index()
     {
-      $gastosextras = GastosExtras::orderBy('IdRutaTuristica','desc')->paginate(5);//Para el rdenamiento en la tabla index
-      return view('/CrearOpcionesPaquete',compact('gastosextras'));
+      $gastosextras = GastosExtras::orderBy('IdGastosExtras','desc')->paginate(5);
+    //Para el rdenamiento en la tabla index
+
+        return view('adminRutaTuristica.index',compact('gastosextras'));
     }
 
     /**
@@ -32,13 +34,13 @@ class OpcionesPaqueteController extends Controller
      */
     public function create()
     {
-    $gastosextras = GastosExtras::all();
-      $recomendaciones = Recomendaciones::all();
-      $incluye= Incluye::all();
-      $condiciones=Condiciones::all();
-      $itinerario=Itinerario::all();
-      return view('adminOpcionesPaquete.create')->with('gastosextras',$gastosextras)
-      ->with('incluye',$incluye)->with('condiciones',$condiciones)->with('recomendaciones',$recomendaciones)->with('itinerario',$itinerario);
+      $gastosextras = GastosExtras::orderBy('IdGastosExtras','desc')->paginate(10);
+      $recomendaciones = Recomendaciones::orderBy('IdRecomendaciones','desc')->paginate(10);
+      $incluye= Incluye::orderBy('IdIncluye','desc')->paginate(10);
+      $condiciones=Condiciones::orderBy('IdCondiciones','desc')->paginate(10);
+      $itinerario=Itinerario::orderBy('IdItinerario','desc')->paginate(10);
+      return view('adminOpcionesPaquete.create',compact('gastosextras','incluye','condiciones','recomendaciones','itinerario'));
+
     }
 
     /**
@@ -50,6 +52,12 @@ class OpcionesPaqueteController extends Controller
     public function store(Request $request)
     {
 
+      try{
+        $this->validate($request,array(
+
+          'gastosextras'=>'required|string|unique:GastosExtras,NombreGastos',
+          'gastos'=>'required:GastosExtras,Gastos',
+        ));
 
        //Guardar en la BD
 
@@ -58,11 +66,11 @@ class OpcionesPaqueteController extends Controller
        $gastosextras=new GastosExtras;
        $gastosextras->NombreGastos = $request->gastosextras;
        $gastosextras->Gastos= $request->gastos;
-
        $gastosextras->save();
-
-       return back();
-
+       return redirect('CrearOpcionesPaquete')->with('status',"Agregado con éxito");
+          } catch(\Exception $e){
+       return redirect('CrearOpcionesPaquete')->with('fallo',"Error ya existe gasto extra");
+     }
 
     }
 
@@ -109,39 +117,66 @@ class OpcionesPaqueteController extends Controller
     }
 
    public function guardarincluye(Request $request){
+     try{
+       $this->validate($request,array(
+
+         'incluye'=>'required|string|unique:Incluye,NombreIncluye',
+       ));
 
              $incluye=new Incluye;
              $incluye->NombreIncluye = $request->incluye;
 
              $incluye->save();
-
-                   return back();
-             /*return view('adminOpcionesPaquete.create')->with('incluye',$incluye3);*/
+             return redirect('CrearOpcionesPaquete')->with('status',"Agregado con éxito");
+                } catch(\Exception $e){
+             return redirect('CrearOpcionesPaquete')->with('fallo',"Error ya existe que incluye");
+            }
 
     }
  public function guardarrecomendaciones(Request $request){
+   try{
+     $this->validate($request,array(
 
+       'recomendaciones'=>'required|string|unique:Recomendaciones,NombreRecomendaciones',
+     ));
       $recomendaciones=new Recomendaciones;
       $recomendaciones->NombreRecomendaciones = $request->recomendaciones;
       $recomendaciones->save();
-            return back();
+      return redirect('CrearOpcionesPaquete')->with('status',"Agregado con éxito");
+         } catch(\Exception $e){
+      return redirect('CrearOpcionesPaquete')->with('fallo',"Error ya existe recomendación");
+     }
     /*  return view('adminOpcionesPaquete.create')->with('recomendaciones',$recomendaciones);*/
     }
-    public function guardarcondiciones(Request $request){
+    public function guardarcondiciones(Request $request)
+    {
+      try{
+        $this->validate($request,array(
+          'condiciones'=>'required|string|unique:Condiciones,NombreCondiciones',
+        ));
 
          $condiciones=new Condiciones;
          $condiciones->NombreCondiciones = $request->condiciones;
          $condiciones->save();
-               return back();
+         return redirect('CrearOpcionesPaquete')->with('status',"Agregado con éxito");
+            } catch(\Exception $e){
+         return redirect('CrearOpcionesPaquete')->with('fallo',"Error ya existe condición");
+        }
        /*  return view('adminOpcionesPaquete.create')->with('recomendaciones',$recomendaciones);*/
        }
 
        public function guardaritinerario(Request $request){
-
+         try{
+           $this->validate($request,array(
+             'itinerario'=>'required|string|unique:Itinerario,NombreItinerario',
+           ));
             $itinerario=new Itinerario;
             $itinerario->NombreItinerario = $request->itinerario;
             $itinerario->save();
-                  return back();
+            return redirect('CrearOpcionesPaquete')->with('status',"Agregado con éxito");
+               } catch(\Exception $e){
+            return redirect('CrearOpcionesPaquete')->with('fallo',"Error ya existe actividad de itinerario");
+           }
           /*  return view('adminOpcionesPaquete.create')->with('recomendaciones',$recomendaciones);*/
           }
 

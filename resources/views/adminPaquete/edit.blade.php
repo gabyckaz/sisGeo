@@ -291,7 +291,7 @@
                                         <span class="label label-primary">Imagenes</span>
                                                 </h4>
                                                 <div class="row">
-                                                      <div  id="lightgallery" >
+                                                      <div>
                                                         <div class="row">
                                                           <input class="nuevaFoto" type="file" name="imagen1" id="imagen1">
 
