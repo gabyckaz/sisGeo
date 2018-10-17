@@ -65,8 +65,7 @@
                              </div>
                             <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida" value="{{ old('fechasalida')}}" placeholder="Fecha de Salida" required>
                           </div>
-                      </div>
-                      @if ($errors->has('fechasalida'))
+                          @if ($errors->has('fechasalida'))
                         <span class="help-block">{{ $errors->first('fechasalida') }}</span>
                       @endif
                        @if(session()->has('ErrorFs'))
@@ -75,6 +74,8 @@
                       @if(session()->has('ErrorFeschas'))
                        <span class="help-block">{{ session()->get('ErrorFeschas') }}</span>
                       @endif
+                      </div>
+                      
                     </div>
                     <div class="col-md-4">
                          <div class="form-group">
@@ -102,8 +103,7 @@
                              </div>
                             <input name="fecharegreso" type="date" class="form-control pull-right" id="fecharegreso" placeholder="Fecha de Regreso" required>
                           </div>
-                        </div>
-                        @if ($errors->has('fecharegreso'))
+                          @if ($errors->has('fecharegreso'))
                           <span class="help-block">{{ $errors->first('fecharegreso') }}</span>
                         @endif
                         @if(session()->has('ErrorFr'))
@@ -112,6 +112,7 @@
                         @if(session()->has('ErrorFeschas'))
                          <span class="help-block">{{ session()->get('ErrorFeschas') }}</span>
                         @endif
+                        </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">

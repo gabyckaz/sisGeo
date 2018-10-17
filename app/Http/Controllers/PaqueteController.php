@@ -616,9 +616,11 @@ public fuction postNewImage(Request $request){
      * @return \Illuminate\Http\Response
      */
     public function getSingle($id)
-    {
-      $paquete= Paquete::where('IdPaquete','=',$id)->first();
-
+    { //Arreglar para mostrar solo paquete q esten activos
+      $paquete= Paquete::findOrfail($id);//where('IdPaquete','=',$id)->first();
+      if($paquete->compara_fechas != 2 || $paquete->AprobacionPaquete == 0 || $paquete->DisponibilidadPaquete == 0){
+        return abort(403);
+      }
       //Trae las condiciones relacionadas al paquete
       $condiciones = CondicionesPaquete::where('paquete_id',$id)->get();
       $condiciones = $condiciones->all();
@@ -849,8 +851,8 @@ public fuction postNewImage(Request $request){
         $paquete->TipoPaquete=$request->tipopaquete;
         $paquete->Cupos=$request->cupos;
         $paquete->Dificultad=$request->dificultad;
-        $paquete->AprobacionPaquete=0;
-        $paquete->DisponibilidadPaquete=0;
+        $paquete->AprobacionPaquete= "0";
+        $paquete->DisponibilidadPaquete= "1";
         $paquete->save();
 
 
@@ -982,12 +984,12 @@ public fuction postNewImage(Request $request){
 
       if($paquete->AprobacionPaquete === '1'){
         DB::table('Paquetes')->where('IdPaquete', $id)->update(array('AprobacionPaquete' => '0'));
-        return redirect('/ActualizarEstado')
+        return redirect('/ActualizarEstadoPaquete')
               ->with('status',"Actualizado con éxito")->with('paquetes',$paquetes);
 
       }else {
         DB::table('Paquetes')->where('IdPaquete', $id)->update(array('AprobacionPaquete' => '1'));
-        return redirect('/ActualizarEstado')
+        return redirect('/ActualizarEstadoPaquete')
               ->with('status',"Actualizado con éxito")->with('paquetes',$paquetes);
       }
 

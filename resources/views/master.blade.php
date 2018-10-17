@@ -357,7 +357,7 @@ desired effect
         <span>Ruta Turistica</span>
       </a>
     </li>
-     <li class=" treeview {{ (request()->is('CrearPaquete') || request()->is('MostrarPaquete')) ? 'active' : '' }}">
+     <li class=" treeview {{ (request()->is('CrearPaquete') || request()->is('MostrarPaquete') || request()->is('ActualizarEstado') || request()->is('CrearOpcionesPaquete')) ? 'active' : '' }}">
       <a href="#">
         <i class="fa fa-ticket"></i>
           <i class="fa fa-angle-left pull-right-container"></i>
@@ -367,20 +367,20 @@ desired effect
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
       </a>
-          <ul class="treeview-menu">
-                  <li><a href="{{ route('adminPaquete.create')}}">
-                    <i class="fa fa-star"></i>
-                    Crear Paquete Turístico</a></li>
-                  <li><a href="">
-                     <li><a href="{{ route('adminPaquete.index')}}">
-                    <i class="fa fa-star"></i>
-                    Mostrar Paquete Turístico</a></li>
-                    <li><a href="{{ route('adminOpcionesPaquete.create')}}">
-                      <i class="fa fa-star"></i>
-                      Opciones Paquete</a></li>
-                    <li><a href="{{ route('adminPaquete.estado')}}">
-                      <i class="fa fa-star"></i>
-                      Aprobar Paquete Turistico</a></li>
+        <ul class="treeview-menu">
+          <li><a href="{{ route('adminPaquete.create')}}">
+            <i class="fa fa-star"></i>
+            Crear Paquete Turístico</a></li>
+          <li><a href="">
+             <li><a href="{{ route('adminPaquete.index')}}">
+            <i class="fa fa-star"></i>
+            Paquetes Turísticos</a></li>
+            <li><a href="{{ route('adminOpcionesPaquete.create')}}">
+              <i class="fa fa-star"></i>
+              Opciones Paquete</a></li>
+            <li><a href="{{ route('adminPaquete.estado')}}">
+              <i class="fa fa-star"></i>
+              Aprobar Paquete Turistico</a></li>
 
         </ul>
     </li>

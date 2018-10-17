@@ -23,12 +23,12 @@
                alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
                </script>
               @endif
-                <div class="panel">
+                <div class="panel panel-default">
                     <div class="panel-heading"><strong>Registrar un nuevo Paquete Turistico</strong></div>
 
                       <div class="panel-body">
                         <form method="post" action="/CrearPaquete" enctype="multipart/form-data">
-
+                          {{ csrf_field() }}
 
                         <div class="box box-warning">
                         <!-- /.box-header -->
@@ -54,11 +54,10 @@
 
                                         <option value="{{ $ruta->IdRutaTuristica }}" @if (old('idrutaturistica') == $ruta->IdRutaTuristica ) {{ 'selected' }} @endif> {{$ruta->NombreRutaTuristica}}</option>
                                         @endforeach
-                                        </select>
-                                        <hr>
-                                           @else
+                                        </select>                                        
+                                        @else
                                               <label>No hay rutas</label>
-                                            @endif
+                                        @endif
                             </div>
                           </div>
                           <div class="col-md-4">
@@ -84,24 +83,8 @@
                                 </select>
                           </div>
                           </div>
-
-
                     </div>
-
-                    <label for="exampleInputFile">Mapa</label>
-                    <br>
-                    <div class="form-group row">
-                      <a href="">
-                          <img src="{{Storage::url("geoturismo.png")}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar4" >
-                      </a>
-                      <br>
-                      <br>
-                      <br>
-                      <input class="nuevaFoto4" type="file" name="imagen4" required>
-                      <p class="help-block">Subir Imagen del Mapa.</p>
-                    </div>
-
-                    <div class="row">
+                                        <div class="row">
                       <div class="col-md-4">
                         <div class="form-group has-feedback{{ ( $errors->has('fechasalida') || session()->has('ErrorFs') || session()->has('ErrorFeschas') ) ? ' has-error' : '' }}">
                           <label for="fechadesalida">Fecha de Salida</label>
@@ -111,8 +94,7 @@
                            </div>
                           <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida" value="{{ old('fechasalida')}}" placeholder="Fecha de Salida" required>
                         </div>
-                      </div>
-                      @if ($errors->has('fechasalida'))
+                        @if ($errors->has('fechasalida'))
                         <span class="help-block">{{ $errors->first('fechasalida') }}</span>
                       @endif
                       @if(session()->has('ErrorFs'))
@@ -121,6 +103,7 @@
                       @if(session()->has('ErrorFeschas'))
                        <span class="help-block">{{ session()->get('ErrorFeschas') }}</span>
                       @endif
+                      </div>
                     </div>
                       <div class="col-md-4">
                          <div class="form-group">
@@ -130,12 +113,11 @@
                                  <i class="fa fa-history"></i>
                            </div>
                           <input name="hora" type="time" id="hora" value="06:00:00"  max="24:00:00" min="00:00:00" value="{{ old('hora')}}" class="form-control pull-right" required>
-
                         </div>
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <div class="form-group has-feedback{{ ( session()->has('ErrorFr') || session()->has('ErrorFeschas') ) ? ' has-error' : '' }}">
+                        <div class="form-group has-feedback{{ ( $errors->has('fecharegreso') || session()->has('ErrorFr') || session()->has('ErrorFeschas') ) ? ' has-error' : '' }}">
                           <label for="fechaderegreso">Fecha de Regreso</label>
                          <div class="input-group date">
                            <div class="input-group-addon">
@@ -143,16 +125,19 @@
                            </div>
                           <input name="fecharegreso" type="date" class="form-control pull-right" id="fecharegreso" value="{{ old('fecharegreso')}}" placeholder="Fecha de Regreso" required>
                         </div>
-                        </div>
-                        @if(session()->has('ErrorFr'))
+                        @if ($errors->has('fecharegreso'))
+                          <span class="help-block">{{ $errors->first('fecharegreso') }}</span>
+                        @endif
+                      @if(session()->has('ErrorFr'))
                        <span class="help-block">{{ session()->get('ErrorFr') }}</span>
                       @endif
                       @if(session()->has('ErrorFeschas'))
                        <span class="help-block">{{ session()->get('ErrorFeschas') }}</span>
                       @endif
+                        </div>                      
                       </div>
                     </div>
-                      <div class="row">
+                                          <div class="row">
                         <div class="col-md-3">
                            <div class="form-group">
                             <label for="cupos">Número de Cupos</label>
@@ -188,19 +173,37 @@
                         </div>
 
                       </div>
-
+                     <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">                        
+                          <input class="nuevaFoto4" type="file" name="imagen4" required>
+                          <p class="help-block">Mapa.</p>
+                        </div>
+                      </div>
+                     </div>
+                    <div class="row">
+                    <div class="col-md-12">
+                      <a href="">
+                          <img src="{{Storage::url("geoturismo.png")}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar4" >
+                      </a>
+                    </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-12">
                       <div class="form-group">
                           <label name="itinerario" for="itinerario">Itinerario</label>
-                                  <select class="form-control select2" multiple="multiple" name="itinerario[]" id="itinerario[]" required>
-                                  @foreach ($itinerario as $iti)
+                            <select class="form-control select2" multiple="multiple" name="itinerario[]" id="itinerario[]" required>
+                            @foreach ($itinerario as $iti)
 
-                                  <option value="{{$iti->IdItinerario }}" {{ (collect(old('itinerario'))->contains($iti->IdItinerario)) ? 'selected':'' }} >{{$iti->NombreItinerario}}</option>
-                                  @endforeach
-                                  </select>
-
+                            <option value="{{$iti->IdItinerario }}" {{ (collect(old('itinerario'))->contains($iti->IdItinerario)) ? 'selected':'' }} >{{$iti->NombreItinerario}}</option>
+                            @endforeach
+                            </select>
+                       </div>
                       </div>
-
-
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
                         <div class="form-group">
                             <label name="gastosextras" for="gastosextras">Gastos Extras</label>
                                     <select class="form-control select2" multiple="multiple" name="gastosextras[]" id="gasto[]" required>
@@ -209,9 +212,11 @@
                                     <option value="{{$gastos->IdGastosExtras }}" {{ (collect(old('gastosextras'))->contains($gastos->IdGastosExtras)) ? 'selected':'' }}>{{$gastos->NombreGastos}} --> ${{$gastos->Gastos}}</option>
                                     @endforeach
                                     </select>
-
                         </div>
-
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
                         <div class="form-group">
                             <label for="queincluye">Que incluye</label>
                             <select class="form-control select2" multiple="multiple" name="incluye[]" required>
@@ -220,8 +225,11 @@
                             <option value="{{ $incluye->IdIncluye }}" {{ (collect(old('incluye'))->contains($incluye->IdIncluye )) ? 'selected':'' }}> {{$incluye->NombreIncluye}}</option>
                             @endforeach
                             </select>
-                              </div>
-
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
                         <div class="form-group">
                             <label for="con">Condiciones</label>
                             <select class="form-control select2" multiple="multiple" name="condiciones[]" required>
@@ -231,8 +239,11 @@
                             @endforeach
                             </select>
                         </div>
-
-                        <div class="form-group">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
                             <label for="re">Recomendaciones</label>
                             <select class="form-control select2" multiple="multiple" name="recomendaciones[]" required>
                             @foreach ($recomendaciones as $recomendaciones)
@@ -242,41 +253,55 @@
                             </select>
                         </div>
                       </div>
-                      <label for="exampleInputFile">Imagenes</label>
-                      <br>
-                      <div class="form-group row">
-                        <a href="">
-                            <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
-                        </a>
-                        <br>
-                        <br>
-                        <br>
-                            <input class="nuevaFoto" type="file" name="imagen1" required>
-                       <p class="help-block">Subir Imagen 1.</p>
+                    </div>
+                                        <div class="row"> 
+                    <div class="col-md-12">
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">Imagenes para presentacion de paquete</h3>
+                        </div>
+                        <div class="panel-body">
+                          <table>
+                            <tbody>
+                              <tr>
+                                <td><input class="nuevaFoto" type="file" name="imagen1" required></td>
+                                <td>
+                                 <a href="">
+                                  <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" ></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <hr>
+                          <table>
+                            <tbody>
+                              <tr>
+                                <td><input  class="nuevaFoto2" type="file"  name="imagen2" required ></td>
+                                <td>
+                                  <a href="">
+                                  <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" ></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <hr>
+                          <table>
+                            <tbody>
+                              <tr>
+                                <td><input type="file"  class="nuevaFoto3" name="imagen3" required ></td>
+                                <td>
+                                  <a href="">
+                                  <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" ></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
+                    </div>
+                  </div>
 
-                      <div class="form-group row">
-                        <a href="">
-                            <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" >
-                        </a>
-                        <br>
-                        <br>
-                        <br>
-                        <input  class="nuevaFoto2" type="file"  name="imagen2" required >
-                        <p class="help-block">Subir Imagen 2.</p>
-                      </div>
-                      <div class="form-group row">
-                        <a href="">
-                            <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" >
-                        </a>
-                        <br>
-                        <br>
-                        <br>
-                        <input type="file"  class="nuevaFoto3" name="imagen3" required >
-                        <p class="help-block">Subir Imagen 3.</p>
-                      </div>
-
-
+                  </div>
                         </div>
                         <!-- /.box-body -->
 

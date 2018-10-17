@@ -124,6 +124,6 @@ Route::group(['middleware' => ['guest']], function () {
 
 //Rutas a las que solo puede accesar el Director
 Route::group(['middleware' => ['role:Director']], function () {
-  Route::get('/ActualizarEstado', ['uses' => 'PaqueteController@cambiarEstado', 'as' => 'adminPaquete.estado']);
-  Route::put('/ActualizarEstado/{id}', ['uses' => 'PaqueteController@cambiarEstado2', 'as' => 'adminPaquete.estado2']);
+  Route::get('/ActualizarEstadoPaquete', ['uses' => 'PaqueteController@cambiarEstado', 'as' => 'adminPaquete.estado']);
+  Route::put('/ActualizarEstadoPaquete/{id}', ['uses' => 'PaqueteController@cambiarEstado2', 'as' => 'adminPaquete.estado2']);
 });

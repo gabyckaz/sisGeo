@@ -14,12 +14,12 @@
         <div class="row">
             <div class="col-md-9 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Actualizar Paquetes Turisticos</div>
+                    <div class="panel-heading"><strong>Actualizar Paquetes Turisticos</strong></div>
 
                       <div class="panel-body">
                         <form method="POST" action="{{$paquete->IdPaquete}}" files = "true" enctype="multipart/form-data" >
                         <input name="_method" type="hidden" value="PUT">
-
+                         {{ csrf_field() }}
                         <div class="col-md-12">
                         <div class="box box-warning">
                         <!-- /.box-header -->
@@ -144,26 +144,29 @@
                       </div>
                       </div>
                     </div>
-
-                    <label for="exampleInputFile">Mapa</label>
-                    <br>
-                    <div class="form-group row">
+                    <div class="row">
+                      <div class="col-md-4">
+                      <div class="form-group">                        
+                      <input class="nuevaFoto4" type="file" name="imagen4" required>
+                      <p class="help-block">Mapa.</p>
+                      </div>
+                    </div>
+                    </div>
+                  
+                    <div class="row">
+                    <div class="col-md-12">
                       <a href="">
                           <img src="{{Storage::url($imagen->Imagen4)}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar4" >
                       </a>
-                      <br>
-                      <br>
-                      <br>
-                      <input class="nuevaFoto4" type="file" name="imagen4" required>
-                      <p class="help-block">Subir Imagen del Mapa.</p>
                     </div>
-
-                    <div class="form-group">
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-12">
+                      <div class="form-group">
                         <label for="iti">Itinerario</label>
                         @php $x='f';
                         @endphp
-
-
                         <select class="form-control select2" multiple="multiple" name="itinerario[]" >
                           @for ($i = 0; $i < count($itinerario); $i++)
 
@@ -181,9 +184,12 @@
                             <option value="{{ $itinerario[$i]->IdItinerario }}" > {{$itinerario[$i]->NombreItinerario}}</option>
                            @endif
                           @endfor
-
                         </select>
+                      </div>
+                      </div>
                     </div>
+                    <div class="row">
+                     <div class="col-md-12">
                     <div class="form-group">
                         <label for="re">Recomendaciones</label>
                         @php $x='f';
@@ -209,13 +215,15 @@
                           @endfor
 
                         </select>
+                      </div>
+                     </div> 
                     </div>
+                   <div class="row">
+                     <div class="col-md-12">
                     <div class="form-group">
                         <label for="in">Que incluye</label>
                         @php $x='f';
                         @endphp
-
-
                         <select class="form-control select2" multiple="multiple" name="incluye[]" >
                           @for ($i = 0; $i < count($incluye); $i++)
 
@@ -236,12 +244,14 @@
 
                         </select>
                     </div>
+                    </div>
+                   </div>
+                   <div class="row">
+                     <div class="col-md-12">
                     <div class="form-group">
                         <label for="con">Condiciones</label>
                         @php $x='f';
                         @endphp
-
-
                         <select class="form-control select2" multiple="multiple" name="condiciones[]" >
                           @for ($i = 0; $i < count($condiciones); $i++)
 
@@ -262,6 +272,10 @@
 
                         </select>
                     </div>
+                     </div>
+                   </div>
+                   <div class="row">
+                     <div class="col-md-12">
                     <div class="form-group">
                         <label for="gastosextras">Gastos Extras</label>
                         @php $x='f';
@@ -288,46 +302,59 @@
 
                         </select>
                     </div>
-                        <h4>
-                                        <span class="label label-primary">Imagenes</span>
-                                                </h4>
-                                                <div class="row">
-                                                      <div>
-                                                        <div class="row">
-                                                          <input class="nuevaFoto" type="file" name="imagen1" id="imagen1">
-
-                                                          <a href="{{Storage::url($imagen->Imagen1)}}">
-                                                              <img src="{{Storage::url($imagen->Imagen1)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
-                                                          </a>
-                                                        </div>
-                                                        <div class="row">
-                                                          <input class="nuevaFoto2" type="file" name="imagen2" >
-
-                                                          <a href="{{Storage::url($imagen->Imagen2)}}">
-                                                              <img src="{{Storage::url($imagen->Imagen2)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" >
-                                                          </a>
-                                                        </div>
-                                                        <div class="row">
-                                                          <input class="nuevaFoto3" type="file" name="imagen3" >
-
-                                                          <a href="{{Storage::url($imagen->Imagen3)}}">
-                                                              <img src="{{Storage::url($imagen->Imagen3)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" >
-                                                          </a>
-                                                        </div>
-                                                                                  </div>
-
-
-                                                                                </div>
-
+                    </div>
+                   </div>
+                   <div class="row"> 
+                    <div class="col-md-12">
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">Imagenes para presentacion de paquete</h3>
+                        </div>
+                        <div class="panel-body">
+                          <hr>
+                           <table>
+                             <tbody>
+                               <tr>
+                                 <td><input class="nuevaFoto" type="file" name="imagen1" id="imagen1"></td>
+                                 <td> <a href="{{Storage::url($imagen->Imagen1)}}">
+                                      <img src="{{Storage::url($imagen->Imagen1)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" >
+                                  </a></td>
+                               </tr>
+                             </tbody>
+                           </table>
+                           <hr>
+                           <table>
+                            <tbody>
+                               <tr>
+                                 <td> <input class="nuevaFoto2" type="file" name="imagen2" ></td>
+                                 <td>
+                                  <a href="{{Storage::url($imagen->Imagen2)}}">
+                                      <img src="{{Storage::url($imagen->Imagen2)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" >
+                                  </a></td>
+                               </tr>
+                            </tbody>
+                          </table>
+                          <hr>
+                          <table>
+                            <tbody>
+                               <tr>
+                                 <td><input class="nuevaFoto3" type="file" name="imagen3" ></td>
+                                 <td><a href="{{Storage::url($imagen->Imagen3)}}">
+                                      <img src="{{Storage::url($imagen->Imagen3)}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" >
+                                  </a></td>
+                               </tr>
+                             </tbody>
+                           </table> 
+                        </div>
+                      </div>
+                          </div>
+                   </div>
                         </div>
                         <!-- /.box-body -->
 
                          <div class="box-footer">
-                                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                                    <button type="submit" class="btn btn-info">Actualizar</button>
                                 </div>
-
-
-
                         </div>
                         </form>
                     </div>

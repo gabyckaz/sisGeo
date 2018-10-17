@@ -423,7 +423,7 @@
 
          <div class="row">
             <div class="col-md-12">
-              <button type="submit" class="btn btn-info  col-xs-12 col-sm-3 center-block"><STRONG>Actualizar</STRONG></button>
+              <button type="submit" class="btn btn-info  col-xs-12 col-sm-2 center-block"><STRONG>Actualizar</STRONG></button>
             </div>
             <!-- /.col -->
           </div>
