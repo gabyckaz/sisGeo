@@ -144,7 +144,7 @@
             <div class="form-group">
               <label>Costo por persona</label>
               <div class="input-group">
-                  <span class="input-group-addon">$</span>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></span>
                   <input type="text" class="form-control" name="cpersona" id="cpersona" value="{{ $paquete->Precio }}" readonly>
               </div>
             </div>   
@@ -153,7 +153,7 @@
             <div class="form-group">
               <label>Costo total</label>
                 <div class="input-group">
-                  <span class="input-group-addon">$</span>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></span>
                   <input type="text" class="form-control" name="ctotal" id="ctotal" readonly>
                 </div>
             </div>
@@ -170,7 +170,7 @@
             <div class="form-group">
               <label>% Anticipado requerido</label>
               <div class="input-group">
-                  <span class="input-group-addon">$</span>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></span>
                  <input type="text" class="form-control" name="minimoPago" id="minimoPago" readonly>
               </div>
              </div>
@@ -181,7 +181,7 @@
             <div class="form-group">
               <label>Cantidad a abonar</label>
               <div class="input-group">
-                <span class="input-group-addon">$</span>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></span>
                 <input type="text" class="form-control" name="abono" id="abono" placeholder="0.00" onkeypress="return filterFloat(event,this);">
               </div>
              </div>

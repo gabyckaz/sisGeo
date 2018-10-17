@@ -34,7 +34,7 @@
                             <label for="nombrepaquete">Nombre de Paquete Turístico</label>
                             <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-automobile"></i></span>
-                              <input type="text" name="nombrepaquete" value="{{$paquete->NombrePaquete}}" class="form-control" id="nombrepaquete" placeholder="Nombre paquete" required>
+                              <input type="text" name="nombrepaquete" value="{{ old('nombrepaquete',$paquete->NombrePaquete)}}" class="form-control" id="nombrepaquete" placeholder="Nombre paquete" required>
                                 @if ($errors->has('nombrepaquete'))
                                 <span class="help-block">{{ $errors->first('nombrepaquete') }}</span>
                                 @endif
@@ -46,8 +46,8 @@
                                 <label name="idrutaturistica" for="nombrerutaturistica">Nombre de Ruta Turística</label>
                                   @if($ruta !=null)
                                     <select  class="form-control" name="idrutaturistica"  id="idrutaturistica" readonly>
-                                    @foreach ($ruta as $ruta)
-                                      <option value="{{ $ruta->IdRutaTuristica }}" {{ $ruta->IdRutaTuristica == $ruta->IdRutaTuristica ? 'selected' : '' }}>{{ $ruta->NombreRutaTuristica }}</option>
+                                    @foreach ($ruta as $rutat)
+                                      <option value="{{ $rutat->IdRutaTuristica }}" {{ $rutat->IdRutaTuristica == $paquete->IdTuristica ? 'selected' : '' }}>{{ $rutat->NombreRutaTuristica }}</option>
                                     @endforeach
                                     </select>
 
@@ -57,18 +57,24 @@
                             </div>
                       </div>
                         <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group has-feedback{{ $errors->has('fechasalida') || ( session()->has('ErrorFs') || session()->has('ErrorFeschas') ) ? ' has-error' : '' }}">
                           <label for="fechadesalida">Fecha de Salida</label>
                            <div class="input-group date">
                              <div class="input-group-addon">
                                    <i class="fa fa-calendar"></i>
                              </div>
-                            <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida" placeholder="Fecha de Salida" required>
+                            <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida" value="{{ old('fechasalida')}}" placeholder="Fecha de Salida" required>
                           </div>
-                          @if ($errors->has('fechasalida'))
-                          <span class="help-block">{{ $errors->first('fechasalida') }}</span>
-                          @endif
                       </div>
+                      @if ($errors->has('fechasalida'))
+                        <span class="help-block">{{ $errors->first('fechasalida') }}</span>
+                      @endif
+                       @if(session()->has('ErrorFs'))
+                       <span class="help-block">{{ session()->get('ErrorFs') }}</span>
+                      @endif
+                      @if(session()->has('ErrorFeschas'))
+                       <span class="help-block">{{ session()->get('ErrorFeschas') }}</span>
+                      @endif
                     </div>
                     <div class="col-md-4">
                          <div class="form-group">
@@ -77,7 +83,7 @@
                            <div class="input-group-addon">
                                  <i class="fa fa-history"></i>
                            </div>
-                          <input name="hora" type="time" id="hora"  max="24:00:00" min="00:00:00" class="form-control pull-right" value="{{$paquete->HoraSalida}}" required>
+                          <input name="hora" type="time" id="hora"  max="24:00:00" min="00:00:00" class="form-control pull-right" value="{{ old('hora',$paquete->HoraSalida)}}" required>
                         </div>
                         @if ($errors->has('hora'))
                         <span class="help-block">{{ $errors->first('hora') }}</span>
@@ -88,26 +94,31 @@
 
                       <div class="row">
                         <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group has-feedback{{ ( $errors->has('fecharegreso') || session()->has('ErrorFr') || session()->has('ErrorFeschas') ) ? ' has-error' : '' }}">
                           <label for="fechaderegreso">Fecha de Regreso</label>
                            <div class="input-group date">
                              <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                              </div>
                             <input name="fecharegreso" type="date" class="form-control pull-right" id="fecharegreso" placeholder="Fecha de Regreso" required>
-
                           </div>
-                          @if ($errors->has('fecharegreso'))
-                          <span class="help-block">{{ $errors->first('fecharegreso') }}</span>
-                          @endif
                         </div>
+                        @if ($errors->has('fecharegreso'))
+                          <span class="help-block">{{ $errors->first('fecharegreso') }}</span>
+                        @endif
+                        @if(session()->has('ErrorFr'))
+                         <span class="help-block">{{ session()->get('ErrorFr') }}</span>
+                        @endif
+                        @if(session()->has('ErrorFeschas'))
+                         <span class="help-block">{{ session()->get('ErrorFeschas') }}</span>
+                        @endif
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                             <label for="lugar">Lugar de Salida</label>
                             <div class="input-group">
                               <span class="input-group-addon"><i class="fa fa-map"></i></span>
-                              <input type="text" name="lugarsalida" class="form-control" id="lugarsalida" placeholder="Lugar" value="{{$paquete->LugarRegreso}}" required>
+                              <input type="text" name="lugarsalida" class="form-control" id="lugarsalida" placeholder="Lugar" value="{{ old('lugarsalida',$paquete->LugarRegreso) }}" required>
                             </div>
                             @if ($errors->has('lugarsalida'))
                             <span class="help-block">{{ $errors->first('lugarsalida') }}</span>
@@ -119,7 +130,7 @@
                             <label for="precio">Precio</label>
                             <div class="input-group">
                               <span class="input-group-addon"><i class="fa fa-money"></i>
-                              $</span><input class="form-control" name="precio" type="number" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio" value="{{$paquete->Precio}}" required>
+                              $</span><input class="form-control" name="precio" type="number" min="0.01" step="0.01" max="10,0000" placeholder="25,00" id="precio" value="{{ old('precio',$paquete->Precio) }}" required>
                               </div>
                               @if ($errors->has('precio'))
                               <span class="help-block">{{ $errors->first('precio') }}</span>
@@ -135,7 +146,7 @@
                             <span class="input-group-addon">
                             <i class="fa fa-child"></i>
                             </span>
-                          <input  class="form-control" name="cupos" type="number" min="1" step="1" max="10,0000" value="{{$paquete->Cupos}}" id="cupos" required>
+                          <input  class="form-control" name="cupos" type="number" min="1" step="1" max="10,0000" value="{{ old('cupos',$paquete->Cupos) }}" id="cupos" required>
                         </div>
                         @if ($errors->has('cupos'))
                         <span class="help-block">{{ $errors->first('cupos') }}</span>
@@ -147,8 +158,8 @@
                           <label for="tipopaquete">Tipo Paquete</label>
                           <br>
                           <select class="form-control" id="tipopaquete" name="tipopaquete">
-                            <option value="Nacional" @if (old('tipopaquete') == "Nacional" ) {{ 'selected' }} @endif>Nacional</option>
-                            <option value="Internacional" @if (old('tipopaquete') == "Internacional" ) {{ 'selected' }} @endif>Internacional</option>
+                            <option value="Nacional" @if (old('tipopaquete',$paquete->TipoPaquete) == "Nacional" ) {{ 'selected' }} @endif>Nacional</option>
+                            <option value="Internacional" @if (old('tipopaquete',$paquete->TipoPaquete) == "Internacional" ) {{ 'selected' }} @endif>Internacional</option>
                             </select>
                       </div>
                     </div>
@@ -157,10 +168,10 @@
                           <label for="dificultad">Dificultad Paquete</label>
                           <br>
                           <select class="form-control" id="dificultad" name="dificultad">
-                            <option value="Baja" @if (old('dificultad') == "Baja" ) {{ 'selected' }} @endif>Baja</option>
-                            <option value="Media" @if (old('dificultad') == "Media" ) {{ 'selected' }} @endif>Media</option>
-                            <option value="Alta" @if (old('dificultad') == "Alta" ) {{ 'selected' }} @endif>Alta</option>
-                            <option value="Extrema" @if (old('dificultad') == "Extrema" ) {{ 'selected' }} @endif>Extrema</option>
+                            <option value="Baja" @if (old('dificultad',$paquete->Dificultad) == "Baja" ) {{ 'selected' }} @endif>Baja</option>,$paquete->Dificultad
+                            <option value="Media" @if (old('dificultad',$paquete->Dificultad) == "Media" ) {{ 'selected' }} @endif>Media</option>
+                            <option value="Alta" @if (old('dificultad',$paquete->Dificultad) == "Alta" ) {{ 'selected' }} @endif>Alta</option>
+                            <option value="Extrema" @if (old('dificultad',$paquete->Dificultad) == "Extrema" ) {{ 'selected' }} @endif>Extrema</option>
                           </select>
                        </div>
                       </div>

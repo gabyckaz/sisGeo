@@ -103,7 +103,7 @@
 
                     <div class="row">
                       <div class="col-md-4">
-                        <div class="form-group has-feedback{{ ( session()->has('ErrorFs') || session()->has('ErrorFeschas') ) ? ' has-error' : '' }}">
+                        <div class="form-group has-feedback{{ ( $errors->has('fechasalida') || session()->has('ErrorFs') || session()->has('ErrorFeschas') ) ? ' has-error' : '' }}">
                           <label for="fechadesalida">Fecha de Salida</label>
                          <div class="input-group date">
                            <div class="input-group-addon">
@@ -112,6 +112,9 @@
                           <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida" value="{{ old('fechasalida')}}" placeholder="Fecha de Salida" required>
                         </div>
                       </div>
+                      @if ($errors->has('fechasalida'))
+                        <span class="help-block">{{ $errors->first('fechasalida') }}</span>
+                      @endif
                       @if(session()->has('ErrorFs'))
                        <span class="help-block">{{ session()->get('ErrorFs') }}</span>
                       @endif
