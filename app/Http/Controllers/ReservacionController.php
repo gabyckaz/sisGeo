@@ -283,16 +283,22 @@ class ReservacionController extends Controller
       //$usuarioreservando = DB::table('users')->select('IdPersona')->where('IdPersona','=',auth()->user()->id)->get()->toArray();
 
       //en forma de consulta usando el modelo:
-      $usuarioreservando= User::where('IdPersona','=',auth()->user()->id)->first();
+      //$usuarioreservando= User::where('IdPersona','=',auth()->user()->id)->first();
 
       //Barriendo los turistas
-      $turistas =Turista::all();
+      /*$turistas =Turista::all();
       foreach ($turistas as $key => $turista) {
         if ($turista->IdPersona == $usuarioreservando->IdPersona) {
         $usuarioreservando=$turista->IdTurista;
           break;
         }
-      }
+      } */
+      $sql = 'SELECT t."IdTurista"
+          FROM public."users" as u, public."personas" as p, public."Turista" as t
+          WHERE u."IdPersona" = p."IdPersona" AND p."IdPersona" = t."IdPersona"
+          AND u."id" = '.auth()->user()->id.';';
+      
+        $usuarioreservando = DB::select($sql);
 
       return view('Reservacion.create', compact('paquete','usuarioreservando','userTurista','amigos','familia'));
     }

@@ -16,6 +16,7 @@
      alertify.error("{{ session('fallo') }}");
      </script>
     @endif
+ @if($usuarioreservando != null)
 <div class="row">
   <div class="col-sm-12 col-md-6">
    <div class="">
@@ -164,7 +165,7 @@
            {{-- </div>
           </div> --}}          
         </div>
-        @if(is_int($usuarioreservando))
+        
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
@@ -194,14 +195,6 @@
            </div>
           </div>
         <!-- button type="reset" class="btn btn-warning ">Limpiar</button -->
-            @else
-             <div class="col-md-4">
-                 <div class="form-group">
-              <p>ANTES DE REALIZAR LA RESERVA DEBE COMPLETAR SU INFORMACIÓN</p>
-              <a href="{{ route('usuario.completar.informacion') }}" class="btn btn-default btn-flat">Completar información</a>
-              </div>
-                </div>
-            @endif
         </div>
       <hr>
        <div class="box-footer">
@@ -210,5 +203,13 @@
       </form>    
     </div>
   </div>
-</div>          <!-- /.col -->              
+</div>      <!-- /.col -->
+@else
+ <div class="col-md-4">
+     <div class="form-group">
+  <p>ANTES DE REALIZAR LA RESERVA DEBE COMPLETAR SU INFORMACIÓN</p>
+  <a href="{{ route('usuario.completar.informacion') }}" class="btn btn-default btn-flat">Completar información</a>
+  </div>
+    </div>
+@endif              
 @endsection
