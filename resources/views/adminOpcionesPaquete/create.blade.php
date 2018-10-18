@@ -10,18 +10,18 @@
 @if(session('status'))
   <br>
   <script type="text/javascript">
- alertify.success("{{ session('status') }}");
+// alertify.success("{ session('status') }}");
  </script>
     <div class="alert alert-success alert-dismissible fade in" role="alert">
       <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
-      {{ session('status') }}
+      
     </div>
 @endif
 @if(session('fallo'))
   <br>
     <div class="alert alert-danger alert-dismissible fade in" role="alert">
       <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
-      {{ session('fallo') }}
+  
   </div>
 @endif
 

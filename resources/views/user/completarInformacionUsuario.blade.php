@@ -380,16 +380,17 @@
                 <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                 <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >{{ old('direccion') }}</textarea>
-              </div>
+               </div>
               @if ($errors->has('direccion'))
                   <span class="help-block">{{ $errors->first('direccion') }}</span>
                 @endif
+            </div>
           </div>
           <div class="col-md-6">
               <div class="form-group ">
+                <label for="psalud" class="control-label">Problemas de salud</label>
                     <div class="input-group">
                      <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-                     <label for="psalud" class="control-label">Problemas de salud</label>
                       <textarea   class="form-control" name="psalud" maxlength="256" placeholder="Problemas de salud..." >{{ old('psalud','Ninguno') }}</textarea>
                      </div>
                   </div>
