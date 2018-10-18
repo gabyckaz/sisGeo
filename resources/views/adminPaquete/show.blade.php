@@ -122,13 +122,14 @@
                   <label for="conductor">Conductor</label>
                     <select class="form-control" name="conductor" id="selectConductor">
                     </select>
+                    <p>{{$consultaconductor}}</p>
                     @if(session()->has('econductor'))
                    <span class="help-block">{{ session()->get('econductor') }}</span>
                   @endif
                   </div>
                   <input type="hidden" id="rutaListaConductores" value="{{ route('adminPaquete.listaConductores') }}">
                 </div>
-               
+
              </div>
 
               </div>
@@ -138,7 +139,7 @@
                     <button type="submit" class="btn btn-info">Asignar transporte</button>
                   </div>
               </form>
-            
+
         </div>
       </div>
     </div>

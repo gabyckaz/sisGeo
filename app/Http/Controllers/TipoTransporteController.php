@@ -44,7 +44,6 @@ class TipoTransporteController extends Controller
      */
     public function store(Request $request)
     {
-      dd($request);
       try{
         //validando la informacion, campo obliatorio, caracteres de max.25 digitos y campo único sin repeticiones
         $this->validate($request,array(

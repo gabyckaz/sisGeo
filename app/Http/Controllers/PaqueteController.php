@@ -24,8 +24,8 @@ use App\Transporte;
 use App\Conductor;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
-
-
+use App\Role;
+use Auth;
 
 
 class PaqueteController extends Controller
@@ -618,8 +618,19 @@ public fuction postNewImage(Request $request){
     public function getSingle($id)
     { //Arreglar para mostrar solo paquete q esten activos
       $paquete= Paquete::findOrfail($id);//where('IdPaquete','=',$id)->first();
-      if($paquete->compara_fechas != 2 || $paquete->AprobacionPaquete == 0 || $paquete->DisponibilidadPaquete == 0){
-        return abort(403);
+
+      if(Auth::check()){
+          //Para que solo los agentes o directores las puedan ver sin necesidad de haber sido aprobadas
+          $user=Auth::user()->hasRole(['Agente','Director']);
+        if(!$user){
+          if($paquete->compara_fechas != 2 || $paquete->AprobacionPaquete == 0 || $paquete->DisponibilidadPaquete == 0 ){
+            return abort(403);
+          }
+        }
+      }else{
+        if($paquete->compara_fechas != 2 || $paquete->AprobacionPaquete == 0 || $paquete->DisponibilidadPaquete == 0 ){
+          return abort(403);
+        }
       }
       //Trae las condiciones relacionadas al paquete
       $condiciones = CondicionesPaquete::where('paquete_id',$id)->get();
@@ -957,8 +968,15 @@ public fuction postNewImage(Request $request){
           $this->conductores = '';//Conductor::all();
           $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','asc')->paginate(5);
 
+          $consultaconductor= DB::table('Conduce')
+            ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
+            ->select('Conductor.NombreConductor')
+            ->where('Conduce.IdPaquete','=',$id)
+            ->get();
+
           return back()
           ->with('paquetes',$paquetes)
+          ->with('consultaconductor',$consultaconductor)
           ->with('status',"Asignado exitosamente");
         } catch(\Exception $e) {
           return back()->with('fallo', "El paquete ya tiene asignado el conductor o el transporte");
