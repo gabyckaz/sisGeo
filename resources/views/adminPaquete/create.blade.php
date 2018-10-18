@@ -8,7 +8,7 @@
 @endsection
 
 @section('contenido')
-    <div class="container spark-screen" CONTENT="no-cache">
+    
         <div class="row">
             <div class="col-md-8 col-md-offset-1">
               @if(session('status'))
@@ -322,5 +322,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 @endsection

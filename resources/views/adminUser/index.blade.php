@@ -79,6 +79,8 @@ endrole -->
                 <option value="">Rol</option>
                 <option value="2">User</option>
                 <option value="1">Admin</option>
+                <option value="3">Director</option>
+                <option value="4">Agente</option>
               </select>
             </div>
             </div>
