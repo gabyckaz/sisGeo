@@ -18,7 +18,7 @@
                alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
                </script>
             @endif
-    <div class="container spark-screen">
+    
         <div class="row">
             <div class="col-md-9 col-md-offset-1">
                     <form method="post" action="{{$paquete->IdPaquete}}" files = "true" enctype="multipart/form-data" >

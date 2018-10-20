@@ -5,7 +5,7 @@
       @section('Title','Aprobación de Paquetes Turísticos')
 @endsection
 @section('contenido')
-    <div class="container spark-screen">
+    
         <div class="row">
             <div class="col-md-9 col-md-offset-1">
 
