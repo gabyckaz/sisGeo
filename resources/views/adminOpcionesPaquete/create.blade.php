@@ -28,27 +28,8 @@
 
 <div class="row">
 
-  <div class="col-md-4">
-    @if(session('status'))
+  <div class="col-md-6">
 
-      <script type="text/javascript">
-     alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session('status') }}');
-     </script>
-        <{{-- div class="alert alert-success alert-dismissible fade in" role="alert">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
-          {{ session('status') }}
-        </div> --}}
-    @endif
-    @if(session('fallo'))
-    <script type="text/javascript">
-     alertify.success('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{ session('status') }}');
-     </script>
-     {{--  <br>
-        <div class="alert alert-danger alert-dismissible fade in" role="alert">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
-          {{ session('fallo') }}
-      </div> --}}
-    @endif
     <div class="box box-warning">
       <div class="box-header">
         <h3 class="box-title">Agregar Gastos Extras</h3>
@@ -100,7 +81,7 @@
                   @endforeach
                 </tbody>
               </table>
-                  <center>{!! $gastosextras->appends(\Request::except('page'))->render() !!}</center>
+                    {{-- {!! $gastosextras->appends(\Request::except('page'))->render() !!}--}}
             </div>
           </div>
 
@@ -110,8 +91,7 @@
   </div>
 
 
-    <div class="col-md-4">
-    <div class="">
+    <div class="col-md-6">
     <div class="box box-warning">
       <div class="box-header">
         <h3 class="box-title">Agregar Que incluye Paquete</h3>
@@ -158,74 +138,17 @@
                         @endforeach
                       </tbody>
                     </table>
-                    <center>{!! $incluye->appends(\Request::except('page'))->render() !!}</center>
+                    {{-- {!! $incluye->appends(\Request::except('page'))->render() !!}--}}
 
                   </div>
               </div>
       </div>
     </div>
-  </div>
 </div>
 
-   <div class="col-md-4">
-     <div class="">
-    <div class="box box-warning">
-      <div class="box-header">
-        <h3 class="box-title">Agregar Recomendaciones</h3>
-              <div class="box-body">
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('adminOpcionesPaquete.guardarrecomendaciones') }}" >
-                  {{ csrf_field() }}
-                  <fieldset>
-                    <div class="col-md-12">
-                  <div class="form-group has-feedback{{ $errors->has('recomendaciones') ? ' has-error' : '' }}">
-                    <div class="input-group">
-                        <span class="input-group-addon"><span class="fa fa-pencil-square"></span></span>
-                    <input id="recomendaciones" type="text" class="form-control" name="recomendaciones" value="{{ old('recomendaciones') }}" required autofocus>
-                  </div>
-                    @if ($errors->has('recomendaciones'))
-                    <span class="help-block">{{ $errors->first('recomendaciones') }}</span>
-                    @endif
-                  </div>
-                </div>
-                      <button type="submit" class="btn btn-info center-block">Agregar Recomendaciones</button>
-                </fieldset>
-              </form>
-                  <div class="row">
-                    <h3 class="box-title"> </h3>
-                    <table class="table table-striped table-bordered table-hover" id="tablaRecomendaciones" >
-                      <thead class="thead-dark">
-                        <br>
-                        <br>
-                        <br>
-                        <tr>
-                        <th align="center">Recomendaciones</th>
-                        <th align="center">Eliminar</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      @foreach($recomendaciones as $re)
-                         <tr>
-                           <td align="center">{{ $re->NombreRecomendaciones }}</td>
-                           <td align="center"> <a href="{{route('adminOpcionesPaquete.eliminarrecomendaciones', $re['IdRecomendaciones'])}}"
-                           class="btn btn-danger btn-sm"> <font color="white" size="2"> <b> X</b>
-                           </font>
-                           </a> </td>
-                         </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                      <center>{!! $recomendaciones->appends(\Request::except('page'))->render() !!}</center>
-
-                  </div>
-              </div>
-      </div>
-    </div>
-  </div>
 </div>
-</div>
-<div class="col-md-4">
-  <div class="">
- <div class="box box-warning">
+<div class="col-md-6">
+   <div class="box box-warning">
    <div class="box-header">
      <h3 class="box-title">Agregar Condiciones</h3>
            <div class="box-body">
@@ -267,16 +190,16 @@
                      @endforeach
                    </tbody>
                  </table>
-                   <center>{!! $condiciones->appends(\Request::except('page'))->render() !!}</center>
+                     {{--{!! $condiciones->appends(\Request::except('page'))->render() !!}--}}
 
                </div>
            </div>
    </div>
- </div>
+
 </div>
 </div>
-<div class="col-md-4">
-  <div class="">
+<div class="col-md-6">
+
  <div class="box box-warning">
    <div class="box-header">
      <h3 class="box-title">Agregar Itinerario</h3>
@@ -319,13 +242,69 @@
                      @endforeach
                    </tbody>
                  </table>
-                    <center>{!! $itinerario->appends(\Request::except('page'))->render() !!}</center>
-
+                    {{--{!! $itinerario->appends(\Request::except('page'))->render() !!}--}}
 
                </div>
            </div>
    </div>
- </div>
+
 </div>
+
+</div>
+<div class="row">
+  <div class="col-md-6">
+
+   <div class="box box-warning">
+     <div class="box-header">
+       <h3 class="box-title">Agregar Recomendaciones</h3>
+             <div class="box-body">
+               <form class="form-horizontal" role="form" method="POST" action="{{ route('adminOpcionesPaquete.guardarrecomendaciones') }}" >
+                 {{ csrf_field() }}
+                 <fieldset>
+                   <div class="col-md-12">
+                 <div class="form-group has-feedback{{ $errors->has('recomendaciones') ? ' has-error' : '' }}">
+                   <div class="input-group">
+                       <span class="input-group-addon"><span class="fa fa-pencil-square"></span></span>
+                   <input id="recomendaciones" type="text" class="form-control" name="recomendaciones" value="{{ old('recomendaciones') }}" required autofocus>
+                 </div>
+                   @if ($errors->has('recomendaciones'))
+                   <span class="help-block">{{ $errors->first('recomendaciones') }}</span>
+                   @endif
+                 </div>
+               </div>
+                     <button type="submit" class="btn btn-info center-block">Agregar Recomendaciones</button>
+               </fieldset>
+             </form>
+                 <div class="row">
+                   <h3 class="box-title"> </h3>
+                   <table class="table table-striped table-bordered table-hover" id="tablaRecomendaciones" >
+                     <thead class="thead-dark">
+                       <br>
+                       <br>
+                       <br>
+                       <tr>
+                       <th align="center">Recomendaciones</th>
+                       <th align="center">Eliminar</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                     @foreach($recomendaciones as $re)
+                        <tr>
+                          <td align="center">{{ $re->NombreRecomendaciones }}</td>
+                          <td align="center"> <a href="{{route('adminOpcionesPaquete.eliminarrecomendaciones', $re['IdRecomendaciones'])}}"
+                          class="btn btn-danger btn-sm"> <font color="white" size="2"> <b> X</b>
+                          </font>
+                          </a> </td>
+                        </tr>
+                       @endforeach
+                     </tbody>
+                   </table>
+                       {{--{!! $recomendaciones->appends(\Request::except('page'))->render() !!}--}}
+
+                 </div>
+             </div>
+     </div>
+
+ </div>
 </div>
 @endsection

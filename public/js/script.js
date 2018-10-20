@@ -55,37 +55,42 @@ $(document).ready(function(){
             "autoWidth": true,
         });
         $('#tablaGastosExtras').DataTable({
-            "paging": false,
-            "bpaging": false,
-            "bFilter": false,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
         });
         $('#tablaQueIncluye').DataTable({
-            "paging": false,
-            "bpaging": false,
-            "bFilter": false,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
         });
         $('#tablaRecomendaciones').DataTable({
-            "paging": false,
-            "bpaging": false,
-            "bFilter": false,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
         });
         $('#tablaCondiciones').DataTable({
-            "paging": false,
-            "bpaging": false,
-            "bFilter": false,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
         });
         $('#tablaItinerario').DataTable({
-            "paging": false,
-            "bpaging": false,
-            "bFilter": false,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
         });

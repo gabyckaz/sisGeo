@@ -13,10 +13,10 @@ $(".nuevaFoto").change(function(){
 
     alertify.error("Error al subir la imagen, Imagen debe ser formato PNG, JPG o GIF");
 
-  }else if(imagen["size"] > 2000000){
+  }else if(imagen["size"] > 10000000){
 
     $(".nuevaFoto").val("");
-    alertify.error("Error al subir la imagen, La imagen no debe pesar más de 2 MB");
+    alertify.error("Error al subir la imagen, La imagen no debe pesar más de 10 MB");
   }else{
 
     // La imagen seleccionada se previsualiza en el formulario
@@ -50,11 +50,11 @@ $(".nuevaFoto2").change(function(){
 
     alertify.error("Error al subir la imagen, Imagen debe ser formato PNG, JPG o GIF");
 
-  }else if(imagen["size"] > 2000000){
+  }else if(imagen["size"] > 10000000){
 
     $(".nuevaFoto2").val("");
 
-    alertify.error("Error al subir la imagen, La imagen no debe pesar más de 2 MB");
+    alertify.error("Error al subir la imagen, La imagen no debe pesar más de 10 MB");
 
   }else{
 
@@ -89,11 +89,11 @@ $(".nuevaFoto3").change(function(){
 
   alertify.error("Error al subir la imagen, Imagen debe ser formato PNG, JPG o GIF");
 
-  }else if(imagen["size"] > 2000000){
+}else if(imagen["size"] > 10000000){
 
     $(".nuevaFoto3").val("");
 
-    alertify.error("Error al subir la imagen, La imagen no debe pesar más de 2 MB");
+    alertify.error("Error al subir la imagen, La imagen no debe pesar más de 10 MB");
 
   }else{
 
@@ -123,11 +123,11 @@ $(".nuevaFoto4").change(function(){
     $(".nuevaFoto4").val("");
 
   alertify.error("Error al subir la imagen, Imagen debe ser formato PNG, JPG o GIF");
-  }else if(imagen["size"] > 2000000){
+}else if(imagen["size"] > 10000000){
 
     $(".nuevaFoto4").val("");
 
-    alertify.error("Error al subir la imagen, La imagen no debe pesar más de 2 MB");
+    alertify.error("Error al subir la imagen, La imagen no debe pesar más de 10 MB");
   }else{
 
     // La imagen seleccionada se previsualiza en el formulario

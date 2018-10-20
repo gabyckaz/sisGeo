@@ -146,13 +146,13 @@
                     </div>
                     <div class="row">
                       <div class="col-md-4">
-                      <div class="form-group">                        
-                      <input class="nuevaFoto4" type="file" name="imagen4" required>
+                      <div class="form-group">
+                      <input class="nuevaFoto4" type="file" name="imagen4" >
                       <p class="help-block">Mapa.</p>
                       </div>
                     </div>
                     </div>
-                  
+
                     <div class="row">
                     <div class="col-md-12">
                       <a href="">
@@ -216,7 +216,7 @@
 
                         </select>
                       </div>
-                     </div> 
+                     </div>
                     </div>
                    <div class="row">
                      <div class="col-md-12">
@@ -304,7 +304,7 @@
                     </div>
                     </div>
                    </div>
-                   <div class="row"> 
+                   <div class="row">
                     <div class="col-md-12">
                      <div class="panel panel-default">
                         <div class="panel-heading">
@@ -344,7 +344,7 @@
                                   </a></td>
                                </tr>
                              </tbody>
-                           </table> 
+                           </table>
                         </div>
                       </div>
                           </div>
