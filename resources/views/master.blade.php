@@ -383,7 +383,6 @@ desired effect
               <i class="fa fa-star"></i>
               Aprobar Paquete Turistico</a></li>
             @endrole  
-
         </ul>
     </li>
     <li class="treeview {{ (request()->is('adminEmpresaTransporte') || request()->is('adminTipoTransporte') || request()->is('adminTransporte')) ? 'active' : '' }}">
