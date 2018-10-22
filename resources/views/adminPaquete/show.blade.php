@@ -109,7 +109,7 @@
                   <select class="form-control" name="transporte" id="selectIdTransporte">
                     <option value="idDefault">Selecciona un transporte</option>
                     @foreach($transportes as $transporte)
-                      <option value="{{ $transporte->IdTransporte }}">{{ $transporte->tipotransporte->NombreTipoTransporte}} de {{ $transporte->EmpresaAlquilerTransporte->NombreEmpresaTransporte }}.   Cupos: {{ $transporte->NumeroAsientos }}</option>
+                      <option value="{{$paquete->IdPaquete}}-{{ $transporte->IdEmpresaTransporte }}-{{ $transporte->IdTransporte}}">{{ $transporte->Placa_Matricula}}-{{ $transporte->tipotransporte->NombreTipoTransporte}} de {{ $transporte->EmpresaAlquilerTransporte->NombreEmpresaTransporte }}.   Cupos: {{ $transporte->NumeroAsientos }}</option>
                     @endforeach
                   </select>
                   @if(session()->has('etransporte'))
@@ -122,13 +122,14 @@
                   <label for="conductor">Conductor</label>
                     <select class="form-control" name="conductor" id="selectConductor">
                     </select>
+                    <p>{{$consultaconductor}}</p>
                     @if(session()->has('econductor'))
                    <span class="help-block">{{ session()->get('econductor') }}</span>
                   @endif
                   </div>
                   <input type="hidden" id="rutaListaConductores" value="{{ route('adminPaquete.listaConductores') }}">
                 </div>
-               
+
              </div>
 
               </div>
@@ -138,7 +139,7 @@
                     <button type="submit" class="btn btn-info">Asignar transporte</button>
                   </div>
               </form>
-            
+
         </div>
       </div>
     </div>

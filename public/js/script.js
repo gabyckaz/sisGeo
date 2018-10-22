@@ -337,7 +337,8 @@ Permite llenar dinamicamente el select  de condcutores
 $( "#selectIdTransporte" )
   .change(function() {
     var idTransporte = "";
-    idTransporte = $( "#selectIdTransporte" ).val();
+    var ar = ($( "#selectIdTransporte" ).val()).split('-');
+    idTransporte = ar[1];
     console.log(idTransporte);
     $.ajax({
         type: 'get',
