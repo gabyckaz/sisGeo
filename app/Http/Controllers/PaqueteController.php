@@ -696,6 +696,7 @@ public fuction postNewImage(Request $request){
             ->select('Conductor.NombreConductor')
             ->where('Conduce.IdPaquete','=',$id)
             ->get();
+           //dd($consultaconductor);
 
       return view('adminPaquete.show')
       ->with('transportes',$transportes)
@@ -938,35 +939,62 @@ public fuction postNewImage(Request $request){
       return \Response::json(array("error" => "response was not JSON"));
     }
 
-    public function asignaTransCondPaquete($paquete, Request $request){
-         if($request->transporte == "idDefault" || $request->conductor == "defecto" ){
+    public function asignaTransCondPaquete($paquete, Request $request){ 
+         
+         $splitSelectTransporte = explode('-', $request->transporte);
+         if(count($splitSelectTransporte) == 1){
+         if($splitSelectTransporte[0] == "idDefault" || $request->conductor == "defecto" ){
           return back()->with('etransporte',"Transporte requerido")
           ->with('econductor',"Conductor requerido");
          }
-     try{
-          $transporte = Transporte::find($request->get('transporte'));
-          $conductor = Conductor::find($request->get('conductor'));
+         }
+     try{ //dd("punto 1");
+          $transporte = Transporte::findOrfail($splitSelectTransporte[2]);
+          $conductor = Conductor::findOrfail($request->get('conductor'));
+         // dd("punto 2");
+           $sqlt = 'SELECT count(*) as cuenta
+                   FROM public."Contrata" as cta
+                   WHERE cta."IdTransporte" = '.$splitSelectTransporte[2].' and cta."IdPaquete" = '.$paquete.';';
+           $existeTransportePaquete = DB::select($sqlt);
+          //dd("punto 3");
+           $sqlc = 'SELECT count(*) as cuenta
+                    FROM public."Conduce" as cdc
+                    WHERE cdc."IdConductor" = '.$request->conductor.' and cdc."IdPaquete" = '.$paquete.';';
+           $existeconductorPaquete = DB::select($sqlc);
+          // dd("punto 4");
+         //  dd($existeTransportePaquete[0]->cuenta." -- ".$existeconductorPaquete[0]->cuenta );
+           if($existeTransportePaquete[0]->cuenta != 0 || $existeconductorPaquete[0]->cuenta != 0){
+              if($existeTransportePaquete[0]->cuenta != 0 && $existeconductorPaquete[0]->cuenta == 0){
+                return back()->with('fallo', "Ya se encuentra asignado este transporte a este paquete.");
+              }elseif($existeTransportePaquete[0]->cuenta == 0 && $existeconductorPaquete[0]->cuenta != 0){
+               return back()->with('fallo', "Ya se encuentra asignado este conductor a este paquete.");
+              }else{
+               return back()->with('fallo', "Ya se encuentra asignado este conductor y este transporte a este paquete.");
+              }
 
+           }
           $transporte->paquetes()->attach($paquete);
           $conductor->paquetescon()->attach($paquete);
-
-          $paquete= Paquete::where('IdPaquete','=',$paquete)->first();
-          $transportes =Conductor::all();
+          //dd("punto 5");
+          $paquete= Paquete::findOrfail($paquete);
+          $transportes = Transporte::all();
           $this->conductores = '';//Conductor::all();
-          $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','asc')->paginate(5);
+          //$paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','asc')->paginate(5);
 
-          $consultaconductor= DB::table('Conduce')
+         /* $consultaconductor= DB::table('Conduce')
             ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
             ->select('Conductor.NombreConductor')
             ->where('Conduce.IdPaquete','=',$id)
-            ->get();
+            ->get(); */
 
           return back()
-          ->with('paquetes',$paquetes)
-          ->with('consultaconductor',$consultaconductor)
+          ->with('paquete',$paquete)
+          ->with('transportes',$transportes)
+          ->with('conductores',$this->conductores)
+         // ->with('consultaconductor',$consultaconductor)
           ->with('status',"Asignado exitosamente");
         } catch(\Exception $e) {
-          return back()->with('fallo', "El paquete ya tiene asignado el conductor o el transporte");
+          return back()->with('fallo', "Error.");
         }
 
     }
