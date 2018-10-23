@@ -7,7 +7,7 @@
   <strong>Administracion de paquetes turisticos</strong>
 @endsection
 @section('contenido')
-    
+
         <div class="row">
             <div class="col-md-9 col-md-offset-1">
               @if(session('status'))
@@ -20,7 +20,7 @@
                alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
                </script>
               @endif
-              
+
               <div class="row">
                 <div class="col-md-6">
                    <div class="form-group">
@@ -74,7 +74,7 @@
 			     </div>
         </div>
        </div>
-      
 
-					 
+
+
 @endsection
