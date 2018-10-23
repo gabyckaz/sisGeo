@@ -696,7 +696,7 @@ public fuction postNewImage(Request $request){
             ->select('Conductor.NombreConductor')
             ->where('Conduce.IdPaquete','=',$id)
             ->get();
-            dd($consultaconductor);
+           //dd($consultaconductor);
 
       return view('adminPaquete.show')
       ->with('transportes',$transportes)
@@ -977,24 +977,24 @@ public fuction postNewImage(Request $request){
           $conductor->paquetescon()->attach($paquete);
           //dd("punto 5");
           $paquete= Paquete::findOrfail($paquete);
-          $transportes =Conductor::all();
+          $transportes = Transporte::all();
           $this->conductores = '';//Conductor::all();
           //$paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','asc')->paginate(5);
 
-          $consultaconductor= DB::table('Conduce')
+         /* $consultaconductor= DB::table('Conduce')
             ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
             ->select('Conductor.NombreConductor')
             ->where('Conduce.IdPaquete','=',$id)
-            ->get();
+            ->get(); */
 
           return back()
           ->with('paquete',$paquete)
           ->with('transportes',$transportes)
           ->with('conductores',$this->conductores)
-          ->with('consultaconductor',$consultaconductor)
+         // ->with('consultaconductor',$consultaconductor)
           ->with('status',"Asignado exitosamente");
         } catch(\Exception $e) {
-          return back()->with('fallo', "El paquete ya tiene asignado el conductor.");
+          return back()->with('fallo', "Error.");
         }
 
     }
