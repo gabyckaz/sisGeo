@@ -50,6 +50,7 @@ Route::get('user/pruebaApi', ['as' => 'user.pruebaApi', 'uses' => 'userControlle
 //Rutas a las que puede accesar el Director y el Agente
 Route::group(['middleware' => ['role:Director|Agente']], function() {
   //Rutas para empresa de alquiler de transporte
+  Route::get('adminEmpresaTransporte/reporte', ['uses' =>  'EmpresaAlquilerTransporteController@reporte','as' => 'adminEmpresaTransporte.reporte']);
   Route::resource('adminEmpresaTransporte', 'EmpresaAlquilerTransporteController');
   //Rutas para agregar tipos de transporte y los nombres de los conductores
   Route::resource('adminTipoTransporte', 'TipoTransporteController');
@@ -127,3 +128,7 @@ Route::group(['middleware' => ['role:Director']], function () {
   Route::get('/ActualizarEstadoPaquete', ['uses' => 'PaqueteController@cambiarEstado', 'as' => 'adminPaquete.estado']);
   Route::put('/ActualizarEstadoPaquete/{id}', ['uses' => 'PaqueteController@cambiarEstado2', 'as' => 'adminPaquete.estado2']);
 });
+
+ //Route::get('/adminEmpresaTransporte/pdf',  ['as' => 'adminEmpresaTransporte.reporte', 'uses' =>  'EmpresaAlquilerTransporteController@pdf']);
+//|          adminEmpresaTransporte   | adminEmpresaTransporte.index   | App\Http\Controllers\EmpresaAlquilerTransporteController@index
+//  adminEmpresaTransporte/reporte   | adminEmpresaTransporte.reporte  | App\Http\Controllers\EmpresaAlquilerTransporteController@reporte

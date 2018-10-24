@@ -112,7 +112,8 @@
   <div class="col-md-7 col-md-offset-2">
     <div class="box box-warning">
       <div class="box-header">
-        <h3 class="box-title"><STRONG>Listado de Empresas</STRONG></h3>
+        <h3 class="box-title"><STRONG>Listado de Empresas</STRONG>
+        <a class="btn btn-info" href="{{ route('adminEmpresaTransporte.reporte') }}">PDF</a></h3>
         </div>
               <div class="box-body">
                <div class="table-responsive">
@@ -145,9 +146,9 @@
                   </tbody>
                 </table>
                 </div>
-              {{-- <center>{!! $empresalquiler->appends(\Request::except('page'))->render() !!}</center> --}}
             </div>
       </div>
     </div>
 </div>
+
 @endsection

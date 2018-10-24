@@ -7,6 +7,10 @@ use App\EmpresaAlquilerTransporte;
 use DB;
 use App\Conductor;
 use Session;
+use Dompdf\Dompdf;
+use PDF;
+
+
 class EmpresaAlquilerTransporteController extends Controller
 {
 
@@ -181,4 +185,27 @@ class EmpresaAlquilerTransporteController extends Controller
 
       return redirect()->route('adminEmpresaTransporte')->with('status', "Eliminado con éxito");
     }
+
+    /**
+    * Método para generar PDF de empresa
+    */
+
+    public function reporte()
+    {
+      $empresalquiler = EmpresaAlquilerTransporte::all();
+      //instantiate and use the dompdf class
+      $view=\View::make('adminEmpresaTransporte.reporte',compact('empresalquiler'))->render();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($view);
+      // Render the HTML as PDF
+      $dompdf->render();
+      // Output the generated PDF to Browser
+      $dompdf->stream('Empresas.pdf');
+
+      // $pdf = PDF::loadView('/adminEmpresaTransporte/reporte', compact('empresalquiler'));
+      // return $pdf->stream();
+      //return view('adminEmpresaTransporte.reporte',compact('empresalquiler'));
+    }
+
+
 }
