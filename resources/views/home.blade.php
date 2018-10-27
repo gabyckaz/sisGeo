@@ -69,6 +69,71 @@ h4 span {
     <img alt="Geoturismo logo" src="http://nebula.wsimg.com/d3657b04208ae150f468167d20de36aa?AccessKeyId=B5E8C3F7E00CA38BCFD7&disposition=0&alloworigin=1">
   </div>
 
+@role(['Director','Agente','Admin'])
+  <div class="row">
+    <div class="col-md-3">
+      <div class="small-box bg-aqua">
+        <div class="inner">
+          <h3>{{$disponibles}}</h3>
+          <p>Paquetes disponibles</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-checkmark"></i>
+        </div>
+        <!-- <a href="#" class="small-box-footer">
+        Ver más
+          <i class=" fa fa-arrow-circle-right"></i>
+        </a> -->
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h3>{{$pendientes}}</h3>
+          @if($pendientes == 1)
+            <p>Paquete pendiente de aprobar</p>
+          @else
+            <p>Paquetes pendientes de aprobar</p>
+          @endif
+        </div>
+        <div class="icon">
+          <i class="ion ion-stats-bars"></i>
+        </div>
+        @role('Director')
+        <a href="{{ route('adminPaquete.estado')}}" class="small-box-footer">Ver detalle <i class="fa fa-arrow-circle-right"></i></a>
+        @endrole
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="small-box bg-yellow">
+        <div class="inner">
+          <h3>{{$clientes}}</h3>
+          <p>Usuarios activos</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-person-add"></i>
+        </div>
+        @role('Admin')
+        <a href="{{ route('adminUser.index') }}" class="small-box-footer">Ver detalle <i class="fa fa-arrow-circle-right"></i></a>
+        @endrole
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="small-box bg-red">
+        <div class="inner">
+          <h3>{{$clientes_notificados}}</h3>
+          <p>Usuarios recibiendo correos</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-email"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+@endrole
+
   <div class="row">
       <div class="col-md-12">
     @if (count($reservaciones) == 0)
