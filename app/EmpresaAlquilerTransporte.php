@@ -3,11 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
 
 class EmpresaAlquilerTransporte extends Model
 {
-    use Sortable;
 
     //aqui se especifica el nombre de la tabla relacionada al modelo
     protected $table = 'EmpresaAlquilerTransporte';
@@ -17,8 +15,5 @@ class EmpresaAlquilerTransporte extends Model
 
     //Cambiando el campo por defecto id a uno personalizado
     protected $primaryKey = 'IdEmpresaTransporte';
-
-    //Definicion los campos del ordenamiento en la tabla index
-    public $sortable = ['NombreEmpresaTransporte'];
 
 }

@@ -8,11 +8,6 @@ use App\RutaTuristica;
 
 class RutaTuristicaController extends Controller
 {
-    //Solo con acceso los que hayan iniciado sesion
-    public function __construct()
-    {
-       $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -43,24 +38,19 @@ class RutaTuristicaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $this->validate($request,array(
-            'pais'=>'required',
-            'nombrerutaturistica'=>'required|max:60|unique:RutaTuristica,NombreRutaTuristica',
-            'datosgenerales'=>'required|max:1024',
-            'descripcionrutaturistica'=>'required|max:1024',
-        ));
-        $rutaturistica=new RutaTuristica;
-        $rutaturistica->IdPais=$request->pais;
-        $rutaturistica->NombreRutaTuristica=$request->nombrerutaturistica;
-        $rutaturistica->DatosGenerales=$request->datosgenerales;
-        $rutaturistica->DescripcionRutaTuristica=$request->descripcionrutaturistica;
-        $rutaturistica->save();
-            return redirect('/MostrarRutaTuristica')->with('status',"Guardado con exito.")->withInput();
-
-
-
-
+      $this->validate($request,array(
+        'pais'=>'required',
+        'nombrerutaturistica'=>'required|max:60|unique:RutaTuristica,NombreRutaTuristica',
+        'datosgenerales'=>'required|max:1024',
+        'descripcionrutaturistica'=>'required|max:1024',
+      ));
+      $rutaturistica=new RutaTuristica;
+      $rutaturistica->IdPais=$request->pais;
+      $rutaturistica->NombreRutaTuristica=$request->nombrerutaturistica;
+      $rutaturistica->DatosGenerales=$request->datosgenerales;
+      $rutaturistica->DescripcionRutaTuristica=$request->descripcionrutaturistica;
+      $rutaturistica->save();
+      return redirect('/MostrarRutaTuristica')->with('status',"Guardado con exito.")->withInput();
     }
 
     /**
@@ -101,15 +91,13 @@ class RutaTuristicaController extends Controller
         'nombrerutaturistica'=>'required|max:60',
         'datosgenerales'=>'required|max:1024',
         'descripcionrutaturistica'=>'required|max:1024',
-         ));
-
+      ));
       $rutaturistica=RutaTuristica::find($id);
       $rutaturistica->IdPais=$request->pais;
       $rutaturistica->NombreRutaTuristica=$request->nombrerutaturistica;
       $rutaturistica->DatosGenerales=$request->datosgenerales;
       $rutaturistica->DescripcionRutaTuristica=$request->descripcionrutaturistica;
       $rutaturistica->save();
-
       return redirect('/MostrarRutaTuristica')->with('status',"Guardado con exito");
     }
 

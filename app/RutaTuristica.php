@@ -3,12 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
 
 class RutaTuristica extends Model
 {
-    use Sortable;
-
     //aqui se especifica el nombre de la tabla relacionada al modelo
     protected $table = 'RutaTuristica';
 

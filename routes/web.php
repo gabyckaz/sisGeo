@@ -128,7 +128,3 @@ Route::group(['middleware' => ['role:Director']], function () {
   Route::get('/ActualizarEstadoPaquete', ['uses' => 'PaqueteController@cambiarEstado', 'as' => 'adminPaquete.estado']);
   Route::put('/ActualizarEstadoPaquete/{id}', ['uses' => 'PaqueteController@cambiarEstado2', 'as' => 'adminPaquete.estado2']);
 });
-
- //Route::get('/adminEmpresaTransporte/pdf',  ['as' => 'adminEmpresaTransporte.reporte', 'uses' =>  'EmpresaAlquilerTransporteController@pdf']);
-//|          adminEmpresaTransporte   | adminEmpresaTransporte.index   | App\Http\Controllers\EmpresaAlquilerTransporteController@index
-//  adminEmpresaTransporte/reporte   | adminEmpresaTransporte.reporte  | App\Http\Controllers\EmpresaAlquilerTransporteController@reporte
