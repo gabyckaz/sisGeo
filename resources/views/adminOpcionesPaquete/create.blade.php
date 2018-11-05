@@ -10,8 +10,8 @@
 @if(session('status'))
   <br>
   <script type="text/javascript">
- alertify.success("{{ session('status') }}");
- </script>
+        alertify.success("{{ session('status') }}");
+  </script>
     <div class="alert alert-success alert-dismissible fade in" role="alert">
       <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
       {{ session('status') }}
@@ -25,108 +25,109 @@
   </div>
 @endif
 
-
 <div class="row">
 
   <div class="col-md-6">
 
-    <div class="box box-warning">
+    <div class="box box-warning ">
       <div class="box-header">
-        <h3 class="box-title">Agregar Gastos Extras</h3>
-        <div class="box-body">
-
-          <form class="form-horizontal" role="form" method="POST" action="{{ route('adminOpcionesPaquete.store') }}">
+        <h3 class="box-title"><STRONG>Agregar Gastos Extras</STRONG></h3>
+        <div class="box-tools pull-right">
+          <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
+        </div>
+      </div>
+      <div class="box-body">
+          <form class="form-horizontal" role="form" method="POST">
             {{ csrf_field() }}
             <fieldset>
               <div class="col-md-12" >
-            <div class="form-group has-feedback{{ $errors->has('opcionespaquete') ? ' has-error' : '' }}">
-              <div class="input-group">
+                <div class="form-group has-feedback{{ $errors->has('opcionespaquete') ? ' has-error' : '' }}">
+                  <div class="input-group">
                       <span class="input-group-addon"><span class="fa fa-credit-card"></span></span>
-                  <input id="gastosextras" type="text" class="form-control" name="gastosextras" value="{{ old('gastosextras') }}" required autofocus>
+                      <input id="gastosextras" type="text" class="form-control" name="gastosextras" value="{{ old('gastosextras') }}" required autofocus>
+                  </div>
+                  <div class="input-group">
+                      <span class="input-group-addon"><span class="fa fa-money"></span></span>
+                      <input id="gastos" type="number" class="form-control" name="gastos" value="{{ old('gastos') }}" required autofocus>
+                  </div>
+                  @if ($errors->has('gastosextras'))
+                    <span class="help-block">{{ $errors->first('gastosextras') }}</span>
+                  @endif
+                </div>
               </div>
-                <div class="input-group">
-              <span class="input-group-addon"><span class="fa fa-money"></span></span>
-              <input id="gastos" type="number" class="form-control" name="gastos" value="{{ old('gastos') }}" required autofocus>
-            </div>
-              @if ($errors->has('gastosextras'))
-              <span class="help-block">{{ $errors->first('gastosextras') }}</span>
-              @endif
-            </div>
-          </div>
-
-                    <button type="submit" class="btn btn-info center-block">Agregar Gasto Extra</button>
+              <button class="btn btn-info center-block" id="guardar" >Agregar Gasto Extra</button>
             </fieldset>
           </form>
             <h3 class="box-title"> </h3>
             <div class="row">
                <div class="panel-body">
-              <table class="table table-striped table-bordered table-hover" id="tablaGastosExtras">
-                <thead class="thead-dark">
-                  <tr>
-                  <th align="center">Gastos</th>
-                  <th align="center">Valor</th>
-                  <th align="center">Eliminar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                @foreach($gastosextras as $gasto)
-                   <tr>
-                     <td align="center">{{ $gasto->NombreGastos }}</td>
-                     <td align="center">{{ $gasto->Gastos}}</td>
-                     <td align="center"> <a href="{{route('adminOpcionesPaquete.eliminargastosextras', $gasto['IdGastosExtras'])}}"
-                     class="btn btn-danger btn-sm"> <font color="white" size="2"> <b> X</b>
-                     </font>
-                     </a> </td>
-                   </tr>
-                  @endforeach
-                </tbody>
-              </table>
+                 <table class="table table-striped table-bordered table-hover" id="tablaGastosExtras">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th align="center">Gastos</th>
+                      <th align="center">Valor</th>
+                      <th align="center">Eliminar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($gastosextras as $gasto)
+                      <tr>
+                        <td align="center">{{ $gasto->NombreGastos }}</td>
+                        <td align="center">{{ $gasto->Gastos}}</td>
+                        <td align="center"> <a href="{{route('adminOpcionesPaquete.eliminargastosextras', $gasto['IdGastosExtras'])}}"
+                          class="btn btn-danger btn-sm"> <font color="white" size="2"> <b> X</b>
+                          </font>
+                        </a> </td>
+                      </tr>
+                    @endforeach
+                    </tbody>
+                 </table>
                     {{-- {!! $gastosextras->appends(\Request::except('page'))->render() !!}--}}
+              </div>
             </div>
-          </div>
-
         </div>
-      </div>
+
     </div>
   </div>
-
-
-    <div class="col-md-6">
+  <div class="col-md-6">
     <div class="box box-warning">
       <div class="box-header">
-        <h3 class="box-title">Agregar Que incluye Paquete</h3>
-              <div class="box-body">
-                <form class="form-horizontal" role="form"  method="POST" action="{{ route('adminOpcionesPaquete.guardarincluye') }}">
+        <h3 class="box-title"><STRONG>Agregar que incluye</STRONG></h3>
+        <div class="box-tools pull-right">
+          <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
+        </div>
+      </div>
+      <div class="box-body">
+            <form class="form-horizontal" role="form"  method="POST" action="{{ route('adminOpcionesPaquete.guardarincluye') }}">
                   {{ csrf_field() }}
-                  <fieldset>
-                    <div class="col-md-12">
+              <fieldset>
+                <div class="col-md-12">
                   <div class="form-group has-feedback{{ $errors->has('incluye') ? ' has-error' : '' }}">
                     <div class="input-group">
                         <span class="input-group-addon"><span class="fa fa-newspaper-o"></span></span>
-                    <input id="incluye" type="text" class="form-control" name="incluye" value="{{ old('incluye') }}" required autofocus>
-                  </div>
+                        <input id="incluye" type="text" class="form-control" name="incluye" value="{{ old('incluye') }}" required autofocus>
+                    </div>
                     @if ($errors->has('incluye'))
-                    <span class="help-block">{{ $errors->first('incluye') }}</span>
+                      <span class="help-block">{{ $errors->first('incluye') }}</span>
                     @endif
                   </div>
-                  </div>
+                </div>
                         <button type="submit" class="btn btn-info center-block">Agregar Que Incluye</button>
-                  </fieldset>
-                </form>
-                  <div class="row">
-
-                    <h3 class="box-title"> </h3>
-                    <table class="table table-striped table-bordered table-hover" id="tablaQueIncluye">
-                      <thead class="thead-dark">
-                        <br>
-                        <br>
-                        <br>
-                        <tr>
+              </fieldset>
+            </form>
+            <div class="row">
+                <h3 class="box-title"> </h3>
+                <table class="table table-striped table-bordered table-hover" id="tablaQueIncluye">
+                  <thead class="thead-dark">
+                      <br>
+                      <br>
+                      <br>
+                      <tr>
                         <th align="center">Que incluye</th>
                         <th align="center">Eliminar</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+                      </tr>
+                  </thead>
+                  <tbody>
                       @foreach($incluye as $in)
                          <tr>
                            <td align="center">{{ $in->NombreIncluye }}</td>
@@ -135,41 +136,42 @@
                            </font>
                            </a> </td>
                          </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
+                      @endforeach
+                  </tbody>
+                </table>
                     {{-- {!! $incluye->appends(\Request::except('page'))->render() !!}--}}
-
-                  </div>
               </div>
+          </div>
       </div>
-    </div>
-</div>
-
+  </div>
 </div>
 <div class="col-md-6">
    <div class="box box-warning">
-   <div class="box-header">
-     <h3 class="box-title">Agregar Condiciones</h3>
-           <div class="box-body">
-             <form class="form-horizontal" role="form" method="POST" action="{{ route('adminOpcionesPaquete.guardarcondiciones') }}" >
-               {{ csrf_field() }}
-               <fieldset>
+     <div class="box-header">
+       <h3 class="box-title"><STRONG>Agregar Condiciones</STRONG></h3>
+       <div class="box-tools pull-right">
+         <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
+       </div>
+     </div>
+     <div class="box-body">
+        <form class="form-horizontal" role="form" method="POST" action="{{ route('adminOpcionesPaquete.guardarcondiciones') }}" >
+            {{ csrf_field() }}
+              <fieldset>
                  <div class="col-md-12">
-               <div class="form-group has-feedback{{ $errors->has('condiciones') ? ' has-error' : '' }}">
-                 <div class="input-group">
-                     <span class="input-group-addon"><span class="fa fa-pencil-square"></span></span>
-                 <input id="condiciones" type="text" class="form-control" name="condiciones" value="{{ old('condiciones') }}" required autofocus>
-               </div>
-                 @if ($errors->has('condiciones'))
-                 <span class="help-block">{{ $errors->first('condiciones') }}</span>
-                 @endif
-               </div>
-             </div>
+                   <div class="form-group has-feedback{{ $errors->has('condiciones') ? ' has-error' : '' }}">
+                     <div class="input-group">
+                       <span class="input-group-addon"><span class="fa fa-pencil-square"></span></span>
+                       <input id="condiciones" type="text" class="form-control" name="condiciones" value="{{ old('condiciones') }}" required autofocus>
+                     </div>
+                     @if ($errors->has('condiciones'))
+                       <span class="help-block">{{ $errors->first('condiciones') }}</span>
+                     @endif
+                   </div>
+                </div>
                    <button type="submit" class="btn btn-info center-block">Agregar Condiciones</button>
              </fieldset>
-           </form>
-               <div class="row">
+        </form>
+        <div class="row">
                  <h3 class="box-title"> </h3>
                  <table class="table table-striped table-bordered table-hover" id="tablaCondiciones">
                    <thead class="thead-dark">
@@ -194,7 +196,7 @@
 
                </div>
            </div>
-   </div>
+
 
 </div>
 </div>
@@ -202,7 +204,11 @@
 
  <div class="box box-warning">
    <div class="box-header">
-     <h3 class="box-title">Agregar Itinerario</h3>
+     <h3 class="box-title"><STRONG>Agregar Itinerario</STRONG></h3>
+     <div class="box-tools pull-right">
+       <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
+     </div>
+   </div>
            <div class="box-body">
              <form class="form-horizontal" role="form" method="POST" action="{{ route('adminOpcionesPaquete.guardaritinerario') }}" >
                {{ csrf_field() }}
@@ -246,7 +252,7 @@
 
                </div>
            </div>
-   </div>
+
 
 </div>
 
@@ -256,7 +262,11 @@
 
    <div class="box box-warning">
      <div class="box-header">
-       <h3 class="box-title">Agregar Recomendaciones</h3>
+       <h3 class="box-title"><STRONG>Agregar Recomendaciones</STRONG></h3>
+       <div class="box-tools pull-right">
+         <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
+       </div>
+     </div>
              <div class="box-body">
                <form class="form-horizontal" role="form" method="POST" action="{{ route('adminOpcionesPaquete.guardarrecomendaciones') }}" >
                  {{ csrf_field() }}
@@ -303,7 +313,7 @@
 
                  </div>
              </div>
-     </div>
+
 
  </div>
 </div>

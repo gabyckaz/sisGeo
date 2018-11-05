@@ -145,9 +145,30 @@
                       </div>
                     </div>
                     <div class="row">
+                      <div class="col-md-7">
+                      <div class="form-group">
+                      <p class="help-block">Video.</p>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="row">
+
+                      <div style="width: 600px; height: 400px;">
+                         {!! $paquete->Video!!}
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-file-video-o"></i></span>
+                        <input type="text" name="video" class="form-control" id="video" value="{{ old('video')}}" placeholder="URL del Video en YouTube como Copiar código de inserción" >
+                    </div>
+                  </div>
+                    <br>
+                    <br>
+                    <div class="row">
                       <div class="col-md-4">
                       <div class="form-group">
-                      <input class="nuevaFoto4" type="file" name="imagen4" >
                       <p class="help-block">Mapa.</p>
                       </div>
                     </div>
@@ -158,6 +179,7 @@
                       <a href="">
                           <img src="{{Storage::url($imagen->Imagen4)}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar4" >
                       </a>
+                        <input class="nuevaFoto4" type="file" name="imagen4" >
                     </div>
                     </div>
                     <br>
@@ -358,8 +380,6 @@
                         </div>
                         </form>
                     </div>
-
-
                 </div>
             </div>
         </div>

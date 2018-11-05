@@ -128,7 +128,7 @@
                   </div>
                   <input type="hidden" id="rutaListaConductores" value="{{ route('adminPaquete.listaConductores') }}">
                 </div>
-               
+
              </div>
 
               </div>
@@ -138,7 +138,7 @@
                     <button type="submit" class="btn btn-info">Asignar transporte</button>
                   </div>
               </form>
-            
+
         </div>
       </div>
     </div>

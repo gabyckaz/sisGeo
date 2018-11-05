@@ -365,3 +365,20 @@ $( "#selectIdTransporte" )
       });
   }).trigger( "change" );
 });
+
+$('#guardar').click(function(){
+    e.preventDefault();
+    var parametros={
+    "gastosextras": $("#gastosextras").val(),
+    "gastos": $("#gastos").val()
+  }
+  $.ajax({
+        data:parametros,
+        url: "adminOpcionesPaquete.store",
+        type:"POST",
+        success:function(response){
+
+        }
+  })
+
+});

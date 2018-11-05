@@ -52,9 +52,11 @@
           <img src="{{Storage::url($imagenes->Imagen3)}}"  class="thumbnail responsive" style="height: 100%; margin:10 -38.885%;  width:177.777%; ">
         </a>
         </div>
+
       @endforeach
 
     </div>
+    <br>
 
     </div><!-- Fin de columna izquierda -->
       <div class="col-md-6"><!-- columna derecha -->
@@ -205,6 +207,16 @@
 
         <a class="btn btn-info" title="RESERVAR AHORA"
                                  href="{{ route('adminPaquete.reserva.add',$paquete->IdPaquete) }}">RESERVAR AHORA</a>
+                                 <br>
+                                 <br>
+                                 <br>
       </div><!-- Fin de columna derecha -->
+
+      <center>
+        <div class="row">
+
+                               {!! $paquete->Video!!}
+        </div>
+      </center>
   </div>
 @endsection
