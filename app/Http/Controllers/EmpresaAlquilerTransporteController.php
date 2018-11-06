@@ -46,6 +46,7 @@ class EmpresaAlquilerTransporteController extends Controller
       $this->validate($request,array(
         'nombreEmpresa' => 'required|max:80',
         'nombreContacto' => 'required|max:40',
+        'codigoArea' => 'required',
         'numeroTelefono'=>'required|size:8',
         'emailEmpresa'=>'required|max:30',
         'observacionesEmpresa'=>'max:255',
@@ -56,7 +57,7 @@ class EmpresaAlquilerTransporteController extends Controller
       $empresalquiler=new EmpresaAlquilerTransporte;
       $empresalquiler->NombreEmpresaTransporte=$request->nombreEmpresa;
       $empresalquiler->NombreContacto=$request->nombreContacto;
-      $empresalquiler->NumeroTelefonoContacto=$request->numeroTelefono;
+      $empresalquiler->NumeroTelefonoContacto=$request->codigoArea.''.$request->numeroTelefono;
       $empresalquiler->EmailEmpresaTransporte=$request->emailEmpresa;
       $empresalquiler->ObservacionesEmpresaTransporte=$request->observacionesEmpresa;
       $empresalquiler->save();

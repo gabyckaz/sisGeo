@@ -59,17 +59,30 @@
                   <span class="help-block">{{ $errors->first('nombreContacto') }}</span>
                 @endif
               </div>
-              <div class="form-group col-sm-6 has-feedback{{ $errors->has('numeroTelefono') ? ' has-error' : '' }}">
+              <div class="form-group col-sm-3">
+                <label for="codigoArea">Código de país</label>
+                  <div class="input-group">
+                           <select class="form-control" name="codigoArea" id="codigoArea" value="{{ old('codigoArea') }}">
+                            <option value="503" >503 - El Salvador</option>
+                            <option value="501" >501 - Belice</option>
+                            <option value="502" >502 - Guatemala</option>
+                            <option value="504" >504 - Honduras</option>
+                            <option value="505" >505 - Nicaragua</option>
+                            <option value="506" >506 - Costa Rica</option>
+                          </select>
+                    </div>
+                </div>
+              <div class="form-group col-sm-4 has-feedback{{ $errors->has('numeroTelefono') ? ' has-error' : '' }}">
                 <label for="numeroTelefono">Teléfono de contacto</label>
                 <div class="input-group">
                   <span class="input-group-addon"><span class="fa fa-phone"></span></span>
-                  <input id="numeroTelefono" type="number" min="00000000" max="99999999" class="form-control" name="numeroTelefono" value="{{ old('numeroTelefono') }}" placeholder="(Sin guiones. Ej: 22324560) " required>
+                  <input id="numeroTelefono" type="number" min="00000000" max="99999999" class="form-control" name="numeroTelefono" value="{{ old('numeroTelefono') }}" placeholder="(Ej: 22324560) " required>
                 </div>
                   @if ($errors->has('numeroTelefono'))
                     <span class="help-block">{{ $errors->first('numeroTelefono') }}</span>
                   @endif
               </div>
-              <div class="form-group col-sm-6 has-feedback{{ $errors->has('emailEmpresa') ? ' has-error' : '' }}">
+              <div class="form-group col-sm-5 has-feedback{{ $errors->has('emailEmpresa') ? ' has-error' : '' }}">
                 <label for="emailEmpresa">Correo electrónico</label>
                 <div class="input-group">
                   <span class="input-group-addon"><span class="fa fa-envelope"></span></span>
