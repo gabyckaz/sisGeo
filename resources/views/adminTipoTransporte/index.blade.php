@@ -35,7 +35,7 @@
               @endif
             </div>
             <div class="col-md-12">
-                <button type="submit" class="btn btn-info center-block">Agregar transporte</button>
+                <button type="submit" class="btn btn-info center-block">Agregar</button>
               </div>
           </form>
             <div class="row">

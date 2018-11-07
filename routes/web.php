@@ -110,6 +110,12 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::get('/CrearCopiaPaquete/{id}', ['uses' => 'PaqueteController@createcopia', 'as' => 'adminPaquete.createcopia']);
   //GUARDAR COPIA DE PAQUETE
   Route::post('/CrearCopiaPaquete/{id}', ['uses' => 'PaqueteController@storecopia', 'as' => 'adminPaquete.createcopia']);
+  //Mostrar paquetes para agregarles Costos
+  Route::get('/PaquetesCostos', ['uses' => 'CostoAlquilerTransporteController@index','as' => 'adminPaquete.costos.index']);
+  //agregar Costos
+  Route::get('/PaquetesCostos/{id}', ['uses' => 'CostoAlquilerTransporteController@create','as' => 'adminPaquete.costos.create']);
+  //Guardar costos
+  Route::post('/PaquetesCostos/{id}', ['uses' => 'CostoAlquilerTransporteController@store', 'as' => 'adminPaquete.costos.store']);
   //FIN RUTAS PAQUETES
 });
 

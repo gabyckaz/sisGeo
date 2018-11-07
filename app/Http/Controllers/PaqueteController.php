@@ -939,8 +939,8 @@ public fuction postNewImage(Request $request){
       return \Response::json(array("error" => "response was not JSON"));
     }
 
-    public function asignaTransCondPaquete($paquete, Request $request){ 
-         
+    public function asignaTransCondPaquete($paquete, Request $request){
+
          $splitSelectTransporte = explode('-', $request->transporte);
          if(count($splitSelectTransporte) == 1){
          if($splitSelectTransporte[0] == "idDefault" || $request->conductor == "defecto" ){
