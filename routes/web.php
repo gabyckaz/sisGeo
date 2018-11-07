@@ -50,6 +50,7 @@ Route::get('user/pruebaApi', ['as' => 'user.pruebaApi', 'uses' => 'userControlle
 //Rutas a las que puede accesar el Director y el Agente
 Route::group(['middleware' => ['role:Director|Agente']], function() {
   //Rutas para empresa de alquiler de transporte
+  Route::get('adminEmpresaTransporte/reporte', ['uses' =>  'EmpresaAlquilerTransporteController@reporte','as' => 'adminEmpresaTransporte.reporte']);
   Route::resource('adminEmpresaTransporte', 'EmpresaAlquilerTransporteController');
   //Rutas para agregar tipos de transporte y los nombres de los conductores
   Route::resource('adminTipoTransporte', 'TipoTransporteController');

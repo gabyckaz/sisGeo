@@ -10,11 +10,6 @@ use DB;
 
 class TipoTransporteController extends Controller
 {
-
-    public function __construct()
-   {
-       $this->middleware('auth');
-   }
     /**
      * Display a listing of the resource.
      *
@@ -48,24 +43,19 @@ class TipoTransporteController extends Controller
         //validando la informacion, campo obliatorio, caracteres de max.25 digitos y campo único sin repeticiones
         $this->validate($request,array(
        'tipotransporte' => 'required|string|unique:TipoTransporte,NombreTipoTransporte|max:25',
-
         ));
-
        //Guardar en la BD
-
        //Relacionando campo de BD con formulario
        //campo de BD -> campo del formulario
-       $tipotransporte=new TipoTransporte;
-       $tipotransporte->NombreTipoTransporte=$request->tipotransporte;
+        $tipotransporte=new TipoTransporte;
+        $tipotransporte->NombreTipoTransporte=$request->tipotransporte;
+        $tipotransporte->save();
+        return redirect('adminTipoTransporte')->with('status', "Agregado con éxito");
 
-       $tipotransporte->save();
-          return redirect('adminTipoTransporte')->with('status', "Agregado con éxito");
-
-    }  catch(\Exception $e) {
-         return redirect('adminTipoTransporte')->with('fallo', "Error al guardar.");
-       }
+      } catch(\Exception $e) {
+          return redirect('adminTipoTransporte')->with('fallo', "Error al guardar.");
+      }
    }
-
 
     /**
      * Display the specified resource.

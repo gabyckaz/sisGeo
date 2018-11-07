@@ -33,17 +33,36 @@ class HomeController extends Controller
       try{
         $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
         $imagenes = ImagenPaqueteTuristico::all();
-        $usuarioreservando = Turista::where('IdPersona',auth()->user()->IdPersona)->first();     
-        $reservaciones = Reservacion::where('IdTurista', $usuarioreservando->IdTurista)->orderBy('FechaReservacion','desc')->get();
+        $usuarioreservando = Turista::where('IdPersona',auth()->user()->IdPersona)->first();
+        //Por el momento,mientras no se registren reservaciones queda comentada la linea y con valor nulo
+        //$reservaciones = Reservacion::where('IdTurista', $usuarioreservando->IdTurista)->orderBy('FechaReservacion','desc')->get();
+        $reservaciones=null;
+        $disponibles = Paquete::where('DisponibilidadPaquete','=','1')->count();
+        $pendientes = Paquete::where('AprobacionPaquete','=','0')->count();
+        $clientes = User::where('EstadoUsuario','=','1')->count();
+        $clientes_notificados = User::where('RecibirNotificacion','=','1')->count();
+
         return view('home')
         ->with('imagenes',$imagenes)
         ->with('reservaciones',$reservaciones)
-        ->with('paquetes',$paquetes);
+        ->with('paquetes',$paquetes)
+        ->with('disponibles',$disponibles)
+        ->with('pendientes',$pendientes)
+        ->with('clientes',$clientes)
+        ->with('clientes_notificados',$clientes_notificados);
 
     }catch(\Exception $e) {
       //si todavia no tiene informacion como turista
+      $clientes_notificados=null;
+      $clientes=null;
+      $disponibles=null;
       $reservaciones=null;
+      $pendientes=null;
       return view('home')
+      ->with('clientes_notificados',$clientes_notificados)
+      ->with('clientes',$clientes)
+      ->with('disponibles',$disponibles)
+      ->with('pendientes',$pendientes)
       ->with('imagenes',$imagenes)
       ->with('reservaciones',$reservaciones)
       ->with('paquetes',$paquetes);
