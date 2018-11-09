@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Pais;
 use App\RutaTuristica;
+use Dompdf\Dompdf;
 
 class RutaTuristicaController extends Controller
 {
@@ -110,5 +111,23 @@ class RutaTuristicaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+    * Método para generar PDF de listado de rutas
+    */
+    public function reporte()
+    {
+      $rutas = RutaTuristica::all();
+      //instantiate and use the dompdf class
+      $view=\View::make('adminRutaTuristica.reporte',compact('rutas'))->render();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($view);
+      // Render the HTML as PDF
+      $dompdf->render();
+      $canvas = $dompdf ->get_canvas();
+      $canvas->page_text(280, 730, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+      // Output the generated PDF to Browser
+      $dompdf->stream('Rutas_Turisticas.pdf');
     }
 }

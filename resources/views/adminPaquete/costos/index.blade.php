@@ -41,7 +41,7 @@
                 <td>{{$preciopaquete=$paquete->Precio}}</td>
                 <td>
                   <a href="{{route('adminPaquete.costos.create', $paquete)}}"
-                  class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editar"></a>
+                  class="btn btn-warning btn-sm fa fa-plus btn-block" title="Editar"></a>
                 </td>
               </tr>
             @endforeach

@@ -68,6 +68,8 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::put('/EditarRutaTuristica/{id}', ['uses' => 'RutaTuristicaController@update', 'as' => 'adminRutaTuristica.update']);
   //Bloquear rutas
   Route::get('/EliminarRutaTuristica/{id}',['uses' =>'RutaTuristicaController@destroy', 'as' => 'adminRutaTuristica.destroy']);
+  //Reporte de rutas
+    Route::get('adminRutaTuristica/reporte', ['uses' =>  'RutaTuristicaController@reporte','as' => 'adminRutaTuristica.reporte']);
   //Ver ruta turistica
   Route::get('/MostrarOpcionesPaquete', ['uses' => 'OpcionesPaqueteController@index', 'as' => 'adminOpcionesPaquete.index']);
   //Opciones paquetes

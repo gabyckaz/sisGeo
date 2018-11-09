@@ -118,10 +118,13 @@
   <div class="col-md-7 col-md-offset-2">
     <div class="box box-warning">
       <div class="box-header">
-        <h3 class="box-title"><STRONG>Listado de Empresas</STRONG>
-        <a class="btn btn-info" href="{{ route('adminEmpresaTransporte.reporte') }}">PDF</a></h3>
+        <h3 class="box-title"><STRONG>Listado de Empresas</STRONG></h3>
+          <div class="box-tools pull-right">
+            <a class="btn btn-info" title="Descargar como PDF" href="{{ route('adminEmpresaTransporte.reporte') }}"><i class="fa Example of download fa-download"></i></a>
+          </div>
       </div>
       <div class="box-body">
+
         <div class="table-responsive">
           <table class="table table-striped table-bordered table-hover" id='tablaadminEmpresa'>
             <thead class="thead-dark">

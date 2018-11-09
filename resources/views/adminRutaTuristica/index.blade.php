@@ -98,10 +98,9 @@
   <div class="col-md-7 col-md-offset-2">
     <div class="box box-warning">
       <div class="box-header">
-        <div class="row">
-          <div class="col-md-3">
-            <h3 class="box-title"><STRONG>Listado de Rutas</STRONG></h3>
-          </div>
+        <h3 class="box-title"><STRONG>Listado de Rutas</STRONG></h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-info" title="Descargar como PDF" href="{{ route('adminRutaTuristica.reporte') }}"><i class="fa Example of download fa-download"></i></a>
         </div>
       </div>
       <div class="box-body">
