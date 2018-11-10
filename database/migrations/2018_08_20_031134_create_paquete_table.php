@@ -15,7 +15,7 @@ class CreatePaqueteTable extends Migration
     {
          Schema::create('Paquetes', function (Blueprint $table) {
             $table->increments('IdPaquete');
-            $table->string('NombrePaquete',100);
+            $table->string('NombrePaquete',2000);
             $table->date('FechaSalida');
             $table->time('HoraSalida');
             $table->date('FechaRegreso');

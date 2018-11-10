@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Pais;
 use App\RutaTuristica;
 use Dompdf\Dompdf;
-
+use App\Categoria;
 class RutaTuristicaController extends Controller
 {
     /**
@@ -18,7 +18,8 @@ class RutaTuristicaController extends Controller
     {
       $rutaturistica = RutaTuristica::all();
       $paises = Pais::all();
-      return view('adminRutaTuristica.index',compact('rutaturistica','paises'));
+      $categoria = Categoria::all();
+      return view('adminRutaTuristica.index',compact('rutaturistica','paises','categoria'));
     }
 
     /**
@@ -39,6 +40,7 @@ class RutaTuristicaController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
       $this->validate($request,array(
         'pais'=>'required',
         'nombrerutaturistica'=>'required|max:60|unique:RutaTuristica,NombreRutaTuristica',
@@ -52,6 +54,28 @@ class RutaTuristicaController extends Controller
       $rutaturistica->DescripcionRutaTuristica=$request->descripcionrutaturistica;
       $rutaturistica->save();
       return redirect('/MostrarRutaTuristica')->with('status',"Guardado con exito.")->withInput();
+=======
+        //
+        $this->validate($request,array(
+            'pais'=>'required',
+            'categoria'=>'required',
+            'nombrerutaturistica'=>'required|max:60|unique:RutaTuristica,NombreRutaTuristica',
+            'datosgenerales'=>'required|max:1024',
+            'descripcionrutaturistica'=>'required|max:1024',
+        ));
+        $rutaturistica=new RutaTuristica;
+        $rutaturistica->IdPais=$request->pais;
+        $rutaturistica->IdCategoria=$request->categoria;
+        $rutaturistica->NombreRutaTuristica=$request->nombrerutaturistica;
+        $rutaturistica->DatosGenerales=$request->datosgenerales;
+        $rutaturistica->DescripcionRutaTuristica=$request->descripcionrutaturistica;
+        $rutaturistica->save();
+            return redirect('/MostrarRutaTuristica')->with('status',"Guardado con exito.")->withInput();
+
+
+
+
+>>>>>>> Kari
     }
 
     /**
@@ -75,7 +99,8 @@ class RutaTuristicaController extends Controller
     {
       $rutaturistica = RutaTuristica::find($id);
       $paises = Pais::all();
-      return view('adminRutaTuristica.edit', compact('rutaturistica','paises'));
+      $categoria=Categoria::all();
+      return view('adminRutaTuristica.edit', compact('categoria','rutaturistica','paises'));
     }
 
     /**
@@ -89,12 +114,15 @@ class RutaTuristicaController extends Controller
     {
       $this->validate($request,array(
         'pais'=>'required',
+        'categoria'=>'required',
         'nombrerutaturistica'=>'required|max:60',
         'datosgenerales'=>'required|max:1024',
         'descripcionrutaturistica'=>'required|max:1024',
       ));
       $rutaturistica=RutaTuristica::find($id);
       $rutaturistica->IdPais=$request->pais;
+      $rutaturistica=Categoria::find($id);
+      $rutaturistica->IdCategoria=$request->categoria;
       $rutaturistica->NombreRutaTuristica=$request->nombrerutaturistica;
       $rutaturistica->DatosGenerales=$request->datosgenerales;
       $rutaturistica->DescripcionRutaTuristica=$request->descripcionrutaturistica;

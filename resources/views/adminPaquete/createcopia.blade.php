@@ -75,7 +75,7 @@
                        <span class="help-block">{{ session()->get('ErrorFeschas') }}</span>
                       @endif
                       </div>
-                      
+
                     </div>
                     <div class="col-md-4">
                          <div class="form-group">
@@ -176,6 +176,21 @@
                           </select>
                        </div>
                       </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="video"  class="control-label">URL del video en YouTube</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-file-video-o"></i></span>
+                          <input type="text" name="video" class="form-control" id="video" value="{{ old('video')}}" placeholder="URL del Video en YouTube como Copiar código de inserción" required >
+                          </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="galeria"  class="control-label">URL de la galeria de Facebook de este paquete</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-image"></i></span>
+                          <input type="text" name="galeria" class="form-control" id="galeria" value="{{ old('galeria')}}" placeholder="URL de la galeria de imagenes en Facebook" required >
+                        </div>
                     </div>
                     <label for="exampleInputFile">Mapa</label>
                     <br>
@@ -309,7 +324,7 @@
                           @endfor
                         </select>
                     </div>
-                        <h4><span class="label label-primary">Imagenes</span></h4>
+                        <strong><h4><span class="label label-primary">Imagenes Paquete</span></h4></strong>
                         <div class="row">
                           <div  id="lightgallery" >
                             <div class="row">

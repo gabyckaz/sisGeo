@@ -68,8 +68,16 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::put('/EditarRutaTuristica/{id}', ['uses' => 'RutaTuristicaController@update', 'as' => 'adminRutaTuristica.update']);
   //Bloquear rutas
   Route::get('/EliminarRutaTuristica/{id}',['uses' =>'RutaTuristicaController@destroy', 'as' => 'adminRutaTuristica.destroy']);
-  //Reporte de rutas
-    Route::get('adminRutaTuristica/reporte', ['uses' =>  'RutaTuristicaController@reporte','as' => 'adminRutaTuristica.reporte']);
+  Route::get('/MostrarRutaTuristica', ['uses' => 'RutaTuristicaController@index', 'as' => 'adminRutaTuristica.index']);
+  //Crear categoria
+  Route::get('/CrearCategoria', ['uses' => 'CategoriaController@create', 'as' => 'adminCategoria.create']);
+  Route::post('/CrearCategoria', ['uses' => 'CategoriaController@store', 'as' => 'adminCategoria.store']);
+  //Actualizar categoria
+  Route::get('/EditarCategoria/{id}', ['uses' => 'CategoriaController@edit', 'as' => 'adminCategoria.edit']);
+  Route::put('/EditarCategoria/{id}', ['uses' => 'CategoriaController@update', 'as' => 'adminCategoria.update']);
+  //Bloquear categoria
+  Route::get('/EliminarCategoria/{id}',['uses' =>'CategoriaController@destroy', 'as' => 'adminCategoria.destroy']);
+
   //Ver ruta turistica
   Route::get('/MostrarOpcionesPaquete', ['uses' => 'OpcionesPaqueteController@index', 'as' => 'adminOpcionesPaquete.index']);
   //Opciones paquetes
@@ -89,6 +97,8 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::get('/eliminarIncluye/{id}', ['uses' => 'OpcionesPaqueteController@eliminarincluye', 'as' => 'adminOpcionesPaquete.eliminarincluye']);
   Route::get('/eliminarItinerario/{id}', ['uses' => 'OpcionesPaqueteController@eliminaritinerario', 'as' => 'adminOpcionesPaquete.eliminaritinerario']);
   Route::get('/eliminarCondiciones/{id}', ['uses' => 'OpcionesPaqueteController@eliminarcondiciones', 'as' => 'adminOpcionesPaquete.eliminarcondiciones']);
+  Route::get('/eliminarCategoria/{id}', ['uses' => 'CategoriaController@eliminarcategoria', 'as' => 'adminCategoria.eliminarcategoria']);
+
   //INICIO  PAQUETES
   //Ver paquetes
   Route::get('/MostrarPaquete', ['uses' => 'PaqueteController@index','as' => 'adminPaquete.index']);

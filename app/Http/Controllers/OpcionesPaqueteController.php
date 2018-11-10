@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Paquete;
+use App\GastosExtrasPaquete;
+use App\IncluyePaquete;
+use App\CondicionesPaquete;
+use App\RecomendacionesPaquete;
+use App\ItinerarioPaquete;
 use App\GastosExtras;
 use App\Recomendaciones;
 use App\Incluye;
@@ -14,41 +19,24 @@ use DB;
 
 class OpcionesPaqueteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-      $gastosextras = GastosExtras::orderBy('IdGastosExtras','desc')->paginate(5);
+      $gastosextras = GastosExtras::all();
     //Para el rdenamiento en la tabla index
 
         return view('adminRutaTuristica.index',compact('gastosextras'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-      $gastosextras = GastosExtras::orderBy('IdGastosExtras','desc')->paginate(10);
-      $recomendaciones = Recomendaciones::orderBy('IdRecomendaciones','desc')->paginate(10);
-      $incluye= Incluye::orderBy('IdIncluye','desc')->paginate(10);
-      $condiciones=Condiciones::orderBy('IdCondiciones','desc')->paginate(10);
-      $itinerario=Itinerario::orderBy('IdItinerario','desc')->paginate(10);
+      $gastosextras = GastosExtras::all();
+      $recomendaciones = Recomendaciones::all();
+      $incluye= Incluye::all();
+      $condiciones=Condiciones::all();
+      $itinerario=Itinerario::all();
       return view('adminOpcionesPaquete.create',compact('gastosextras','incluye','condiciones','recomendaciones','itinerario'));
 
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -60,63 +48,27 @@ class OpcionesPaqueteController extends Controller
         ));
 
        //Guardar en la BD
-
        //Relacionando campo de BD con formulario
        //campo de BD -> campo del formulario
        $gastosextras=new GastosExtras;
        $gastosextras->NombreGastos = $request->gastosextras;
        $gastosextras->Gastos= $request->gastos;
+       
        $gastosextras->save();
-       return redirect('CrearOpcionesPaquete')->with('status',"Agregado con éxito");
+
+       return back()->with('status',"Agregado con éxito");
           } catch(\Exception $e){
-       return redirect('CrearOpcionesPaquete')->with('fallo',"Error ya existe gasto extra");
+       return back()->with('fallo',"Error ya existe gasto extra");
      }
 
     }
-
-
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $paquete=Paquete::findOrFail($id);
         $paquete->delete();
 
     }
-
-   public function guardarincluye(Request $request){
+    public function guardarincluye(Request $request){
      try{
        $this->validate($request,array(
 
@@ -127,45 +79,40 @@ class OpcionesPaqueteController extends Controller
              $incluye->NombreIncluye = $request->incluye;
 
              $incluye->save();
-             return redirect('CrearOpcionesPaquete')->with('status',"Agregado con éxito");
+             return back()->with('status',"Agregado con éxito");
                 } catch(\Exception $e){
-             return redirect('CrearOpcionesPaquete')->with('fallo',"Error ya existe que incluye");
+             return back()->with('fallo',"Error ya existe que incluye");
             }
 
-    }
- public function guardarrecomendaciones(Request $request){
-   try{
-     $this->validate($request,array(
-
-       'recomendaciones'=>'required|string|unique:Recomendaciones,NombreRecomendaciones',
-     ));
-      $recomendaciones=new Recomendaciones;
-      $recomendaciones->NombreRecomendaciones = $request->recomendaciones;
-      $recomendaciones->save();
-      return redirect('CrearOpcionesPaquete')->with('status',"Agregado con éxito");
-         } catch(\Exception $e){
-      return redirect('CrearOpcionesPaquete')->with('fallo',"Error ya existe recomendación");
-     }
-    /*  return view('adminOpcionesPaquete.create')->with('recomendaciones',$recomendaciones);*/
-    }
-    public function guardarcondiciones(Request $request)
-    {
-      try{
-        $this->validate($request,array(
-          'condiciones'=>'required|string|unique:Condiciones,NombreCondiciones',
-        ));
-
-         $condiciones=new Condiciones;
-         $condiciones->NombreCondiciones = $request->condiciones;
-         $condiciones->save();
-         return redirect('CrearOpcionesPaquete')->with('status',"Agregado con éxito");
-            } catch(\Exception $e){
-         return redirect('CrearOpcionesPaquete')->with('fallo',"Error ya existe condición");
-        }
-       /*  return view('adminOpcionesPaquete.create')->with('recomendaciones',$recomendaciones);*/
        }
-
-       public function guardaritinerario(Request $request){
+       public function guardarrecomendaciones(Request $request){
+         try{
+           $this->validate($request,array(
+             'recomendaciones'=>'required|string|unique:Recomendaciones,NombreRecomendaciones',
+           ));
+           $recomendaciones=new Recomendaciones;
+           $recomendaciones->NombreRecomendaciones = $request->recomendaciones;
+           $recomendaciones->save();
+           return back()->with('status',"Agregado con éxito");
+              } catch(\Exception $e){
+            return back()->with('fallo',"Error ya existe recomendación");
+          }
+        }
+       public function guardarcondiciones(Request $request)
+        {
+          try{
+            $this->validate($request,array(
+              'condiciones'=>'required|string|unique:Condiciones,NombreCondiciones',
+            ));
+            $condiciones=new Condiciones;
+            $condiciones->NombreCondiciones = $request->condiciones;
+            $condiciones->save();
+            return back()->with('status',"Agregado con éxito");
+              } catch(\Exception $e){
+            return back()->with('fallo',"Error ya existe condición");
+            }
+          }
+        public function guardaritinerario(Request $request){
          try{
            $this->validate($request,array(
              'itinerario'=>'required|string|unique:Itinerario,NombreItinerario',
@@ -173,49 +120,61 @@ class OpcionesPaqueteController extends Controller
             $itinerario=new Itinerario;
             $itinerario->NombreItinerario = $request->itinerario;
             $itinerario->save();
-            return redirect('CrearOpcionesPaquete')->with('status',"Agregado con éxito");
+            return back()->with('status',"Agregado con éxito");
                } catch(\Exception $e){
-            return redirect('CrearOpcionesPaquete')->with('fallo',"Error ya existe actividad de itinerario");
+            return back()->with('fallo',"Error ya existe actividad de itinerario");
            }
-          /*  return view('adminOpcionesPaquete.create')->with('recomendaciones',$recomendaciones);*/
           }
 
-          public function eliminargastosextras($id){
-
+        public function eliminargastosextras($id){
             $gastosextras=GastosExtras::findOrFail($id);
-            $gastosextras->delete();
-            return back();
-
-
+            $gastospaquete=GastosExtrasPaquete::where('gastosextras_id',$id)->get()->first();
+            if ($gastospaquete==null) {
+              $gastosextras->delete();
+              return back()->with('status',"Eliminado con éxito");
+                }else {
+              return back()->with('fallo',"Error gasto extra es parte de un paquete no se puede eliminar");
+                }
              }
-          public function eliminarincluye($id){
-
+        public function eliminarincluye($id){
                $incluye=Incluye::findOrFail($id);
-               $incluye->delete();
-               return back();
-
+               $incluyepaquete=IncluyePaquete::where('incluye_id',$id)->get()->first();
+               if($incluyepaquete==null){
+                    $incluye->delete();
+                    return back()->with('status',"Eliminado con éxito");
+                  }else {
+                    return back()->with('fallo',"Error gasto extra es parte de un paquete no se puede eliminar");
+                  }
               }
               public function eliminarrecomendaciones($id){
-
                    $recomendaciones=Recomendaciones::findOrFail($id);
+                   $recomendacionespaquete=RecomendacionesPaquete::where('recomendaciones_id',$id)->get()->first();
+                   if($recomendacionespaquete==null){
                    $recomendaciones->delete();
-                   return back();
-
-
-                  }
-                  public function eliminarcondiciones($id){
-
-                       $condiciones=Condiciones::findOrFail($id);
-                       $condiciones->delete();
-                       return back();
+                   return back()->with('status',"Eliminado con éxito");
+                 }else {
+                   return back()->with('fallo',"Error gasto extra es parte de un paquete no se puede eliminar");
+                 }
+                }
+              public function eliminarcondiciones($id){
+                    $condiciones=Condiciones::findOrFail($id);
+                    $condicionespaquete=CondicionesPaquete::where('condiciones_id',$id)->get()->first();
+                    if($condicionespaquete==null){
+                        $condiciones->delete();
+                          return back()->with('status',"Eliminado con éxito");
+                        }else {
+                          return back()->with('fallo',"Error gasto extra es parte de un paquete no se puede eliminar");
+                     }
+                    }
+              public function eliminaritinerario($id){
+                    $itinerario=Itinerario::findOrFail($id);
+                    $itinerariopaquete=ItinerarioPaquete::where('itinerario_id',$id)->get()->first();
+                    if($itinerariopaquete==null){
+                          $itinerario->delete();
+                           return back()->with('status',"Eliminado con éxito");
+                         }else {
+                           return back()->with('fallo',"Error gasto extra es parte de un paquete no se puede eliminar");
+                         }
                       }
-                      public function eliminaritinerario($id){
-
-                           $itinerario=Itinerario::findOrFail($id);
-
-                           $itinerario->delete();
-                           return back();
-                          }
-
 
 }
