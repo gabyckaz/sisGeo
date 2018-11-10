@@ -145,19 +145,51 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-4">
-                      <div class="form-group">                        
-                      <input class="nuevaFoto4" type="file" name="imagen4" required>
-                      <p class="help-block">Mapa.</p>
+                      <div class="col-md-7">
+                      <div class="form-group">
+                      <strong><p class="help-block">Video.</p></strong>
                       </div>
                     </div>
                     </div>
-                  
+                    <div class="row">
+
+                      <div style="width: 600px; height: 400px;">
+                         {!! $paquete->Video!!}
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-file-video-o"></i></span>
+                        <input type="text" name="video" class="form-control" id="video" value="{{ old('video')}}" placeholder="URL del Video en YouTube como Copiar código de inserción" >
+                    </div>
+                  </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="nombrepaquete">URL de galeria de imagenes de FACEBOOK</label>
+                        <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                          <input type="text" name="galeria" value="{{$paquete->Galeria}}" class="form-control" id="galeria" placeholder="URL de galeria de FACEBOOK" >
+
+                          </div>
+                    </div>
+
+                  <br>
+                    <div class="row">
+                      <div class="col-md-4">
+                      <div class="form-group">
+                      <strong><p class="help-block">Mapa.</p></strong>
+                      </div>
+                    </div>
+                    </div>
+
                     <div class="row">
                     <div class="col-md-12">
                       <a href="">
                           <img src="{{Storage::url($imagen->Imagen4)}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar4" >
                       </a>
+                        <input class="nuevaFoto4" type="file" name="imagen4" >
                     </div>
                     </div>
                     <br>
@@ -216,7 +248,7 @@
 
                         </select>
                       </div>
-                     </div> 
+                     </div>
                     </div>
                    <div class="row">
                      <div class="col-md-12">
@@ -304,11 +336,11 @@
                     </div>
                     </div>
                    </div>
-                   <div class="row"> 
+                   <div class="row">
                     <div class="col-md-12">
                      <div class="panel panel-default">
                         <div class="panel-heading">
-                          <h3 class="panel-title">Imagenes para presentacion de paquete</h3>
+                          <strong><h3 class="panel-title">Imagenes para presentacion de paquete</h3></strong>
                         </div>
                         <div class="panel-body">
                           <hr>
@@ -344,7 +376,7 @@
                                   </a></td>
                                </tr>
                              </tbody>
-                           </table> 
+                           </table>
                         </div>
                       </div>
                           </div>
@@ -358,8 +390,6 @@
                         </div>
                         </form>
                     </div>
-
-
                 </div>
             </div>
         </div>

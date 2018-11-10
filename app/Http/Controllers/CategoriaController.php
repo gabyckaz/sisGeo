@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Categoria;
 
-class ImagenPaqueteTuristicoController extends Controller
+class CategoriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,10 @@ class ImagenPaqueteTuristicoController extends Controller
      */
     public function index()
     {
-        //
+      $categoria = Categoria::all();
+    //Para el rdenamiento en la tabla index
+
+        return view('adminCategoria.create',compact('categoria'));
     }
 
     /**
@@ -23,7 +27,8 @@ class ImagenPaqueteTuristicoController extends Controller
      */
     public function create()
     {
-        //
+        $categoria = Categoria::all();
+          return view('adminCategoria.create',compact('categoria'));
     }
 
     /**
@@ -34,7 +39,22 @@ class ImagenPaqueteTuristicoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      try{
+        $this->validate($request,array(
+
+          'categoria'=>'required|string|unique:Categoria,NombreCategoria',
+        ));
+
+       //Guardar en la BD
+       //Relacionando campo de BD con formulario
+       //campo de BD -> campo del formulario
+       $categoria=new Categoria;
+       $categoria->NombreCategoria = $request->categoria;
+       $categoria->save();
+       return back()->with('status',"Agregado con éxito");
+          } catch(\Exception $e){
+       return back()->with('fallo',"Error ya existe Categoria");
+     }
     }
 
     /**
@@ -81,4 +101,14 @@ class ImagenPaqueteTuristicoController extends Controller
     {
         //
     }
+    public function eliminarcategoria($id){
+
+        $categoria=Categoria::where('IdCategoria',$id)->get()->first();
+        if ($categoria!=null) {
+          $categoria->delete();
+          return back()->with('status',"Eliminado con éxito");
+            }else {
+          return back()->with('fallo',"Error Categoria es parte de una ruta no se puede eliminar");
+            }
+         }
 }
