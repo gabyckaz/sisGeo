@@ -8,23 +8,15 @@
 @endsection
 @section('contenido')
 @if(session('status'))
-  <br>
-  <script type="text/javascript">
-        alertify.success("{{ session('status') }}");
-  </script>
-    <div class="alert alert-success alert-dismissible fade in" role="alert">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
-      {{ session('status') }}
-    </div>
-@endif
-@if(session('fallo'))
-  <br>
-    <div class="alert alert-danger alert-dismissible fade in" role="alert">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
-      {{ session('fallo') }}
-  </div>
-@endif
-
+        <script type="text/javascript">
+          alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session("status") }}');
+          </script>
+      @endif
+      @if(session('fallo'))
+          <script type="text/javascript">
+         alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
+         </script>
+      @endif
 <div class="row">
 
   <div class="col-md-6">
@@ -33,11 +25,11 @@
       <div class="box-header">
         <h3 class="box-title"><STRONG>Agregar Gastos Extras</STRONG></h3>
         <div class="box-tools pull-right">
-          <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
+          <button type="submit" class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
         </div>
       </div>
       <div class="box-body">
-          <form class="form-horizontal" role="form" method="POST">
+          <form class="form-horizontal" action="" id="btn_gasto"  method="POST">
             {{ csrf_field() }}
             <fieldset>
               <div class="col-md-12" >
@@ -55,7 +47,8 @@
                   @endif
                 </div>
               </div>
-              <button class="btn btn-info center-block" id="guardar" >Agregar Gasto Extra</button>
+              <meta name="csrf-token" content="{{ csrf_token() }}">
+              <button type="submit" class="btn btn-info center-block" id="btn_gasto" >Agregar Gasto Extra</button>
             </fieldset>
           </form>
             <h3 class="box-title"> </h3>

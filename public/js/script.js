@@ -70,6 +70,14 @@ $(document).ready(function(){
             "bInfo": false,
             "autoWidth": true,
         });
+        $('#tablaCategoria').DataTable({
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
+            "bInfo": false,
+            "autoWidth": true,
+        });
         $('#tablaRecomendaciones').DataTable({
             "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
             "paging": true,
@@ -365,20 +373,26 @@ $( "#selectIdTransporte" )
       });
   }).trigger( "change" );
 });
-
-$('#guardar').click(function(){
+/*
+$('#btn_gasto').on("submit",function(e){
     e.preventDefault();
     var parametros={
-    "gastosextras": $("#gastosextras").val(),
-    "gastos": $("#gastos").val()
-  }
-  $.ajax({
-        data:parametros,
-        url: "adminOpcionesPaquete.store",
-        type:"POST",
-        success:function(response){
+    gastosextras: $("#gastosextras").val(),
+    gastos: $("#gastos").val()
 
+  $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: '/CrearOpcionesPaquete',
+        type:'POST',
+        data:parametros,
+
+        success:function(response){
+          alertify.success("datos guardados correctamente");
+        },
+        error:function(response){
+          alertify.error("Error en datos");
         }
   })
-
-});
+});*/

@@ -351,11 +351,25 @@ desired effect
     @endrole
 
     @role(['Director','Agente'])
-    <li class="{{ activeMenu('MostrarRutaTuristica') }}">
-      <a href="{{ route('adminRutaTuristica.index') }}">
+    <li class=" treeview {{ (request()->is('MostrarRutaTuristica') ||  request()->is('CrearCategoria'))  ? 'active' : '' }} ">
+      <a href="#">
         <i class="fa fa-map-marker"></i>
-        <span>Ruta Turistica</span>
+          <i class="fa fa-angle-left pull-right-container"></i>
+          <i class="fa fa-angl-left pull-right"></i>
+          <span>Ruta Turistica</span>
+          <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
       </a>
+      <ul class="treeview-menu">
+           <li>  <a href="{{ route('adminRutaTuristica.index') }}">
+               <i class="fa fa-star"></i>
+               <span>Ruta Turistica</span>
+             </a></li>
+             <li><a href="{{ route('adminCategoria.create')}}">
+               <i class="fa fa-star"></i>
+               Categoria</a></li>
+        </ul>
     </li>
      <li class=" treeview {{ (request()->is('CrearPaquete') || request()->is('MostrarPaquete') || request()->is('ActualizarEstado') || request()->is('CrearOpcionesPaquete')) ? 'active' : '' }}">
       <a href="#">

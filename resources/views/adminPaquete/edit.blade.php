@@ -147,7 +147,7 @@
                     <div class="row">
                       <div class="col-md-7">
                       <div class="form-group">
-                      <p class="help-block">Video.</p>
+                      <strong><p class="help-block">Video.</p></strong>
                       </div>
                     </div>
                     </div>
@@ -165,11 +165,21 @@
                     </div>
                   </div>
                     <br>
-                    <br>
+
+                    <div class="form-group">
+                        <label for="nombrepaquete">URL de galeria de imagenes de FACEBOOK</label>
+                        <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                          <input type="text" name="galeria" value="{{$paquete->Galeria}}" class="form-control" id="galeria" placeholder="URL de galeria de FACEBOOK" >
+
+                          </div>
+                    </div>
+
+                  <br>
                     <div class="row">
                       <div class="col-md-4">
                       <div class="form-group">
-                      <p class="help-block">Mapa.</p>
+                      <strong><p class="help-block">Mapa.</p></strong>
                       </div>
                     </div>
                     </div>
@@ -330,7 +340,7 @@
                     <div class="col-md-12">
                      <div class="panel panel-default">
                         <div class="panel-heading">
-                          <h3 class="panel-title">Imagenes para presentacion de paquete</h3>
+                          <strong><h3 class="panel-title">Imagenes para presentacion de paquete</h3></strong>
                         </div>
                         <div class="panel-body">
                           <hr>

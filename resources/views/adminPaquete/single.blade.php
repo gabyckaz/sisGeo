@@ -56,6 +56,15 @@
       @endforeach
 
     </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h3 style="text-align:center;"><b>Dificultad:</b> {{ $paquete->Dificultad}}</h3>
+          <h3 style="text-align:center;"><b>Tipo Paquete:</b> {{ $paquete->TipoPaquete}}</h3>
+      </div>
+      <div class="col-md-6">
+        <div style="text-align:center;"><h3><b>PRECIO:</b></h3><h3>$<b>{{ $paquete->Precio}}</b> por persona</h3></div>
+      </div>
+    </div>
     <br>
 
     </div><!-- Fin de columna izquierda -->
@@ -199,24 +208,41 @@
         </tr>
         </table>
         <br>
-        <p><b>Lugar de Regreso:</b> {{ $paquete->LugarRegreso}} </p>
-        <br>
-
-        <h3 style="text-align:center;"><b>Dificultad:</b> {{ $paquete->Dificultad}}</h3>
-        <div style="text-align:center;"><h3>$<b>{{ $paquete->Precio}}</b> por persona</h3></div>
-
-        <a class="btn btn-info" title="RESERVAR AHORA"
-                                 href="{{ route('adminPaquete.reserva.add',$paquete->IdPaquete) }}">RESERVAR AHORA</a>
-                                 <br>
-                                 <br>
-                                 <br>
+        <div class="row">
+          <div class="col-md-6">
+            <p><b>Lugar de Regreso:</b> {{ $paquete->LugarRegreso}} </p>
+          </div>
+          <div class="col-md-6">
+            <p><b><a href="{{$paquete->Galeria}}" target="_blank">Link de Facebook para galeria de imagenes</a></b></p>
+          </div>
+        </div>
       </div><!-- Fin de columna derecha -->
 
       <center>
         <div class="row">
-
+                    <br>
+                    <a  class="btn btn-info" title="RESERVAR AHORA"
+                                         href="{{ route('adminPaquete.reserva.add',$paquete->IdPaquete) }}">RESERVAR AHORA</a>
+                  </div>
+                    <br>
+                    <FONT FACE="arial" COLOR="white" size="4">
+                    <marquee BGCOLOR="00a65a" >Los Mejores Viajes, Turismo en El Salvador, Centro America y El Mundo.                 #DESCUBRE           #CONOCE             #ESPIRITUGEO</marquee>
+                  </FONT>
+                    <br>
+                    <br>
                                {!! $paquete->Video!!}
+                    <br>
+                    <br>
+                    <FONT FACE="arial" COLOR="white" size="4">
+                    <marquee BGCOLOR="00a65a" COLOR="white"><b>Visitanos en:</b> Col. Campestre #17, Pje.3, Calle Circunvalación, San Salvador, El Salvador, C.A.
+                      <b>Télefonos:</b> 2284-8404/ 6302-8424 </marquee>
+                  </FONT>
+                  <br>
         </div>
+
       </center>
+      <center>
+        <MARQUEE WIDTH="50%" BEHAVIOR="alternate"> <IMG SRC="http://nebula.wsimg.com/d3657b04208ae150f468167d20de36aa?AccessKeyId=B5E8C3F7E00CA38BCFD7&disposition=0&alloworigin=1"> </MARQUEE>
+        </center>
   </div>
 @endsection

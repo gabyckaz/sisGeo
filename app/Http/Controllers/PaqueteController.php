@@ -62,7 +62,8 @@ class PaqueteController extends Controller
        'tipopaquete'=>'required|max:20',
        'cupos'=>'required',
        'dificultad'=>'required|max:20',
-          'video'=>'required',
+        'video'=>'required',
+        'galeria'=>'required',
      ));
        $hoystr = Carbon::now()->format('d-m-Y');
        $hoyObj = Carbon::parse($hoystr);
@@ -88,6 +89,7 @@ class PaqueteController extends Controller
           $paquete->TipoPaquete=$request->tipopaquete;
           $paquete->Cupos=$request->cupos;
           $paquete->Video=$request->video;
+          $paquete->Galeria=$request->galeria;
           $paquete->Dificultad=$request->dificultad;
           $paquete->AprobacionPaquete="0";
           $paquete->DisponibilidadPaquete="1";
@@ -230,6 +232,7 @@ class PaqueteController extends Controller
         'cupos'=>'required',
         'dificultad'=>'required|max:20',
         'video'=>'required',
+        'galeria'=>'required',
       ));
 
         $paquete = Paquete::findOrFail($id);
@@ -244,6 +247,7 @@ class PaqueteController extends Controller
         $paquete->Cupos=$request->cupos;
         $paquete->Dificultad=$request->dificultad;
         $paquete->Video=$request->video;
+        $paquete->Galeria=$request->galeria;
 
         $imagen = ImagenPaqueteTuristico::where('id_paquete',$id);
         $imagen2= $imagen->first();
@@ -456,6 +460,7 @@ class PaqueteController extends Controller
       $itinerario=Itinerario::all();
       $gastosextras=GastosExtras::all();
 
+
       $sql = 'SELECT "IdRecomendacionesPaquete", recomendaciones_id , paquete_id
               FROM "Recomendaciones_Paquete"
               WHERE "paquete_id" = '.$id.' ;';
@@ -504,6 +509,7 @@ class PaqueteController extends Controller
         'precio'=>'required',
         'tipopaquete'=>'required|max:20',
         'video'=>'required',
+        'galeria'=>'required',
         'cupos'=>'required',
         'dificultad'=>'required|max:20',
       ));
@@ -531,6 +537,7 @@ class PaqueteController extends Controller
           $paquete->TipoPaquete=$request->tipopaquete;
           $paquete->Cupos=$request->cupos;
           $paquete->Video=$request->video;
+          $paquete->Galeria=$request->galeria;
           $paquete->Dificultad=$request->dificultad;
           $paquete->AprobacionPaquete= "0";
           $paquete->DisponibilidadPaquete= "1";

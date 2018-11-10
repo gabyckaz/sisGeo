@@ -10,7 +10,7 @@
 @section('contenido')
     <div class="container spark-screen" CONTENT="no-cache">
         <div class="row">
-            <div class="col-md-8 col-md-offset-1">
+            <div class="col-md-9 col-md-offset-1">
               @if(session('status'))
                 <br>
                  <script type="text/javascript">
@@ -141,7 +141,7 @@
                             <div class="input-group">
                               <span class="input-group-addon">
                              <i class="fa fa-child"></i>
-                            </pan>
+                           </span>
                             <input  class="form-control" name="cupos" type="number" min="10" step="1" max="10,0000" value="{{ old('cupos')}}" placeholder="10" id="cupos" required>
 
                           </div>
@@ -175,27 +175,27 @@
                           <div class="input-group">
                               <span class="input-group-addon"><i class="fa fa-file-video-o"></i></span>
                             <input type="text" name="video" class="form-control" id="video" value="{{ old('video')}}" placeholder="URL del Video en YouTube como Copiar código de inserción" required >
-                            </div>
+                          </div>
                       </div>
-                     <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <input class="nuevaFoto4" type="file" name="imagen4" required>
-                          <p class="help-block">Mapa.</p>
-                        </div>
+                      <div class="form-group">
+                          <label for="galeria"  class="control-label">URL de la galeria de Facebook de este paquete</label>
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-image"></i></span>
+                            <input type="text" name="galeria" class="form-control" id="galeria" value="{{ old('galeria')}}" placeholder="URL de la galeria de imagenes en Facebook" required >
+                          </div>
                       </div>
-                     </div>
                     <div class="row">
                     <div class="col-md-12">
+                        <strong>  <p class="help-block">Mapa.</p></strong>
                       <a href="">
                           <img src="{{Storage::url("geoturismo.png")}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar4" >
                       </a>
+                        <input class="nuevaFoto4" type="file" name="imagen4" required>
                     </div>
                     </div>
                     <br>
                     <div class="row">
-                      <div c
-                      lass="col-md-12">
+                    <div  class="col-md-12">
                       <div class="form-group">
                           <label name="itinerario" for="itinerario">Itinerario</label>
                             <select class="form-control select2" multiple="multiple" name="itinerario[]" id="itinerario[]" required>
@@ -205,8 +205,8 @@
                             @endforeach
                             </select>
                        </div>
-                      </div>
                     </div>
+                  </div>
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
@@ -263,7 +263,7 @@
                     <div class="col-md-12">
                      <div class="panel panel-default">
                         <div class="panel-heading">
-                          <h3 class="panel-title">Imagenes para presentacion de paquete</h3>
+                          <strong><h3 class="panel-title">Imagenes para presentacion de paquete</h3></strong>
                         </div>
                         <div class="panel-body">
                           <table>
@@ -329,4 +329,3 @@
         </div>
     </div>
 @endsection
-         

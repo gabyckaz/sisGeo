@@ -62,6 +62,16 @@
                     </div>
                  </div>
 
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="categoria">Categoria</label>
+                    <select class="form-control" name="pais">
+                      @foreach($categoria as $categoria)
+                           <option value="{{ $categoria->IdCategoria }}" {{ old('categoria') == $categoria->IdCategoria ? 'selected' : '' }}>{{ $categoria->NombreCategoria }}</option>
+                      @endforeach
+                    </select>
+                   </div>
+                </div>
                   <div class="form-group col-sm-12 has-feedback{{ $errors->has('datosgenerales') ? ' has-error' : '' }}">
                     <label for="datosgenerales">Datos generales</label>
                     <div class="input-group">

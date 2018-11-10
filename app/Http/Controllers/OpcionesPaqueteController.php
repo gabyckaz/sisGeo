@@ -53,7 +53,9 @@ class OpcionesPaqueteController extends Controller
        $gastosextras=new GastosExtras;
        $gastosextras->NombreGastos = $request->gastosextras;
        $gastosextras->Gastos= $request->gastos;
+       
        $gastosextras->save();
+
        return back()->with('status',"Agregado con éxito");
           } catch(\Exception $e){
        return back()->with('fallo',"Error ya existe gasto extra");
