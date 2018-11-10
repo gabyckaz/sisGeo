@@ -24,6 +24,7 @@ use App\Transporte;
 use App\Conductor;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
 
 
 class PaqueteController extends Controller
@@ -1028,6 +1029,29 @@ public fuction postNewImage(Request $request){
 
 
 
+    }
+
+    /**
+    * Método para generar PDF de paquetes
+    */
+    public function reporte()
+    {
+      $paquetes = Paquete::all();
+      $itinerario = ItinerarioPaquete::all();
+      $sql = 'SELECT "IdItinerarioPaquete", itinerario_id , paquete_id
+              FROM "Itinerario_Paquete" ;';
+      $itinerariopaquete= DB::select($sql);
+
+      //instantiate and use the dompdf class
+      $view=\View::make('adminPaquete.reporte',compact('paquetes','itinerario','itinerariopaquete'))->render();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($view);
+      // Render the HTML as PDF
+      $dompdf->render();
+      $canvas = $dompdf ->get_canvas();
+      $canvas->page_text(280, 730, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+      // Output the generated PDF to Browser
+      $dompdf->stream('Paquetes.pdf');
     }
 
 }

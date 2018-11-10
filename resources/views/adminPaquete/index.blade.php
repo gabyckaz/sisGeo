@@ -32,6 +32,9 @@
 				  <div class="panel panel-default">
            <div class="panel-heading">
             <h3 class="panel-title">Listado de paquetes</h3>
+              <div class="box-tools pull-right">
+                <a class="btn btn-info" title="Descargar como PDF" href="{{ route('adminPaquete.reporte') }}"><i class="fa Example of download fa-download"></i></a>
+              </div>
            </div>
               <div class="panel-body">
               <form method="get" action="/MostrarPaquete">
