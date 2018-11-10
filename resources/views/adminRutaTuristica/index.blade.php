@@ -59,6 +59,16 @@
                 </select>
               </div>
             </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="categoria">Categoria</label>
+                <select class="form-control" name="categoria">
+                  @foreach($categoria as $cat)
+                    <option value="{{ $cat->IdCategoria }}" {{ old('cat') == $cat->IdCategoria ? 'selected' : '' }}>{{ $cat->NombreCategoria }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
             <div class="form-group col-sm-12 has-feedback{{ $errors->has('datosgenerales') ? ' has-error' : '' }}">
               <label for="datosgenerales">Datos generales</label>
               <div class="input-group">
@@ -100,7 +110,7 @@
       <div class="box-header">
         <h3 class="box-title"><STRONG>Listado de Rutas</STRONG></h3>
         <div class="box-tools pull-right">
-          <a class="btn btn-info" title="Descargar como PDF" href="{{ route('adminRutaTuristica.reporte') }}"><i class="fa Example of download fa-download"></i></a>
+          <a class="btn btn-info" title="Descargar como PDF" href="{{ route('adminRutaTuristica.reporte')}}"><i class="fa Example of download fa-download"></i></a>
         </div>
       </div>
       <div class="box-body">

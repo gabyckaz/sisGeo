@@ -25,10 +25,7 @@ use App\Conductor;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> Kari
 class PaqueteController extends Controller
 {
     public function index(Request $request)
@@ -387,64 +384,14 @@ class PaqueteController extends Controller
 
     }
 
-<<<<<<< HEAD
     /**
      * Muestra la pantalla para agregar transporte y conductor a 1 paquete
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public $conductores;
-    public function edittransporte($id)
-    {
-      $paquete= Paquete::where('IdPaquete','=',$id)->first();
-      $transportes = Transporte::all();
-      /*$sql = 'SELECT DISTINCT(ct."IdEmpresaTransporte") as "a"
-        FROM public."EmpresaAlquilerTransporte" as et, public."Conductor" as ct
-       WHERE et."IdEmpresaTransporte" = ct."IdEmpresaTransporte";';
-      $idtransportes = DB::select($sql);//Transporte::all(); //deben ser transportes que tengan almenos un conductor
-      $cad = '';
-      $contador = count($idtransportes);
-      $detenerAgregarComa = $contador-1;
-      for ( $i=0; $i < $contador ; $i++) {
-        if( $detenerAgregarComa == $i ){
-          $cad = $cad.$idtransportes[$i]->a;
-          }else{
-         $cad = $cad.$idtransportes[$i]->a.",";
-         }
-      }
-      /*$idtransportes = implode(',', $idtransportes);
-      dd($idtransportes);
-      $cad = explode(',',$cad);
-      sort($cad);
-      $transportes = DB::table('Transporte')
-                      ->whereIn('IdEmpresaTransporte', $cad)
-                       ->get();
-       dd($transportes);*/
 
-      $this->conductores = '';
-      //Traeme los conductores de esta empresa de transporte
-      $consulta = DB::table('Contrata')
-            ->join('Transporte', 'Contrata.IdTransporte', '=', 'Transporte.IdTransporte')
-            ->select('Transporte.NumeroAsientos')
-            ->where('Contrata.IdPaquete','=',$id)
-            ->get();
-
-      $consultaconductor= DB::table('Conduce')
-            ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
-            ->select('Conductor.NombreConductor')
-            ->where('Conduce.IdPaquete','=',$id)
-            ->get();
-           //dd($consultaconductor);
-
-      return view('adminPaquete.show')
-      ->with('transportes',$transportes)
-      ->with('conductores',$this->conductores)
-      ->with('paquete',$paquete)
-      ->with('consulta',$consulta)
-      ->with('consultaconductor',$consultaconductor);
-=======
-      public $conductores;
+    
       public function edittransporte($id)
       {
         $paquete= Paquete::where('IdPaquete','=',$id)->first();
@@ -469,11 +416,11 @@ class PaqueteController extends Controller
         ->with('paquete',$paquete)
         ->with('consulta',$consulta)
         ->with('consultaconductor',$consultaconductor);
->>>>>>> Kari
+
 
     }
     public function asignartransporte($paquete, Request $request)
-    { dd($request);
+    {
       try{
         $transporte = Transporte::find($request->get('transporte'));
         // insert into "Contrata" ("IdPaquete", "IdTransporte") values (5, 25)

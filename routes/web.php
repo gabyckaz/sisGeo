@@ -63,6 +63,8 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   //Crear ruta
   Route::get('/CrearRutaTuristica', ['uses' => 'RutaTuristicaController@create', 'as' => 'adminRutaTuristica.create']);
   Route::post('/CrearRutaTuristica', ['uses' => 'RutaTuristicaController@store', 'as' => 'adminRutaTuristica.store']);
+  Route::get('adminRutaTuristica/reporte', ['uses' =>  'RutaTuristicaController@reporte','as' => 'adminRutaTuristica.reporte']);
+
   //Actualizar rutas
   Route::get('/EditarRutaTuristica/{id}', ['uses' => 'RutaTuristicaController@edit', 'as' => 'adminRutaTuristica.edit']);
   Route::put('/EditarRutaTuristica/{id}', ['uses' => 'RutaTuristicaController@update', 'as' => 'adminRutaTuristica.update']);
