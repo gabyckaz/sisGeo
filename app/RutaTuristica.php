@@ -20,4 +20,10 @@ class RutaTuristica extends Model
     {
         return $this->belongsTo('App\Pais','IdPais');//Modelo y llave foránea
     }
+
+    public function categoria()
+    {
+      return $this->belongsTo('App\Categoria','IdCategoria');//Modelo y llave foránea
+    }
+
 }
