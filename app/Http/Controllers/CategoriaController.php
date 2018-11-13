@@ -17,7 +17,7 @@ class CategoriaController extends Controller
       $categoria = Categoria::all();
     //Para el rdenamiento en la tabla index
 
-        return view('adminRutaTuristica.index',compact('categoria'));
+        return view('adminCategoria.create',compact('categoria'));
     }
 
     /**
@@ -50,7 +50,6 @@ class CategoriaController extends Controller
        //campo de BD -> campo del formulario
        $categoria=new Categoria;
        $categoria->NombreCategoria = $request->categoria;
-
        $categoria->save();
        return back()->with('status',"Agregado con éxito");
           } catch(\Exception $e){
