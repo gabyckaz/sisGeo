@@ -729,22 +729,31 @@ class PaqueteController extends Controller
     /**
     * Método para generar PDF de paquetes
     */
-    public function reporte()
+    public function reporte($id)
     {
-      $paquetes = Paquete::all();
-      $itinerario = ItinerarioPaquete::all();
-      $sql = 'SELECT "IdItinerarioPaquete", itinerario_id , paquete_id
-              FROM "Itinerario_Paquete" ;';
-      $itinerariopaquete= DB::select($sql);
-
+      $paquete= Paquete::findOrfail($id);
+      //Trae las condiciones relacionadas al paquete
+      $condiciones = CondicionesPaquete::where('paquete_id',$id)->get();
+      $condiciones = $condiciones->all();
+      //Trae las recomendaciones relacionadas al paquete
+      $recomendaciones = RecomendacionesPaquete::where('paquete_id',$id)->get();
+      $recomendaciones = $recomendaciones->all();
+      //Trae los gastos extra relacionadas al paquete
+      $gastosextras = GastosExtrasPaquete::where('paquete_id',$id)->get();
+      $gastosextras = $gastosextras->all();
+      //Trae los 'incluye' relacionadas al paquete
+      $incluye = IncluyePaquete::where('paquete_id',$id)->get();
+      $incluye = $incluye->all();
+      $itinerario = ItinerarioPaquete::where('paquete_id',$id)->get();
+      $itinerario = $itinerario->all();
       //instantiate and use the dompdf class
-      $view=\View::make('adminPaquete.reporte',compact('paquetes','itinerario','itinerariopaquete'))->render();
+      $view=\View::make('adminPaquete.reporte',compact('paquete','condiciones','recomendaciones','gastosextras','incluye','itinerario','imagen'))->render();
       $dompdf = new Dompdf();
       $dompdf->loadHtml($view);
       // Render the HTML as PDF
       $dompdf->render();
       $canvas = $dompdf ->get_canvas();
-      $canvas->page_text(280, 730, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+      $canvas->page_text(280, 760, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
       // Output the generated PDF to Browser
       $dompdf->stream('Paquetes.pdf');
     }

@@ -120,7 +120,7 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::post('/MostrarPaquete/{id}', ['uses' => 'PaqueteController@asignarconductor', 'as' => 'adminPaquete.show']);
   Route::get('/ListarConductores', ['uses' => 'PaqueteController@listarConductores','as' => 'adminPaquete.listaConductores']);
   //Reporte de listado de paquetes
-  Route::get('ListarPaquetes/reporte', ['uses' =>  'PaqueteController@reporte','as' => 'adminPaquete.reporte']);
+  Route::get('/reporte/{id}', ['uses' =>  'PaqueteController@reporte','as' => 'adminPaquete.reporte']);
   //CREAR COPIA DE PAQUETE
   Route::put('/asignaTransCondPaquete/{id}', ['uses' => 'PaqueteController@asignaTransCondPaquete', 'as' => 'adminPaquete.asignaTransCondPaquete']);
   Route::get('/CrearCopiaPaquete/{id}', ['uses' => 'PaqueteController@createcopia', 'as' => 'adminPaquete.createcopia']);

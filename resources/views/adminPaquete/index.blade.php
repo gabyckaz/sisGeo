@@ -32,9 +32,6 @@
 				  <div class="panel panel-default">
            <div class="panel-heading">
             <h3 class="panel-title">Listado de paquetes</h3>
-              <div class="box-tools pull-right">
-                <a class="btn btn-info" title="Descargar como PDF" href="{{ route('adminPaquete.reporte') }}"><i class="fa Example of download fa-download"></i></a>
-              </div>
            </div>
               <div class="panel-body">
               <form method="get" action="/MostrarPaquete">
@@ -64,6 +61,9 @@
                       </a>
                       <a href="{{route('adminPaquete.createcopia', $paquete['IdPaquete'])}}"
                       class="btn btn-info fa fa-files-o" title="Crear copia de paquete">
+                      </a>
+                      <a href="{{route('adminPaquete.reporte', $paquete['IdPaquete'])}}"
+                      class="btn btn-info fa Example of download fa-download" title="Descargar como PDF">
                       </a>
                       </td>
                    </tr>
