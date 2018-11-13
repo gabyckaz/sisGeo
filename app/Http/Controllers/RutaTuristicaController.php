@@ -131,15 +131,14 @@ class RutaTuristicaController extends Controller
     {
       $rutas = RutaTuristica::all();
       //instantiate and use the dompdf class
-      // $view=\View::make('adminRutaTuristica.reporte',compact('rutas'))->render();
-      // $dompdf = new Dompdf();
-      // $dompdf->loadHtml($view);
-      // // Render the HTML as PDF
-      // $dompdf->render();
-      // $canvas = $dompdf ->get_canvas();
-      // $canvas->page_text(280, 730, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
-      // // Output the generated PDF to Browser
-      // $dompdf->stream('Rutas_Turisticas.pdf');
-      return view('adminRutaTuristica.reporte',compact('rutas'));
+      $view=\View::make('adminRutaTuristica.reporte',compact('rutas'))->render();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($view);
+      // Render the HTML as PDF
+      $dompdf->render();
+      $canvas = $dompdf ->get_canvas();
+      $canvas->page_text(280, 740, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+      // Output the generated PDF to Browser
+      $dompdf->stream('Rutas_Turisticas.pdf');
     }
 }

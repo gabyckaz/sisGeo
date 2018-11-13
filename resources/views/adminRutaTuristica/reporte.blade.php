@@ -21,8 +21,9 @@
             <tr>
               <th class="text-center">Nombre de Ruta</th>
               <th class="text-center">Datos Generales</th>
-              <th class="text-center">Descripción</th>
+              <!-- <th class="text-center">Descripción</th> -->
               <th class="text-center">País</th>
+              <th class="text-center">Categoría</th>
             </tr>
           </thead>
           <tbody>
@@ -30,8 +31,9 @@
               <tr>
                 <td style="max-width: 10px; overflow: hidden; white-space: wrap;">{{$ruta->NombreRutaTuristica}}</td>
                 <td style="max-width: 100px; overflow: hidden; white-space: wrap;">{{$ruta->DatosGenerales }}</td>
-                <td style="max-width: 100px; overflow: hidden; white-space: wrap;" >{{$ruta->DescripcionRutaTuristica }}</td>
+                <!-- <td style="max-width: 100px; overflow: hidden; white-space: wrap;">{{$ruta->DescripcionRutaTuristica }}</td> -->
                 <td>{{$ruta->pais->nombrePais}}</td>
+                <td style="max-width: 100px; overflow: hidden; white-space: wrap;">{{$ruta->categoria->NombreCategoria}}</td>
               </tr>
             @endforeach
           </tbody>

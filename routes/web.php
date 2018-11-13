@@ -70,6 +70,8 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::put('/EditarRutaTuristica/{id}', ['uses' => 'RutaTuristicaController@update', 'as' => 'adminRutaTuristica.update']);
   //Bloquear rutas
   Route::get('/EliminarRutaTuristica/{id}',['uses' =>'RutaTuristicaController@destroy', 'as' => 'adminRutaTuristica.destroy']);
+  //Reporte de rutas
+  Route::get('adminRutaTuristica/reporte', ['uses' =>  'RutaTuristicaController@reporte','as' => 'adminRutaTuristica.reporte']);
   Route::get('/MostrarRutaTuristica', ['uses' => 'RutaTuristicaController@index', 'as' => 'adminRutaTuristica.index']);
   //Crear categoria
   Route::get('/CrearCategoria', ['uses' => 'CategoriaController@create', 'as' => 'adminCategoria.create']);
@@ -79,7 +81,6 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::put('/EditarCategoria/{id}', ['uses' => 'CategoriaController@update', 'as' => 'adminCategoria.update']);
   //Bloquear categoria
   Route::get('/EliminarCategoria/{id}',['uses' =>'CategoriaController@destroy', 'as' => 'adminCategoria.destroy']);
-
   //Ver ruta turistica
   Route::get('/MostrarOpcionesPaquete', ['uses' => 'OpcionesPaqueteController@index', 'as' => 'adminOpcionesPaquete.index']);
   //Opciones paquetes
@@ -117,8 +118,9 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::put('/MostrarPaquete/{id}', ['uses' => 'PaqueteController@asignartransporte', 'as' => 'adminPaquete.show']);
   //AGREGAR CONDUCTOR A PAQUETE
   Route::post('/MostrarPaquete/{id}', ['uses' => 'PaqueteController@asignarconductor', 'as' => 'adminPaquete.show']);
-  Route::get('/ListarConductores', ['uses' => 'PaqueteController@listarConductores','as' => 'adminPaquete.listaConductores',
-            ]);
+  Route::get('/ListarConductores', ['uses' => 'PaqueteController@listarConductores','as' => 'adminPaquete.listaConductores']);
+  //Reporte de listado de paquetes
+  Route::get('/reporte/{id}', ['uses' =>  'PaqueteController@reporte','as' => 'adminPaquete.reporte']);
   //CREAR COPIA DE PAQUETE
   Route::put('/asignaTransCondPaquete/{id}', ['uses' => 'PaqueteController@asignaTransCondPaquete', 'as' => 'adminPaquete.asignaTransCondPaquete']);
   Route::get('/CrearCopiaPaquete/{id}', ['uses' => 'PaqueteController@createcopia', 'as' => 'adminPaquete.createcopia']);
@@ -130,6 +132,7 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::get('/PaquetesCostos/{id}', ['uses' => 'CostoAlquilerTransporteController@create','as' => 'adminPaquete.costos.create']);
   //Guardar costos
   Route::post('/PaquetesCostos/{id}', ['uses' => 'CostoAlquilerTransporteController@store', 'as' => 'adminPaquete.costos.store']);
+  Route::get('/ReporteCostos', ['uses' => 'CostoAlquilerTransporteController@reporte','as' => 'adminPaquete.costos.reporte']);
   //FIN RUTAS PAQUETES
 });
 

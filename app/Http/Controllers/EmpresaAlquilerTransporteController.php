@@ -165,7 +165,7 @@ class EmpresaAlquilerTransporteController extends Controller
       // Render the HTML as PDF
       $dompdf->render();
       $canvas = $dompdf ->get_canvas();
-      $canvas->page_text(280, 730, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+      $canvas->page_text(280, 740, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
       // Output the generated PDF to Browser
       $dompdf->stream('Empresas.pdf');
     }
