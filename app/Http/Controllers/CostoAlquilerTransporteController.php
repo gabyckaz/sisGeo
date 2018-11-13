@@ -59,4 +59,19 @@ class CostoAlquilerTransporteController extends Controller
         }
     }
 
+    /*
+    * Método para mostrar los 10 paquetes más costosos
+    *
+    */
+    public function reporte()
+    {
+      $costos = DB::table('CostoAlquilerTransporte')
+            ->join('Paquetes', 'CostoAlquilerTransporte.IdPaquete', '=', 'Paquetes.IdPaquete')
+            ->select('Paquetes.NombrePaquete','FechaSalida', 'CostoAlquilerTransporte.CostoAlquilerTransporte')
+            ->orderBy('CostoAlquilerTransporte', 'desc')
+            ->limit(10)
+            ->get();
+      return view('adminPaquete.costos.reporte',compact('costos'));
+    }
+
 }
