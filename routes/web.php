@@ -134,6 +134,7 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::post('/PaquetesCostos/{id}', ['uses' => 'CostoAlquilerTransporteController@store', 'as' => 'adminPaquete.costos.store']);
   Route::get('/ReporteCostos', ['uses' => 'CostoAlquilerTransporteController@reporte','as' => 'adminPaquete.costos.reporte']);
   //FIN RUTAS PAQUETES
+  Route::get('/graficas', 'GraficaController@index')->name('graficas'); //Graficas
 });
 
 //MOSTRAR PAQUETES A USUARIOS COMO VISITANTES

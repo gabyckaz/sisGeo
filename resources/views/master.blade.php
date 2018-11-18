@@ -427,6 +427,12 @@ desired effect
         </ul>
 
     </li>
+    <li class="{{ activeMenu('graficas') }}">
+      <a href="{{ route('graficas') }}">
+        <i class="fa fa-bar-chart"></i>
+        <span>Gráficas</span>
+      </a>
+    </li>
     @endrole
 
         <li class=""><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
