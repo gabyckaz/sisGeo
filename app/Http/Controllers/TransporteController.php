@@ -53,6 +53,7 @@ class TransporteController extends Controller
         'ac'=>'size:2',
         'tv'=>'size:2',
         'wifi'=>'size:2',
+        'asientos'=>'size:2',
         'observacionestransporte'=>'max:250',
       ));
       //Guardar en la BD
@@ -69,6 +70,7 @@ class TransporteController extends Controller
       $transporte->TieneAC=$request->ac;
       $transporte->TieneTV=$request->tv;
       $transporte->TieneWifi=$request->wifi;
+      $transporte->TieneAsientos=$request->asientos;
       $transporte->ObservacionesTransporte=$request->observacionestransporte;
       $transporte->save();
       return redirect('adminTransporte')->with('status', "Guardado con éxito")->withInput();
@@ -119,6 +121,7 @@ class TransporteController extends Controller
         'ac'=>'size:2',
         'tv'=>'size:2',
         'wifi'=>'size:2',
+        'asientos'=>'size:2',
         'observacionestransporte'=>'max:250',
       ));
       //guardar en la bd
@@ -133,6 +136,7 @@ class TransporteController extends Controller
       $transporte->TieneAC=$request->input('ac');
       $transporte->TieneTV=$request->input('tv');
       $transporte->TieneWifi=$request->input('wifi');
+      $transporte->TieneAsientos=$request->input('asientos');
       $transporte->ObservacionesTransporte=$request->input('observacionestransporte');
       $transporte->save();
       return redirect('adminTransporte')->with('status', "Gardado con éxito");

@@ -89,7 +89,7 @@
                                     <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida" value="{{ old('fechasalida')}}" placeholder="Fecha de Salida" required>
+                                    <input name="fechasalida" type="date" class="form-control pull-right" id="fechasalida"  value="{{$todayDate = date("Y-m-d")}}" placeholder="d-m-Y" required>
                                   </div>
                                   @if ($errors->has('fechasalida'))
                                     <span class="help-block">{{ $errors->first('fechasalida') }}</span>
@@ -103,24 +103,13 @@
                               </div>
                             </div>
                             <div class="col-md-4">
-                              <div class="form-group">
-                                <label for="hora">Hora de Salida</label>
-                                <div class="input-group time">
-                                  <div class="input-group-addon">
-                                    <i class="fa fa-history"></i>
-                                  </div>
-                                  <input name="hora" type="time" id="hora" value="06:00:00"  max="24:00:00" min="00:00:00" value="{{ old('hora')}}" class="form-control pull-right" required>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
                               <div class="form-group has-feedback{{ ( $errors->has('fecharegreso') || session()->has('ErrorFr') || session()->has('ErrorFeschas') ) ? ' has-error' : '' }}">
                                 <label for="fechaderegreso">Fecha de Regreso</label>
                                   <div class="input-group date">
                                     <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input name="fecharegreso" type="date" class="form-control pull-right" id="fecharegreso" value="{{ old('fecharegreso')}}" placeholder="Fecha de Regreso" required>
+                                    <input name="fecharegreso" type="date" class="form-control pull-right" id="fecharegreso" value="{{$todayDate = date("Y-m-d")}}" placeholder="Fecha de Regreso" required>
                                   </div>
                                   @if ($errors->has('fecharegreso'))
                                     <span class="help-block">{{ $errors->first('fecharegreso') }}</span>
@@ -133,8 +122,21 @@
                                   @endif
                                 </div>
                               </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label for="hora">Hora de Salida</label>
+                                <div class="input-group time">
+
+                                  <span class="input-group-addon">  <i class="fa fa-history"></i></span>
+
+                                  <input name="hora" type="time" id="hora" value="06:00:00"  max="24:00:00" min="00:00:00" value="{{ old('hora')}}" class="form-control pull-right" required>
+
+                                </div>
+                              </div>
+                            </div>
+
                     </div>
-                                          <div class="row">
+                    <div class="row">
                         <div class="col-md-3">
                            <div class="form-group">
                             <label for="cupos">Número de Cupos</label>

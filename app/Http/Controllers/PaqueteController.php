@@ -67,8 +67,10 @@ class PaqueteController extends Controller
         'video'=>'required',
         'galeria'=>'required',
      ));
+     $mytime = Carbon::now();
        $hoystr = Carbon::now()->format('d-m-Y');
        $hoyObj = Carbon::parse($hoystr);
+
        $fechaSalidaObj = Carbon::parse($request->fechasalida);
        $fechaRegresoObj = Carbon::parse($request->fecharegreso);
         if($fechaSalidaObj <= $hoyObj  ){
