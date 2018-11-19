@@ -10,6 +10,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>GEOUTURISMO</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+  <!-- Acceso a librerias de PE -->
+  <link rel="stylesheet" href="https://api-services.puntoxpress.com/tokens/css/pexStyle-min.css"/>
+  <script type="text/javascript" src="https://api-services.puntoxpress.com/tokens/js/pexService-min.js"/></script>
+
   <link rel="stylesheet" href="{{ asset('adminLte/bootstrap/dist/css/bootstrap.min.css') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('adminLte/font-awesome/css/font-awesome.min.css') }}">

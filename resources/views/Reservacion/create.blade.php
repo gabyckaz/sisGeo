@@ -26,39 +26,39 @@
          <div class="box-tools pull-right">
            <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
          </div>
-      </div> 
+      </div>
       <div class="box-body">
         <form id="formularioFamilia" method="post">
             {{-- <p><b>Selected rows data</b></p>
             <pre id="view-rows2"></pre>
             <p><b>Form data as submitted to the server</b></p>
-            <pre id="view-form2"></pre> 
+            <pre id="view-form2"></pre>
             <p><button class="btn btn-danger">View Selected</button><br/></p> --}}
             <table id="tablaFamilia" class="table table-bordered table-striped table-hover">
                 <thead>
-                    <tr>    
-                        <th></th>  
-                        <th>Nombre</th>  
-                        <th>Apellido</th>  
-                        <th>Tipo</th>  
-                        <th>Genero</th>  
+                    <tr>
+                        <th></th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Tipo</th>
+                        <th>Genero</th>
                     </tr>
                 </thead>
                 <tbody>
                   @foreach( $familia as $familiar)
-                    <tr> 
-                        <td>{{$familiar->Id}}</td>  
-                        <td>{{ ucfirst(strtolower($familiar->Nombre)) }}</td>  
-                        <td>{{ ucfirst(strtolower($familiar->Apellido)) }}</td>  
-                        <td>Familia</td>  
-                        <td>{{ $familiar->Genero == "M" ?'Masculino' : 'Femenino' }}</td>               
+                    <tr>
+                        <td>{{$familiar->Id}}</td>
+                        <td>{{ ucfirst(strtolower($familiar->Nombre)) }}</td>
+                        <td>{{ ucfirst(strtolower($familiar->Apellido)) }}</td>
+                        <td>Familia</td>
+                        <td>{{ $familiar->Genero == "M" ?'Masculino' : 'Femenino' }}</td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
             <p><button class="btn btn-info">Reservar</button><br/></p>
         </form>
-      </div> 
+      </div>
     </div>
     </div>
  </div>
@@ -71,39 +71,39 @@
        <div class="box-tools pull-right">
          <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
        </div>
-    </div> 
-      <div class="box-body">     
+    </div>
+      <div class="box-body">
         <form id="formularioAmigos" method="post">
             {{-- <p><b>Selected rows data</b></p>
             <pre id="view-rows"></pre>
             <p><b>Form data as submitted to the server</b></p>
-            <pre id="view-form"></pre> 
+            <pre id="view-form"></pre>
             <p><button class="btn btn-danger">View Selected</button><br/></p> --}}
             <table id="tablaAmigos" class="table table-bordered table-striped table-hover">
                 <thead>
-                    <tr>    
-                        <th></th>  
-                        <th>Nombre</th>  
-                        <th>Apellido</th>  
-                        <th>Tipo</th>  
+                    <tr>
+                        <th></th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Tipo</th>
                         <th>Genero</th>
                     </tr>
                 </thead>
                 <tbody>
                   @foreach( $amigos as $amigo)
-                    <tr>    
-                        <td>{{$amigo->Id}}</td>  
-                        <td>{{ ucfirst(strtolower($amigo->Nombre)) }}</td>  
-                        <td>{{ ucfirst(strtolower($amigo->Apellido)) }}</td>  
-                        <td>Amig@</td>  
-                        <td>{{ $amigo->Genero == "M" ?'Masculino' : 'Femenino' }}</td>                  
+                    <tr>
+                        <td>{{$amigo->Id}}</td>
+                        <td>{{ ucfirst(strtolower($amigo->Nombre)) }}</td>
+                        <td>{{ ucfirst(strtolower($amigo->Apellido)) }}</td>
+                        <td>Amig@</td>
+                        <td>{{ $amigo->Genero == "M" ?'Masculino' : 'Femenino' }}</td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
             <p><button class="btn btn-info">Reservar</button><br/></p>
         </form>
-      </div> 
+      </div>
     </div>
   </div>
 </div>
@@ -148,7 +148,7 @@
                   <span class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></span>
                   <input type="text" class="form-control" name="cpersona" id="cpersona" value="{{ $paquete->Precio }}" readonly>
               </div>
-            </div>   
+            </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
@@ -163,9 +163,9 @@
           <input type="hidden" class="form-control" name="strAmigos" id="strAmigos" >
           <input type="hidden" class="form-control" name="IdPaquete" value="{{ $paquete->IdPaquete }}" >
            {{-- </div>
-          </div> --}}          
+          </div> --}}
         </div>
-        
+
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
@@ -197,10 +197,27 @@
         <!-- button type="reset" class="btn btn-warning ">Limpiar</button -->
         </div>
       <hr>
+      <div class="row">
+        <!-- Campos de PE, tienen que llevar type="hidden" pero se lo he quitado para mientras  -->
+        <input  name="@idTrx" value="123"/>
+        <input  name="@idRef" value="3234"/>
+        <input  name="@idUser" value="1"/>
+        <input  name="@idSeller" value="1"/>
+        <input  name="@currency" value="USD"/>
+        <input  name="@amount" value="1000"/>
+        <input  name="@validity" value="5"/>
+        <input  name="@fieldsAdded" value=""/>
+        <input  name="@dateTrx" value="20130225 15:59:59"/>
+        <input  name="@phone"  value="69873350"/>
+        <input  name="@email" value="gaby_dva_@hotmail.com"/>
+        <input  name="@urlRedirect" value="http://www.google.com/"/>
+
+        <button class="pexButton" type="button" onclick="PEX.box.tokenServ();"> <img src="img/PexButton.png" width="130" heght="60" alt="Puntoxpress"/> </button>
+      </div>
        <div class="box-footer">
               <p>*Para poder realizar una reserva debes pagar almenos el 30%</p>
          </div>
-      </form>    
+      </form>
     </div>
   </div>
 </div>      <!-- /.col -->
@@ -211,5 +228,5 @@
   <a href="{{ route('usuario.completar.informacion') }}" class="btn btn-default btn-flat">Completar información</a>
   </div>
     </div>
-@endif              
+@endif
 @endsection

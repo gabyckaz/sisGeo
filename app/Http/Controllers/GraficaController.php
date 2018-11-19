@@ -11,7 +11,7 @@ class GraficaController extends Controller
     {
      $data = DB::table('personas')
        ->select(
-        DB::raw('genero as genero'),
+        DB::raw('"Genero" as genero'),
         DB::raw('count(*) as number'))
        ->groupBy('genero')
        ->get();
