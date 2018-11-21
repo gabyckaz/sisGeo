@@ -209,7 +209,7 @@
         <input  name="@fieldsAdded" value=""/>
         <input  name="@dateTrx" value="20130225 15:59:59"/>
         <input  name="@phone"  value="69873350"/>
-        <input  name="@email" value="gaby_dva_@hotmail.com"/>
+        <input  name="@email" value="sisgeo2018@outlook.es"/>
         <input  name="@urlRedirect" value="http://www.google.com/"/>
 
         <button class="pexButton" type="button" onclick="PEX.box.tokenServ();"> <img src="img/PexButton.png" width="130" heght="60" alt="Puntoxpress"/> </button>
