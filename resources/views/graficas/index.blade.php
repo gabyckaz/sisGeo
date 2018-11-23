@@ -1,3 +1,4 @@
+
 @extends('master')
 
 @section('head')
@@ -9,6 +10,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+<!-- Grafica de Generos -->
 <script type="text/javascript">
  var generos = <?php echo $genero; ?>
 
@@ -32,14 +35,12 @@
  }
 </script>
 
- <script type="text/javascript">
+<!-- Mapa de paises con paquetes realizados -->
+<script type="text/javascript">
   var paises = <?php echo $pais; ?>
 
   google.charts.load('current', {
     'packages':['geochart'],
-    // Note: you will need to get a mapsApiKey for your project.
-    // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-    //'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
       'mapsApiKey': 'AIzaSyDpx9sGl-aow6KIWf_j2DLSspROtqt6UtM'
   });
 
@@ -59,7 +60,7 @@
   }
 </script>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- Grafica de barras con el numero de paquetes realizados -->
 <script type="text/javascript">
 var paquetes = <?php echo $paquete; ?>
 
@@ -96,6 +97,26 @@ function drawChart() {
 }
 </script>
 
+<!-- Grafica con categorias de rutas -->
+<script type="text/javascript">
+var categorias = <?php echo $categorias; ?>
+
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(categorias);
+
+    var options = {
+      title: 'Paquetes turísticos por categoría',
+      pieHole: 0.4,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    chart.draw(data, options);
+  }
+</script>
+
+<center>
 <div id="piechart_3d" style="width:750px; height:450px;"></div>
 <h4>Rutas Turísticas por país</h4>
 <div id="regions_div" style="width: 900px; height: 500px;"></div>
@@ -104,4 +125,6 @@ function drawChart() {
 <br>
 <br>
 <div id="chart_div" style="width: 900px; height: 400px;"></div>
+<div id="donutchart" style="width: 900px; height: 500px;"></div>
+</center>
 @endsection

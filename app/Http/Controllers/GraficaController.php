@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use DateTime;
 
 class GraficaController extends Controller
 {
@@ -45,15 +46,39 @@ class GraficaController extends Controller
           DB::raw('EXTRACT(MONTH FROM "FechaSalida")')
          )
        ->get();
-     $paquetesarray[] = ['Mes', 'Viajes 2018'];
+     $paquetesarray[] = ['No. del Mes', 'Viajes 2018'];
+
+     //Cambiando el numero del mes por el nombre en español, ej: 1 -> Enero
+     setlocale(LC_ALL,"es_ES");
+     foreach($paquetes as $key => $value)
+     {
+       $value->mes=DateTime::createFromFormat('!m', $value->mes);
+       $value->mes=strftime("%B",$value->mes->getTimestamp());
+       $value->mes=ucfirst($value->mes);
+     }
+
       foreach($paquetes as $key => $value)
       {
-       $paquetesarray[++$key] = [$value->mes, $value->number];
+        $paquetesarray[++$key] = [$value->mes, $value->number];
+      }
+
+      //Rutas por categorias
+      $categorias = DB::table('Categoria')
+        ->join('RutaTuristica', 'Categoria.IdCategoria', '=', 'RutaTuristica.IdCategoria')
+        ->select(DB::raw('"NombreCategoria" as categoria, count("NombreCategoria") as number'))
+        ->groupBy('Categoria.NombreCategoria')
+        ->get();
+
+      $categoriasarray[] = ['Categoria', 'Numero'];
+      foreach($categorias as $key => $value)
+      {
+       $categoriasarray[++$key] = [$value->categoria, $value->number];
       }
 
      return view('graficas.index')
             ->with('genero', json_encode($array))
             ->with('pais', json_encode($paisesarray))
-            ->with('paquete', json_encode($paquetesarray));
+            ->with('paquete', json_encode($paquetesarray))
+            ->with('categorias', json_encode($categoriasarray,JSON_UNESCAPED_UNICODE));
     }
 }
