@@ -28,10 +28,10 @@
           <tbody>
             @foreach($empresalquiler as $empresa)
               <tr>
-                <td>{{ $empresa->NombreEmpresaTransporte }}</td>
-                <td>{{ $empresa->NombreContacto }}</td>
-                <td>{{ $empresa->NumeroTelefonoContacto }}</td>
-                <td>{{ $empresa->EmailEmpresaTransporte }}</td>
+                <td style="max-width: 10px; overflow: hidden; white-space: wrap;">{{ $empresa->NombreEmpresaTransporte }}</td>
+                <td style="max-width: 10px; overflow: hidden; white-space: wrap;">{{ $empresa->NombreContacto }}</td>
+                <td style="max-width: 10px; overflow: hidden; white-space: wrap;">{{ $empresa->NumeroTelefonoContacto }}</td>
+                <td style="max-width: 10px; overflow: hidden; white-space: wrap;">{{ $empresa->EmailEmpresaTransporte }}</td>
               </tr>
             @endforeach
           </tbody>

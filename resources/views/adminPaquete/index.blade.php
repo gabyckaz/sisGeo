@@ -62,6 +62,9 @@
                       <a href="{{route('adminPaquete.createcopia', $paquete['IdPaquete'])}}"
                       class="btn btn-info fa fa-files-o" title="Crear copia de paquete">
                       </a>
+                      <a href="{{route('adminPaquete.reporte', $paquete['IdPaquete'])}}"
+                      class="btn btn-info fa Example of download fa-download" title="Descargar como PDF">
+                      </a>
                       </td>
                    </tr>
                     @endforeach

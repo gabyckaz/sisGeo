@@ -10,6 +10,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>GEOUTURISMO</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+  <!-- Acceso a librerias de PE -->
+  <link rel="stylesheet" href="https://api-services.puntoxpress.com/tokens/css/pexStyle-min.css"/>
+  <script type="text/javascript" src="https://api-services.puntoxpress.com/tokens/js/pexService-min.js"/></script>
+
   <link rel="stylesheet" href="{{ asset('adminLte/bootstrap/dist/css/bootstrap.min.css') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('adminLte/font-awesome/css/font-awesome.min.css') }}">
@@ -320,7 +325,19 @@ desired effect
         <span>Usuarios</span>
       </a>
     </li>
+    <li class="{{ activeMenu('/adminUser/agregarGuiaTuristico') }}">
+      <a href="{{ route('admin.agregar.guiaTuristico') }}">
+        <i class="fa fa-leaf"></i>
+        <span>Guias Turisticos</span>
+      </a>
+    </li>
     @endrole
+    <li class="{{ activeMenu('/adminMensaje') }}">
+      <a href="{{ route('adminMensaje.index') }}">
+        <i class="fa fa-envelope-o"></i>
+        <span>Conf. Mensajes</span>
+      </a>
+    </li>
 
     @role('User')
     <li class="treeview {{ (request()->is('user/completarInformacion') || request()->is('user/agregarFamiliarAmigo')) ? 'active' : '' }}">
@@ -426,6 +443,12 @@ desired effect
             Transporte</a></li>
         </ul>
 
+    </li>
+    <li class="{{ activeMenu('graficas') }}">
+      <a href="{{ route('graficas') }}">
+        <i class="fa fa-bar-chart"></i>
+        <span>Gráficas</span>
+      </a>
     </li>
     @endrole
 

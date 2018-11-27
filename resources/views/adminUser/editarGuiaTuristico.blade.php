@@ -1,73 +1,99 @@
 @extends('master')
 
 @section('head')
-<h1>Acompañantes</h1>
+<h1>Guías turísticos</h1>
 
 @endsection
 @section('Title')
-<strong>Editar familiar o amigo</strong>
+<strong>Editar guía turísticos</strong>
 @endsection
 @section('contenido')
    @if(session()->has('message'))
           <script type="text/javascript"> 
+           console.log("Hola");
            alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4>{{ session()->get('message') }} ');
           </script>
     @endif
     @if(session()->has('error'))
         <script type="text/javascript"> 
+           console.log("Hola");
            alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4>{{ session()->get('error') }} ');
         </script>
     @endif
  <div class="box box-solid">
   <div class="box-header">
-        <h3 class="box-title"><strong>Editar familiares o amigos</strong></h3>
+        <h3 class="box-title"><strong>Editar guías turísticos</strong></h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
         </div>
       </div> 
       <div class="box-body">
    
-    <form id="miForm" method="POST" action="{{route('user.guardar.informacion.familaAmigoEditado') }}">
+    <form id="miForm" method="POST" action="{{route('user.guardar.informacion.guiaEditado') }}">
       {!! method_field('PUT') !!}
       {!! csrf_field() !!}
+      {{-- 
+         SELECT e."IdEmpleadoGEO", e."IdPersona", p."PrimerNombrePersona", p."SegundoNombrePersona",
+              p."PrimerApellidoPersona", p."SegundoApellidoPersona", p."Genero", p."AreaTelContacto",
+              p."TelefonoContacto", n."Nacionalidad", t."FechaNacimiento", t."DomicilioTurista" , t."IdTurista", n."IdNacionalidad"
+
+              'turista','documentos','nacionalidad','guia'
+       --}}
       <input type="hidden" name="idTurista" value="{{ $turista->IdTurista}}"/>
        <div class="row">
-         <div class="col-md-2">
-          <div class="form-group">
-            <label for="tipo" class="control-label">Tipo*</label>
-              <div class="">
-                <select  class="form-control" name="tipo" id="tipo" disabled>    
-                 <option value="A" @if ($tipo == "A") {{ 'selected' }} @endif>Amigo</option>
-                 <option value="F" @if ($tipo == "F") {{ 'selected' }} @endif>Familiar</option>
-               </select>
-             </div>
-           </div>
-         </div>
          <div class="col-md-3">
             <div class="form-group has-feedback{{ $errors->has('Nombre') ? ' has-error' : '' }}">
-               <label for="Nombre" class="control-label">Nombre*</label>
+               <label for="Nombre" class="control-label">Primer nombre*</label>
                   <div class="input-group">
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                    <input type="text" name="Nombre" value="{{ $turista->persona->PrimerNombrePersona }}" class="form-control"  id="Nombre" placeholder="Nombre" value="{{old('Nombre')}}" >
+                    <input type="text" name="Nombre" class="form-control"  id="Nombre" placeholder="Nombre" value="{{old('Nombre',$turista->persona->PrimerNombrePersona)}}" >
                   </div>
                   @if ($errors->has('Nombre'))
                        <span class="help-block">{{ $errors->first('Nombre') }}</span>
                     @endif
             </div>
          </div>
+          <div class="col-md-3">
+            <div class="form-group has-feedback{{ $errors->has('segundoNombre') ? ' has-error' : '' }}">
+               <label for="SegundoNombre" class="control-label">Segundo nombre*</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                       <i class="fa fa-user"></i>
+                    </div>
+                    <input type="text" name="SegundoNombre" class="form-control"  id="SegundoNombre" placeholder="Segundo Nombre" value="{{old('segundoNombre',$turista->persona->SegundoNombrePersona)}}" >
+                  </div>
+                  @if ($errors->has('SegundoNombre'))
+                       <span class="help-block">{{ $errors->first('SegundoNombre') }}</span>
+                    @endif
+            </div>
+         </div>
          <div class="col-md-3">
             <div class="form-group has-feedback{{ $errors->has('Apellido') ? ' has-error' : '' }}">
-              <label for="Apellido" class="control-label">Apellido*</label>
+              <label for="Apellido" class="control-label">Primer apellido*</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                  <input type="text" name="Apellido" value="{{ $turista->persona->PrimerApellidoPersona }}" class="form-control" id="Apellido" placeholder="Apellido" value="{{ old('Apellido') }}">                  
+                  <input type="text" name="Apellido" class="form-control" id="Apellido" placeholder="Apellido" value="{{ old('Apellido', $turista->persona->PrimerApellidoPersona ) }}">                  
                 </div>
                 @if ($errors->has('Apellido'))
                        <span class="help-block">{{ $errors->first('Apellido') }}</span>
+                  @endif
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="form-group has-feedback{{ $errors->has('SegundoApellido') ? ' has-error' : '' }}">
+              <label for="SegundoApellido" class="control-label">Segundo apellido</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                       <i class="fa fa-user"></i>
+                    </div>
+                  <input type="text" name="SegundoApellido" class="form-control" id="SegundoApellido" placeholder="Segundo Apellido" value="{{ old('SegundoApellido', $turista->persona->SegundoApellidoPersona ) }}">                  
+                </div>
+                @if ($errors->has('SegundoApellido'))
+                       <span class="help-block">{{ $errors->first('SegundoApellido') }}</span>
                   @endif
             </div>
          </div>
@@ -76,7 +102,7 @@
        <div class="row">
          <div class="col-md-2">
            <div class="form-group">
-              <label for="Genero" class="col-sm-2 control-label">Género*</label>
+              <label for="Genero" class="col-sm-2 control-label">Genero*</label>
               
               <div class="">
                 <select  class="form-control" name="genero" id="genero" disabled >    
@@ -116,6 +142,38 @@
           </div>
         </div>
        </div>
+       <div class="row">
+           <div class="col-md-3">
+              <div class="form-group">
+                <label>Cod. Area </label>
+                <select name="AreaTelContacto" class="form-control" >
+                  <option value="503" {{ $guia[0]->AreaTelContacto == "503"  ? 'selected' : '' }} >503 - El Salvador</option>
+                  <option value="501" {{ $guia[0]->AreaTelContacto == "501"  ? 'selected' : '' }} >501 - Belize</option>
+                  <option value="502" {{ $guia[0]->AreaTelContacto == "502"  ? 'selected' : '' }} >502 - Guatemala</option>
+                  <option value="504" {{ $guia[0]->AreaTelContacto == "504"  ? 'selected' : '' }} >504 - Honduras</option>
+                  <option value="505" {{ $guia[0]->AreaTelContacto == "505"  ? 'selected' : '' }} >505 - Nicaragua</option>
+                  <option value="506" {{ $guia[0]->AreaTelContacto == "506"  ? 'selected' : '' }} >506 - Costa Rica</option>
+                  <option value="507" {{ $guia[0]->AreaTelContacto == "507"  ? 'selected' : '' }} >507 - Panama</option>                  
+                </select>
+              </div>
+             </div>
+             <div class="col-md-4">
+                 <div class="form-group has-feedback{{ $errors->has('TelefonoContacto')  ? ' has-error' : '' }}">
+                  <label for="telefono" class="control-label">Telefono*</label>
+                  <div class="input-group">
+                   <div class="input-group-addon">
+                       <i class="fa fa-phone"></i>
+                   </div>
+                    <input type="text" name="TelefonoContacto" class="form-control"  id="telefono" value="{{ old('TelefonoContacto',$guia[0]->TelefonoContacto)}}" placeholder="Telefono">
+                </div> @if ($errors->has('TelefonoContacto'))
+            <span class="help-block">{{ $errors->first('TelefonoContacto') }}</span>
+            @endif
+
+             </div>
+         
+       </div>
+       </div>
+
              <div class="row">
           <div class="form-group col-md-8 has-feedback{{ $errors->has('Direccion') ? ' has-error' : '' }}">
             <label for="observacionestransporte">Dirección*</label>
@@ -200,7 +258,7 @@
                 </div>
             </div>
         </div>
-          <div class="col-md-3">
+        <div class="col-md-3">
            <div class="form-group has-feedback{{ $errors->has('fechaVencimentoP') ? ' has-error' : '' }}">
             <label for="fechaVencimentoP" class="control-label">Fecha de vencimiento</label>
                <div class="">
@@ -208,42 +266,40 @@
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
                     </div>
-                  <input type="date" name="fechaVencimentoP" class="form-control pull-right" value="{{ old('fechaVencimentoP') }}">                   
+                   @if( ($documentos == 'duiPasaporte') || ($documentos == 'pasaporte') )
+                     @foreach($turista->documentos as $documento)
+                           @if($documento->TipoDocumento == "Pasaporte")
+                      <input type="date" name="fechaVencimentoP" class="form-control pull-right" value="{{ old('fechaVencimentoP',$documento->FechaVenceDocumento) }}" >
+                         @break
+                           @endif
+                     @endforeach
+                   @else 
+                    <input type="date" name="fechaVencimentoP" class="form-control pull-right" value="{{ old('fechaVencimentoP') }}" >
+                   @endif            
                   </div>
-                   @if ($errors->has('fechaVencimentoP'))
+                  @if ($errors->has('fechaVencimentoP'))
                        <span class="help-block">{{ $errors->first('fechaVencimentoP') }}</span>
-                    @endif
+                  @endif
                 </div>
           </div>
         </div>
+         
       </div>
-     
-       <div class="row">
-          <div class="form-group col-md-8 has-feedback{{ $errors->has('psalud') ? ' has-error' : '' }}">
-            <label for="psalud">Problemas de salud</label>
-            <div class="input-group">
-            <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-              <textarea id="psalud" type="text" class="form-control" name="psalud" placeholder="ninguno">{{ old('psalud', $turista->Problemas_Salud) }}</textarea>
-            </div>
-            @if ($errors->has('psalud'))
-            <span class="help-block">{{ $errors->first('psalud') }}</span>
-            @endif
-          </div>
-      </div> 
        
            <div class="row">
-            <div class="col-md-12">
-              <button type="submit" class="btn btn-info  col-xs-12 col-sm-2 center-block"><STRONG>Actualizar</STRONG></button>
+              
+              <div class="col-md-10 col-md-offset-4">
+                      <button type="submit" class="btn btn-info ">Editar</button>
+                      <!--button type="reset" class="btn btn-warning ">Limpiar</button -->
+                    </div>
+                    <!-- /.col -->
             </div>
-            <!-- /.col -->
-          </div>
-
          </form>
          </div>
          <div class="box-footer">
              <p>*Estos campos son obligatorios</p>
              <p>Es necesario ingresar almenos un documento si es mayor de edad</p>
-        </div>
+              </div>
       </div>
      </div> 
 @endsection

@@ -23,7 +23,12 @@ use App\ImagenPaqueteTuristico;
 use App\Transporte;
 use App\Conductor;
 use Illuminate\Support\Facades\Storage;
+use App\Events\MessageWasRecived;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
+use App\Mail\MensajeGeoturismo;
+use App\Mensaje;
+
 
 
 class PaqueteController extends Controller
@@ -391,7 +396,7 @@ class PaqueteController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    
+
       public function edittransporte($id)
       {
         $paquete= Paquete::where('IdPaquete','=',$id)->first();
@@ -718,9 +723,46 @@ class PaqueteController extends Controller
               ->with('status',"Actualizado con éxito")->with('paquetes',$paquetes);
 
       }else {
+            $mensaje = new Mensaje();
+            $mensaje->url = $id;
+            event (new MessageWasRecived($mensaje));
+
         DB::table('Paquetes')->where('IdPaquete', $id)->update(array('AprobacionPaquete' => '1'));
         return redirect('/ActualizarEstadoPaquete')
               ->with('status',"Actualizado con éxito")->with('paquetes',$paquetes);
       }
+    }
+
+
+    /**
+    * Método para generar PDF de paquetes
+    */
+    public function reporte($id)
+    {
+      $paquete= Paquete::findOrfail($id);
+      //Trae las condiciones relacionadas al paquete
+      $condiciones = CondicionesPaquete::where('paquete_id',$id)->get();
+      $condiciones = $condiciones->all();
+      //Trae las recomendaciones relacionadas al paquete
+      $recomendaciones = RecomendacionesPaquete::where('paquete_id',$id)->get();
+      $recomendaciones = $recomendaciones->all();
+      //Trae los gastos extra relacionadas al paquete
+      $gastosextras = GastosExtrasPaquete::where('paquete_id',$id)->get();
+      $gastosextras = $gastosextras->all();
+      //Trae los 'incluye' relacionadas al paquete
+      $incluye = IncluyePaquete::where('paquete_id',$id)->get();
+      $incluye = $incluye->all();
+      $itinerario = ItinerarioPaquete::where('paquete_id',$id)->get();
+      $itinerario = $itinerario->all();
+      //instantiate and use the dompdf class
+      $view=\View::make('adminPaquete.reporte',compact('paquete','condiciones','recomendaciones','gastosextras','incluye','itinerario','imagen'))->render();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($view);
+      // Render the HTML as PDF
+      $dompdf->render();
+      $canvas = $dompdf ->get_canvas();
+      $canvas->page_text(280, 760, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+      // Output the generated PDF to Browser
+      $dompdf->stream('Paquetes.pdf');
     }
 }
