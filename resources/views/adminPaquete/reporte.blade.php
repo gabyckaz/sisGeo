@@ -9,7 +9,9 @@
     <h2 class="text-center"><strong>Información {{$paquete->NombrePaquete}}</strong></h2>
     <br>
       <h4 class="text-left">Fecha de emisión: <strong>{{date('d/m/y g:i a')}}</strong></h4>
-      <h4 class="text-left">Usuario: <strong>{{Auth::user()->name}}</strong></h4>
+      @if(Auth::check())
+        <h4 class="text-left">Usuario: <strong>{{Auth::user()->name}}</strong></h4>
+      @endif  
   </div>
   <br>
   <div class="row">

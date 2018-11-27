@@ -119,8 +119,6 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   //AGREGAR CONDUCTOR A PAQUETE
   Route::post('/MostrarPaquete/{id}', ['uses' => 'PaqueteController@asignarconductor', 'as' => 'adminPaquete.show']);
   Route::get('/ListarConductores', ['uses' => 'PaqueteController@listarConductores','as' => 'adminPaquete.listaConductores']);
-  //Reporte de listado de paquetes
-  Route::get('/reporte/{id}', ['uses' =>  'PaqueteController@reporte','as' => 'adminPaquete.reporte']);
   //CREAR COPIA DE PAQUETE
   Route::put('/asignaTransCondPaquete/{id}', ['uses' => 'PaqueteController@asignaTransCondPaquete', 'as' => 'adminPaquete.asignaTransCondPaquete']);
   Route::get('/CrearCopiaPaquete/{id}', ['uses' => 'PaqueteController@createcopia', 'as' => 'adminPaquete.createcopia']);
@@ -139,6 +137,8 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
 
 //MOSTRAR PAQUETES A USUARIOS COMO VISITANTES
 Route::get('/MostrarPaqueteCliente/{id}', ['uses' => 'PaqueteController@getSingle', 'as' => 'adminPaquete.single']);
+//Reporte de listado de paquetes
+Route::get('/reporte/{id}', ['uses' =>  'PaqueteController@reporte','as' => 'adminPaquete.reporte']);
 
 //Rutas a las que solo puede accesar visitante sin hacer login
 Route::group(['middleware' => ['guest']], function () {

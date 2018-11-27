@@ -72,7 +72,8 @@
         <div class="box box-solid">
   <div class="box-header with-border">
     <h3 class="box-title"></h3>
-
+    <center><a href="{{route('adminPaquete.reporte', $paquete['IdPaquete'])}}"
+    class="btn btn-info fa Example of download fa-download" title="Descargar como PDF"> Descargar información</a></center>
   </div>
   <!-- /.box-header -->
   <div class="box-body">

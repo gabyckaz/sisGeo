@@ -16,7 +16,6 @@
  var generos = <?php echo $genero; ?>
 
  google.charts.load('current', {'packages':['corechart']});
-
  google.charts.setOnLoadCallback(drawChart);
 
  function drawChart()
@@ -30,8 +29,13 @@
       1: { color: 'green' }
     }
   };
-  var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+  var chart = new google.visualization.PieChart(document.getElementById('grafica_generos'));
+//   google.visualization.events.addListener(chart, 'ready', function () {
+//   grafica_generos.innerHTML = '<img src="' + chart.getImageURI() + '">';
+//   console.log(grafica_generos.innerHTML);
+// });
   chart.draw(data, options);
+  document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Otra forma de impresion</a>';
  }
 </script>
 
@@ -43,19 +47,15 @@
     'packages':['geochart'],
       'mapsApiKey': 'AIzaSyDpx9sGl-aow6KIWf_j2DLSspROtqt6UtM'
   });
-
   google.charts.setOnLoadCallback(drawRegionsMap);
 
   function drawRegionsMap() {
     var data = google.visualization.arrayToDataTable(paises);
-
     var options = {
       region: '013',
       colorAxis: {colors: ['orange','green']},
      };
-
-    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
+    var chart = new google.visualization.GeoChart(document.getElementById('mapa_paises'));
     chart.draw(data, options);
   }
 </script>
@@ -69,7 +69,6 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
   var data = google.visualization.arrayToDataTable(paquetes);
-
   var options = {
     chart: {
       title: 'Viajes realizados',
@@ -80,13 +79,40 @@ function drawChart() {
     height: 400,
     colors: ['orange']
   };
-
-  var chart = new google.charts.Bar(document.getElementById('chart_div'));
-
+  var chart = new google.charts.Bar(document.getElementById('grafica_paquetes'));
   chart.draw(data, google.charts.Bar.convertOptions(options));
-
   var btns = document.getElementById('btn-group');
+  btns.onclick = function (e) {
+    if (e.target.tagName === 'BUTTON') {
+      options.vAxis.format = e.target.id === 'none' ? '' : e.target.id;
+      chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+  }
+}
+</script>
 
+<script type="text/javascript">
+var costos = <?php echo $costos; ?>
+
+google.charts.load('current', {'packages':['bar']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  var data = google.visualization.arrayToDataTable(costos);
+  var options = {
+    chart: {
+      title: 'Gastos realizados',
+      subtitle: 'Costo en dólares de transporte',
+    },
+    bars: 'vertical',
+    vAxis: {format: 'decimal'},
+    height: 400,
+    colors: ['orange']
+  };
+
+  var chart = new google.charts.Bar(document.getElementById('grafica_costos'));
+  chart.draw(data, google.charts.Bar.convertOptions(options));
+  var btns = document.getElementById('btn-group');
   btns.onclick = function (e) {
 
     if (e.target.tagName === 'BUTTON') {
@@ -105,26 +131,34 @@ var categorias = <?php echo $categorias; ?>
   google.charts.setOnLoadCallback(drawChart);
   function drawChart() {
     var data = google.visualization.arrayToDataTable(categorias);
-
     var options = {
       title: 'Paquetes turísticos por categoría',
       pieHole: 0.4,
     };
 
-    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    var chart = new google.visualization.PieChart(document.getElementById('grafica_categorias_1'));
     chart.draw(data, options);
   }
 </script>
 
+<!-- Para imprimir gráfica -->
+<script type="text/javascript">
+function imprSelec(grafica_generos)
+{var ficha=document.getElementById(grafica_generos);var ventimp=window.open(' ','popimpr');ventimp.document.write(ficha.innerHTML);ventimp.document.close();ventimp.print();ventimp.close();}
+</script>
+
 <center>
-<div id="piechart_3d" style="width:750px; height:450px;"></div>
+<div id="grafica_generos" style="width:750px; height:450px;"></div>
+<a href="javascript:imprSelec('grafica_generos')">Imprimir gráfica</a>
+<div id='png'></div>
 <h4>Rutas Turísticas por país</h4>
-<div id="regions_div" style="width: 900px; height: 500px;"></div>
+<div id="mapa_paises" style="width: 900px; height: 500px;"></div>
 <br>
 <br>
 <br>
 <br>
-<div id="chart_div" style="width: 900px; height: 400px;"></div>
-<div id="donutchart" style="width: 900px; height: 500px;"></div>
+<div id="grafica_paquetes" style="width: 900px; height: 400px;"></div>
+<div id="grafica_costos" style="width: 900px; height: 400px;"></div>
+<div id="grafica_categorias_1" style="width: 900px; height: 500px;"></div>
 </center>
 @endsection

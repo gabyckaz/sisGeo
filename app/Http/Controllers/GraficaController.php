@@ -10,6 +10,8 @@ class GraficaController extends Controller
 {
   public function index()
     {
+      setlocale(LC_ALL,"es_ES");
+
       //Genero de los usuarios
      $data = DB::table('personas')
        ->select(
@@ -20,6 +22,11 @@ class GraficaController extends Controller
      $array[] = ['Genero', 'Numero'];
      foreach($data as $key => $value)
      {
+        if($value->genero=='F')
+          $value->genero='Femenino';
+        else {
+          $value->genero='Masculino';
+        }
       $array[++$key] = [$value->genero, $value->number];
      }
 
@@ -36,6 +43,18 @@ class GraficaController extends Controller
      }
 
      //Paquetes por mes de año de 2018 que fueron aprobados y disponibles
+     // $paquetes2017 = DB::table('Paquetes')
+     //   ->select(
+     //      DB::raw('EXTRACT(MONTH FROM "FechaSalida") as mes2017'),
+     //      DB::raw('COUNT(EXTRACT(MONTH FROM "FechaSalida")) as number1')
+     //      )
+     //   //->orderBy('mes', 'asc')
+     //   ->groupBy(
+     //      DB::raw('EXTRACT(MONTH FROM "FechaSalida")')
+     //     )
+     //   ->where(
+     //     DB::raw('EXTRACT(YEAR FROM "FechaSalida")'), '=', 2017);
+
      $paquetes = DB::table('Paquetes')
        ->select(
           DB::raw('EXTRACT(MONTH FROM "FechaSalida") as mes'),
@@ -45,18 +64,19 @@ class GraficaController extends Controller
        ->groupBy(
           DB::raw('EXTRACT(MONTH FROM "FechaSalida")')
          )
+       ->where(
+         DB::raw('EXTRACT(YEAR FROM "FechaSalida")'), '=', 2018)
+      // ->union($paquetes2017)
        ->get();
-     $paquetesarray[] = ['No. del Mes', 'Viajes 2018'];
+     $paquetesarray[] = ['Mes', 'Viajes 2018'];
 
      //Cambiando el numero del mes por el nombre en español, ej: 1 -> Enero
-     setlocale(LC_ALL,"es_ES");
      foreach($paquetes as $key => $value)
      {
        $value->mes=DateTime::createFromFormat('!m', $value->mes);
        $value->mes=strftime("%B",$value->mes->getTimestamp());
        $value->mes=ucfirst($value->mes);
      }
-
       foreach($paquetes as $key => $value)
       {
         $paquetesarray[++$key] = [$value->mes, $value->number];
@@ -68,17 +88,38 @@ class GraficaController extends Controller
         ->select(DB::raw('"NombreCategoria" as categoria, count("NombreCategoria") as number'))
         ->groupBy('Categoria.NombreCategoria')
         ->get();
-
       $categoriasarray[] = ['Categoria', 'Numero'];
       foreach($categorias as $key => $value)
       {
        $categoriasarray[++$key] = [$value->categoria, $value->number];
       }
 
+      //Costos de trasporte
+      $costos = DB::table('Paquetes')
+        ->join('CostoAlquilerTransporte', 'Paquetes.IdPaquete', '=', 'CostoAlquilerTransporte.IdPaquete')
+        ->select(
+          DB::raw('EXTRACT(MONTH FROM "Paquetes"."FechaSalida") as mes'),
+          DB::raw('SUM("CostoAlquilerTransporte") as number')
+          )
+        ->groupBy(DB::raw('EXTRACT(MONTH FROM "FechaSalida")'))
+        ->get();
+      $costosarray[] = ['Meses', 'Cantidad en dólares ($)'];
+      foreach($costos as $key => $value)
+      {
+        $value->mes=DateTime::createFromFormat('!m', $value->mes);
+        $value->mes=strftime("%B",$value->mes->getTimestamp());
+        $value->mes=ucfirst($value->mes);
+      }
+      foreach($costos as $key => $value)
+      {
+       $costosarray[++$key] = [$value->mes, $value->number];
+      }
+
      return view('graficas.index')
             ->with('genero', json_encode($array))
             ->with('pais', json_encode($paisesarray))
             ->with('paquete', json_encode($paquetesarray))
-            ->with('categorias', json_encode($categoriasarray,JSON_UNESCAPED_UNICODE));
+            ->with('categorias', json_encode($categoriasarray,JSON_UNESCAPED_UNICODE))
+            ->with('costos', json_encode($costosarray));
     }
 }
