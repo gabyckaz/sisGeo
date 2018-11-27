@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePaisTable extends Migration
+class AddAsientosTransporteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreatePaisTable extends Migration
      */
     public function up()
     {
-        Schema::create('Pais', function (Blueprint $table) {
-            $table->increments('IdPais');
-            $table->string('nombrePais',30);
-            $table->timestamps();
-        });
+      Schema::table('Transporte', function (Blueprint $table) {
+           $table->string('TieneAsientos',2)->nullable();
+               });
     }
 
     /**
@@ -27,6 +25,6 @@ class CreatePaisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Pais');
+        //
     }
 }

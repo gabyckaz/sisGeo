@@ -119,20 +119,25 @@
           </div>
           <div class="row">
             <label class=" col-md-12">Características</label>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
               <label class="">
               <input class="form-group" name="ac" type="checkbox" value="si" @if(old('ac')=="si") checked @endif checked>
               <i class="fa fa-thermometer-half"></i> Aire Acondicionado</label>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
               <label class="" >
-              <input class="form-group" name="tv" type="checkbox" value="si" @if(old('tv')=="si") checked @endif>
+              <input class="form-group" name="tv" type="checkbox" value="si" @if(old('tv')=="si") checked @endif  checked >
               <i class="fa fa-television"></i> TV</label>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
               <label  class=" form-group">
-              <input  class="form-group" name="wifi" type="checkbox" value="si" @if(old('wifi')=="si") checked @endif>
+              <input  class="form-group" name="wifi" type="checkbox" value="si" @if(old('wifi')=="si") checked @endif  checked >
               <i class="fa fa-wifi"  title="Wifi"></i> Wifi</label>
+            </div>
+            <div class="form-group col-md-3">
+              <label  class=" form-group">
+              <input  class="form-group" name="asientos" type="checkbox" value="si" @if(old('wifi')=="si") checked @endif  checked >
+              <i class="fa fa-user"  title="asientos"></i> Asientos Reclinables</label>
             </div>
           </div>
           <div class="row">
@@ -181,7 +186,7 @@
                   <td>{{ $transporte->EmpresaAlquilerTransporte->NombreEmpresaTransporte }}</td>
                   <td>{{ $transporte->tipotransporte->NombreTipoTransporte}} </td>
                   <td>{{ $transporte->NumeroAsientos }}</td>
-                  <td>@if($transporte->TieneAC=='si') <i class="fa fa-thermometer-half" aria-hidden="true" title="Aire acondicionado" ></i>@endif @if($transporte->TieneTV=='si') <i class="fa fa-television" aria-hidden="true" title="TV"></i>@endif @if($transporte->TieneWifi=='si') <i class="fa fa-wifi" aria-hidden="true" title="Wifi"></i>@endif</td>
+                  <td>@if($transporte->TieneAC=='si') <i class="fa fa-thermometer-half" aria-hidden="true" title="Aire acondicionado" ></i>@endif @if($transporte->TieneTV=='si') <i class="fa fa-television" aria-hidden="true" title="TV"></i>@endif @if($transporte->TieneWifi=='si') <i class="fa fa-wifi" aria-hidden="true" title="Wifi"></i>@endif  @if($transporte->TieneAsientos=='si') <i class="fa fa-user" aria-hidden="true" title="asientos"></i>@endif</td>
                   <td>{{ $transporte->ObservacionesTransporte }}</td>
                   <td><a class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editar"
                                        href="{{ route('adminTransporte.edit', $transporte )}}"></a>
