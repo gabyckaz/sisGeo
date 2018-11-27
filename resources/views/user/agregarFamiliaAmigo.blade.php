@@ -11,7 +11,6 @@
   @if($idTuristaUsuario == 'si')
           @if(session()->has('message'))
            <script type="text/javascript">
-            console.log("Hola");
              alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4>{{ session()->get('message') }} ');
             </script>
       @endif
@@ -90,7 +89,7 @@
        <div class="row">
          <div class="col-md-3">
            <div class="form-group">
-              <label for="Genero" class="col-sm-2 control-label">Genero*</label>
+              <label for="Genero" class="col-sm-2 control-label">Género*</label>
 
               <div class="">
                 <select  class="form-control" name="genero" id="genero" >
@@ -134,7 +133,7 @@
        </div>
         <div class="row">
           <div class="form-group col-md-8 has-feedback{{ $errors->has('Direccion') ? ' has-error' : '' }}">
-            <label for="observacionestransporte">Direccion*</label>
+            <label for="observacionestransporte">Dirección*</label>
             <div class="input-group">
             <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
               <textarea id="Direccion" type="text" class="form-control" name="Direccion" placeholder="Direccion" required autofocus>{{ old('Direccion') }}</textarea>
@@ -256,7 +255,7 @@
                         <thead class="thead-dark">
                          <th>Tipo</th>
                          <th>Nombre</th>
-                         <th>Genero</th>
+                         <th>Género</th>
                          <th>Nacionalidad</th>
                          <th>Opciones</th>
                         </thead>

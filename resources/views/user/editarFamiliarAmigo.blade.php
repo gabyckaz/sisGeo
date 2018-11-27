@@ -10,13 +10,11 @@
 @section('contenido')
    @if(session()->has('message'))
           <script type="text/javascript"> 
-           console.log("Hola");
            alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4>{{ session()->get('message') }} ');
           </script>
     @endif
     @if(session()->has('error'))
         <script type="text/javascript"> 
-           console.log("Hola");
            alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4>{{ session()->get('error') }} ');
         </script>
     @endif
@@ -78,7 +76,7 @@
        <div class="row">
          <div class="col-md-2">
            <div class="form-group">
-              <label for="Genero" class="col-sm-2 control-label">Genero*</label>
+              <label for="Genero" class="col-sm-2 control-label">Género*</label>
               
               <div class="">
                 <select  class="form-control" name="genero" id="genero" disabled >    
@@ -120,7 +118,7 @@
        </div>
              <div class="row">
           <div class="form-group col-md-8 has-feedback{{ $errors->has('Direccion') ? ' has-error' : '' }}">
-            <label for="observacionestransporte">Direccion*</label>
+            <label for="observacionestransporte">Dirección*</label>
             <div class="input-group">
             <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
               <textarea id="Direccion" type="text" class="form-control" name="Direccion" placeholder="Direccion">{{ old('Direccion',$turista->DomicilioTurista) }}</textarea>
@@ -234,19 +232,18 @@
       </div> 
        
            <div class="row">
-              
-              <div class="col-md-10 col-md-offset-4">
-                      <button type="submit" class="btn btn-info ">Editar</button>
-                      <!--button type="reset" class="btn btn-warning ">Limpiar</button -->
-                    </div>
-                    <!-- /.col -->
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-info  col-xs-12 col-sm-2 center-block"><STRONG>Actualizar</STRONG></button>
             </div>
+            <!-- /.col -->
+          </div>
+
          </form>
          </div>
          <div class="box-footer">
              <p>*Estos campos son obligatorios</p>
              <p>Es necesario ingresar almenos un documento si es mayor de edad</p>
-              </div>
+        </div>
       </div>
      </div> 
 @endsection

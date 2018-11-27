@@ -1,36 +1,40 @@
 @extends('master')
 
 @section('head')
-<h1>Hola Mundo</h1>
+<h1>Editar mi información</h1>
 
 @endsection
 @section('Title')
-<STRONG>Editar mi informacion de usuario</STRONG>
+<STRONG>Editar mi información de usuario</STRONG>
 @endsection
 @section('contenido')
-<!-- SELECT2 EXAMPLE -->
-
         <!-- /.box-header -->
         @if(session()->has('message'))
            <script type="text/javascript">
-            console.log("Hola");
               alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session()->get('message') }} ');
             </script>
          @endif
          @if(session()->has('ErrorEdadMenor'))
           <script type="text/javascript">
-            console.log("Hola");
               alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{ session()->get('ErrorEdadMenor') }} ');
             </script>
          @endif
    <!-- -->
+   <div class="box box-solid">
+  <div class="box-header">
+        <h3 class="box-title"><strong>Editar familiares o amigos</strong></h3>
+        <div class="box-tools pull-right">
+          <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
+        </div>
+      </div> 
+      <div class="box-body">
        <form id="miForm" method="POST" enctype="multipart/form-data" action="{{route('user.completar.informacion.store') }}">
         {!! method_field('PUT') !!}
         {!! csrf_field() !!}
         <div class="row">
             <div class="col-md-4">
               <div class="form-group has-feedback{{ $errors->has('avatar') ? ' has-error' : '' }}">
-                <label for="avatar" class="control-label">Imagen Para Perfil</label>
+                <label for="avatar" class="control-label">Imagen para perfil</label>
                     <input id='input1' type="file" name="avatar" style="width: 100%;">
                     @if ($errors->has('avatar'))
                        <span class="help-block">{{ $errors->first('avatar') }}</span>
@@ -42,7 +46,7 @@
         <div class="row">
           <div class="col-md-3">
             <div class="form-group has-feedback{{ $errors->has('PrimerNombrePersona') ? ' has-error' : '' }}" >
-                  <label for="input2" class="control-label">Primer Nombre*</label>
+                  <label for="input2" class="control-label">Primer nombre*</label>
                    <div class="input-group">
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
@@ -56,7 +60,7 @@
           </div>
           <div class="col-md-3">
             <div class="form-group">
-                  <label for="input3" class="control-label">Segundo Nombre</label>
+                  <label for="input3" class="control-label">Segundo nombre</label>
                    <div class="input-group">
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
@@ -67,7 +71,7 @@
           </div>
           <div class="col-md-3">
              <div class="form-group has-feedback{{ $errors->has('PrimerApellidoPersona') ? ' has-error' : '' }}" >
-                    <label for="input4" class="control-label">Primer Apellido*</label>
+                    <label for="input4" class="control-label">Primer apellido*</label>
                       <div class="input-group">
                         <div class="input-group-addon">
                          <i class="fa fa-user"></i>
@@ -81,7 +85,7 @@
           </div>
           <div class="col-md-3">
             <div class="form-group">
-                  <label for="input5" class="control-label">Segundo Apellido</label>
+                  <label for="input5" class="control-label">Segundo apellido</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                           <i class="fa fa-user"></i>
@@ -94,7 +98,7 @@
         <div class="row">
           <div class="col-md-3">
               <div class="form-group">
-                <label>Genero</label>
+                <label>Género</label>
                 <select name="Genero" class="form-control" style="width: 100%;" disabled>
                   <option {{ $usuario->persona->Genero == "M"   ? 'selected' : '' }}>Masculino</option>
                   <option {{ $usuario->persona->Genero == "F"   ? 'selected' : ''}}>Femenino</option>
@@ -104,7 +108,7 @@
              @if( $existeTurista == "si")
                  <div class="col-md-3">
                    <div class="form-group">
-                    <label for="fechaNacimiento" class="control-label">Fecha de Nacimiento*</label>
+                    <label for="fechaNacimiento" class="control-label">Fecha de nacimiento*</label>
                      <div class="input-group date ">
                         <div class="input-group-addon">
                            <i class="fa fa-calendar"></i>
@@ -117,7 +121,7 @@
                  @else
                   <div class="col-md-3">
                    <div class="form-group has-feedback{{ ( $errors->has('fechaNacimiento') || session()->has('ErrorFechaNac')) ? ' has-error' : '' }}">
-                    <label for="fechaNacimiento" class="control-label">Fecha de Nacimiento*</label>
+                    <label for="fechaNacimiento" class="control-label">Fecha de nacimiento*</label>
                      <div class="input-group date ">
                         <div class="input-group-addon">
                            <i class="fa fa-calendar"></i>
@@ -138,7 +142,7 @@
              @if($existeTurista == 'si')
              <div class="col-md-3">
               <div class="form-group ">
-                 <label for="dui" class="control-label">DUI </label>
+                 <label for="dui" class="control-label">DUI</label>
                        @if($documentos == 'duiPasaporte' || $documentos == 'dui')
                        @foreach($turista->documentos as $documento)
                            @if($documento->TipoDocumento == "DUI")
@@ -153,7 +157,7 @@
              </div>
              <div class="col-md-3">
                <div class="form-group has-feedback{{ session()->has('ErrorFechaVenceD')  ? ' has-error' : '' }}">
-                <label for="inputEmail3" class="control-label">Fecha de Vencimiento de DUI</label>
+                <label for="inputEmail3" class="control-label">Fecha de vencimiento</label>
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
@@ -193,7 +197,7 @@
              </div>
              <div class="col-md-3">
                <div class="form-group has-feedback{{  ( $errors->has('fechaVencimientoD') || session()->has('ErrorFechaVenceD') ) ? ' has-error' : '' }}">
-                <label for="inputEmail3" class="control-label">Fecha de Vencimiento de DUI</label>
+                <label for="inputEmail3" class="control-label">Fecha de vencimiento</label>
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
@@ -258,7 +262,7 @@
                  </div>
               <div class="col-md-3">
                <div class="form-group has-feedback{{ ( $errors->has('fechaVencimientoP') || session()->has('ErrorFechaVenceP') ) ? ' has-error' : '' }}">
-                <label for="fechaVencimientoP" class="control-label">Fecha de Vencimiento de Pasaporte</label>
+                <label for="fechaVencimientoP" class="control-label">Fecha de vencimiento</label>
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
@@ -296,7 +300,7 @@
                 </div>
               <div class="col-md-3">
                <div class="form-group has-feedback{{ ( $errors->has('fechaVencimientoP') || session()->has('ErrorFechaVenceP') ) ? ' has-error' : '' }}">
-                <label for="fechaVencimientoP" class="control-label">Fecha de Vencimiento de Pasaporte</label>
+                <label for="fechaVencimientoP" class="control-label">Fecha de vencimiento</label>
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
@@ -328,7 +332,7 @@
           </div>
            <div class="col-md-2">
               <div class="form-group">
-                <label>Cod. Area </label>
+                <label>Código de área </label>
                 <select name="AreaTelContacto" class="form-control" >
                   <option value="503" {{ $usuario->persona->AreaTelContacto == "503"  ? 'selected' : '' }}>503 - El Salvador</option>
                   <option value="501" {{ $usuario->persona->AreaTelContacto == "501"  ? 'selected' : '' }}>501 - Belize</option>
@@ -336,12 +340,12 @@
                   <option value="504" {{ $usuario->persona->AreaTelContacto == "504"  ? 'selected' : '' }}>504 - Honduras</option>
                   <option value="505" {{ $usuario->persona->AreaTelContacto == "505"  ? 'selected' : '' }}>505 - Nicaragua</option>
                   <option value="506" {{ $usuario->persona->AreaTelContacto == "506"  ? 'selected' : '' }}>506 - Costa Rica</option>
-                  <option value="507" {{ $usuario->persona->AreaTelContacto == "507"  ? 'selected' : '' }}>507 - Panama</option>
+                  <option value="507" {{ $usuario->persona->AreaTelContacto == "507"  ? 'selected' : '' }}>507 - Panamá</option>
                 </select>
               </div>
              </div>
              <div class="col-md-4">
-                  <label for="telefono" class="control-label">Telefono*</label>
+                  <label for="telefono" class="control-label">Teléfono*</label>
                   <div class="input-group">
                    <div class="input-group-addon">
                        <i class="fa fa-phone"></i>
@@ -354,7 +358,7 @@
          @if( $existeTurista == 'si')
           <div class="col-md-6">
               <div class="form-group has-feedback{{ $errors->has('direccion') ? ' has-error' : '' }}">
-                     <label for="direccion" class="control-label">Direccion*</label>
+                     <label for="direccion" class="control-label">Dirección*</label>
                      <div class="input-group">
                        <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                        <textarea   class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >{{ old('direccion',$turista->DomicilioTurista) }}</textarea>
@@ -376,7 +380,7 @@
           @else
             <div class="col-md-6">
               <div class="form-group has-feedback{{ $errors->has('direccion') ? ' has-error' : '' }}">
-                <label for="direccion" class="control-label">Direccion*</label>
+                <label for="direccion" class="control-label">Dirección*</label>
                 <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                 <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >{{ old('direccion') }}</textarea>
@@ -421,6 +425,21 @@
              </div>
 
         </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-4">
+            <div class="form-group has-feedback{{ $errors->has('preferencias') ? ' has-error' : '' }}">
+                <label name="preferencias" for="itinerario">Preferencias</label>
+                  <select class="form-control select2" multiple="multiple" name="preferencias[]" id="preferencias[]" >
+                  @foreach ($categorias as $cat)
+                  <option value="{{$cat->IdCategoria }}" {{ (collect(old('preferencias', $misPreferencias))->contains($cat->IdCategoria)) ? 'selected':'' }} >{{$cat->NombreCategoria}}</option>
+                  @endforeach
+                  </select>
+                  @if ($errors->has('preferencias'))
+                  <span class="help-block">{{ $errors->first('preferencias') }}</span>
+                @endif
+             </div>
+            </div>
+          </div>
 
          <div class="row">
             <div class="col-md-12">
@@ -430,9 +449,11 @@
           </div>
       </div>
     </form>
-     <!--div class="box-footer">
-        * Estos campos son obligatorios
-       <p>Es necesario ingresar almenos un documento</p>
-      </div -->
-   <!--  ->
+  </div>
+  <div class="box-footer">
+             <p>*Estos campos son obligatorios</p>
+             <p>Es necesario ingresar almenos un documento</p>
+        </div>
+</div>
+     
 @endsection

@@ -20,10 +20,15 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 //Rutas a las que puede accesar Administrador
 Route::group(['middleware' => ['role:Admin']], function() {
+  Route::get('/adminUser/agregarGuiaTuristico', ['as' => 'admin.agregar.guiaTuristico', 'uses' => 'AdminUsuariosController@crearGuiaTurisco']);
+  Route::put('/adminUser/agregarGuiaTuristico', ['as' => 'admin.agregar.guiaTuristico.store', 'uses' => 'AdminUsuariosController@almacenarGuiaTurisco']);
+  Route::get('/adminUser/{guia}/editarGuia', ['as' => 'user.editar.informacion.guia', 'uses' => 'AdminUsuariosController@editarInformacionGuia']);///
+  Route::put('/adminUser/editarGuia', ['as' => 'user.guardar.informacion.guiaEditado', 'uses' => 'AdminUsuariosController@guardarInformacionGuiaEditado']);///
   Route::resource('adminUser', 'AdminUsuariosController');
   Route::put('/adminUser/add-rol/{usuario}', ['as' => 'adminUser.role.add', 'uses' => 'AdminUsuariosController@agregarRol']);
   Route::put('/adminUser/del-rol/{usuario}', ['as' => 'adminUser.role.del', 'uses' => 'AdminUsuariosController@eliminarRol']);
   Route::put('/adminUser/cambiarEstado/{usuario}', ['as' => 'adminUser.state.change', 'uses' => 'AdminUsuariosController@cambiarEstado']);
+
 
 });
 
@@ -127,4 +132,6 @@ Route::group(['middleware' => ['guest']], function () {
 Route::group(['middleware' => ['role:Director']], function () {
   Route::get('/ActualizarEstadoPaquete', ['uses' => 'PaqueteController@cambiarEstado', 'as' => 'adminPaquete.estado']);
   Route::put('/ActualizarEstadoPaquete/{id}', ['uses' => 'PaqueteController@cambiarEstado2', 'as' => 'adminPaquete.estado2']);
+  Route::resource('adminMensaje', 'MensajeController');
+
 });

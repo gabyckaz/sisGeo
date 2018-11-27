@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Role;
+use App\Nacionalidad;
+use App\Empleado;
+use App\Persona;
+use App\Turista;
+use App\TipoDocumento;
 use DB;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AdminUsuariosController extends Controller
 {
@@ -186,10 +195,365 @@ class AdminUsuariosController extends Controller
 
          //  return "Hola mundo - ".$usuario->estado;
     }
+  }
 
+  public function crearGuiaTurisco()
+    {
+        $nacionalidad = nacionalidad::all();
+        $sql = 'SELECT e."IdEmpleadoGEO", p."PrimerNombrePersona",p."PrimerApellidoPersona",
+              p."AreaTelContacto", p."TelefonoContacto", n."Nacionalidad"
+            FROM public."Empleado" as e, public."personas" as p, public."Turista" as t, public."Nacionalidad" as n
+            WHERE e."IdPersona" = p."IdPersona" and t."IdPersona" = p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" ;';
+        $guias = DB::select($sql);
+        $guias = $this->arrayPaginator($guias);
 
+        return view("adminUser.crearGuiaTuristico", compact('nacionalidad','guias'));
+    }
 
-     }
+  public function almacenarGuiaTurisco(Request $request)
+    {   
+         $this->validate($request, [
+          "Nombre" => "required|alpha|min:3|max:25",
+          "apellido" => "required|alpha|min:3|max:25",
+          "fechaNacimiento" => "required",
+          "Direccion" => "required|min:10|max:100",
+          "TelefonoContacto" => "required",
+        ]); 
+           
+       
+         $hoystr = Carbon::now()->format('d-m-Y');
+         $hoyObj = Carbon::parse($hoystr);
+         $fechaIngresadaObj = Carbon::parse($request->fechaNacimiento);
+          if($fechaIngresadaObj >= $hoyObj ){
+            return redirect()->back()->withInput()->with('ErrorFechaNac', 'Error fecha incorrecta');
+          }
+       $edad = Carbon::parse($request->fechaNacimiento)->age;
 
+       if($edad < 18 ){
+        return redirect()->back()->withInput()->with('ErrorFechaNac', 'Error fecha incorrecta');
+       }
+/* Arreglar Cuando arreglen la tabla  */     
+      if($request->input("dui") == null && $request->input("pasaporte") == null){
+            $hola1 = "Debes introducir por lo menos un documento";
+       $this->validate($request, [
+          "Nombre" => "required|alpha|min:3|max:25",
+          "apellido" => "required|alpha|min:3|max:25",
+          "fechaNacimiento" => "required|date",
+          "Direccion" => "required|min:10|max:100",
+          "dui" => "required",
+          "pasaporte" => "required",
+        ]);
+     
+
+      //return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
+        }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
+          $hola1 = "Ingresastes los dos documentos";
+             $this->validate($request, [
+            "Nombre" => "required|alpha|min:3|max:25",
+            "apellido" => "required|alpha|min:3|max:25",
+            "fechaNacimiento" => "required|date",
+            "Direccion" => "required|min:10|max:100",
+            "fechaVencimentoD" => "required",
+            "fechaVencimentoP" => "required",
+           ]);
+             if(!$this->validaDui($request->dui)){
+            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
+           }
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           $fechaVencimientoIngresadaD = Carbon::parse($request->fechaVencimentoD);
+           $fechaVencimientoIngresadaP = Carbon::parse($request->fechaVencimentoP);
+          if($fechaVencimientoIngresadaD <= $hoyObj ){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
+          }
+          if($fechaVencimientoIngresadaP <= $hoyObj){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
+          }
+           
+        }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
+           $hola1 = "Solo Ingresastes El dui";
+           $this->validate($request, [
+              "Nombre" => "required|alpha|min:3|max:25",
+              "apellido" => "required|alpha|min:3|max:25",
+              "fechaNacimiento" => "required|date",
+              "Direccion" => "required|min:10|max:100",
+              "fechaVencimentoD" => "required",
+           ]);
+           if(!$this->validaDui($request->dui)){
+            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
+           }
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           $fechaVencimientoIngresadaD = Carbon::parse($request->fechaVencimentoD);
+          if($fechaVencimientoIngresadaD <= $hoyObj ){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
+          }
+
+         
+        }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
+           $hola1 = "Solo Ingresastes El pasaporte";
+           
+            $this->validate($request, [
+              "Nombre" => "required|alpha|min:3|max:25",
+              "apellido" => "required|alpha|min:3|max:25",
+              "fechaNacimiento" => "required|date",
+              "Direccion" => "required|min:10|max:100",
+              "fechaVencimentoP" => "required",
+           ]);
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           $fechaVencimientoIngresadaP = Carbon::parse($request->fechaVencimentoP);
+          if($fechaVencimientoIngresadaP <= $hoyObj){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
+            }
+          
+        }
+
+      $persona = Persona::create([
+            "PrimerNombrePersona" => $request->Nombre,
+            "SegundoNombrePersona" => $request->segundoNombre,
+            "PrimerApellidoPersona" => $request->apellido,
+            "SegundoApellidoPersona" => $request->segundoApellido,
+            "Genero" => $request->genero,
+            "AreaTelContacto"=> $request->AreaTelContacto,
+            "TelefonoContacto" => $request->TelefonoContacto,
+
+         ]);
+            $turista = Turista::create([
+              'IdNacionalidad'=> $request->nacionalidad,
+              'IdPersona' => $persona->IdPersona,
+              "FechaNacimiento" => $request->fechaNacimiento,
+              "CategoriaTurista"  => 'A',
+              "DomicilioTurista" => $request->Direccion,
+              "Problemas_Salud" => "ninguno",
+        ]);
+
+        if($request->input("dui") != null && $request->input("pasaporte") != null){
+          $hola1 = "Ingresastes los dos documentos";
+            $documentoDui = TipoDocumento::create([
+            "IdTurista" => $turista->IdTurista,
+            "TipoDocumento" => "DUI",
+            "NumeroDocumento" => $request->dui,
+            "FechaVenceDocumento" => $request->fechaVencimentoD,
+         ]);
+        $documentoPasaporte = TipoDocumento::create([
+            "IdTurista" => $turista->IdTurista,
+            "TipoDocumento" => "Pasaporte",
+            "NumeroDocumento" => $request->pasaporte,
+            "FechaVenceDocumento" => $request->fechaVencimentoP,
+         ]);
+        }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
+           $hola1 = "Solo Ingresastes El dui";
+           $documentoDui = TipoDocumento::create([
+            "IdTurista" => $turista->IdTurista,
+            "TipoDocumento" => "DUI",
+            "NumeroDocumento" => $request->dui,
+            "FechaVenceDocumento" => $request->fechaVencimentoD,
+         ]);
+
+        }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
+           $hola1 = "Solo Ingresastes El pasaporte";
+            $documentoPasaporte = TipoDocumento::create([
+            "IdTurista" => $turista->IdTurista,
+            "TipoDocumento" => "Pasaporte",
+            "NumeroDocumento" => $request->pasaporte,
+            "FechaVenceDocumento" => $request->fechaVencimentoP,
+         ]);
+        }
+
+        $empleado=new Empleado;
+       $empleado->IdPersona = $persona->IdPersona; 
+       $empleado->save();
+        return redirect()->route('admin.agregar.guiaTuristico')->with('message',' Agregado con éxito');
+    
+    }
+    public function editarInformacionGuia($id){
+       $nacionalidad = Nacionalidad::all(); 
+      $sql = 'SELECT e."IdEmpleadoGEO", e."IdPersona", p."PrimerNombrePersona", p."SegundoNombrePersona",
+              p."PrimerApellidoPersona", p."SegundoApellidoPersona", p."Genero", p."AreaTelContacto",
+              p."TelefonoContacto", n."Nacionalidad", t."FechaNacimiento", t."DomicilioTurista" , t."IdTurista", n."IdNacionalidad"
+              FROM public."Empleado" as e , public."personas" as p, public."Turista" as t, public."Nacionalidad" as n
+              WHERE e."IdEmpleadoGEO" = '.$id.' AND e."IdPersona" = p."IdPersona" AND p."IdPersona" = t."IdPersona" AND n."IdNacionalidad" = t."IdNacionalidad";';
+      $guia = DB::select($sql);
+       $documentos="";
+       $turista = Turista::find($guia[0]->IdTurista);
+        if($turista->documentos->count() == 2){
+            $documentos = "duiPasaporte";
+        }else{
+          foreach ($turista->documentos as $documento) {
+
+             if($documento->TipoDocumento=="DUI"){
+                $documentos= "dui";
+                break;
+                }
+            if($documento->TipoDocumento=="Pasaporte"){
+                $documentos= "pasaporte";
+                break;
+            }
+           }
+         }
+       return view('adminUser.editarGuiaTuristico', compact('turista','documentos','nacionalidad','guia'));
+    }
+    
+    public function guardarInformacionGuiaEditado(Request $request){
+
+      $this->validate($request, [
+          "Nombre" => "required|alpha|min:3|max:25",          
+          "Apellido" => "required|alpha|min:3|max:25",          
+          "fechaNacimiento" => "required",
+          "Direccion" => "required|min:10|max:100",
+          "TelefonoContacto" => "required",
+        ]); 
+
+        if($request->input("dui") == null && $request->input("pasaporte") == null){
+            $hola1 = "Debes introducir por lo menos un documento";
+       $this->validate($request, [
+          "Nombre" => "required|alpha|min:3|max:25",
+          "Apellido" => "required|alpha|min:3|max:25",
+          "fechaNacimiento" => "required|date",
+          "Direccion" => "required|min:10|max:100",
+          "dui" => "required",
+          "pasaporte" => "required",
+        ]);
+     
+
+      //return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
+        }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
+          $hola1 = "Ingresastes los dos documentos";
+             $this->validate($request, [
+            "Nombre" => "required|alpha|min:3|max:25",
+            "Apellido" => "required|alpha|min:3|max:25",
+            "fechaNacimiento" => "required|date",
+            "Direccion" => "required|min:10|max:100",
+            "fechaVencimentoD" => "required",
+            "fechaVencimentoP" => "required",
+           ]);
+             if(!$this->validaDui($request->dui)){
+            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
+           }
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           $fechaVencimientoIngresadaD = Carbon::parse($request->fechaVencimentoD);
+           $fechaVencimientoIngresadaP = Carbon::parse($request->fechaVencimentoP);
+          if($fechaVencimientoIngresadaD <= $hoyObj ){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
+          }
+          if($fechaVencimientoIngresadaP <= $hoyObj){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
+          }
+           
+        }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
+           $hola1 = "Solo Ingresastes El dui";
+           $this->validate($request, [
+              "Nombre" => "required|alpha|min:3|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
+              "fechaNacimiento" => "required|date",
+              "Direccion" => "required|min:10|max:100",
+              "fechaVencimentoD" => "required",
+           ]);
+           if(!$this->validaDui($request->dui)){
+            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
+           }
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           $fechaVencimientoIngresadaD = Carbon::parse($request->fechaVencimentoD);
+          if($fechaVencimientoIngresadaD <= $hoyObj ){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
+          }
+
+         
+        }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
+           $hola1 = "Solo Ingresastes El pasaporte";
+           
+            $this->validate($request, [
+              "Nombre" => "required|alpha|min:3|max:25",
+              "Apellido" => "required|alpha|min:3|max:25",
+              "fechaNacimiento" => "required|date",
+              "Direccion" => "required|min:10|max:100",
+              "fechaVencimentoP" => "required",
+           ]);
+           $hoystr = Carbon::now()->format('d-m-Y');
+           $hoyObj = Carbon::parse($hoystr);
+           $fechaVencimientoIngresadaP = Carbon::parse($request->fechaVencimentoP);
+          if($fechaVencimientoIngresadaP <= $hoyObj){
+            return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
+            }
+          
+        }
+
+          $turista = Turista::find($request->idTurista);          
+       //Actualizo a la persona
+          $persona = Persona::find($turista->IdPersona);
+          $persona->PrimerNombrePersona = $request->Nombre;
+          $persona->SegundoNombrePersona = $request->SegundoNombre;
+          $persona->PrimerApellidoPersona = $request->Apellido;
+          $persona->SegundoApellidoPersona = $request->SegundoApellido;
+          $persona->AreaTelContacto = $request->AreaTelContacto;
+          $persona->TelefonoContacto = $request->TelefonoContacto;
+          $persona->save();
+
+          $turista->DomicilioTurista = $request->Direccion;
+          $turista->save();
+      
+          if($request->input("dui") != null && $request->input("fechaVencimentoD") != null){
+           $dui = TipoDocumento::where('TipoDocumento','DUI')
+            ->where('IdTurista',$turista->IdTurista)->first();
+            if($dui == null){
+              $dui = TipoDocumento::create([
+                "IdTurista" => $turista->IdTurista,
+                "TipoDocumento" => "DUI",
+                "NumeroDocumento" => $request->dui,
+                "FechaVenceDocumento" => $request->fechaVencimentoD,
+             ]);
+            }else{
+            $dui->FechaVenceDocumento = $request->fechaVencimentoD;
+            $dui->save();
+            }
+         }
+        
+         if($request->input("pasaporte") != null && $request->input("fechaVencimentoP") != null){ 
+            $pasaporte = TipoDocumento::where('TipoDocumento','Pasaporte')
+            ->where('IdTurista',$turista->IdTurista)->first();
+            if($pasaporte == null){
+                $pasaporte = TipoDocumento::create([
+                "IdTurista" => $turista->IdTurista,
+                "TipoDocumento" => "Pasaporte",
+                "NumeroDocumento" => $request->pasaporte,
+                "FechaVenceDocumento" => $request->fechaVencimentoP,
+         ]);
+
+            }else{
+            $pasaporte->FechaVenceDocumento = $request->fechaVencimentoP;
+            $pasaporte->save();
+            }
+
+          }
+      return redirect()->route('admin.agregar.guiaTuristico')->with('message',' Informacion actualizada con éxito');
+    }
+
+      public function arrayPaginator($array)
+{
+    $page = Input::get('page', 1);
+    $perPage = 10;
+    $offset = ($page * $perPage) - $perPage;
+
+    return new LengthAwarePaginator(array_slice($array, $offset, $perPage, true), count($array), $perPage, $page,
+        ['path' => 'agregarGuiaTuristico']);
+}
+
+     public function validaDui($dui){  
+      $separador ='-';
+      $partesDui = explode('-', $dui);
+      $numeroDui = $partesDui[0];
+      $digitoVerificador = $partesDui[1];
+      $arrayNumeroDui = str_split($numeroDui);  
+      $suma = (9*$arrayNumeroDui[0])+(8*$arrayNumeroDui[1])+(7*$arrayNumeroDui[2])+(6*$arrayNumeroDui[3])+(5*$arrayNumeroDui[4])+(4*$arrayNumeroDui[5])+(3*$arrayNumeroDui[6])+(2*$arrayNumeroDui[7]);
+      $moduloDiv = $suma%10;
+      $resta = 10-$moduloDiv;
+      if($resta == 0 || $resta == $digitoVerificador || $moduloDiv == 0){
+        return true;
+      }
+      return false;
+ }
 
 }
