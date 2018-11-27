@@ -11,6 +11,7 @@ use App\Turista;
 use App\TipoDocumento;
 use App\Acompanante;
 use Carbon\Carbon;
+use App\Categoria;
 use Illuminate\Support\Facades\Storage;
 //use Illuminate\Support\Facades\Paginator;
 //use Illuminate\Pagination\Paginator;
@@ -160,10 +161,14 @@ class userController extends Controller
         //$d = TipoDocumento::find(1)->get();
         //dd($d);
         $documentos="";
+        $misPreferencias = array();
         if($turista == null){
          $existeTurista = "no";
         }else{
          $existeTurista = "si";
+        if(strlen( $turista->IdsCategoriasStr ) > 0 && $turista->IdsCategoriasStr != null){
+          $misPreferencias = explode(",", $turista->IdsCategoriasStr);
+        }
          if($turista->documentos->count() == 2){
             $documentos = "duiPasaporte";
         }else{
@@ -182,13 +187,13 @@ class userController extends Controller
         }
         $usuario = User::findOrFail(auth()->user()->id);
         $nacionalidad = Nacionalidad::all();
+        $categorias = Categoria::all();
 
-
-        return view('user.completarInformacionUsuario', compact('usuario','nacionalidad' ,'existeTurista','turista','documentos'));
+        return view('user.completarInformacionUsuario', compact('usuario','nacionalidad' ,'existeTurista','turista','documentos','categorias','misPreferencias'));
     }
 
      public function completarInformacion(Request $request)
-    {
+    { 
         $documentos = "";
         $existeTurista ="";
         $edad = Carbon::parse($request->fechaNacimiento)->age;
@@ -205,7 +210,8 @@ class userController extends Controller
             "fechaNacimiento" => "required", 
             "dui" => "required",
             "pasaporte" => "required",
-            "direccion" => "required|min:10|max:100",           
+            "direccion" => "required|min:10|max:100",
+            "preferencias" => "required",         
           ]);      
             return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
         }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
@@ -218,6 +224,7 @@ class userController extends Controller
              "fechaVencimientoD" => "required",
              "fechaVencimientoP" => "required",
              "direccion" => "required|min:10|max:100",
+             "preferencias" => "required", 
            ]);
             if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
@@ -242,6 +249,7 @@ class userController extends Controller
               "fechaNacimiento" => "required", 
               "fechaVencimientoD" => "required",
               "direccion" => "required|min:10|max:100",
+              "preferencias" => "required", 
            ]);
            if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
@@ -263,6 +271,7 @@ class userController extends Controller
              "fechaNacimiento" => "required", 
              "fechaVencimientoP" => "required",
              "direccion" => "required|min:10|max:100",
+             "preferencias" => "required", 
            ]);
            $hoystr = Carbon::now()->format('d-m-Y');
            $hoyObj = Carbon::parse($hoystr);
@@ -329,6 +338,11 @@ class userController extends Controller
               "DomicilioTurista" => $request->direccion,
               "Problemas_Salud" => $request->psalud,
         ]);
+         if(count($request->preferencias) > 0){
+          $str_ids = implode(",", $request->preferencias);
+            $turista->IdsCategoriasStr = $str_ids;
+            $turista->save();
+          }
 
          if($request->input("dui") != null && $request->input("pasaporte") != null){
           $hola1 = "Ingresastes los dos documentos";
@@ -420,7 +434,12 @@ class userController extends Controller
           $turista->DomicilioTurista = $request->direccion;
           $turista->Problemas_Salud = $request->psalud;
           $turista->save();
-
+          if(count($request->preferencias) > 0){
+          $str_ids = implode(",", $request->preferencias);
+            $turista->IdsCategoriasStr = $str_ids;
+            $turista->save();
+          }
+         
         //Actualizo documentos o los creo si no existen
          if($request->input("dui") != null && $request->input("fechaVencimientoD") != null){
            $dui = TipoDocumento::where('TipoDocumento','DUI')
@@ -476,9 +495,14 @@ class userController extends Controller
 
        // $usuario = User::findOrFail(auth()->user()->id);
         $nacionalidad = Nacionalidad::all();
+        $categorias = Categoria::all();
+        if((strlen( $turista->IdsCategoriasStr ) > 0 && $turista->IdsCategoriasStr != null)){
+          $misPreferencias = explode(",", $turista->IdsCategoriasStr);
+        }
+        
 
       // return view('user.completarInfoUserTurista', compact('usuario','nacionalidad' ,'existe'));
-      return redirect()->route('usuario.completar.informacion',compact('usuario','nacionalidad' ,'existeTurista','documentos'))->with('message','Informacion Actualizada');
+      return redirect()->route('usuario.completar.informacion',compact('usuario','nacionalidad' ,'existeTurista','documentos','categorias','misPreferencias'))->with('message','Informacion Actualizada');
 
     }
 

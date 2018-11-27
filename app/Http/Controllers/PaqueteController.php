@@ -23,8 +23,12 @@ use App\ImagenPaqueteTuristico;
 use App\Transporte;
 use App\Conductor;
 use Illuminate\Support\Facades\Storage;
+use App\Events\MessageWasRecived;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
+use App\Mail\MensajeGeoturismo;
+use App\Mensaje;
+
 
 
 class PaqueteController extends Controller
@@ -719,6 +723,10 @@ class PaqueteController extends Controller
               ->with('status',"Actualizado con éxito")->with('paquetes',$paquetes);
 
       }else {
+            $mensaje = new Mensaje();
+            $mensaje->url = $id;
+            event (new MessageWasRecived($mensaje));
+
         DB::table('Paquetes')->where('IdPaquete', $id)->update(array('AprobacionPaquete' => '1'));
         return redirect('/ActualizarEstadoPaquete')
               ->with('status',"Actualizado con éxito")->with('paquetes',$paquetes);

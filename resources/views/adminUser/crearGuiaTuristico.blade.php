@@ -1,28 +1,30 @@
 @extends('master')
 
 @section('head')
-<h1>Acompañantes</h1>
+<h1>Guías turísticios</h1>
 
 @endsection
 @section('Title')
-<STRONG>Agregar familiares o amigos</STRONG>
+<STRONG>Agregar Guías Turístico</STRONG>
 @endsection
 @section('contenido')
-  @if($idTuristaUsuario == 'si')
+
           @if(session()->has('message'))
            <script type="text/javascript">
+            console.log("Hola");
              alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4>{{ session()->get('message') }} ');
             </script>
-      @endif
+          @endif
    <div class="col-md-8 col-md-offset-2">
-     @if($errors->first('Nombre') ||
-         $errors->first('Apellido') ||
+    @if($errors->first('Nombre') ||
+         $errors->first('apellido') ||
          $errors->first('fechaNacimiento') ||
          $errors->has('pasaporte') ||
          $errors->has('dui') ||
          $errors->has('fechaVencimentoD') ||
          $errors->first('fechaVencimentoP') ||
          $errors->first('Direccion') ||
+         $errors->first('TelefonoContacto') ||
          session()->has('ErrorFechaNac') ||
          session()->has('Errordui') ||
          session()->has('ErrorFechaVenceD') ||
@@ -30,35 +32,25 @@
 
       )
       <div class="box box-solid">
-     @else
+      @else
      <div class="box box-warning collapsed-box">
      @endif
+    
       <div class="box-header">
-        <h3 class="box-title"><STRONG>Agregar familiares o amigos</STRONG></h3>
+        <h3 class="box-title"><STRONG>Agregar guias turisticos</STRONG></h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
         </div>
       </div>
       <div class="box-body">
 
-    <form id="miForm" method="POST" action="{{route('user.agregar.familiarAmigo.store') }}">
+    <form id="miForm" method="POST" action="{{route('admin.agregar.guiaTuristico.store') }}">
       {!! method_field('PUT') !!}
       {!! csrf_field() !!}
        <div class="row">
-         <div class="col-md-3">
-          <div class="form-group">
-            <label for="tipo" class="control-label">Tipo*</label>
-              <div class="">
-                <select  class="form-control" name="tipo" id="tipo" >
-                 <option value="A" @if (old('tipo') == "A") {{ 'selected' }} @endif>Amigo</option>
-                 <option value="F" @if (old('tipo') == "F") {{ 'selected' }} @endif>Familiar</option>
-               </select>
-             </div>
-           </div>
-         </div>
-         <div class="col-md-3">
+         <div class="col-md-4">
             <div class="form-group has-feedback{{ $errors->has('Nombre') ? ' has-error' : '' }}">
-               <label for="Nombre" class="control-label">Nombre*</label>
+               <label for="Nombre" class="control-label">Primer nombre*</label>
                   <div class="input-group">
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
@@ -71,20 +63,49 @@
             </div>
          </div>
          <div class="col-md-4">
+            <div class="form-group has-feedback{{ $errors->has('segundoNombre') ? ' has-error' : '' }}">
+               <label for="segundo Nombre" class="control-label">Segundo nombre</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                       <i class="fa fa-user"></i>
+                    </div>
+                    <input type="text" name="segundoNombre" class="form-control"  id="segundoNombre" placeholder="Segundo Nombre" value="{{old('segundoNombre')}}" >
+                  </div>
+                  @if ($errors->has('Nombre'))
+                       <span class="help-block">{{ $errors->first('segundoNombre') }}</span>
+                    @endif
+            </div>
+         </div>
+       </div>
+       <div class="row">
+          <div class="col-md-4">
             <div class="form-group has-feedback{{ $errors->has('Apellido') ? ' has-error' : '' }}">
-              <label for="Apellido" class="control-label">Apellido*</label>
+              <label for="Apellido" class="control-label">Primer apellido*</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                  <input type="text" name="Apellido" class="form-control" id="Apellido" placeholder="Apellido" value="{{ old('Apellido') }}" required>
+                  <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Apellido" value="{{ old('apellido') }}" required>
                 </div>
-                @if ($errors->has('Apellido'))
-                       <span class="help-block">{{ $errors->first('Apellido') }}</span>
+                @if ($errors->has('apellido'))
+                       <span class="help-block">{{ $errors->first('apellido') }}</span>
                   @endif
             </div>
          </div>
-
+          <div class="col-md-4">
+            <div class="form-group has-feedback{{ $errors->has('segundopellido') ? ' has-error' : '' }}">
+              <label for="SegundoApellido" class="control-label">Segundo apellido</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                       <i class="fa fa-user"></i>
+                    </div>
+                  <input type="text" name="segundoApellido" class="form-control" id="SegundoApellido" placeholder="Segundo apellido" value="{{ old('segundoApellido') }}" >
+                </div>
+                @if ($errors->has('segundoApellido'))
+                       <span class="help-block">{{ $errors->first('segundoApellido') }}</span>
+                  @endif
+            </div>
+         </div>
        </div>
        <div class="row">
          <div class="col-md-3">
@@ -130,6 +151,37 @@
                 </div>
           </div>
         </div>
+       </div>
+       <div class="row">
+           <div class="col-md-3">
+              <div class="form-group">
+                <label>Código de área</label>
+                <select name="AreaTelContacto" class="form-control" >
+                  <option value="503" >503 - El Salvador</option>
+                  <option value="501" >501 - Belize</option>
+                  <option value="502" >502 - Guatemala</option>
+                  <option value="504" >504 - Honduras</option>
+                  <option value="505" >505 - Nicaragua</option>
+                  <option value="506" >506 - Costa Rica</option>
+                  <option value="507" >507 - Panamá</option>
+                </select>
+              </div>
+             </div>
+             <div class="col-md-4">
+                 <div class="form-group has-feedback{{ $errors->has('TelefonoContacto')  ? ' has-error' : '' }}">
+                  <label for="telefono" class="control-label">Teléfono*</label>
+                  <div class="input-group">
+                   <div class="input-group-addon">
+                       <i class="fa fa-phone"></i>
+                   </div>
+                    <input type="text" name="TelefonoContacto" class="form-control"  id="telefono" value="{{ old('TelefonoContacto')}}" placeholder="Telefono">
+                </div> @if ($errors->has('TelefonoContacto'))
+            <span class="help-block">{{ $errors->first('TelefonoContacto') }}</span>
+            @endif
+
+             </div>
+         
+       </div>
        </div>
         <div class="row">
           <div class="form-group col-md-8 has-feedback{{ $errors->has('Direccion') ? ' has-error' : '' }}">
@@ -215,19 +267,6 @@
         </div>
       </div>
 
-       <div class="row">
-          <div class="form-group col-md-8 has-feedback{{ $errors->has('psalud') ? ' has-error' : '' }}">
-            <label for="psalud">Problemas de salud</label>
-            <div class="input-group">
-            <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-              <textarea id="psalud" type="text" class="form-control" name="psalud" placeholder="ninguno">{{ old('psalud') }}</textarea>
-            </div>
-            @if ($errors->has('psalud'))
-            <span class="help-block">{{ $errors->first('psalud') }}</span>
-            @endif
-          </div>
-      </div>
-
            <div class="row">
 
               <div class="col-md-10 col-md-offset-4">
@@ -236,71 +275,43 @@
                     </div>
                     <!-- /.col -->
             </div>
-         </form>
-         </div>
-         <div class="box-footer">
-               <p>*Estos campos son obligatorios</p>
-              <p>Es necesario un documento para mayores de edad</p>
-         </div>
+        </form>
+      </div>
+        <div class="box-footer">
+           <p>*Estos campos son obligatorios</p>
+        </div>
       </div>
      </div>
        <div class="col-md-8  col-md-offset-2">
         <div class="box box-warning">
         <div class="box-header">
-          <h3 class="box-title"><STRONG>Mis familiares y mis amigos</STRONG></h3>
+          <h3 class="box-title"><STRONG>Guías turísticos</STRONG></h3>
           </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                      <table class="table table-striped table-bordered table-hover" id="tblAgregarFamiliarAmigo" >
+                      <table class="table table-striped table-bordered table-hover" id="tblAgregarGuia" >
                         <thead class="thead-dark">
-                         <th>Tipo</th>
                          <th>Nombre</th>
-                         <th>Género</th>
+                         <th>Teléfono</th>
                          <th>Nacionalidad</th>
                          <th>Opciones</th>
                         </thead>
                           <tbody>
-                            @foreach($familiaAmigos as $familiaAmigo)
+                             @foreach($guias as $guia)
                              <tr>
-                               @if(strtoupper($familiaAmigo->EsFamiliar) == strtoupper("a"))
-                                <td>Amigo</td>
-                               @endif
-                               @if(strtoupper($familiaAmigo->EsFamiliar) == strtoupper("f"))
-                                <td>Familia</td>
-                               @endif
-                               @if(strtoupper($familiaAmigo->EsFamiliar) == strtoupper("af"))
-                                <td>Usuario</td>
-                               @endif
-                               <td>{{ ucfirst(strtolower($familiaAmigo->PrimerNombrePersona)) }}  {{ ucfirst(strtolower($familiaAmigo->PrimerApellidoPersona)) }}</td>                               
-                               @if($familiaAmigo->Genero == "M")
-                                <td>Masculino</td>
-                               @else
-                                <td>Femenino</td>
-                               @endif
-                               <td>{{ $familiaAmigo->Nacionalidad }}</td>
-                               <td>
-                                @if(strtoupper($familiaAmigo->EsFamiliar) == strtoupper("af"))
-                                <a href="{{ route('usuario.completar.informacion') }}" class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editar"></a>
-                                @else
-                                 <a class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editar"
-                                 href="{{ route('user.editar.informacion.familaAmigo', $familiaAmigo->IdTurista) }}"></a>
-                                 @endif
-                               </td>
+                                <td>{{ ucfirst(strtolower($guia->PrimerNombrePersona)) }}  {{ ucfirst(strtolower($guia->PrimerApellidoPersona)) }}</td>
+                                <td>({{$guia->AreaTelContacto}}){{$guia->TelefonoContacto}}</td>                           
+                                <td>{{$guia->Nacionalidad}}</td>
+                                <td><a class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editar guia"
+                                href="{{ route('user.editar.informacion.guia', $guia->IdEmpleadoGEO) }}"></a></td>
                             </tr>
-                            @endforeach
+                             @endforeach 
                           </tbody>
                       </table>
-                      <center>{{ $familiaAmigos->links() }}</center>
+                      <center>{{ $guias->links() }} </center>
 
                   </div>
                 </div>
-@else
-<div class="row">
-  <div class="col-md-12 col-md-offset-2">
-   <h2><a href="{{ route('usuario.completar.informacion') }}">
-     Debes completar tu informacion para poder continuar. :)
-   </a></h2>
-  </div>
-</div>
-@endif
+              </div>
+            </div>
 @endsection
