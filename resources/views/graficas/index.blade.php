@@ -9,7 +9,7 @@
 <title>Make Google Pie Chart in Laravel</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> -->
 
 <!-- Grafica de Generos -->
 <script type="text/javascript">
@@ -140,6 +140,37 @@ var categorias = <?php echo $categorias; ?>
     chart.draw(data, options);
   }
 </script>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="box box-warning collapsed-box">
+      <div class="box-header">
+        <h3 class="box-title"><STRONG>Cumpleañeros del mes: {{$total_cumples}}</STRONG></h3>
+        <div class="box-tools pull-right">
+          <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered table-hover" id=tablaCumples>
+            <thead class="thead-dark">
+              <tr>
+                <th class="text-center">Nombre</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($cumples as $cumple)
+                <tr>
+                  <td>{{$cumple->PrimerNombrePersona}} {{$cumple->PrimerApellidoPersona}}</td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Para imprimir gráfica -->
 <script type="text/javascript">

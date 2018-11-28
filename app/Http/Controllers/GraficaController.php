@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use DateTime;
+use Carbon;
 
 class GraficaController extends Controller
 {
@@ -115,11 +116,27 @@ class GraficaController extends Controller
        $costosarray[++$key] = [$value->mes, $value->number];
       }
 
+      //Listado de cumpleañeros del mes
+      $mes_actual = Carbon\Carbon::now()->format('m');
+      $cumples= DB::table('Turista')
+        ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
+        ->select('personas.PrimerNombrePersona','personas.PrimerApellidoPersona' )
+        ->where(
+          DB::raw('EXTRACT(MONTH FROM "FechaNacimiento")'), '=', $mes_actual)
+        ->get();
+      $total_cumples= DB::table('Turista')
+        ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
+        ->where(
+          DB::raw('EXTRACT(MONTH FROM "FechaNacimiento")'), '=', $mes_actual)
+        ->count();
+
      return view('graficas.index')
             ->with('genero', json_encode($array))
             ->with('pais', json_encode($paisesarray))
             ->with('paquete', json_encode($paquetesarray))
             ->with('categorias', json_encode($categoriasarray,JSON_UNESCAPED_UNICODE))
-            ->with('costos', json_encode($costosarray));
+            ->with('costos', json_encode($costosarray))
+            ->with('cumples', $cumples)
+            ->with('total_cumples', $total_cumples);
     }
 }
