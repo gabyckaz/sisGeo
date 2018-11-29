@@ -116,19 +116,65 @@ class GraficaController extends Controller
        $costosarray[++$key] = [$value->mes, $value->number];
       }
 
-      //Listado de cumpleañeros del mes
+      //Listado de cumpleañeros del mes (usuarios activos)
       $mes_actual = Carbon\Carbon::now()->format('m');
       $cumples= DB::table('Turista')
         ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
-        ->select('personas.PrimerNombrePersona','personas.PrimerApellidoPersona' )
-        ->where(
-          DB::raw('EXTRACT(MONTH FROM "FechaNacimiento")'), '=', $mes_actual)
+        ->join('users', 'personas.IdPersona', '=', 'users.IdPersona')
+        ->select('personas.PrimerNombrePersona','personas.PrimerApellidoPersona','Turista.FechaNacimiento' )
+        ->where([
+          [DB::raw('EXTRACT(MONTH FROM "FechaNacimiento")'), '=', $mes_actual],
+          ['EstadoUsuario', '=', '1'],
+         ])
         ->get();
+
+      //Total de cumpleañeros del mes (usuarios activos)
       $total_cumples= DB::table('Turista')
         ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
-        ->where(
-          DB::raw('EXTRACT(MONTH FROM "FechaNacimiento")'), '=', $mes_actual)
+        ->join('users', 'personas.IdPersona', '=', 'users.IdPersona')
+        ->where([
+          [DB::raw('EXTRACT(MONTH FROM "FechaNacimiento")'), '=', $mes_actual],
+          ['EstadoUsuario', '=', '1'],
+         ])
         ->count();
+
+      $mes_actual=DateTime::createFromFormat('!m', $mes_actual);
+      $mes_actual=strftime("%B",$mes_actual->getTimestamp());
+      $mes_actual=ucfirst($mes_actual);
+
+      //Últimos usuarios registrados
+      $ultimos_usuarios= DB::table('users')
+        ->select('name',
+          DB::raw("TO_CHAR(created_at, 'FMDD Mon HH24:MI') as fecha"),
+          'avatar')
+        ->orderBy('created_at','desc')
+        ->limit(8)
+        ->get();
+
+      //Grafica de nuevos usuarios por mes
+      $nuevos_usuarios= DB::table('users')
+        ->select(
+          DB::raw('EXTRACT(MONTH FROM created_at) as mes'),
+          DB::raw('COUNT(EXTRACT(MONTH FROM created_at)) as number')
+          )
+        ->groupBy(
+          DB::raw('EXTRACT(MONTH FROM created_at)')
+          )
+        ->orderBy('mes','asc')
+        ->get();
+
+        $nuevosarray[] = ['Mes', 'Usuarios'];
+        foreach($nuevos_usuarios as $key => $value)
+        {
+          $value->mes=DateTime::createFromFormat('!m', $value->mes);
+          $value->mes=strftime("%B",$value->mes->getTimestamp());
+          $value->mes=ucfirst($value->mes);
+        }
+        foreach($nuevos_usuarios as $key => $value)
+        {
+         $nuevosarray[++$key] = [$value->mes, $value->number];
+        }
+
 
      return view('graficas.index')
             ->with('genero', json_encode($array))
@@ -137,6 +183,9 @@ class GraficaController extends Controller
             ->with('categorias', json_encode($categoriasarray,JSON_UNESCAPED_UNICODE))
             ->with('costos', json_encode($costosarray))
             ->with('cumples', $cumples)
-            ->with('total_cumples', $total_cumples);
+            ->with('total_cumples', $total_cumples)
+            ->with('mes_actual', $mes_actual)
+            ->with('usuarios', $ultimos_usuarios)
+            ->with('nuevos_usuarios',  json_encode($nuevosarray,JSON_UNESCAPED_UNICODE));
     }
 }
