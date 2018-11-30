@@ -409,16 +409,12 @@ desired effect
             <li><a href="{{ route('adminOpcionesPaquete.create')}}">
               <i class="fa fa-star"></i>
               Opciones Paquete</a></li>
-            @role('Director')
             <li><a href="{{ route('adminPaquete.estado')}}">
               <i class="fa fa-star"></i>
               Aprobar Paquete Turistico</a></li>
-            @endrole
-            @role(['Director','Agente'])
             <li><a href="{{ route('adminPaquete.costos.index')}}">
               <i class="fa fa-star"></i>
               Agregar Costos de Transporte</a></li>
-            @endrole
         </ul>
     </li>
     <li class="treeview {{ (request()->is('adminEmpresaTransporte') || request()->is('adminTipoTransporte') || request()->is('adminTransporte')) ? 'active' : '' }}">

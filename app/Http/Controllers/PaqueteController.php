@@ -707,8 +707,12 @@ class PaqueteController extends Controller
     public function cambiarEstado(Request $request)
     {
       //$aprobacionpaquete = Paquete::where('paquete_id',$id)->update(array('AprobacionPaquete' => $request->aprobacionpaquete));
-      $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(10);
-
+      //$paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(10);
+      $paquetes = DB::table('Paquetes')
+        ->select('IdPaquete','NombrePaquete','FechaSalida','AprobacionPaquete','DisponibilidadPaquete')
+        //->where('DisponibilidadPaquete','=',0)
+        ->orderBy('AprobacionPaquete', 'desc')
+        ->get();
       return view('adminPaquete.estado', compact('paquetes'));
 
     }
@@ -735,6 +739,17 @@ class PaqueteController extends Controller
       }
     }
 
+    /**
+    * Método para publicar los paquetes
+    */
+    public function publicar(Request $request, $id)
+    {
+      $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(10);
+      $paquete = Paquete::where('IdPaquete',$id)->first();
+      DB::table('Paquetes')->where('IdPaquete', $id)->update(array('DisponibilidadPaquete' => '1'));
+      return redirect('/ActualizarEstadoPaquete')
+            ->with('status',"Publicado con éxito")->with('paquetes',$paquetes);
+    }
 
     /**
     * Método para generar PDF de paquetes

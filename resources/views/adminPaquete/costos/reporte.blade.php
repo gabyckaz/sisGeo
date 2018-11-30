@@ -23,7 +23,7 @@
         @foreach($costos as $costo)
           <tr>
             <td style="max-width: 10px; overflow: hidden; white-space: wrap;">{{$costo->NombrePaquete}}</td>
-            <td style="max-width: 100px; overflow: hidden; white-space: wrap;">{{$costo->FechaSalida }}</td>
+            <td style="max-width: 100px; overflow: hidden; white-space: wrap;">{{ \Carbon\Carbon::parse($costo->FechaSalida)->format('d/m/Y')}}</td>
             <td style="max-width: 100px; overflow: hidden; white-space: wrap;">{{$costo->CostoAlquilerTransporte}}</td>
           </tr>
         @endforeach

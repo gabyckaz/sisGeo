@@ -185,7 +185,7 @@ h4 span {
           <div class="inner" style="text-align:center;display:block;">
             <a style="color:#4c5b51; font-weight:bold;align:center" href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}">{{ $paquete->NombrePaquete }} </a></h3>
             <div class="box-body">
-              <p style="color:#4c5b51">Fecha de salida: {{ $paquete->FechaSalida}}</p>
+              <p style="color:#4c5b51">Fecha de salida: {{ \Carbon\Carbon::parse($paquete->FechaSalida)->format('d/m/Y')}}</p>
             </div>
           </div><!-- /.inner-->
           <a href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}" class="small-box-footer">
