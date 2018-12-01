@@ -16,5 +16,10 @@ class DatabaseSeeder extends Seeder
         $this->call('PaisSeeder');
         $this->call('NacionalidadSeeder');
         $this->call('RolesSeeder');
+        $this->call('MensajeSeeder');
+        $this->call('PersonasSeeder');
+        $this->call('UserSeeder');
+        $this->call('RolesUserSeeder');
+        $this->call('CategoriaSeeder');
     }
 }
