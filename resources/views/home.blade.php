@@ -161,39 +161,40 @@ h4 span {
   <div class="row">
     <div class="col-md-12">
       @foreach($paquetes as $paquete)
-      @if($paquete->compara_fechas == 2 && $paquete->AprobacionPaquete == 1 && $paquete->DisponibilidadPaquete == 1)
-      <div class="col-sm-4 ">
-       <div class="fadein figure">
-        <!-- muestra 1 imagen de cada paquete-->
-        @foreach ($imagenes as $key=>$imagen)
-          @php  $key=0 @endphp
-          @if($imagen->id_paquete == $paquete->IdPaquete )
-          @php  ++$key @endphp
-            <a href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}">
-              <img src="{{Storage::url($imagen->Imagen1)}}" class="responsive figure"/>
-            </a>
-          @endif
-          @if($key == 1)
-            @break
-          @endif
-        @endforeach
-        </div>
-        <!-- /muestra 1 imagen de cada paquete-->
-        <!-- box info de cada paquete-->
-        <div class="small-box  disabled color-palette" style="background-color:#9CC1A9">
-          <span class=" label" style="background:#568D51;text-align:right">{{$paquete->ruta->pais->nombrePais}}</span>
-          <div class="inner" style="text-align:center;display:block;">
-            <a style="color:#4c5b51; font-weight:bold;align:center" href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}">{{ $paquete->NombrePaquete }} </a></h3>
-            <div class="box-body">
-              <p style="color:#4c5b51">Fecha de salida: {{ \Carbon\Carbon::parse($paquete->FechaSalida)->format('d/m/Y')}}</p>
+        @if($paquete->compara_fechas == 2 && $paquete->AprobacionPaquete == 1 && $paquete->DisponibilidadPaquete == 1)
+          <div class="col-sm-4 ">
+           <div class="fadein figure">
+            <!-- muestra 1 imagen de cada paquete-->
+            @foreach ($imagenes as $key=>$imagen)
+              @php  $key=0 @endphp
+              @if($imagen->id_paquete == $paquete->IdPaquete )
+              @php  ++$key @endphp
+                <a href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}">
+                  <img src="{{Storage::url($imagen->Imagen1)}}" class="responsive figure"/>
+                </a>
+              @endif
+              @if($key == 1)
+                @break
+              @endif
+            @endforeach
             </div>
-          </div><!-- /.inner-->
-          <a href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}" class="small-box-footer">
-            Leer más <i class="fa fa-arrow-circle-right"></i>
-          </a>
-        </div> <!--/ box info de cada paquete-->
-      </div><!-- /. colm-d-->
-      @endif
+            <!-- /muestra 1 imagen de cada paquete-->
+            <!-- box info de cada paquete-->
+            <div class="small-box  disabled color-palette" style="background-color:#9CC1A9">
+              <span class=" label" style="background:#568D51;text-align:right">{{$paquete->ruta->pais->nombrePais}}</span>
+              <div class="inner" style="text-align:center;display:block;">
+                <a style="color:#4c5b51; font-weight:bold;align:center" href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}">{{ $paquete->NombrePaquete }} </a></h3>
+                <div class="box-body">
+                  <p style="color:#4c5b51">Fecha de salida: {{ \Carbon\Carbon::parse($paquete->FechaSalida)->format('d/m/Y')}}</p>
+                  <p style="color:#4c5b51">* Faltan {{$paquete->dias}} días *</p>
+                </div>
+              </div><!-- /.inner-->
+              <a href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}" class="small-box-footer">
+                Leer más <i class="fa fa-arrow-circle-right"></i>
+              </a>
+            </div> <!--/ box info de cada paquete-->
+          </div><!-- /. colm-d-->
+        @endif
       @endforeach
     </div>
   </div><!-- /.row -->
