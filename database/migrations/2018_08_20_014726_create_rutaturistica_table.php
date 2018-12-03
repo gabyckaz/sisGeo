@@ -24,9 +24,6 @@ class CreateRutaturisticaTable extends Migration
 
         });
 
-
-
-
     }
 
     /**
