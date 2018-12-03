@@ -8,6 +8,7 @@ use App\Empleado;
 use App\Persona;
 use App\Turista;
 use App\TipoDocumento;
+use App\Idioma;
 use DB;
 use Carbon\Carbon;
 
@@ -206,8 +207,9 @@ class AdminUsuariosController extends Controller
             WHERE e."IdPersona" = p."IdPersona" and t."IdPersona" = p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" ;';
         $guias = DB::select($sql);
         $guias = $this->arrayPaginator($guias);
+        $idiomas = Idioma::all();
 
-        return view("adminUser.crearGuiaTuristico", compact('nacionalidad','guias'));
+        return view("adminUser.crearGuiaTuristico", compact('nacionalidad','guias','idiomas'));
     }
 
   public function almacenarGuiaTurisco(Request $request)
