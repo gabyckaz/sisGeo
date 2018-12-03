@@ -9,7 +9,7 @@
 @section('contenido')
 
   <div class="row">
-    <div class="col-md-7 col-md-offset-2">
+    <div class="col-md-9 col-md-offset-1">
       @if(session('status'))
         <script type="text/javascript">
           alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session("status") }}');
@@ -45,9 +45,9 @@
             @foreach($paquetes as $paquete)
               <tr>
                 <td><a href="{{ route('adminPaquete.single', $paquete->IdPaquete) }}">{{$nombrepaquete=$paquete->NombrePaquete}}</a></td>
-                <td>{{$fechasalida=$paquete->FechaSalida}}</td>
-                <td>{{$horasalida=$paquete->HoraSalida}}</td>
-                <td>{{$preciopaquete=$paquete->Precio}}</td>
+                <td>{{ \Carbon\Carbon::parse($paquete->FechaSalida)->format('d/m/Y')}}</td>
+                <td>{{ \Carbon\Carbon::parse($paquete->HoraSalida)->format('h:i a')}}</td>
+                <td>$ {{$paquete->Precio}}</td>
                 <td>
                   <a href="{{route('adminPaquete.costos.create', $paquete)}}"
                   class="btn btn-warning btn-sm fa fa-plus btn-block" title="Editar"></a>

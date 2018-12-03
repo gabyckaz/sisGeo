@@ -57,7 +57,7 @@ class Paquete extends Model
        $hoystr = Carbon::now()->format('d-m-Y');
        $hoyObj = Carbon::parse($hoystr);
        $fechaIngresadaObj = Carbon::parse($this->FechaSalida);
-     
+
       if($hoyObj > $fechaIngresadaObj){
         return 1;
       }elseif($hoyObj <= $fechaIngresadaObj){
@@ -67,10 +67,18 @@ class Paquete extends Model
       }
     }
 
-/*Ejemplo de accessors*/
-public function getFullNameAttribute()
-{
-   return $this->NombrePaquete . ' ' . strtoupper($this->NombrePaquete);
-}
+    /*Ejemplo de accessors*/
+    public function getFullNameAttribute()
+    {
+       return $this->NombrePaquete . ' ' . strtoupper($this->NombrePaquete);
+    }
+    public function getDiasAttribute(){
+      $hoystr = Carbon::now()->format('d-m-Y');
+      $hoyObj = Carbon::parse($hoystr);
+      $fechaSalida = Carbon::parse($this->FechaSalida);
+
+      $diferencia= $hoyObj->diffInDays($fechaSalida);
+      return $diferencia;
+    }
 
 }

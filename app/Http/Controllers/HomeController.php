@@ -37,7 +37,14 @@ class HomeController extends Controller
         //Por el momento,mientras no se registren reservaciones queda comentada la linea y con valor nulo
         //$reservaciones = Reservacion::where('IdTurista', $usuarioreservando->IdTurista)->orderBy('FechaReservacion','desc')->get();
         $reservaciones=null;
-        $disponibles = Paquete::where('DisponibilidadPaquete','=','1')->count();
+        $pdisponibles = Paquete::all();
+        $x=0;
+        foreach ($pdisponibles as $p) {
+          if ($p->compara_fechas==2 && $p->DisponibilidadPaquete==1 ) {
+            $x++;
+          }
+        }
+        $disponibles=$x;
         $pendientes = Paquete::where('AprobacionPaquete','=','0')->count();
         $clientes = User::where('EstadoUsuario','=','1')->count();
         $clientes_notificados = User::where('RecibirNotificacion','=','1')->count();

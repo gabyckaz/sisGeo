@@ -200,11 +200,11 @@
         <th>Regreso</th>
         </tr>
         <tr>
-        <td>{{ $paquete->FechaSalida}}</td>
-        <td>{{ $paquete->FechaRegreso}}</td>
+        <td>{{ \Carbon\Carbon::parse($paquete->FechaSalida)->format('d/m/Y')}}</td>
+        <td>{{ \Carbon\Carbon::parse($paquete->FechaRegreso)->format('d/m/Y')}}</td>
         </tr>
         <tr>
-        <td>{{ $paquete->HoraSalida}} a.m.</td>
+        <td>{{ \Carbon\Carbon::parse($paquete->HoraSalida)->format('h:i a')}}</td>
         <td></td>
         </tr>
         </table>

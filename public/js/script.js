@@ -110,6 +110,14 @@ $(document).ready(function(){
             "bInfo": false,
             "autoWidth": true,
         });
+        $('#tablaCumples').DataTable({
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
+            "bInfo": false,
+            "autoWidth": true,
+        });
         if($('#usuario').is(':checked') ){
              $('#total').val(1);
              $('#ctotal').val($('#total').val()*$('#cpersona').val());

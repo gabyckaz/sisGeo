@@ -138,6 +138,10 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::get('/ReporteCostos', ['uses' => 'CostoAlquilerTransporteController@reporte','as' => 'adminPaquete.costos.reporte']);
   //FIN RUTAS PAQUETES
   Route::get('/graficas', 'GraficaController@index')->name('graficas'); //Graficas
+  //Aprobar paquetes
+  Route::get('/ActualizarEstadoPaquete', ['uses' => 'PaqueteController@cambiarEstado', 'as' => 'adminPaquete.estado']);
+  Route::put('/ActualizarEstadoPaquete/{id}', ['uses' => 'PaqueteController@cambiarEstado2', 'as' => 'adminPaquete.estado2']);
+  Route::put('/publicar/{id}', ['uses' => 'PaqueteController@publicar', 'as' => 'adminPaquete.publicarpaquete']);
 });
 
 //MOSTRAR PAQUETES A USUARIOS COMO VISITANTES
@@ -154,8 +158,5 @@ Route::group(['middleware' => ['guest']], function () {
 
 //Rutas a las que solo puede accesar el Director
 Route::group(['middleware' => ['role:Director']], function () {
-  Route::get('/ActualizarEstadoPaquete', ['uses' => 'PaqueteController@cambiarEstado', 'as' => 'adminPaquete.estado']);
-  Route::put('/ActualizarEstadoPaquete/{id}', ['uses' => 'PaqueteController@cambiarEstado2', 'as' => 'adminPaquete.estado2']);
   Route::resource('adminMensaje', 'MensajeController');
-
 });
