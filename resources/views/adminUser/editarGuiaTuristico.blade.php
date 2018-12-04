@@ -40,6 +40,7 @@
               'turista','documentos','nacionalidad','guia'
        --}}
       <input type="hidden" name="idTurista" value="{{ $turista->IdTurista}}"/>
+      <input type="hidden" name="idGuia" value="{{ $guia[0]->IdEmpleadoGEO}}"/>
        <div class="row">
          <div class="col-md-3">
             <div class="form-group has-feedback{{ $errors->has('Nombre') ? ' has-error' : '' }}">
@@ -100,7 +101,7 @@
          
        </div>
        <div class="row">
-         <div class="col-md-2">
+         <div class="col-md-3">
            <div class="form-group">
               <label for="Genero" class="col-sm-2 control-label">Genero*</label>
               
@@ -112,18 +113,6 @@
               </div>
             </div>
          </div>
-         <div class="col-md-3">
-          <div class="form-group">
-            <label for="nacionalidad" class="control-label">Nacionalidad*</label>
-              <div class="">
-                  <select  class="form-control" name="nacionalidad" id="nacionalidad"  disabled>             
-                    @foreach($nacionalidad as $origen)
-                     <option value="{{ $origen->IdNacionalidad }}" @if ($turista->IdNacionalidad == $origen->IdNacionalidad ) {{ 'selected' }} @endif>{{ $origen->Nacionalidad }}</option>
-                    @endforeach
-                  </select>
-              </div>
-          </div>
-        </div>
         <div class="col-md-3">
           <div class="form-group has-feedback{{ $errors->has('fechaNacimiento') ? ' has-error' : '' }}">
             <label for="fechaNacimiento" class="control-label">Fecha de Nacimiento</label>
@@ -141,9 +130,7 @@
                 </div>
           </div>
         </div>
-       </div>
-       <div class="row">
-           <div class="col-md-3">
+            <div class="col-md-3">
               <div class="form-group">
                 <label>Cod. Area </label>
                 <select name="AreaTelContacto" class="form-control" >
@@ -157,21 +144,34 @@
                 </select>
               </div>
              </div>
-             <div class="col-md-4">
-                 <div class="form-group has-feedback{{ $errors->has('TelefonoContacto')  ? ' has-error' : '' }}">
-                  <label for="telefono" class="control-label">Telefono*</label>
+             <div class="col-md-3">
+                <div class="form-group has-feedback{{ $errors->has('TelefonoContacto')  ? ' has-error' : '' }}">
+                <label for="telefono" class="control-label">Telefono*</label>
                   <div class="input-group">
                    <div class="input-group-addon">
                        <i class="fa fa-phone"></i>
                    </div>
                     <input type="text" name="TelefonoContacto" class="form-control"  id="telefono" value="{{ old('TelefonoContacto',$guia[0]->TelefonoContacto)}}" placeholder="Telefono">
-                </div> @if ($errors->has('TelefonoContacto'))
-            <span class="help-block">{{ $errors->first('TelefonoContacto') }}</span>
-            @endif
-
+                </div> 
+                @if ($errors->has('TelefonoContacto'))
+                 <span class="help-block">{{ $errors->first('TelefonoContacto') }}</span>
+               @endif
              </div>
-         
+          </div>
        </div>
+       <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="nacionalidad" class="control-label">Nacionalidad*</label>
+                <div class="">
+                    <select  class="form-control" name="nacionalidad" id="nacionalidad"  disabled>             
+                      @foreach($nacionalidad as $origen)
+                       <option value="{{ $origen->IdNacionalidad }}" @if ($turista->IdNacionalidad == $origen->IdNacionalidad ) {{ 'selected' }} @endif>{{ $origen->Nacionalidad }}</option>
+                      @endforeach
+                    </select>
+                </div>
+            </div>
+          </div>
        </div>
 
              <div class="row">
@@ -285,21 +285,33 @@
         </div>
          
       </div>
+      <div class="row">
+            <div class="col-xs-12 col-md-6">
+            <div class="form-group has-feedback{{ $errors->has('idiomasGuia') ? ' has-error' : '' }}">
+                <label name="idiomasGuia" for="idioma">Idiomas</label>
+                  <select class="form-control select2" multiple="multiple" name="idiomasGuia[]" id="idiomasGuia"  data-placeholder="Select a diomas" >
+                  @foreach ($idiomas as $idioma)
+                  <option value="{{$idioma->IdIdioma }}" {{ (collect(old('idiomasGuia',$idiomasGuia))->contains($idioma->IdIdioma)) ? 'selected':'' }} >{{$idioma->Idioma}}</option>
+                  @endforeach
+                  </select>
+                  @if ($errors->has('idiomasGuia'))
+                  <span class="help-block">{{ $errors->first('idiomasGuia') }}</span>
+                @endif
+             </div>
+            </div>
+          </div>
        
            <div class="row">
-              
-              <div class="col-md-10 col-md-offset-4">
-                      <button type="submit" class="btn btn-info ">Editar</button>
-                      <!--button type="reset" class="btn btn-warning ">Limpiar</button -->
-                    </div>
-                    <!-- /.col -->
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-info  col-xs-12 col-sm-2 center-block"><STRONG>Actualizar</STRONG></button>
             </div>
+          </div>
          </form>
          </div>
          <div class="box-footer">
              <p>*Estos campos son obligatorios</p>
              <p>Es necesario ingresar almenos un documento si es mayor de edad</p>
-              </div>
+          </div>
       </div>
      </div> 
 @endsection

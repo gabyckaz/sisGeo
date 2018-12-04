@@ -426,7 +426,7 @@
 
         </div>
           <div class="row">
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-md-6">
             <div class="form-group has-feedback{{ $errors->has('preferencias') ? ' has-error' : '' }}">
                 <label name="preferencias" for="itinerario">Preferencias</label>
                   <select class="form-control select2" multiple="multiple" name="preferencias[]" id="preferencias[]" >
@@ -445,7 +445,6 @@
             <div class="col-md-12">
               <button type="submit" class="btn btn-info  col-xs-12 col-sm-2 center-block"><STRONG>Actualizar</STRONG></button>
             </div>
-            <!-- /.col -->
           </div>
       </div>
     </form>
