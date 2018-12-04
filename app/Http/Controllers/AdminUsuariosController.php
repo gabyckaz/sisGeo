@@ -9,6 +9,7 @@ use App\Persona;
 use App\Turista;
 use App\TipoDocumento;
 use App\Idioma;
+use App\IdiomaEmpleado;
 use DB;
 use Carbon\Carbon;
 
@@ -220,6 +221,7 @@ class AdminUsuariosController extends Controller
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
           "TelefonoContacto" => "required",
+          "idiomasGuia" => "required",
         ]); 
            
        
@@ -234,7 +236,7 @@ class AdminUsuariosController extends Controller
        if($edad < 18 ){
         return redirect()->back()->withInput()->with('ErrorFechaNac', 'Error fecha incorrecta');
        }
-/* Arreglar Cuando arreglen la tabla  */     
+    
       if($request->input("dui") == null && $request->input("pasaporte") == null){
             $hola1 = "Debes introducir por lo menos un documento";
        $this->validate($request, [
@@ -244,6 +246,7 @@ class AdminUsuariosController extends Controller
           "Direccion" => "required|min:10|max:100",
           "dui" => "required",
           "pasaporte" => "required",
+          "idiomasGuia" => "required",
         ]);
      
 
@@ -257,6 +260,7 @@ class AdminUsuariosController extends Controller
             "Direccion" => "required|min:10|max:100",
             "fechaVencimentoD" => "required",
             "fechaVencimentoP" => "required",
+            "idiomasGuia" => "required",
            ]);
              if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
@@ -280,6 +284,7 @@ class AdminUsuariosController extends Controller
               "fechaNacimiento" => "required|date",
               "Direccion" => "required|min:10|max:100",
               "fechaVencimentoD" => "required",
+              "idiomasGuia" => "required",
            ]);
            if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
@@ -301,6 +306,7 @@ class AdminUsuariosController extends Controller
               "fechaNacimiento" => "required|date",
               "Direccion" => "required|min:10|max:100",
               "fechaVencimentoP" => "required",
+              "idiomasGuia" => "required",
            ]);
            $hoystr = Carbon::now()->format('d-m-Y');
            $hoyObj = Carbon::parse($hoystr);
@@ -363,12 +369,20 @@ class AdminUsuariosController extends Controller
          ]);
         }
 
-        $empleado=new Empleado;
+       $empleado=new Empleado;
        $empleado->IdPersona = $persona->IdPersona; 
        $empleado->save();
+
+       for ($i=0; $i<count($request->idiomasGuia);$i++){
+              $idiomaEmpleado = new IdiomaEmpleado();
+              $idiomaEmpleado->IdEmpleadoGEO = $empleado->IdEmpleadoGEO;
+              $idiomaEmpleado->IdIdioma = $request->idiomasGuia[$i];
+              $idiomaEmpleado->save();
+          }
+
         return redirect()->route('admin.agregar.guiaTuristico')->with('message',' Agregado con éxito');
-    
     }
+
     public function editarInformacionGuia($id){
        $nacionalidad = Nacionalidad::all(); 
       $sql = 'SELECT e."IdEmpleadoGEO", e."IdPersona", p."PrimerNombrePersona", p."SegundoNombrePersona",
@@ -394,7 +408,20 @@ class AdminUsuariosController extends Controller
             }
            }
          }
-       return view('adminUser.editarGuiaTuristico', compact('turista','documentos','nacionalidad','guia'));
+         $idiomas = Idioma::all();
+         $sql = 'SELECT "IdIdiomaEmpleado", "IdIdioma", "IdEmpleadoGEO"
+                 FROM "IdiomasEmpleado"
+                 WHERE "IdEmpleadoGEO" = '.$id.' ;';
+          $gIdiomas = DB::select($sql);
+          $idiomasGuia = array();
+         // dd($gIdiomas[0]->IdIdioma);
+         for ($i=0; $i < count($gIdiomas); $i++) { 
+           $idiomasGuia[] = $gIdiomas[$i]->IdIdioma;
+         }
+
+         sort($idiomasGuia);
+            
+       return view('adminUser.editarGuiaTuristico', compact('turista','documentos','nacionalidad','guia','idiomas','idiomasGuia'));
     }
     
     public function guardarInformacionGuiaEditado(Request $request){
@@ -405,6 +432,7 @@ class AdminUsuariosController extends Controller
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
           "TelefonoContacto" => "required",
+          "idiomasGuia" => "required",
         ]); 
 
         if($request->input("dui") == null && $request->input("pasaporte") == null){
@@ -414,6 +442,7 @@ class AdminUsuariosController extends Controller
           "Apellido" => "required|alpha|min:3|max:25",
           "fechaNacimiento" => "required|date",
           "Direccion" => "required|min:10|max:100",
+          "idiomasGuia" => "required",
           "dui" => "required",
           "pasaporte" => "required",
         ]);
@@ -429,6 +458,7 @@ class AdminUsuariosController extends Controller
             "Direccion" => "required|min:10|max:100",
             "fechaVencimentoD" => "required",
             "fechaVencimentoP" => "required",
+            "idiomasGuia" => "required",
            ]);
              if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
@@ -452,6 +482,7 @@ class AdminUsuariosController extends Controller
               "fechaNacimiento" => "required|date",
               "Direccion" => "required|min:10|max:100",
               "fechaVencimentoD" => "required",
+              "idiomasGuia" => "required",
            ]);
            if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
@@ -473,6 +504,7 @@ class AdminUsuariosController extends Controller
               "fechaNacimiento" => "required|date",
               "Direccion" => "required|min:10|max:100",
               "fechaVencimentoP" => "required",
+              "idiomasGuia" => "required",
            ]);
            $hoystr = Carbon::now()->format('d-m-Y');
            $hoyObj = Carbon::parse($hoystr);
@@ -529,6 +561,15 @@ class AdminUsuariosController extends Controller
             $pasaporte->save();
             }
 
+          }
+
+        $idiomaEmpleadoDel = IdiomaEmpleado::where('IdEmpleadoGEO',$request->idGuia);
+        $idiomaEmpleadoDel->delete();
+        for ($i=0; $i<count($request->idiomasGuia);$i++){
+              $idiomaEmpleado = new IdiomaEmpleado();
+              $idiomaEmpleado->IdEmpleadoGEO = $request->idGuia;
+              $idiomaEmpleado->IdIdioma = $request->idiomasGuia[$i];
+              $idiomaEmpleado->save();
           }
       return redirect()->route('admin.agregar.guiaTuristico')->with('message',' Informacion actualizada con éxito');
     }
