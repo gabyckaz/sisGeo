@@ -199,7 +199,11 @@ h4 span {
     </div>
   </div><!-- /.row -->
   <div class="text-center" >
-    <img alt="Geoturismo logo" src="http://nebula.wsimg.com/f1a6ab585e8127b5cc523d8f47ab7fe1?AccessKeyId=B5E8C3F7E00CA38BCFD7&disposition=0&alloworigin=1">
+    <!-- Pagadito Comercio Certificado -->
+    <br>
+    <br>
+    <center><script type="text/javascript" src="https://comercios.pagadito.com/validate/index.php?merchant=1c9ef2047612e210b290a204bbab9c03&size=m&_idioma=es"></script></center>
+    <center><img alt="Geoturismo logo" src="http://nebula.wsimg.com/f1a6ab585e8127b5cc523d8f47ab7fe1?AccessKeyId=B5E8C3F7E00CA38BCFD7&disposition=0&alloworigin=1"></center>
     <center>{!! $paquetes->appends(\Request::except('page'))->render() !!}</center>
   </div>
 @endsection

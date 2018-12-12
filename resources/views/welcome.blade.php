@@ -201,6 +201,7 @@ desired effect
                   <a style="color:#4c5b51; font-weight:bold;align:center" href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}">{{ $paquete->NombrePaquete }} </a></h3>
                   <div class="box-body">
                     <p style="color:#4c5b51">Fecha de salida: {{ $paquete->FechaSalida}}</p>
+                    <p style="color:#4c5b51">* Faltan {{$paquete->dias}} días *</p>
                   </div>
                 </div><!-- /.inner-->
                 <a href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}" class="small-box-footer">

@@ -145,7 +145,7 @@ class GraficaController extends Controller
       //Últimos usuarios registrados
       $ultimos_usuarios= DB::table('users')
         ->select('name',
-          DB::raw("TO_CHAR(created_at, 'FMDD Mon HH24:MI') as fecha"),
+          DB::raw("TO_CHAR(created_at, 'FMDD TMMon HH24:MI') as fecha"),
           'avatar')
         ->orderBy('created_at','desc')
         ->limit(8)

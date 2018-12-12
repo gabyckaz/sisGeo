@@ -347,13 +347,10 @@ desired effect
     @role('User')
     <li class="treeview {{ (request()->is('user/completarInformacion') || request()->is('user/agregarFamiliarAmigo')) ? 'active' : '' }}">
       <a href="#">
-        <i class="fa fa-user"></i>
-          <i class="fa fa-angle-left pull-right-container"></i>
-          <i class="fa fa-angl-left pull-right"></i>
-        <span>Mi cuenta</span>
+        <i class="fa fa-user"></i><span>Mi cuenta</span>
         <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
       </a>
         <ul class="treeview-menu">
           <li><a href="{{ route('usuario.completar.informacion') }}">
@@ -361,13 +358,13 @@ desired effect
             Completar Informacion</a></li>
           <li><a href="{{ route('user.agregar.familiarAmigo') }}">
             <i class="fa fa-star"></i>
-            Agregar Familiar o Amigo</a></li>
+            Agregar acompañantes</a></li>
         </ul>
     </li>
     <li class="{{ activeMenu('Reservacion') }}">
       <a href="{{ route('Reservacion.index') }}">
         <i class="fa fa-calendar"></i>
-        Mis Reservas <!--span class="label pull-right bg-green">2</span-->
+        <span>Mis Reservas</span> <!--span class="label pull-right bg-green">2</span-->
       </a>
     </li>
     @endrole
@@ -375,13 +372,11 @@ desired effect
     @role(['Director','Agente'])
     <li class=" treeview {{ (request()->is('MostrarRutaTuristica') ||  request()->is('CrearCategoria'))  ? 'active' : '' }} ">
       <a href="#">
-        <i class="fa fa-map-marker"></i>
-          <i class="fa fa-angle-left pull-right-container"></i>
-          <i class="fa fa-angl-left pull-right"></i>
-          <span>Ruta Turistica</span>
+        <i class="fa fa-map-marker"></i><span>Ruta Turistica</span>
+          <i class="pull-right-container"></i>
           <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
       </a>
       <ul class="treeview-menu">
            <li>  <a href="{{ route('adminRutaTuristica.index') }}">
@@ -390,18 +385,16 @@ desired effect
              </a></li>
              <li><a href="{{ route('adminCategoria.create')}}">
                <i class="fa fa-star"></i>
-               Categoria</a></li>
+               Categorias</a></li>
         </ul>
     </li>
      <li class=" treeview {{ (request()->is('CrearPaquete') || request()->is('MostrarPaquete') || request()->is('ActualizarEstado') || request()->is('CrearOpcionesPaquete')) ? 'active' : '' }}">
       <a href="#">
-        <i class="fa fa-ticket"></i>
-          <i class="fa fa-angle-left pull-right-container"></i>
-          <i class="fa fa-angl-left pull-right"></i>
-          <span>Paquetes Turísticos</span>
+        <i class="fa fa-ticket"></i><span>Paquetes Turísticos</span>
+          <i class="pull-right-container"></i>
           <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
       </a>
         <ul class="treeview-menu">
           <li><a href="{{ route('adminPaquete.create')}}">
@@ -416,21 +409,19 @@ desired effect
               Opciones Paquete</a></li>
             <li><a href="{{ route('adminPaquete.estado')}}">
               <i class="fa fa-star"></i>
-              Aprobar Paquete Turistico</a></li>
+              Aprobar Paquete</a></li>
             <li><a href="{{ route('adminPaquete.costos.index')}}">
               <i class="fa fa-star"></i>
-              Agregar Costos de Transporte</a></li>
+              Agregar Costos</a></li>
         </ul>
     </li>
     <li class="treeview {{ (request()->is('adminEmpresaTransporte') || request()->is('adminTipoTransporte') || request()->is('adminTransporte')) ? 'active' : '' }}">
       <a href="#">
-        <i class="fa fa-bus"></i>
-          <i class="fa fa-angle-left pull-right-container"></i>
-          <i class="fa fa-angl-left pull-right"></i>
-        <span>Transporte</span>
+        <i class="fa fa-bus"></i>  <span>Transporte</span>
+        <i class="fa fa-angl-left pull-right"></i>
         <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
       </a>
         <ul class="treeview-menu">
           <li><a href="{{ route('adminTipoTransporte.index') }}">
