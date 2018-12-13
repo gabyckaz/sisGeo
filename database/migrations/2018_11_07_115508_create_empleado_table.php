@@ -15,7 +15,7 @@ class CreateEmpleadoTable extends Migration
     {
         Schema::create('Empleado', function (Blueprint $table) {
             $table->increments('IdEmpleadoGEO');
-            $table->integer('IdPersona');
+            $table->integer('IdPersona')->unsigned();
             $table->timestamps();
             $table->foreign('IdPersona')->references('IdPersona')->on('personas')->onDelete('cascade');
         });
@@ -45,11 +45,11 @@ class CreateEmpleadoTable extends Migration
      * @return void
      */
     public function down()
-    {   
+    {
         Schema::dropIfExists('IdiomasEmpleado');
         Schema::dropIfExists('Empleado');
         Schema::dropIfExists('Idiomas');
-        
+
     }
 
 }

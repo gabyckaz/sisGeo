@@ -14,7 +14,7 @@ class AddRelationshipToConductorTable extends Migration
     public function up()
     {
       Schema::table('Conductor', function (Blueprint $table) {
-        $table->integer('IdEmpresaTransporte')->after('IdConductor')->nullable();
+        $table->integer('IdEmpresaTransporte')->after('IdConductor')->nullable()->unsigned();
         $table->foreign('IdEmpresaTransporte')->references('IdEmpresaTransporte')->on('EmpresaAlquilerTransporte');
       });
     }

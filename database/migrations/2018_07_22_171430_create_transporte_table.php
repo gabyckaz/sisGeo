@@ -15,8 +15,8 @@ class CreateTransporteTable extends Migration
     {
         Schema::create('Transporte', function (Blueprint $table) {
             $table->increments('IdTransporte');
-            $table->integer('IdTipoTransporte');
-            $table->integer('IdEmpresaTransporte');
+            $table->integer('IdTipoTransporte')->unsigned();
+            $table->integer('IdEmpresaTransporte')->unsigned();
             $table->string('Marca',25);
             $table->string('Modelo',30);
             $table->string('Color',25);
