@@ -104,7 +104,6 @@ class RutaTuristicaController extends Controller
       ));
       $rutaturistica=RutaTuristica::find($id);
       $rutaturistica->IdPais=$request->pais;
-      $rutaturistica=Categoria::find($id);
       $rutaturistica->IdCategoria=$request->categoria;
       $rutaturistica->NombreRutaTuristica=$request->nombrerutaturistica;
       $rutaturistica->DatosGenerales=$request->datosgenerales;

@@ -186,29 +186,29 @@ class PaqueteController extends Controller
       $condiciones=Condiciones::all();
       $itinerario=Itinerario::all();
       $gastosextras=GastosExtras::all();
-      $sql = 'SELECT "IdRecomendacionesPaquete", recomendaciones_id , paquete_id
-          FROM "Recomendaciones_Paquete"
-          WHERE "paquete_id" = '.$id.' ;';
+      $sql = 'SELECT IdRecomendacionesPaquete, recomendaciones_id , paquete_id
+          FROM Recomendaciones_Paquete
+          WHERE paquete_id = '.$id.' ;';
           $recomendacionespaquete= DB::select($sql);
 
-       $sql = 'SELECT "IdIncluyePaquete", incluye_id , paquete_id
-          FROM "Incluye_Paquete"
-          WHERE "paquete_id" = '.$id.' ;';
+       $sql = 'SELECT IdIncluyePaquete, incluye_id , paquete_id
+          FROM Incluye_Paquete
+          WHERE paquete_id = '.$id.' ;';
           $incluyepaquete= DB::select($sql);
 
-       $sql = 'SELECT "IdCondicionesPaquete", condiciones_id , paquete_id
-           FROM "Condiciones_Paquete"
-           WHERE "paquete_id" = '.$id.' ;';
+       $sql = 'SELECT IdCondicionesPaquete, condiciones_id , paquete_id
+           FROM Condiciones_Paquete
+           WHERE paquete_id = '.$id.' ;';
            $condicionespaquete= DB::select($sql);
 
-       $sql = 'SELECT "IdItinerarioPaquete", itinerario_id , paquete_id
-              FROM "Itinerario_Paquete"
-              WHERE "paquete_id" = '.$id.' ;';
+       $sql = 'SELECT IdItinerarioPaquete, itinerario_id , paquete_id
+              FROM Itinerario_Paquete
+              WHERE paquete_id = '.$id.' ;';
               $itinerariopaquete= DB::select($sql);
 
-        $sql = 'SELECT "IdGastosExtraPaquete", gastosextras_id , paquete_id
-                FROM "GastosExtras_Paquete"
-                WHERE "paquete_id" = '.$id.' ;';
+        $sql = 'SELECT IdGastosExtraPaquete, gastosextras_id , paquete_id
+                FROM GastosExtras_Paquete
+                WHERE paquete_id = '.$id.' ;';
                 $gastosextraspaquete= DB::select($sql);
 
       return view('adminPaquete.edit')
@@ -481,29 +481,29 @@ class PaqueteController extends Controller
       $gastosextras=GastosExtras::all();
 
 
-      $sql = 'SELECT "IdRecomendacionesPaquete", recomendaciones_id , paquete_id
-              FROM "Recomendaciones_Paquete"
-              WHERE "paquete_id" = '.$id.' ;';
+      $sql = 'SELECT IdRecomendacionesPaquete, recomendaciones_id , paquete_id
+              FROM Recomendaciones_Paquete
+              WHERE paquete_id = '.$id.' ;';
       $recomendacionespaquete= DB::select($sql);
 
-      $sql = 'SELECT "IdIncluyePaquete", incluye_id , paquete_id
-              FROM "Incluye_Paquete"
-             WHERE "paquete_id" = '.$id.' ;';
+      $sql = 'SELECT IdIncluyePaquete, incluye_id , paquete_id
+              FROM Incluye_Paquete
+             WHERE paquete_id = '.$id.' ;';
       $incluyepaquete= DB::select($sql);
 
-      $sql = 'SELECT "IdCondicionesPaquete", condiciones_id , paquete_id
-              FROM "Condiciones_Paquete"
-              WHERE "paquete_id" = '.$id.' ;';
+      $sql = 'SELECT IdCondicionesPaquete, condiciones_id , paquete_id
+              FROM Condiciones_Paquete
+              WHERE paquete_id = '.$id.' ;';
       $condicionespaquete= DB::select($sql);
 
-      $sql = 'SELECT "IdItinerarioPaquete", itinerario_id , paquete_id
-              FROM "Itinerario_Paquete"
-              WHERE "paquete_id" = '.$id.' ;';
+      $sql = 'SELECT IdItinerarioPaquete, itinerario_id , paquete_id
+              FROM Itinerario_Paquete
+              WHERE paquete_id = '.$id.' ;';
       $itinerariopaquete= DB::select($sql);
 
-      $sql = 'SELECT "IdGastosExtraPaquete", gastosextras_id , paquete_id
-              FROM "GastosExtras_Paquete"
-              WHERE "paquete_id" = '.$id.' ;';
+      $sql = 'SELECT IdGastosExtraPaquete, gastosextras_id , paquete_id
+              FROM GastosExtras_Paquete
+              WHERE paquete_id = '.$id.' ;';
       $gastosextraspaquete= DB::select($sql);
 
 
@@ -661,13 +661,13 @@ class PaqueteController extends Controller
           $conductor = Conductor::findOrfail($request->get('conductor'));
          // dd("punto 2");
            $sqlt = 'SELECT count(*) as cuenta
-                   FROM public."Contrata" as cta
-                   WHERE cta."IdTransporte" = '.$splitSelectTransporte[2].' and cta."IdPaquete" = '.$paquete.';';
+                   FROM Contrata as cta
+                   WHERE cta.IdTransporte = '.$splitSelectTransporte[2].' and cta.IdPaquete = '.$paquete.';';
            $existeTransportePaquete = DB::select($sqlt);
-          //dd("punto 3");
+          //dd(punto 3);
            $sqlc = 'SELECT count(*) as cuenta
-                    FROM public."Conduce" as cdc
-                    WHERE cdc."IdConductor" = '.$request->conductor.' and cdc."IdPaquete" = '.$paquete.';';
+                    FROM Conduce as cdc
+                    WHERE cdc.IdConductor = '.$request->conductor.' and cdc.IdPaquete = '.$paquete.';';
            $existeconductorPaquete = DB::select($sqlc);
           // dd("punto 4");
          //  dd($existeTransportePaquete[0]->cuenta." -- ".$existeconductorPaquete[0]->cuenta );

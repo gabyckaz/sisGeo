@@ -40,7 +40,7 @@ class CreateTuristasTable extends Migration
             $table->increments('IdTipoDocumento');
             $table->integer('IdTurista')->unsigned();
             $table->string('TipoDocumento',9);
-            $table->string('NumeroDocumento',10)->unique();;
+            $table->string('NumeroDocumento',10);
             $table->date('FechaVenceDocumento');
             $table->foreign('IdTurista')->references('IdTurista')->on('Turista')->onDelete('cascade');
             $table->timestamps();

@@ -51,6 +51,16 @@
                 </select>
               </div>
             </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="categoria">Categoria</label>
+                <select class="form-control" name="categoria">
+                  @foreach($categoria as $cat)
+                    <option value="{{ $cat->IdCategoria }}" {{ $rutaturistica->IdCategoria == $cat->IdCategoria ? 'selected' : '' }}>{{ $cat->NombreCategoria }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
             <div class="form-group col-sm-12 has-feedback{{ $errors->has('datosgenerales') ? ' has-error' : '' }}">
               <label for="datosgenerales">Datos generales</label>
               <div class="input-group">

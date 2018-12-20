@@ -99,10 +99,10 @@ class GraficaController extends Controller
       $costos = DB::table('Paquetes')
         ->join('CostoAlquilerTransporte', 'Paquetes.IdPaquete', '=', 'CostoAlquilerTransporte.IdPaquete')
         ->select(
-          DB::raw('EXTRACT(MONTH FROM "Paquetes"."FechaSalida") as mes'),
-          DB::raw('SUM("CostoAlquilerTransporte") as number')
+          DB::raw('EXTRACT(MONTH FROM Paquetes.FechaSalida) as mes'),
+          DB::raw('SUM(CostoAlquilerTransporte) as number')
           )
-        ->groupBy(DB::raw('EXTRACT(MONTH FROM "FechaSalida")'))
+        ->groupBy(DB::raw('EXTRACT(MONTH FROM FechaSalida)'))
         ->get();
       $costosarray[] = ['Meses', 'Cantidad en dólares ($)'];
       foreach($costos as $key => $value)
@@ -145,7 +145,7 @@ class GraficaController extends Controller
       //Últimos usuarios registrados
       $ultimos_usuarios= DB::table('users')
         ->select('name',
-          DB::raw("TO_CHAR(created_at, 'FMDD TMMon HH24:MI') as fecha"),
+          DB::raw("DATE_FORMAT(created_at, '%d %b %H:%i') as fecha"),
           'avatar')
         ->orderBy('created_at','desc')
         ->limit(8)
