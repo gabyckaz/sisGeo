@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header bg-dark text-white " style="text-align: center; font-weight: bold;">{{ __('Iniciar') }}</div>
+                <div class="card-header bg-success text-white " style="text-align: center; font-weight: bold;">{{ __('Iniciar sesión') }}</div>
 
                 <div class="card-body">
                     @if($errors->any())
@@ -15,7 +15,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            
+
                             <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('Direccion de Correo') }}</label>
 
                             <div class="col-md-6">
@@ -57,15 +57,15 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-secondary btn-block btn-flat">
+                                <button type="submit" class="btn btn-success btn-block btn-flat">
                                     <strong>{{ __('Iniciar sesión') }}</strong>
                                 </button>
 
-                                
-                            </div>                            
+
+                            </div>
                         </div>
                         <center><a style="text" class="btn btn-link" href="{{ route('password.request') }}">
-                                    <strong>{{ __('Olvide mi contraseña?') }}</strong>
+                                    <strong>{{ __('Olvidé mi contraseña') }}</strong>
                                 </a></center>
                     </form>
                 </div>
