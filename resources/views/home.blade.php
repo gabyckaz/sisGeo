@@ -1,5 +1,4 @@
 <style>
-
 .responsive {
     width: 100%;
     height: auto;
@@ -7,12 +6,10 @@
 .fadein img{
   transition: 1s ease;
 }
-
 .fadein img:hover{
   filter:contrast(125%) brightness(115%);
   transition: 1s ease;
 }
-
 div.figure{
    overflow:hidden; /*hide bounds of image */
    margin:0;   /*reset margin of figure tag*/
@@ -25,7 +22,6 @@ div.figure img{
    position: relative;
    width: 100%; /* for IE 6 */
 }
-
 h4 {
    position: absolute;
    top: 200px;
@@ -59,7 +55,7 @@ h4 span {
 @endif
 
 <div class="text-center" >
-  <img alt="Geoturismo logo" src="http://nebula.wsimg.com/d3657b04208ae150f468167d20de36aa?AccessKeyId=B5E8C3F7E00CA38BCFD7&disposition=0&alloworigin=1">
+  <img alt="Geoturismo logo" src="..\images\logogeo.png">
 </div>
 
 @role(['Director','Agente','Admin'])
@@ -153,11 +149,13 @@ h4 span {
       </div>
     @endif
   </div><!-- /.row -->
-  <div style="padding:1px 100px 1px 100px;">
+  <div class="col-md-12">
     <div class="text-center">
-      <img class="responsive" alt="Geoturismo banner" src="https://78.media.tumblr.com/6a60fa5ae43c94c672501188c1f2ef02/tumblr_pf41uvQQwE1qa3lvmo1_r1_1280.png">
+      <img class="responsive" alt="Geoturismo banner" src="..\images\bannergeo.png">
     </div>
+    <br>
   </div>
+
   <div class="row">
     <div class="col-md-12">
       @foreach($paquetes as $paquete)
@@ -203,7 +201,6 @@ h4 span {
     <br>
     <br>
     <center><script type="text/javascript" src="https://comercios.pagadito.com/validate/index.php?merchant=1c9ef2047612e210b290a204bbab9c03&size=m&_idioma=es"></script></center>
-    <center><img alt="Geoturismo logo" src="http://nebula.wsimg.com/f1a6ab585e8127b5cc523d8f47ab7fe1?AccessKeyId=B5E8C3F7E00CA38BCFD7&disposition=0&alloworigin=1"></center>
     <center>{!! $paquetes->appends(\Request::except('page'))->render() !!}</center>
   </div>
 @endsection
