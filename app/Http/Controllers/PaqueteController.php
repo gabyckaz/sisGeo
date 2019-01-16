@@ -28,6 +28,8 @@ use Carbon\Carbon;
 use Dompdf\Dompdf;
 use App\Mail\MensajeGeoturismo;
 use App\Mensaje;
+use App\Empleado;
+use App\GuiaPaquete;
 
 
 
@@ -834,5 +836,72 @@ class PaqueteController extends Controller
       $canvas->page_text(280, 760, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
       // Output the generated PDF to Browser
       $dompdf->stream('Reporte '.$paquete->NombrePaquete.'.pdf');
+    }
+
+    public function agregarGuiaPaquete($id){
+    
+      $paquete = Paquete::findOrFail($id);
+
+      $sql = 'SELECT e."IdEmpleadoGEO", p."PrimerNombrePersona",p."PrimerApellidoPersona",
+              p."AreaTelContacto", p."TelefonoContacto", n."Nacionalidad"
+            FROM public."Empleado" as e, public."personas" as p, public."Turista" as t, public."Nacionalidad" as n, public."IdiomasEmpleado" as I_Emp
+            WHERE e."IdPersona" = p."IdPersona" and t."IdPersona" = p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and I_Emp ;';
+        $guias = DB::select($sql);
+
+
+         $sql = 'SELECT "IdGuiaPaquete", "IdEmpleadoGEO", "IdPaquete"
+                 FROM "GuiaPaquete"
+                 WHERE "IdPaquete" = '.$id.' ;';
+          $pIdguias = DB::select($sql);
+          $guiasPaquete = array();
+         // dd($gIdiomas[0]->IdIdioma);
+         for ($i=0; $i < count($pIdguias); $i++) { 
+           $guiasPaquete[] = $pIdguias[$i]->IdEmpleadoGEO;
+         }
+
+         sort($guiasPaquete);
+            //dd($guiasPaquete);
+        
+     return view('adminPaquete.agregarguia',compact('guias','paquete','guiasPaquete'));
+    }
+
+    public function guaradaActualizarGuiaPaquete($id, Request $request){
+        $GuiaPaqueteDel = GuiaPaquete::where('IdPaquete',$id);
+        $GuiaPaqueteDel->delete();
+        for ($i=0; $i<count($request->guiasP);$i++){
+              $guiaPaquete = new GuiaPaquete();
+              $guiaPaquete->IdEmpleadoGEO = $request->guiasP[$i];
+              $guiaPaquete->IdPaquete = $id;
+              $guiaPaquete->save();
+          }
+     return redirect()->back()->with('message', 'Actualizado con éxito');
+    }
+
+    public function eliminarGuia(Paquete $empleado, Request $request){
+
+      try{
+        $rol = Role::find($request->get('rol'));
+        if ($usuario->hasRole($rol->name)) {
+            $usuario->detachRole($rol);
+            return redirect()->route('adminUser.index')->with('status', 'Eliminado el rol '.$rol->display_name .' al usuario '.$usuario->name);
+        }
+        return redirect()->route('adminUser.index')->with('fallo', 'El usuario '.$usuario->name.' no posee ese rol, no se eliminará');
+     }catch(\Exception $e) {
+      return redirect()->route('adminUser.index')->with('fallo', 'Error en la eliminación del rol, debe existir al menos 1 administrador');
+     }
+    }
+
+    //Agregar rol
+    public function agregarGuia(Paquete $paquete, Request $request){
+      // $usuario = User::findOrFail($request->get('id'));
+      // return $request->all();//$usuario;//$id;
+     try{
+        $guia = Role::find($request->get('guia'));
+        $paquete->attachRole($guia);
+        return redirect()->route('adminPaquete.agregarguia')->with('status', 'Agregado guia a paquete');
+      } catch(\Exception $e) {
+        return redirect()->route('adminPaquete.agregarguia')->with('fallo', 'El paquete ya tiene asignado el guia');
+      }
+
     }
 }

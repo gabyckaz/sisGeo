@@ -85,4 +85,9 @@ class Paquete extends Model
       return $diferencia;
     }
 
+    public function guias()
+    {
+        return $this->belongsToMany('App\Empleado');
+    }
+
 }

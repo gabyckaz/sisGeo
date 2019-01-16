@@ -330,14 +330,14 @@ desired effect
         <span>Usuarios</span>
       </a>
     </li>
-    <li class="{{ activeMenu('/adminUser/agregarGuiaTuristico') }}">
+    <li class="{{ activeMenu('adminUser/agregarGuiaTuristico') }}">
       <a href="{{ route('admin.agregar.guiaTuristico') }}">
         <i class="fa fa-leaf"></i>
         <span>Guias Turisticos</span>
       </a>
     </li>
     @endrole
-    <li class="{{ activeMenu('/adminMensaje') }}">
+    <li class="{{ activeMenu('adminMensaje') }}">
       <a href="{{ route('adminMensaje.index') }}">
         <i class="fa fa-envelope-o"></i>
         <span>Conf. Mensajes</span>
