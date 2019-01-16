@@ -5,7 +5,17 @@
 
 @endsection
 @section('Title')
-<STRONG>Agregar Guías Turístico</STRONG>
+<?php 
+   $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < 10; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+  
+
+?>
+<STRONG>Agregar Guías Turístico {{ $randomString }}</STRONG>
 @endsection
 @section('contenido')
 
