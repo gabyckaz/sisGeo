@@ -150,7 +150,8 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
 
 //MOSTRAR PAQUETES A USUARIOS COMO VISITANTES
 Route::get('/MostrarPaqueteCliente/{id}', ['uses' => 'PaqueteController@getSingle', 'as' => 'adminPaquete.single']);
-//Reporte de listado de paquetes
+//Informacion de paquete para clientes
+Route::get('/informacion/{id}', ['uses' =>  'PaqueteController@informacion','as' => 'adminPaquete.informacion']);
 Route::get('/reporte/{id}', ['uses' =>  'PaqueteController@reporte','as' => 'adminPaquete.reporte']);
 
 //Rutas a las que solo puede accesar visitante sin hacer login

@@ -188,29 +188,29 @@ class PaqueteController extends Controller
       $condiciones=Condiciones::all();
       $itinerario=Itinerario::all();
       $gastosextras=GastosExtras::all();
-      $sql = 'SELECT "IdRecomendacionesPaquete", recomendaciones_id , paquete_id
-          FROM "Recomendaciones_Paquete"
-          WHERE "paquete_id" = '.$id.' ;';
+      $sql = 'SELECT IdRecomendacionesPaquete, recomendaciones_id , paquete_id
+          FROM Recomendaciones_Paquete
+          WHERE paquete_id = '.$id.' ;';
           $recomendacionespaquete= DB::select($sql);
 
-       $sql = 'SELECT "IdIncluyePaquete", incluye_id , paquete_id
-          FROM "Incluye_Paquete"
-          WHERE "paquete_id" = '.$id.' ;';
+       $sql = 'SELECT IdIncluyePaquete, incluye_id , paquete_id
+          FROM Incluye_Paquete
+          WHERE paquete_id = '.$id.' ;';
           $incluyepaquete= DB::select($sql);
 
-       $sql = 'SELECT "IdCondicionesPaquete", condiciones_id , paquete_id
-           FROM "Condiciones_Paquete"
-           WHERE "paquete_id" = '.$id.' ;';
+       $sql = 'SELECT IdCondicionesPaquete, condiciones_id , paquete_id
+           FROM Condiciones_Paquete
+           WHERE paquete_id = '.$id.' ;';
            $condicionespaquete= DB::select($sql);
 
-       $sql = 'SELECT "IdItinerarioPaquete", itinerario_id , paquete_id
-              FROM "Itinerario_Paquete"
-              WHERE "paquete_id" = '.$id.' ;';
+       $sql = 'SELECT IdItinerarioPaquete, itinerario_id , paquete_id
+              FROM Itinerario_Paquete
+              WHERE paquete_id = '.$id.' ;';
               $itinerariopaquete= DB::select($sql);
 
-        $sql = 'SELECT "IdGastosExtraPaquete", gastosextras_id , paquete_id
-                FROM "GastosExtras_Paquete"
-                WHERE "paquete_id" = '.$id.' ;';
+        $sql = 'SELECT IdGastosExtraPaquete, gastosextras_id , paquete_id
+                FROM GastosExtras_Paquete
+                WHERE paquete_id = '.$id.' ;';
                 $gastosextraspaquete= DB::select($sql);
 
       return view('adminPaquete.edit')
@@ -360,8 +360,10 @@ class PaqueteController extends Controller
     public function getSingle($id)
     { //Arreglar para mostrar solo paquete q esten activos
       $paquete= Paquete::findOrfail($id);//where('IdPaquete','=',$id)->first();
+      $user = \Auth::user();//Usuario actual
       if($paquete->compara_fechas != 2 || $paquete->AprobacionPaquete == 0 || $paquete->DisponibilidadPaquete == 0){
-              return abort(403);
+        if(!($user->hasRole('Director') || $user->hasRole('Agente')))
+          return abort(403);
       }
       //Trae las condiciones relacionadas al paquete
       $condiciones = CondicionesPaquete::where('paquete_id',$id)->get();
@@ -407,13 +409,15 @@ class PaqueteController extends Controller
         $transportes = Transporte::all();
         $this->conductores = '';
         //Traeme los conductores de esta empresa de transporte
-        $consulta = DB::table('Contrata')
+        $transportesasignados = DB::table('Contrata')
               ->join('Transporte', 'Contrata.IdTransporte', '=', 'Transporte.IdTransporte')
-              ->select('Transporte.NumeroAsientos')
+              ->join('TipoTransporte', 'Transporte.IdTipoTransporte', '=', 'TipoTransporte.IdTipoTransporte')
+              ->join('EmpresaAlquilerTransporte', 'Transporte.IdEmpresaTransporte', '=', 'EmpresaAlquilerTransporte.IdEmpresaTransporte')
+              ->select('NombreTipoTransporte','Marca','Modelo','Color','Placa_Matricula','NumeroAsientos','NombreEmpresaTransporte')
               ->where('Contrata.IdPaquete','=',$id)
               ->get();
 
-        $consultaconductor= DB::table('Conduce')
+        $conductoresasignados= DB::table('Conduce')
               ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
               ->select('Conductor.NombreConductor')
               ->where('Conduce.IdPaquete','=',$id)
@@ -423,8 +427,8 @@ class PaqueteController extends Controller
         ->with('transportes',$transportes)
         ->with('conductores',$this->conductores)
         ->with('paquete',$paquete)
-        ->with('consulta',$consulta)
-        ->with('consultaconductor',$consultaconductor);
+        ->with('transportesasignados',$transportesasignados)
+        ->with('conductoresasignados',$conductoresasignados);
 
 
     }
@@ -479,29 +483,29 @@ class PaqueteController extends Controller
       $gastosextras=GastosExtras::all();
 
 
-      $sql = 'SELECT "IdRecomendacionesPaquete", recomendaciones_id , paquete_id
-              FROM "Recomendaciones_Paquete"
-              WHERE "paquete_id" = '.$id.' ;';
+      $sql = 'SELECT IdRecomendacionesPaquete, recomendaciones_id , paquete_id
+              FROM Recomendaciones_Paquete
+              WHERE paquete_id = '.$id.' ;';
       $recomendacionespaquete= DB::select($sql);
 
-      $sql = 'SELECT "IdIncluyePaquete", incluye_id , paquete_id
-              FROM "Incluye_Paquete"
-             WHERE "paquete_id" = '.$id.' ;';
+      $sql = 'SELECT IdIncluyePaquete, incluye_id , paquete_id
+              FROM Incluye_Paquete
+             WHERE paquete_id = '.$id.' ;';
       $incluyepaquete= DB::select($sql);
 
-      $sql = 'SELECT "IdCondicionesPaquete", condiciones_id , paquete_id
-              FROM "Condiciones_Paquete"
-              WHERE "paquete_id" = '.$id.' ;';
+      $sql = 'SELECT IdCondicionesPaquete, condiciones_id , paquete_id
+              FROM Condiciones_Paquete
+              WHERE paquete_id = '.$id.' ;';
       $condicionespaquete= DB::select($sql);
 
-      $sql = 'SELECT "IdItinerarioPaquete", itinerario_id , paquete_id
-              FROM "Itinerario_Paquete"
-              WHERE "paquete_id" = '.$id.' ;';
+      $sql = 'SELECT IdItinerarioPaquete, itinerario_id , paquete_id
+              FROM Itinerario_Paquete
+              WHERE paquete_id = '.$id.' ;';
       $itinerariopaquete= DB::select($sql);
 
-      $sql = 'SELECT "IdGastosExtraPaquete", gastosextras_id , paquete_id
-              FROM "GastosExtras_Paquete"
-              WHERE "paquete_id" = '.$id.' ;';
+      $sql = 'SELECT IdGastosExtraPaquete, gastosextras_id , paquete_id
+              FROM GastosExtras_Paquete
+              WHERE paquete_id = '.$id.' ;';
       $gastosextraspaquete= DB::select($sql);
 
 
@@ -659,13 +663,13 @@ class PaqueteController extends Controller
           $conductor = Conductor::findOrfail($request->get('conductor'));
          // dd("punto 2");
            $sqlt = 'SELECT count(*) as cuenta
-                   FROM public."Contrata" as cta
-                   WHERE cta."IdTransporte" = '.$splitSelectTransporte[2].' and cta."IdPaquete" = '.$paquete.';';
+                   FROM Contrata as cta
+                   WHERE cta.IdTransporte = '.$splitSelectTransporte[2].' and cta.IdPaquete = '.$paquete.';';
            $existeTransportePaquete = DB::select($sqlt);
-          //dd("punto 3");
+          //dd(punto 3);
            $sqlc = 'SELECT count(*) as cuenta
-                    FROM public."Conduce" as cdc
-                    WHERE cdc."IdConductor" = '.$request->conductor.' and cdc."IdPaquete" = '.$paquete.';';
+                    FROM Conduce as cdc
+                    WHERE cdc.IdConductor = '.$request->conductor.' and cdc.IdPaquete = '.$paquete.';';
            $existeconductorPaquete = DB::select($sqlc);
           // dd("punto 4");
          //  dd($existeTransportePaquete[0]->cuenta." -- ".$existeconductorPaquete[0]->cuenta );
@@ -756,7 +760,39 @@ class PaqueteController extends Controller
     }
 
     /**
-    * Método para generar PDF de paquetes
+    * Método para generar PDF de informacion para clientes
+    */
+    public function informacion($id)
+    {
+      $paquete= Paquete::findOrfail($id);
+      //Trae las condiciones relacionadas al paquete
+      $condiciones = CondicionesPaquete::where('paquete_id',$id)->get();
+      $condiciones = $condiciones->all();
+      //Trae las recomendaciones relacionadas al paquete
+      $recomendaciones = RecomendacionesPaquete::where('paquete_id',$id)->get();
+      $recomendaciones = $recomendaciones->all();
+      //Trae los gastos extra relacionadas al paquete
+      $gastosextras = GastosExtrasPaquete::where('paquete_id',$id)->get();
+      $gastosextras = $gastosextras->all();
+      //Trae los 'incluye' relacionadas al paquete
+      $incluye = IncluyePaquete::where('paquete_id',$id)->get();
+      $incluye = $incluye->all();
+      $itinerario = ItinerarioPaquete::where('paquete_id',$id)->get();
+      $itinerario = $itinerario->all();
+      //instantiate and use the dompdf class
+      $view=\View::make('adminPaquete.informacion',compact('paquete','condiciones','recomendaciones','gastosextras','incluye','itinerario','imagen'))->render();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($view);
+      // Render the HTML as PDF
+      $dompdf->render();
+      $canvas = $dompdf ->get_canvas();
+      $canvas->page_text(280, 760, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+      // Output the generated PDF to Browser
+      $dompdf->stream('Informacion '.$paquete->NombrePaquete.'.pdf');
+    }
+
+    /**
+    * Método para generar PDF de reporte
     */
     public function reporte($id)
     {
@@ -775,8 +811,23 @@ class PaqueteController extends Controller
       $incluye = $incluye->all();
       $itinerario = ItinerarioPaquete::where('paquete_id',$id)->get();
       $itinerario = $itinerario->all();
+      //transporte asignado
+      $transportesasignados = DB::table('Contrata')
+            ->join('Transporte', 'Contrata.IdTransporte', '=', 'Transporte.IdTransporte')
+            ->join('TipoTransporte', 'Transporte.IdTipoTransporte', '=', 'TipoTransporte.IdTipoTransporte')
+            ->join('EmpresaAlquilerTransporte', 'Transporte.IdEmpresaTransporte', '=', 'EmpresaAlquilerTransporte.IdEmpresaTransporte')
+            ->select('NombreTipoTransporte','Marca','Modelo','Color','Placa_Matricula','NumeroAsientos','NombreEmpresaTransporte')
+            ->where('Contrata.IdPaquete','=',$id)
+            ->get();
+
+      $conductoresasignados= DB::table('Conduce')
+            ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
+            ->select('Conductor.NombreConductor')
+            ->where('Conduce.IdPaquete','=',$id)
+            ->get();
+
       //instantiate and use the dompdf class
-      $view=\View::make('adminPaquete.reporte',compact('paquete','condiciones','recomendaciones','gastosextras','incluye','itinerario','imagen'))->render();
+      $view=\View::make('adminPaquete.reporte',compact('paquete','condiciones','recomendaciones','gastosextras','incluye','itinerario','imagen','transportesasignados','conductoresasignados'))->render();
       $dompdf = new Dompdf();
       $dompdf->loadHtml($view);
       // Render the HTML as PDF
@@ -784,7 +835,7 @@ class PaqueteController extends Controller
       $canvas = $dompdf ->get_canvas();
       $canvas->page_text(280, 760, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
       // Output the generated PDF to Browser
-      $dompdf->stream('Paquetes.pdf');
+      $dompdf->stream('Reporte '.$paquete->NombrePaquete.'.pdf');
     }
 
     public function agregarGuiaPaquete($id){

@@ -44,77 +44,68 @@
     <form id="miForm" method="POST" action="{{route('user.agregar.familiarAmigo.store') }}">
       {!! method_field('PUT') !!}
       {!! csrf_field() !!}
-       <div class="row">
-         <div class="col-md-3">
+      <div class="row">
+        <div class="col-md-4">
           <div class="form-group">
             <label for="tipo" class="control-label">Tipo*</label>
-              <div class="">
-                <select  class="form-control" name="tipo" id="tipo" >
-                 <option value="A" @if (old('tipo') == "A") {{ 'selected' }} @endif>Amigo</option>
-                 <option value="F" @if (old('tipo') == "F") {{ 'selected' }} @endif>Familiar</option>
-               </select>
-             </div>
+            <select  class="form-control" name="tipo" id="tipo" >
+              <option value="A" @if (old('tipo') == "A") {{ 'selected' }} @endif>Amigo</option>
+              <option value="F" @if (old('tipo') == "F") {{ 'selected' }} @endif>Familiar</option>
+            </select>
            </div>
-         </div>
-         <div class="col-md-3">
+        </div>
+        <div class="col-md-4">
             <div class="form-group has-feedback{{ $errors->has('Nombre') ? ' has-error' : '' }}">
-               <label for="Nombre" class="control-label">Nombre*</label>
-                  <div class="input-group">
+                <label for="Nombre" class="control-label">Nombre*</label>
+                <div class="input-group">
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
                     <input type="text" name="Nombre" class="form-control"  id="Nombre" placeholder="Nombre" value="{{old('Nombre')}}" required>
-                  </div>
+                </div>
                   @if ($errors->has('Nombre'))
                        <span class="help-block">{{ $errors->first('Nombre') }}</span>
                     @endif
             </div>
-         </div>
-         <div class="col-md-4">
-            <div class="form-group has-feedback{{ $errors->has('Apellido') ? ' has-error' : '' }}">
-              <label for="Apellido" class="control-label">Apellido*</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                       <i class="fa fa-user"></i>
-                    </div>
-                  <input type="text" name="Apellido" class="form-control" id="Apellido" placeholder="Apellido" value="{{ old('Apellido') }}" required>
-                </div>
-                @if ($errors->has('Apellido'))
-                       <span class="help-block">{{ $errors->first('Apellido') }}</span>
-                  @endif
-            </div>
-         </div>
-
-       </div>
-       <div class="row">
-         <div class="col-md-3">
+        </div>
+        <div class="col-md-4">
+          <div class="form-group has-feedback{{ $errors->has('Apellido') ? ' has-error' : '' }}">
+            <label for="Apellido" class="control-label">Apellido*</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                     <i class="fa fa-user"></i>
+                  </div>
+                <input type="text" name="Apellido" class="form-control" id="Apellido" placeholder="Apellido" value="{{ old('Apellido') }}" required>
+              </div>
+              @if ($errors->has('Apellido'))
+                     <span class="help-block">{{ $errors->first('Apellido') }}</span>
+                @endif
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
            <div class="form-group">
               <label for="Genero" class="col-sm-2 control-label">Género*</label>
-
-              <div class="">
                 <select  class="form-control" name="genero" id="genero" >
                      <option value="M" @if (old('genero') == "M") {{ 'selected' }} @endif>Masculino</option>
                      <option value="F" @if (old('genero') == "F") {{ 'selected' }} @endif>Femenino</option>
-                  </select>
-              </div>
+                </select>
             </div>
          </div>
-         <div class="col-md-3">
+        <div class="col-md-4">
           <div class="form-group">
             <label for="nacionalidad" class="control-label">Nacionalidad*</label>
-              <div class="">
                   <select  class="form-control" name="nacionalidad" id="nacionalidad" >
                     @foreach($nacionalidad as $origen)
                      <option value="{{ $origen->IdNacionalidad }}" @if (old('nacionalidad') == $origen->IdNacionalidad ) {{ 'selected' }} @endif>{{ $origen->Nacionalidad }}</option>
                     @endforeach
                   </select>
-              </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="form-group has-feedback{{ ($errors->has('fechaNacimiento') || session()->has('ErrorFechaNac') ) ? ' has-error' : '' }}">
             <label for="fechaNacimiento" class="control-label">Fecha de Nacimiento*</label>
-               <div class="">
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
@@ -127,12 +118,11 @@
                   @if (session()->has('ErrorFechaNac'))
                       <span class="help-block">{{ session()->get('ErrorFechaNac') }}</span>
                   @endif
-                </div>
           </div>
         </div>
-       </div>
-        <div class="row">
-          <div class="form-group col-md-8 has-feedback{{ $errors->has('Direccion') ? ' has-error' : '' }}">
+      </div>
+      <div class="row">
+          <div class="form-group col-md-12 has-feedback{{ $errors->has('Direccion') ? ' has-error' : '' }}">
             <label for="observacionestransporte">Dirección*</label>
             <div class="input-group">
             <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
@@ -144,9 +134,9 @@
           </div>
       </div>
        <hr>
+       <p>Ingrese al menos un documento</p>
       <div class="row">
-
-        <div class="col-md-3">
+        <div class="col-md-4 col-md-offset-1">
           <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('Errordui') ) ? ' has-error' : '' }}">
               <label for="dui" class="control-label">DUI</label>
                 <div class="">
@@ -160,7 +150,23 @@
                 </div>
            </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
+          <center>ó</center>
+        </div>
+        <div class="col-md-4">
+           <div class="form-group has-feedback{{ $errors->has('pasaporte') ? ' has-error' : '' }}">
+              <label for="pasaporte" class="control-label">Pasaporte</label>
+                <div class="">
+                  <input type="text" name="pasaporte" class="form-control" id="pasaporte" placeholder="Pasaporte" value="{{ old('pasaporte') }}">
+                    @if ($errors->has('pasaporte'))
+                       <span class="help-block">Un documento es requerido</span>
+                    @endif
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-md-offset-1">
            <div class="form-group has-feedback{{ ( $errors->has('fechaVencimentoD') || session()->get('ErrorFechaVenceD')) ? ' has-error' : '' }}">
             <label for="fechaVencimentoD" class="control-label">Fecha de vencimiento</label>
                <div class="">
@@ -176,25 +182,13 @@
                   @if (session()->has('ErrorFechaVenceD'))
                        <span class="help-block">{{ session()->get('ErrorFechaVenceD') }}</span>
                   @endif
-                  
+
                 </div>
           </div>
         </div>
-
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-           <div class="form-group has-feedback{{ $errors->has('pasaporte') ? ' has-error' : '' }}">
-              <label for="pasaporte" class="control-label">Pasaporte</label>
-                <div class="">
-                  <input type="text" name="pasaporte" class="form-control" id="pasaporte" placeholder="Pasaporte" value="{{ old('pasaporte') }}">
-                    @if ($errors->has('pasaporte'))
-                       <span class="help-block">Un documento es requerido</span>
-                    @endif
-                </div>
-            </div>
+        <div class="col-md-2">
         </div>
-          <div class="col-md-3">
+        <div class="col-md-4">
            <div class="form-group has-feedback{{ ( $errors->has('fechaVencimentoP') || session()->has('ErrorFechaVenceP')) ? ' has-error' : '' }}">
             <label for="fechaVencimentoP" class="control-label">Fecha de vencimiento</label>
                <div class="">
@@ -216,11 +210,11 @@
       </div>
 
        <div class="row">
-          <div class="form-group col-md-8 has-feedback{{ $errors->has('psalud') ? ' has-error' : '' }}">
+          <div class="form-group col-md-12 has-feedback{{ $errors->has('psalud') ? ' has-error' : '' }}">
             <label for="psalud">Problemas de salud</label>
             <div class="input-group">
             <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-              <textarea id="psalud" type="text" class="form-control" name="psalud" placeholder="ninguno">{{ old('psalud') }}</textarea>
+              <textarea id="psalud" type="text" class="form-control" name="psalud" placeholder="Ninguno">{{ old('psalud') }}</textarea>
             </div>
             @if ($errors->has('psalud'))
             <span class="help-block">{{ $errors->first('psalud') }}</span>
@@ -229,11 +223,10 @@
       </div>
 
            <div class="row">
-
               <div class="col-md-10 col-md-offset-4">
                       <button type="submit" class="btn btn-info "><STRONG>Registrar</STRONG></button>
                       <button type="reset" class="btn btn-warning "><STRONG>Limpiar</STRONG></button>
-                    </div>
+              </div>
                     <!-- /.col -->
             </div>
          </form>
@@ -271,7 +264,7 @@
                                @if(strtoupper($familiaAmigo->EsFamiliar) == strtoupper("af"))
                                 <td>Usuario</td>
                                @endif
-                               <td>{{ ucfirst(strtolower($familiaAmigo->PrimerNombrePersona)) }}  {{ ucfirst(strtolower($familiaAmigo->PrimerApellidoPersona)) }}</td>                               
+                               <td>{{ ucfirst(strtolower($familiaAmigo->PrimerNombrePersona)) }}  {{ ucfirst(strtolower($familiaAmigo->PrimerApellidoPersona)) }}</td>
                                @if($familiaAmigo->Genero == "M")
                                 <td>Masculino</td>
                                @else

@@ -33,8 +33,39 @@
           @break
         @endif
       @endforeach
-
-    <div class="galeria">
+      <br>
+      <!-- Carousel de fotos -->
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <!-- <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+          </ol> -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <a href="{{Storage::url($imagenes->Imagen1)}}">
+                <img src="{{Storage::url($imagenes->Imagen1)}}" class="img-rounded" alt="First slide">
+              </a>
+            </div>
+            <div class="item">
+              <a href="{{Storage::url($imagenes->Imagen2)}}">
+                <img src="{{Storage::url($imagenes->Imagen2)}}" class="img-rounded" alt="Second slide">
+              </a>
+            </div>
+            <div class="item">
+              <a href="{{Storage::url($imagenes->Imagen3)}}">
+                <img src="{{Storage::url($imagenes->Imagen3)}}" class="img-rounded" alt="Third slide">
+              </a>
+            </div>
+          </div>
+          <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+            <span class="fa fa-angle-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+            <span class="fa fa-angle-right"></span>
+          </a>
+        </div>
+    <!-- <div class="galeria">
 
       @foreach ($imagen as $imagenes)
         <div class="col-sm-4 galeria" style="height:200px">
@@ -55,7 +86,7 @@
 
       @endforeach
 
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-md-6">
         <h3 style="text-align:center;"><b>Dificultad:</b> {{ $paquete->Dificultad}}</h3>
@@ -70,129 +101,128 @@
     </div><!-- Fin de columna izquierda -->
       <div class="col-md-6"><!-- columna derecha -->
         <div class="box box-solid">
-  <div class="box-header with-border">
-    <h3 class="box-title"></h3>
-    <center><a href="{{route('adminPaquete.reporte', $paquete['IdPaquete'])}}"
-    class="btn btn-info fa Example of download fa-download" title="Descargar como PDF"> Descargar información</a></center>
-  </div>
-  <!-- /.box-header -->
-  <div class="box-body">
-    <div class="box-group" id="accordion">
-      <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-      <div class="panel box box-success">
-        <div class="box-header with-border">
-          <h4 class="box-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-              Datos generales
-            </a>
-          </h4>
-          <span class=" label label-success">{{$paquete->ruta->pais->nombrePais}}</span>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in">
-          <div class="box-body">
-           {{$paquete->ruta->DatosGenerales}}
+          <div class="box-header with-border">
+            <center><a class="btn btn-info" title="Descargar como PDF" href="{{route('adminPaquete.informacion', $paquete['IdPaquete'])}}"><i class="fa Example of download fa-download"></i>
+               Descargar información</a></center>
           </div>
-        </div>
-      </div>
-      <div class="panel box box-success">
-        <div class="box-header with-border">
-          <h4 class="box-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-              Descripción
-            </a>
-          </h4>
-        </div>
-        <div id="collapseTwo" class="panel-collapse collapse">
+          <!-- /.box-header -->
           <div class="box-body">
-            {{$paquete->ruta->DescripcionRutaTuristica}}
+            <div class="box-group" id="accordion">
+              <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+              <div class="panel box box-success">
+                <div class="box-header with-border">
+                  <h4 class="box-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                      Datos generales
+                    </a>
+                  </h4>
+                  <span class=" label label-success">{{$paquete->ruta->pais->nombrePais}}</span>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                  <div class="box-body">
+                   {{$paquete->ruta->DatosGenerales}}
+                  </div>
+                </div>
+              </div>
+              <div class="panel box box-success">
+                <div class="box-header with-border">
+                  <h4 class="box-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                      Descripción
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                  <div class="box-body">
+                    {{$paquete->ruta->DescripcionRutaTuristica}}
+                  </div>
+                </div>
+              </div>
+              <div class="panel box box-success">
+                <div class="box-header with-border">
+                  <h4 class="box-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                      Itinerario
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                  <div class="box-body">
+                    @foreach ($itinerario as $iti)
+                      {{$iti->itinerariopaq->NombreItinerario}}<br>
+                    @endforeach
+                  </div>
+                </div>
+              </div>
+              <div class="panel box box-success">
+                <div class="box-header with-border">
+                  <h4 class="box-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                      Condiciones
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                  <div class="box-body">
+                    @foreach ($condiciones as $condicion)
+                      {{$condicion->condicionpaq->NombreCondiciones}}<br>
+                    @endforeach
+                  </div>
+                </div>
+              </div>
+              <div class="panel box box-success">
+                <div class="box-header with-border">
+                  <h4 class="box-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                      Recomendaciones
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse">
+                  <div class="box-body">
+                    @foreach ($recomendaciones as $recomendacion)
+                      {{$recomendacion->recomendacionespaq->NombreRecomendaciones}}<br>
+                    @endforeach
+                  </div>
+                </div>
+              </div>
+              <div class="panel box box-success">
+                <div class="box-header with-border">
+                  <h4 class="box-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+                      Gastos Extra
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseSix" class="panel-collapse collapse">
+                  <div class="box-body">
+                    @foreach ($gastosextras as $gastosextra)
+                      {{$gastosextra->gastospaq->NombreGastos}}->${{$gastosextra->gastospaq->Gastos}}<br>
+                    @endforeach
+                  </div>
+                </div>
+              </div>
+              <div class="panel box box-success">
+                <div class="box-header with-border">
+                  <h4 class="box-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
+                      Incluye
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseSeven" class="panel-collapse collapse">
+                  <div class="box-body">
+                    @foreach ($incluye as $inc)
+                      {{$inc->incluyepaq->NombreIncluye}}<br>
+                    @endforeach
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          <!-- /.box-body -->
         </div>
-      </div>
-      <div class="panel box box-success">
-        <div class="box-header with-border">
-          <h4 class="box-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-              Itinerario
-            </a>
-          </h4>
-        </div>
-        <div id="collapseThree" class="panel-collapse collapse">
-          <div class="box-body">
-            @foreach ($itinerario as $iti)
-              {{$iti->itinerariopaq->NombreItinerario}}<br>
-            @endforeach
-          </div>
-        </div>
-      </div>
-      <div class="panel box box-success">
-        <div class="box-header with-border">
-          <h4 class="box-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-              Condiciones
-            </a>
-          </h4>
-        </div>
-        <div id="collapseFour" class="panel-collapse collapse">
-          <div class="box-body">
-            @foreach ($condiciones as $condicion)
-              {{$condicion->condicionpaq->NombreCondiciones}}<br>
-            @endforeach
-          </div>
-        </div>
-      </div>
-      <div class="panel box box-success">
-        <div class="box-header with-border">
-          <h4 class="box-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-              Recomendaciones
-            </a>
-          </h4>
-        </div>
-        <div id="collapseFive" class="panel-collapse collapse">
-          <div class="box-body">
-            @foreach ($recomendaciones as $recomendacion)
-              {{$recomendacion->recomendacionespaq->NombreRecomendaciones}}<br>
-            @endforeach
-          </div>
-        </div>
-      </div>
-      <div class="panel box box-success">
-        <div class="box-header with-border">
-          <h4 class="box-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
-              Gastos Extra
-            </a>
-          </h4>
-        </div>
-        <div id="collapseSix" class="panel-collapse collapse">
-          <div class="box-body">
-            @foreach ($gastosextras as $gastosextra)
-              {{$gastosextra->gastospaq->NombreGastos}}->${{$gastosextra->gastospaq->Gastos}}<br>
-            @endforeach
-          </div>
-        </div>
-      </div>
-      <div class="panel box box-success">
-        <div class="box-header with-border">
-          <h4 class="box-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
-              Incluye
-            </a>
-          </h4>
-        </div>
-        <div id="collapseSeven" class="panel-collapse collapse">
-          <div class="box-body">
-            @foreach ($incluye as $inc)
-              {{$inc->incluyepaq->NombreIncluye}}<br>
-            @endforeach
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- /.box-body -->
-</div>
-<!-- /.box -->
+        <!-- /.box -->
 
         <table style="width:100%">
         <tr>
@@ -200,45 +230,45 @@
         <th>Regreso</th>
         </tr>
         <tr>
-        <td>{{ \Carbon\Carbon::parse($paquete->FechaSalida)->format('d/m/Y')}}</td>
-        <td>{{ \Carbon\Carbon::parse($paquete->FechaRegreso)->format('d/m/Y')}}</td>
+        <td><i class="fa fa-calendar" aria-hidden="true"></i> {{ \Carbon\Carbon::parse($paquete->FechaSalida)->format('d/m/Y')}}</td>
+        <td><i class="fa fa-calendar" aria-hidden="true"></i> {{ \Carbon\Carbon::parse($paquete->FechaRegreso)->format('d/m/Y')}}</td>
         </tr>
         <tr>
-        <td>{{ \Carbon\Carbon::parse($paquete->HoraSalida)->format('h:i a')}}</td>
+        <td><i class="fa fa-clock-o" aria-hidden="true"></i> {{ \Carbon\Carbon::parse($paquete->HoraSalida)->format('h:i a')}}</td>
         <td></td>
         </tr>
         </table>
         <br>
         <div class="row">
           <div class="col-md-6">
-            <p><b>Lugar de Regreso:</b> {{ $paquete->LugarRegreso}} </p>
+            <p><b><i class="fa fa-map-marker" aria-hidden="true"></i> Punto de reunión:</b> {{ $paquete->LugarRegreso}} </p>
           </div>
           <div class="col-md-6">
-            <p><b><a href="{{$paquete->Galeria}}" target="_blank">Link de Facebook para galeria de imagenes</a></b></p>
+            <p><b><a href="{{$paquete->Galeria}}" target="_blank"><i class="fa fa-picture-o" aria-hidden="true"></i> Link de Facebook para galeria de imagenes</a></b></p>
           </div>
         </div>
       </div><!-- Fin de columna derecha -->
 
       <center>
         <div class="row">
-                    <br>
-                    <a  class="btn btn-info" title="RESERVAR AHORA"
-                                         href="{{ route('adminPaquete.reserva.add',$paquete->IdPaquete) }}">RESERVAR AHORA</a>
-                  </div>
-                    <br>
-                    <FONT FACE="arial" COLOR="white" size="4">
-                    <marquee BGCOLOR="00a65a" >Los Mejores Viajes, Turismo en El Salvador, Centro America y El Mundo.                 #DESCUBRE           #CONOCE             #ESPIRITUGEO</marquee>
-                  </FONT>
-                    <br>
-                    <br>
-                               {!! $paquete->Video!!}
-                    <br>
-                    <br>
-                    <FONT FACE="arial" COLOR="white" size="4">
-                    <marquee BGCOLOR="00a65a" COLOR="white"><b>Visitanos en:</b> Col. Campestre #17, Pje.3, Calle Circunvalación, San Salvador, El Salvador, C.A.
-                      <b>Télefonos:</b> 2284-8404/ 6302-8424 </marquee>
-                  </FONT>
-                  <br>
+          <br>
+          <a  class="btn btn-info" title="RESERVAR AHORA"
+            href="{{ route('adminPaquete.reserva.add',$paquete->IdPaquete) }}">RESERVAR AHORA</a>
+        </div>
+          <br>
+          <FONT FACE="arial" COLOR="white" size="4">
+          <marquee BGCOLOR="00a65a" >Los Mejores Viajes, Turismo en El Salvador, Centro America y El Mundo.                 #DESCUBRE           #CONOCE             #ESPIRITUGEO</marquee>
+        </FONT>
+          <br>
+          <br>
+            {!! $paquete->Video!!}
+          <br>
+          <br>
+          <FONT FACE="arial" COLOR="white" size="4">
+          <marquee BGCOLOR="00a65a" COLOR="white"><b>Visitanos en:</b> Col. Campestre #17, Pje.3, Calle Circunvalación, San Salvador, El Salvador, C.A.
+            <b>Télefonos:</b> 2284-8404/ 6302-8424 </marquee>
+        </FONT>
+        <br>
         </div>
 
       </center>

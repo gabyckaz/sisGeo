@@ -14,7 +14,7 @@ class AddRelationshipToRutaturisticaTable extends Migration
     public function up()
     {
         Schema::table('RutaTuristica', function (Blueprint $table) {
-          $table->integer('IdCategoria')->nullable();
+          $table->integer('IdCategoria')->nullable()->unsigned();
           $table->foreign('IdCategoria')->references('IdCategoria')->on('Categoria');
         });
     }

@@ -15,8 +15,8 @@ class CreateReservacionTable extends Migration
     {
         Schema::create('Reservacion', function (Blueprint $table) {
             $table->increments('IdReservacion');
-            $table->integer('IdTurista');
-            $table->integer('IdPaquete');
+            $table->integer('IdTurista')->unsigned();
+            $table->integer('IdPaquete')->unsigned();
             $table->date('FechaReservacion');
             $table->integer('NumeroAcompanantes');
             $table->string('IdsAcompanantes',40);

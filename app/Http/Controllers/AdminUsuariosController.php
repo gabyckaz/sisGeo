@@ -202,10 +202,10 @@ class AdminUsuariosController extends Controller
   public function crearGuiaTurisco()
     {
         $nacionalidad = nacionalidad::all();
-        $sql = 'SELECT e."IdEmpleadoGEO", p."PrimerNombrePersona",p."PrimerApellidoPersona",
-              p."AreaTelContacto", p."TelefonoContacto", n."Nacionalidad"
-            FROM public."Empleado" as e, public."personas" as p, public."Turista" as t, public."Nacionalidad" as n
-            WHERE e."IdPersona" = p."IdPersona" and t."IdPersona" = p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" ;';
+        $sql = 'SELECT e.IdEmpleadoGEO, p.PrimerNombrePersona,p.PrimerApellidoPersona,
+              p.AreaTelContacto, p.TelefonoContacto, n.Nacionalidad
+            FROM Empleado as e, personas as p, Turista as t, Nacionalidad as n
+            WHERE e.IdPersona = p.IdPersona and t.IdPersona = p.IdPersona and t.IdNacionalidad = n.IdNacionalidad ;';
         $guias = DB::select($sql);
         $guias = $this->arrayPaginator($guias);
         $idiomas = Idioma::all();
@@ -214,7 +214,7 @@ class AdminUsuariosController extends Controller
     }
 
   public function almacenarGuiaTurisco(Request $request)
-    {   
+    {
          $this->validate($request, [
           "Nombre" => "required|alpha|min:3|max:25",
           "apellido" => "required|alpha|min:3|max:25",
@@ -222,9 +222,9 @@ class AdminUsuariosController extends Controller
           "Direccion" => "required|min:10|max:100",
           "TelefonoContacto" => "required",
           "idiomasGuia" => "required",
-        ]); 
-           
-       
+        ]);
+
+
          $hoystr = Carbon::now()->format('d-m-Y');
          $hoyObj = Carbon::parse($hoystr);
          $fechaIngresadaObj = Carbon::parse($request->fechaNacimiento);
@@ -236,7 +236,7 @@ class AdminUsuariosController extends Controller
        if($edad < 18 ){
         return redirect()->back()->withInput()->with('ErrorFechaNac', 'Error fecha incorrecta');
        }
-    
+
       if($request->input("dui") == null && $request->input("pasaporte") == null){
             $hola1 = "Debes introducir por lo menos un documento";
        $this->validate($request, [
@@ -248,7 +248,7 @@ class AdminUsuariosController extends Controller
           "pasaporte" => "required",
           "idiomasGuia" => "required",
         ]);
-     
+
 
       //return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
         }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
@@ -275,7 +275,7 @@ class AdminUsuariosController extends Controller
           if($fechaVencimientoIngresadaP <= $hoyObj){
             return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
           }
-           
+
         }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
            $hola1 = "Solo Ingresastes El dui";
            $this->validate($request, [
@@ -296,10 +296,10 @@ class AdminUsuariosController extends Controller
             return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
           }
 
-         
+
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
            $hola1 = "Solo Ingresastes El pasaporte";
-           
+
             $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
               "apellido" => "required|alpha|min:3|max:25",
@@ -314,7 +314,7 @@ class AdminUsuariosController extends Controller
           if($fechaVencimientoIngresadaP <= $hoyObj){
             return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
             }
-          
+
         }
 
       $persona = Persona::create([
@@ -370,7 +370,7 @@ class AdminUsuariosController extends Controller
         }
 
        $empleado=new Empleado;
-       $empleado->IdPersona = $persona->IdPersona; 
+       $empleado->IdPersona = $persona->IdPersona;
        $empleado->save();
 
        for ($i=0; $i<count($request->idiomasGuia);$i++){
@@ -384,12 +384,12 @@ class AdminUsuariosController extends Controller
     }
 
     public function editarInformacionGuia($id){
-       $nacionalidad = Nacionalidad::all(); 
-      $sql = 'SELECT e."IdEmpleadoGEO", e."IdPersona", p."PrimerNombrePersona", p."SegundoNombrePersona",
-              p."PrimerApellidoPersona", p."SegundoApellidoPersona", p."Genero", p."AreaTelContacto",
-              p."TelefonoContacto", n."Nacionalidad", t."FechaNacimiento", t."DomicilioTurista" , t."IdTurista", n."IdNacionalidad"
-              FROM public."Empleado" as e , public."personas" as p, public."Turista" as t, public."Nacionalidad" as n
-              WHERE e."IdEmpleadoGEO" = '.$id.' AND e."IdPersona" = p."IdPersona" AND p."IdPersona" = t."IdPersona" AND n."IdNacionalidad" = t."IdNacionalidad";';
+       $nacionalidad = Nacionalidad::all();
+      $sql = 'SELECT e.IdEmpleadoGEO, e.IdPersona, p.PrimerNombrePersona, p.SegundoNombrePersona,
+              p.PrimerApellidoPersona, p.SegundoApellidoPersona, p.Genero, p.AreaTelContacto,
+              p.TelefonoContacto, n.Nacionalidad, t.FechaNacimiento, t.DomicilioTurista , t.IdTurista, n.IdNacionalidad
+              FROM Empleado as e , personas as p, Turista as t, Nacionalidad as n
+              WHERE e.IdEmpleadoGEO = '.$id.' AND e.IdPersona = p.IdPersona AND p.IdPersona = t.IdPersona AND n.IdNacionalidad = t.IdNacionalidad;';
       $guia = DB::select($sql);
        $documentos="";
        $turista = Turista::find($guia[0]->IdTurista);
@@ -415,25 +415,25 @@ class AdminUsuariosController extends Controller
           $gIdiomas = DB::select($sql);
           $idiomasGuia = array();
          // dd($gIdiomas[0]->IdIdioma);
-         for ($i=0; $i < count($gIdiomas); $i++) { 
+         for ($i=0; $i < count($gIdiomas); $i++) {
            $idiomasGuia[] = $gIdiomas[$i]->IdIdioma;
          }
 
          sort($idiomasGuia);
-            
+
        return view('adminUser.editarGuiaTuristico', compact('turista','documentos','nacionalidad','guia','idiomas','idiomasGuia'));
     }
-    
+
     public function guardarInformacionGuiaEditado(Request $request){
 
       $this->validate($request, [
-          "Nombre" => "required|alpha|min:3|max:25",          
-          "Apellido" => "required|alpha|min:3|max:25",          
+          "Nombre" => "required|alpha|min:3|max:25",
+          "Apellido" => "required|alpha|min:3|max:25",
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
           "TelefonoContacto" => "required",
           "idiomasGuia" => "required",
-        ]); 
+        ]);
 
         if($request->input("dui") == null && $request->input("pasaporte") == null){
             $hola1 = "Debes introducir por lo menos un documento";
@@ -446,7 +446,7 @@ class AdminUsuariosController extends Controller
           "dui" => "required",
           "pasaporte" => "required",
         ]);
-     
+
 
       //return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
         }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
@@ -473,7 +473,7 @@ class AdminUsuariosController extends Controller
           if($fechaVencimientoIngresadaP <= $hoyObj){
             return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
           }
-           
+
         }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
            $hola1 = "Solo Ingresastes El dui";
            $this->validate($request, [
@@ -494,10 +494,10 @@ class AdminUsuariosController extends Controller
             return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
           }
 
-         
+
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
            $hola1 = "Solo Ingresastes El pasaporte";
-           
+
             $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
               "Apellido" => "required|alpha|min:3|max:25",
@@ -512,10 +512,10 @@ class AdminUsuariosController extends Controller
           if($fechaVencimientoIngresadaP <= $hoyObj){
             return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
             }
-          
+
         }
 
-          $turista = Turista::find($request->idTurista);          
+          $turista = Turista::find($request->idTurista);
        //Actualizo a la persona
           $persona = Persona::find($turista->IdPersona);
           $persona->PrimerNombrePersona = $request->Nombre;
@@ -528,7 +528,7 @@ class AdminUsuariosController extends Controller
 
           $turista->DomicilioTurista = $request->Direccion;
           $turista->save();
-      
+
           if($request->input("dui") != null && $request->input("fechaVencimentoD") != null){
            $dui = TipoDocumento::where('TipoDocumento','DUI')
             ->where('IdTurista',$turista->IdTurista)->first();
@@ -544,8 +544,8 @@ class AdminUsuariosController extends Controller
             $dui->save();
             }
          }
-        
-         if($request->input("pasaporte") != null && $request->input("fechaVencimentoP") != null){ 
+
+         if($request->input("pasaporte") != null && $request->input("fechaVencimentoP") != null){
             $pasaporte = TipoDocumento::where('TipoDocumento','Pasaporte')
             ->where('IdTurista',$turista->IdTurista)->first();
             if($pasaporte == null){
@@ -584,12 +584,12 @@ class AdminUsuariosController extends Controller
         ['path' => 'agregarGuiaTuristico']);
 }
 
-     public function validaDui($dui){  
+     public function validaDui($dui){
       $separador ='-';
       $partesDui = explode('-', $dui);
       $numeroDui = $partesDui[0];
       $digitoVerificador = $partesDui[1];
-      $arrayNumeroDui = str_split($numeroDui);  
+      $arrayNumeroDui = str_split($numeroDui);
       $suma = (9*$arrayNumeroDui[0])+(8*$arrayNumeroDui[1])+(7*$arrayNumeroDui[2])+(6*$arrayNumeroDui[3])+(5*$arrayNumeroDui[4])+(4*$arrayNumeroDui[5])+(3*$arrayNumeroDui[6])+(2*$arrayNumeroDui[7]);
       $moduloDiv = $suma%10;
       $resta = 10-$moduloDiv;

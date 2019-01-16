@@ -11,7 +11,7 @@
       <h4 class="text-left">Fecha de emisión: <strong>{{date('d/m/y g:i a')}}</strong></h4>
       @if(Auth::check())
         <h4 class="text-left">Usuario: <strong>{{Auth::user()->name}}</strong></h4>
-      @endif
+      @endif  
   </div>
   <br>
   <div class="row">
@@ -53,24 +53,6 @@
         {{$inc->incluyepaq->NombreIncluye}}<br>
       @endforeach
     <br>
-    @if (count($transportesasignados) == 0)
-      <p>No hay transporte asignado<p>
-    @elseif (count($transportesasignados) >= 1)
-    <p><strong>Transporte asignado</strong></p>
-      @foreach($transportesasignados as $transporteasignado)
-        <p>{{$transporteasignado->NombreTipoTransporte}} {{$transporteasignado->Marca}} {{$transporteasignado->Modelo}} {{$transporteasignado->Color}},
-          Placa: {{$transporteasignado->Placa_Matricula}}, No. Asientos: {{$transporteasignado->NumeroAsientos}} <br>Empresa: {{$transporteasignado->NombreEmpresaTransporte}}</p>
-      @endforeach
-    @endif
-    <br>
-    @if (count($conductoresasignados) == 0)
-      <p>No hay conductor asignado<p>
-    @elseif (count($conductoresasignados) >= 1)
-    <p><strong>Conductor asignado</strong></p>
-      @foreach($conductoresasignados as $conductor)
-        {{$conductor->NombreConductor}} <br>
-      @endforeach
-    @endif
   </div>
 </div>
 @endsection
