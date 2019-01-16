@@ -23,10 +23,7 @@
    <div class="box box-solid">
   <div class="box-header">
         <h3 class="box-title"><strong>Editar familiares o amigos</strong></h3>
-        <div class="box-tools pull-right">
-          <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
-        </div>
-      </div> 
+      </div>
       <div class="box-body">
        <form id="miForm" method="POST" enctype="multipart/form-data" action="{{route('user.completar.informacion.store') }}">
         {!! method_field('PUT') !!}
@@ -201,7 +198,7 @@
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
-                    </div>                  
+                    </div>
                   <input  id="fechaVencimientoD" type="date" name="fechaVencimientoD" value="{{ old('fechaVencimientoD')}}" class="form-control" >
                   </div>
                   @if ($errors->has('fechaVencimientoD'))
@@ -210,7 +207,7 @@
                   @if (session()->has('ErrorFechaVenceD'))
                        <span class="help-block">{{ session()->get('fechaVencimientoD') }}</span>
                   @endif
-                  
+
                 <!-- /.input group -->
               </div>
              </div>
@@ -267,7 +264,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
                     </div>
-                  
+
                   @if($documentos == 'duiPasaporte' || $documentos == 'Pasaporte')
                    @foreach($turista->documentos as $documento)
                     @if($documento->TipoDocumento == "Pasaporte")
@@ -304,7 +301,7 @@
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
-                    </div>                  
+                    </div>
                   <input id="fechaVencimientoP" type="date" name="fechaVencimientoP" value="{{ old('fechaVencimientoP')}}" class="form-control" >
                   </div>
                    @if ($errors->has('fechaVencimientoP'))
@@ -426,9 +423,9 @@
 
         </div>
           <div class="row">
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-md-6">
             <div class="form-group has-feedback{{ $errors->has('preferencias') ? ' has-error' : '' }}">
-                <label name="preferencias" for="itinerario">Preferencias</label>
+                <label name="preferencias" for="itinerario">Preferencias (elegir al menos 1) *</label>
                   <select class="form-control select2" multiple="multiple" name="preferencias[]" id="preferencias[]" >
                   @foreach ($categorias as $cat)
                   <option value="{{$cat->IdCategoria }}" {{ (collect(old('preferencias', $misPreferencias))->contains($cat->IdCategoria)) ? 'selected':'' }} >{{$cat->NombreCategoria}}</option>
@@ -445,7 +442,6 @@
             <div class="col-md-12">
               <button type="submit" class="btn btn-info  col-xs-12 col-sm-2 center-block"><STRONG>Actualizar</STRONG></button>
             </div>
-            <!-- /.col -->
           </div>
       </div>
     </form>
@@ -455,5 +451,5 @@
              <p>Es necesario ingresar almenos un documento</p>
         </div>
 </div>
-     
+
 @endsection

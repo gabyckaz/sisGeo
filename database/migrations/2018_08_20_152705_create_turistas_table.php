@@ -22,8 +22,8 @@ class CreateTuristasTable extends Migration
 
         Schema::create('Turista', function (Blueprint $table) {
             $table->increments('IdTurista');
-            $table->integer('IdNacionalidad');
-            $table->integer('IdPersona');
+            $table->integer('IdNacionalidad')->unsigned();
+            $table->integer('IdPersona')->unsigned();
             $table->string('CategoriaTurista',1);
             $table->date('FechaNacimiento');
            // $table->string('TipoDocumento',9);
@@ -38,9 +38,9 @@ class CreateTuristasTable extends Migration
 
         Schema::create('TipoDocumento', function (Blueprint $table) {
             $table->increments('IdTipoDocumento');
-            $table->integer('IdTurista');
+            $table->integer('IdTurista')->unsigned();
             $table->string('TipoDocumento',9);
-            $table->string('NumeroDocumento',10)->unique();;
+            $table->string('NumeroDocumento',10);
             $table->date('FechaVenceDocumento');
             $table->foreign('IdTurista')->references('IdTurista')->on('Turista')->onDelete('cascade');
             $table->timestamps();
@@ -53,7 +53,7 @@ class CreateTuristasTable extends Migration
      * @return void
      */
     public function down()
-    {   
+    {
         Schema::dropIfExists('TipoDocumento');
         Schema::dropIfExists('Turista');
         Schema::dropIfExists('Nacionalidad');

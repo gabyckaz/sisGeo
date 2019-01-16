@@ -7,7 +7,7 @@
 
 @section('contenido')
 <div class="row">
-  <div class="col-md-7 col-md-offset-2">
+  <div class="col-md-8 col-md-offset-2">
     @if(session('status'))
       <br>
        <script type="text/javascript">
@@ -115,7 +115,7 @@
     </div>
   </div>
 
-  <div class="col-md-7 col-md-offset-2">
+  <div class="col-md-8 col-md-offset-2">
     <div class="box box-warning">
       <div class="box-header">
         <h3 class="box-title"><STRONG>Listado de Empresas</STRONG></h3>

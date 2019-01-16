@@ -29,7 +29,7 @@ class ReservacionController extends Controller
     {
       try{
       /*$usuarioreservando= User::where('IdPersona','=',auth()->user()->id)->first();
-       
+
       //Barriendo los turistas
       $turistas =Turista::all();
       foreach ($turistas as $key => $turista) {
@@ -40,11 +40,11 @@ class ReservacionController extends Controller
       }
       //Trae las reservaciones hechas por el turista actual y las ordena de la mas reciente a la menos reciente
       $reservaciones = Reservacion::where('IdTurista', $usuarioreservando)->orderBy('FechaReservacion','desc')->get();*/
-       $sql = 'SELECT t."IdTurista"
-          FROM public."users" as u, public."personas" as p, public."Turista" as t
-          WHERE u."IdPersona" = p."IdPersona" AND p."IdPersona" = t."IdPersona"
-          AND u."id" = '.auth()->user()->id.';';
-      
+       $sql = 'SELECT t.IdTurista
+          FROM users as u, personas as p, Turista as t
+          WHERE u.IdPersona = p.IdPersona AND p.IdPersona = t.IdPersona
+          AND u.id = '.auth()->user()->id.';';
+
         $usuarioreservando = DB::select($sql);
         $reservaciones = Reservacion::where('IdTurista', $usuarioreservando[0]->IdTurista)->orderBy('FechaReservacion','desc')->get();
       //  dd($reservaciones[0]->paquete->compara_fechas);
@@ -76,7 +76,7 @@ class ReservacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
       $strAcompanantes = '';
       if($request->input("usuario") == null && $request->strFamilia == null && $request->strAmigos == null){
       //  dd('No trae idTurista de usuario y strFamilia es nulo y strAmigos es Null')
@@ -110,15 +110,15 @@ class ReservacionController extends Controller
         //dd($strAcompanantes);
       }
       dd($strAcompanantes);
-      $sql = 'SELECT t."IdTurista"
-          FROM public."users" as u, public."personas" as p, public."Turista" as t
-          WHERE u."IdPersona" = p."IdPersona" AND p."IdPersona" = t."IdPersona"
-          AND u."id" = '.auth()->user()->id.';';
-      
+      $sql = 'SELECT t.IdTurista
+          FROM users as u, personas as p, Turista as t
+          WHERE u.IdPersona = p.IdPersona AND p.IdPersona = t.IdPersona
+          AND u.id = '.auth()->user()->id.';';
+
           $usuarioreservando = DB::select($sql);
           $strAcompanantes = $usuarioreservando[0]->IdTurista.'-'.$strAcompanantes;
-     
-         
+
+
          $reservacion=new Reservacion;
          $reservacion->IdTurista=$usuarioreservando[0]->IdTurista;
          $reservacion->IdPaquete=$request->idPaquete->IdPaquete;
@@ -126,7 +126,7 @@ class ReservacionController extends Controller
          $reservacion->NumeroAcompanantes = $request->total;
          $reservacion->IdsAcompanantes=$strAcompanantes;
          $reservacion->ConfirmacionReservacion='0';
-         
+
          $reservacion->save();
 
 
@@ -143,10 +143,10 @@ class ReservacionController extends Controller
     }
 
     public function ordenadorAscendente($cadena)
-    {   
+    {
       $separador =',';
       $strAcompanantes = explode(',', $cadena);
-      sort($strAcompanantes);         
+      sort($strAcompanantes);
       $cadenaOrdenada = implode ( $separador , $strAcompanantes );
       return $cadenaOrdenada;
     }
@@ -175,24 +175,24 @@ class ReservacionController extends Controller
       $arryIdsAcompanantes = explode(',', $strAcompanantes[1]);
       $realizaReserva = $strAcompanantes[0];
       $encargado = Persona::find(auth()->user()->IdPersona);
-       $sql1 = 'SELECT  a."IdTurista" as "Id",
-          p."PrimerNombrePersona" as "Nombre",p."PrimerApellidoPersona" as "Apellido",p."Genero"
-          FROM public."Acompanante" as a, public."Turista" as t,
-          public."personas" as p,public."Nacionalidad" as n
-          WHERE a."IdTurista" = t."IdTurista" and
-          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
-          a."IdUsuario" = '.auth()->user()->id.'';
-          // AND a."IdTurista" in('.$strAcompanantes[1].')';
+       $sql1 = 'SELECT  a.IdTurista as Id,
+          p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido,p.Genero
+          FROM Acompanante as a, Turista as t,
+          personas as p,Nacionalidad as n
+          WHERE a.IdTurista = t.IdTurista and
+          t.IdPersona=p.IdPersona and t.IdNacionalidad = n.IdNacionalidad and
+          a.IdUsuario = '.auth()->user()->id.'';
+          // AND a.IdTurista in('.$strAcompanantes[1].')';
 
-      $sql2= 'SELECT   t."IdTurista" as "Id",
-          p."PrimerNombrePersona" as "Nombre",p."PrimerApellidoPersona" as "Apellido",p."Genero"
-          FROM public."users" as u, public."Turista" as t,
-          public."personas" as p
-          WHERE u."IdPersona" = p."IdPersona" and
-          t."IdPersona"=p."IdPersona" and
-          u."id" = '.auth()->user()->id.';';          
+      $sql2= 'SELECT   t.IdTurista as Id,
+          p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido,p.Genero
+          FROM users as u, Turista as t,
+          personas as p
+          WHERE u.IdPersona = p.IdPersona and
+          t.IdPersona=p.IdPersona and
+          u.id = '.auth()->user()->id.';';
       $sql = $sql1.' UNION '.$sql2;
-      $acompanantesT = DB::select($sql); 
+      $acompanantesT = DB::select($sql);
        //   dd($acompanantes);
       /*$users = DB::table('Turista')
                     ->whereIn('IdTurista', $arryIdsAcompanantes)
@@ -245,35 +245,35 @@ class ReservacionController extends Controller
      *
      */
     public function reservar($paquete)
-    { 
+    {
       /*Consulta para obtener el Id turista del usuario*/
-     $sqlUserTurista = 'SELECT   t."IdTurista" as "Id",
-          p."PrimerNombrePersona" as "Nombre",p."PrimerApellidoPersona" as "Apellido"
-          FROM public."users" as u, public."Turista" as t,
-          public."personas" as p
-          WHERE u."IdPersona" = p."IdPersona" and
-          t."IdPersona"=p."IdPersona" and
-          u."id" = '.auth()->user()->id.';';
-          $userTurista = DB::select($sqlUserTurista); 
+     $sqlUserTurista = 'SELECT   t.IdTurista as Id,
+          p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido
+          FROM users as u, Turista as t,
+          personas as p
+          WHERE u.IdPersona = p.IdPersona and
+          t.IdPersona=p.IdPersona and
+          u.id = '.auth()->user()->id.';';
+          $userTurista = DB::select($sqlUserTurista);
       /*Consulta para obtener los Ids de los amigos del usuario*/
-      $sqlAmigos = 'SELECT  a."IdTurista" as "Id",
-          p."PrimerNombrePersona" as "Nombre",p."PrimerApellidoPersona" as "Apellido",a."EsFamiliar" as "Tipo",p."Genero"
-          FROM public."Acompanante" as a, public."Turista" as t,
-          public."personas" as p,public."Nacionalidad" as n
-          WHERE a."IdTurista" = t."IdTurista" and
-          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
-          a."IdUsuario" = '.auth()->user()->id.' AND a."EsFamiliar" = \'A\';';
+      $sqlAmigos = 'SELECT  a.IdTurista as Id,
+          p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido,a.EsFamiliar as Tipo,p.Genero
+          FROM Acompanante as a, Turista as t,
+          personas as p,Nacionalidad as n
+          WHERE a.IdTurista = t.IdTurista and
+          t.IdPersona=p.IdPersona and t.IdNacionalidad = n.IdNacionalidad and
+          a.IdUsuario = '.auth()->user()->id.' AND a.EsFamiliar = \'A\';';
           $amigos = DB::select($sqlAmigos);
       /*Consulta para obtener los Ids de la familia del usuario*/
 
-      $sqlFamilia = 'SELECT  a."IdTurista" as "Id",
-          p."PrimerNombrePersona" as "Nombre",p."PrimerApellidoPersona" as "Apellido",a."EsFamiliar" as "Tipo",p."Genero"
-          FROM public."Acompanante" as a, public."Turista" as t,
-          public."personas" as p,public."Nacionalidad" as n
-          WHERE a."IdTurista" = t."IdTurista" and
-          t."IdPersona"=p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and
-          a."IdUsuario" = '.auth()->user()->id.' AND a."EsFamiliar" = \'F\';';
-          $familia = DB::select($sqlFamilia); 
+      $sqlFamilia = 'SELECT  a.IdTurista as Id,
+          p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido,a.EsFamiliar as Tipo,p.Genero
+          FROM Acompanante as a, Turista as t,
+          personas as p,Nacionalidad as n
+          WHERE a.IdTurista = t.IdTurista and
+          t.IdPersona=p.IdPersona and t.IdNacionalidad = n.IdNacionalidad and
+          a.IdUsuario = '.auth()->user()->id.' AND a.EsFamiliar = \'F\';';
+          $familia = DB::select($sqlFamilia);
 
        $paquete = Paquete::find($paquete);
 
@@ -293,11 +293,11 @@ class ReservacionController extends Controller
           break;
         }
       } */
-      $sql = 'SELECT t."IdTurista"
-          FROM public."users" as u, public."personas" as p, public."Turista" as t
-          WHERE u."IdPersona" = p."IdPersona" AND p."IdPersona" = t."IdPersona"
-          AND u."id" = '.auth()->user()->id.';';
-      
+      $sql = 'SELECT t.IdTurista
+          FROM users as u, personas as p, Turista as t
+          WHERE u.IdPersona = p.IdPersona AND p.IdPersona = t.IdPersona
+          AND u.id = '.auth()->user()->id.';';
+
         $usuarioreservando = DB::select($sql);
 
       return view('Reservacion.create', compact('paquete','usuarioreservando','userTurista','amigos','familia'));

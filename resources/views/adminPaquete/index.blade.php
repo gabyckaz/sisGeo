@@ -65,6 +65,10 @@ Ver Paquete
               <a href="{{route('adminPaquete.reporte', $paquete['IdPaquete'])}}"
               class="btn btn-info fa Example of download fa-download" title="Descargar como PDF">
             </a>
+            <a href="{{route('adminPaqueteGuia.show', $paquete['IdPaquete'])}}"
+              class="btn btn-info fa fa-leaf" title="Agregar Guia">
+            </a>
+
           </td>
         </tr>
         @endforeach

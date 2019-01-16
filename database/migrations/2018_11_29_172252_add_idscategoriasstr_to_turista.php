@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRelationshipToRutaturisticaTable extends Migration
+class AddIdscategoriasstrToTurista extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class AddRelationshipToRutaturisticaTable extends Migration
      */
     public function up()
     {
-        Schema::table('RutaTuristica', function (Blueprint $table) {
-          $table->integer('IdCategoria')->nullable()->unsigned();
-          $table->foreign('IdCategoria')->references('IdCategoria')->on('Categoria');
+            Schema::table('Turista', function (Blueprint $table) {
+            $table->string('IdsCategoriasStr',30)->nullable();
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -26,6 +26,6 @@ class AddRelationshipToRutaturisticaTable extends Migration
      */
     public function down()
     {
-
+        //
     }
 }

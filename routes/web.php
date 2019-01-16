@@ -121,6 +121,9 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   //AGREGAR TRANSPORTE A PAQUETE
   Route::get('/MostrarPaquete/{id}', ['uses' => 'PaqueteController@edittransporte', 'as' => 'adminPaquete.show']);
   Route::put('/MostrarPaquete/{id}', ['uses' => 'PaqueteController@asignartransporte', 'as' => 'adminPaquete.show']);
+  //AGREGAR GUIA A PAQUETE
+    Route::get('/AgregarGuia/{id}', ['uses' => 'PaqueteController@agregarGuiaPaquete', 'as' => 'adminPaqueteGuia.show']);
+  Route::put('/AgregarGuia/{id}', ['uses' => 'PaqueteController@guaradaActualizarGuiaPaquete', 'as' => 'adminPaquete.saveUpGuia']);
   //AGREGAR CONDUCTOR A PAQUETE
   Route::post('/MostrarPaquete/{id}', ['uses' => 'PaqueteController@asignarconductor', 'as' => 'adminPaquete.show']);
   Route::get('/ListarConductores', ['uses' => 'PaqueteController@listarConductores','as' => 'adminPaquete.listaConductores']);
@@ -142,11 +145,13 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::get('/ActualizarEstadoPaquete', ['uses' => 'PaqueteController@cambiarEstado', 'as' => 'adminPaquete.estado']);
   Route::put('/ActualizarEstadoPaquete/{id}', ['uses' => 'PaqueteController@cambiarEstado2', 'as' => 'adminPaquete.estado2']);
   Route::put('/publicar/{id}', ['uses' => 'PaqueteController@publicar', 'as' => 'adminPaquete.publicarpaquete']);
+  Route::resource('otroturista', 'OtrosTuristasController');
 });
 
 //MOSTRAR PAQUETES A USUARIOS COMO VISITANTES
 Route::get('/MostrarPaqueteCliente/{id}', ['uses' => 'PaqueteController@getSingle', 'as' => 'adminPaquete.single']);
-//Reporte de listado de paquetes
+//Informacion de paquete para clientes
+Route::get('/informacion/{id}', ['uses' =>  'PaqueteController@informacion','as' => 'adminPaquete.informacion']);
 Route::get('/reporte/{id}', ['uses' =>  'PaqueteController@reporte','as' => 'adminPaquete.reporte']);
 
 //Rutas a las que solo puede accesar visitante sin hacer login

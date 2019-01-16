@@ -201,9 +201,9 @@
           @endforeach
         </ul>
       </div>
-      <div class="box-footer text-center">
+      <!-- <div class="box-footer text-center">
         <a href="{{ route('adminUser.index') }}">Ver todos</a>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

@@ -5,7 +5,17 @@
 
 @endsection
 @section('Title')
-<STRONG>Agregar Guías Turístico</STRONG>
+<?php 
+   $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < 10; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+  
+
+?>
+<STRONG>Agregar Guías Turístico {{ $randomString }}</STRONG>
 @endsection
 @section('contenido')
 
@@ -25,6 +35,7 @@
          $errors->first('fechaVencimentoP') ||
          $errors->first('Direccion') ||
          $errors->first('TelefonoContacto') ||
+         $errors->first('idiomasGuia') ||
          session()->has('ErrorFechaNac') ||
          session()->has('Errordui') ||
          session()->has('ErrorFechaVenceD') ||
@@ -266,6 +277,21 @@
           </div>
         </div>
       </div>
+         <div class="row">
+            <div class="col-xs-12 col-md-12">
+            <div class="form-group has-feedback{{ $errors->has('idiomasGuia') ? ' has-error' : '' }}">
+                <label name="idiomasGuia" for="idioma">Idiomas</label>
+                  <select class="form-control select2" multiple="multiple" name="idiomasGuia[]" id="idiomasGuia"  data-placeholder="Select a State" style="width: 100%;">
+                  @foreach ($idiomas as $idioma)
+                  <option value="{{$idioma->IdIdioma }}" {{ (collect(old('idiomasGuia'))->contains($idioma->IdIdioma)) ? 'selected':'' }} >{{$idioma->Idioma}}</option>
+                  @endforeach
+                  </select>
+                  @if ($errors->has('idiomasGuia'))
+                  <span class="help-block">{{ $errors->first('idiomasGuia') }}</span>
+                @endif
+             </div>
+            </div>
+          </div>
 
            <div class="row">
 

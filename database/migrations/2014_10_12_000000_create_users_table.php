@@ -37,7 +37,7 @@ class CreateUsersTable extends Migration
             $table->string('sexo');
             $table->string('codigoArea');
             $table->string('telefono'); */
-            $table->string('email')->unique();
+            $table->string('email',40)->unique();
             $table->string('password');
             $table->string('RecibirNotificacion');
             $table->string('EstadoUsuario');

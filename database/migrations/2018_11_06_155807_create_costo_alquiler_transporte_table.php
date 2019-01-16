@@ -15,7 +15,7 @@ class CreateCostoAlquilerTransporteTable extends Migration
     {
         Schema::create('CostoAlquilerTransporte', function (Blueprint $table) {
             $table->increments('IdCostoAlquilerTransporte');
-            $table->integer('IdPaquete');
+            $table->integer('IdPaquete')->unsigned();
             $table->foreign('IdPaquete')->references('IdPaquete')->on('Paquetes');
             $table->double('CostoAlquilerTransporte',8,2);
         });

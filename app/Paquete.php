@@ -22,16 +22,18 @@ class Paquete extends Model
     public $sortable = ['IdPaquete','NombrePaquete','FechaSalida','HoraSalida','FechaRegreso','Precio'];
 
     public function gastosextras()
-        {
-            return $this->belongsToMany('App\GastosExtras');
-        }
-  public function scopeNombre($query, $nombre){
+    {
+      return $this->belongsToMany('App\GastosExtras');
+    }
 
-         if(trim($nombre) != " "){
+    public function scopeNombre($query, $nombre)
+    {
+      if(trim($nombre) != " "){
+        $query->where('NombrePaquete', "Like", "%$nombre%");
+      }
+    }
 
-         $query->where('NombrePaquete', "Like", "%$nombre%");
-          }
-        }
+    //relación con RutaTuristica
     public function ruta()
     {
       return $this->belongsTo('App\RutaTuristica','IdTuristica');//Modelo y llave foránea
@@ -40,13 +42,13 @@ class Paquete extends Model
     //relacion muchos a muchos con Transporte
     public function transportes()
     {
-          return $this->belongsToMany('App\Transporte', 'Contrata', 'IdPaquete', 'IdTransporte');
+      return $this->belongsToMany('App\Transporte', 'Contrata', 'IdPaquete', 'IdTransporte');
     }
 
     //relacion muchos a muchos con Conductor
     public function conductores()
     {
-          return $this->belongsToMany('App\Conductor', 'Conduce', 'IdPaquete', 'IdConductor');
+      return $this->belongsToMany('App\Conductor', 'Conduce', 'IdPaquete', 'IdConductor');
     }
     /*
      1. Si hoy es mayor que fecha de salida return 1.
@@ -72,13 +74,20 @@ class Paquete extends Model
     {
        return $this->NombrePaquete . ' ' . strtoupper($this->NombrePaquete);
     }
-    public function getDiasAttribute(){
+
+    public function getDiasAttribute()
+    {
       $hoystr = Carbon::now()->format('d-m-Y');
       $hoyObj = Carbon::parse($hoystr);
       $fechaSalida = Carbon::parse($this->FechaSalida);
 
       $diferencia= $hoyObj->diffInDays($fechaSalida);
       return $diferencia;
+    }
+
+    public function guias()
+    {
+        return $this->belongsToMany('App\Empleado');
     }
 
 }
