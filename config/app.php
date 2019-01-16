@@ -164,6 +164,7 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        BackupManager\Laravel\Laravel55ServiceProvider::class,
 
     ],
 
