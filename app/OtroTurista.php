@@ -8,5 +8,5 @@ class OtroTurista extends Model
 {
    protected $table = 'OtrosTuristas';
 
-   protected $primaryKey = 'IdOtroTurista';
+   protected $primaryKey = 'IdOtroTuristas';
 }
