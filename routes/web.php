@@ -45,7 +45,9 @@ Route::group(['middleware' => ['role:User']], function() {
   Route::resource('user', 'userController');
   //Rutas de reserva
   Route::get('Reservacion/{id}/crear', ['as' => 'adminPaquete.reserva.add', 'uses' => 'ReservacionController@reservar']);
+  Route::post('Reservacion/crear', ['as' => 'cobro', 'uses' => 'ReservacionController@cobro']);//Pagadito
   Route::put('Reservacion/crear', ['as' => 'adminPaquete.reserva.add.store', 'uses' => 'ReservacionController@store']);
+  Route::get('reservacion/{value}/{ern_value}', ['as' => 'reservacion.recibo', 'uses' => 'ReservacionController@recibo']);
   Route::resource('Reservacion', 'ReservacionController');
   //Route::put('/{id}/adminPaquete', ['as' => 'adminPaquete.reserva.add', 'uses' =>  'ReservacionController@reservar']);
 });

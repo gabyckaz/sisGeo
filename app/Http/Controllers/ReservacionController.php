@@ -12,6 +12,8 @@ use App\ImagenPaqueteTuristico;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Facades\Input;
+use App\Pagadito; //API de Pagadito
+use App\Pago;
 
 class ReservacionController extends Controller
 {
@@ -109,7 +111,7 @@ class ReservacionController extends Controller
         $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
         //dd($strAcompanantes);
       }
-      dd($strAcompanantes);
+      //dd($strAcompanantes);
       $sql = 'SELECT t.IdTurista
           FROM users as u, personas as p, Turista as t
           WHERE u.IdPersona = p.IdPersona AND p.IdPersona = t.IdPersona
@@ -326,4 +328,291 @@ class ReservacionController extends Controller
       ->with('paquete',$paquete)
       ->with('usuarioreservando',$usuarioreservando);
     }
+
+    /**
+     * Vista de Retorno de Pagadito
+     * Método que se ejecuta al regresar de la interfaz desde la de Pagadito
+     */
+    public function recibo($token,$comprobante){
+      /*
+      * Este script recibe la redirección desde Pagadito una vez la transacción ha
+      * sido finalizada. Se comunica con Pagadito a través de la API y consulta el estado de la transacción.
+      *
+      * LICENCIA: Éste código fuente es de uso libre. Su comercialización no está
+      * permitida. Toda publicación o mención del mismo, debe ser referenciada a su autor original Pagadito.com.
+      *
+      * @author      Pagadito.com <soporte@pagadito.com>
+      * @copyright   Copyright (c) 2017, Pagadito.com
+      * @version     1.2
+      * @link        https://dev.pagadito.com/index.php?mod=docs&hac=wspg
+      */
+
+      define("UID", "41e55e963384e7d3ae88485e94f1a6cb");
+      define("WSK", "c051a71076455a950c870c27543b3783");
+      define("WSPG", "https://sandbox.pagadito.com/comercios/wspg/charges.php?wdsl");
+      define("AMBIENTE_SANDBOX",true);
+
+      if (isset($token) && $token != "")
+      {
+          /* Lo primero es crear el objeto Pagadito, al que se le pasa como parámetros el UID y el WSK definidos en config.php */
+          $Pagadito = new Pagadito(UID, WSK);
+          /* Si se está realizando pruebas, necesita conectarse con Pagadito SandBox. Para ello llamamos
+           * a la función mode_sandbox_on(). De lo contrario omitir la siguiente linea. */
+          if (AMBIENTE_SANDBOX) {
+              $Pagadito->mode_sandbox_on();
+          }
+          /* Validamos la conexión llamando a la función connect(). Retorna true si la conexión es exitosa. De lo contrario retorna false */
+          if ($Pagadito->connect()) {
+              /* Solicitamos el estado de la transacción llamando a la función get_status(). Le pasamos como parámetro el token recibido vía GET en nuestra URL de retorno. */
+              if ($Pagadito->get_status($token)) {
+                  /*Luego validamos el estado de la transacción, consultando el estado devuelto por la API. */
+                  switch($Pagadito->get_rs_status())
+                  {
+                      case "COMPLETED":
+                          /* Tratamiento para una transacción exitosa.*/
+                          $msgPrincipal = "Su compra fue exitosa";
+                          $nap=$Pagadito->get_rs_reference();
+                          $fecharespuesta=$Pagadito->get_rs_date_trans();
+
+                          //Editar los datos de la transaccion exitosa
+                          $usuario = Persona::find(auth()->user()->IdPersona);
+                          //hacer update de donde el idusuario y comprobante sean igual
+                          DB::table('PagoEnLinea')
+                            ->where('Ern', $comprobante)
+                            ->update(['Nap' => $nap,'FechaTransaccion' => $fecharespuesta,'Estado' => 1]);
+
+                          return view('Reservacion.invoice')
+                            ->with('status',$msgPrincipal)
+                            ->with('nap', $nap)
+                            ->with('fecharespuesta', $fecharespuesta);
+                          break;
+
+                      case "REGISTERED":
+                          /* Tratamiento para una transacción aún en proceso. */
+                          $msgPrincipal = "Atenci&oacute;n";
+                          $msgSecundario = "La transacci&oacute;n fue cancelada.<br /><br />";
+                          break;
+
+                      case "VERIFYING":
+                          /*
+                           * La transacción ha sido procesada en Pagadito, pero ha quedado en verificación.
+                           * En este punto el cobro xha quedado en validación administrativa.
+                           * Posteriormente, la transacción puede marcarse como válida o denegada;
+                           * por lo que se debe monitorear mediante esta función hasta que su estado cambie a COMPLETED o REVOKED.
+                           */
+                          $msgPrincipal = "Atenci&oacute;n";
+                          $msgSecundario = '
+                          Su pago est&aacute; en validaci&oacute;n.<br />
+                          NAP(N&uacute;mero de Aprobaci&oacute;n Pagadito): <label class="respuesta">' . $Pagadito->get_rs_reference() . '</label><br />
+                          Fecha Respuesta: <label class="respuesta">' . $Pagadito->get_rs_date_trans() . '</label><br /><br />';
+                          break;
+
+                      case "REVOKED":
+                          /*La transacción en estado VERIFYING ha sido denegada por Pagadito.
+                           * En este punto el cobro ya ha sido cancelado.*/
+                          $msgPrincipal = "Atenci&oacute;n";
+                          $msgSecundario = "La transacci&oacute;n fue denegada.<br /><br />";
+                          break;
+
+                      case "FAILED":
+                          /* Tratamiento para una transacción fallida.*/
+                          break;
+                      default:
+                          /* Por ser un ejemplo, se muestra un mensaje de error fijo.*/
+                          $msgPrincipal = "Atenci&oacute;n";
+                          $msgSecundario = "La transacci&oacute;n no fue realizada.<br /><br />";
+                          break;
+                  }
+              } else {
+                  /* En caso de fallar la petición, verificamos el error devuelto. */
+                  switch($Pagadito->get_rs_code())
+                  {
+                      case "PG2001":
+                          /*Incomplete data*/
+                      case "PG3002":
+                          /*Error*/
+                      case "PG3003":
+                          /*Unregistered transaction*/
+                      default:
+                          /** Por ser un ejemplo, se muestra un mensaje de error fijo. */
+                          $msgPrincipal = "Error en la transacci&oacute;n";
+                          $msgSecundario = "La transacci&oacute;n no fue completada.<br /><br />";
+                          break;
+                  }
+              }
+          } else {
+              /* En caso de fallar la conexión, verificamos el error devuelto. */
+              switch($Pagadito->get_rs_code())
+              {
+                  case "PG2001":
+                      /*Incomplete data*/
+                  case "PG3001":
+                      /*Problem connection*/
+                  case "PG3002":
+                      /*Error*/
+                  case "PG3003":
+                      /*Unregistered transaction*/
+                  case "PG3005":
+                      /*Disabled connection*/
+                  case "PG3006":
+                      /*Exceeded*/
+                  default:
+                      /* Aqui se muestra el código y mensaje de la respuesta del WSPG */
+                      $msgPrincipal = "Respuesta de Pagadito API";
+                      $msgSecundario = "
+                              COD: " . $Pagadito->get_rs_code() . "<br />
+                              MSG: " . $Pagadito->get_rs_message() . "<br /><br />";
+                      break;
+              }
+          }
+      } else {
+          /* Mensaje de error al no haber recibido el token por medio de la URL. */
+          $msgPrincipal = "Atenci&oacute;n";
+          $msgSecundario = "No se recibieron los datos correctamente.<br /> La transacci&oacute;n no fue completada.<br /><br />";
+      }
+
+    }
+
+    /**
+     * Método que implementa la API de Pagadito y/o PuntoExpress
+     */
+    public function cobro(Request $request)
+    {
+      /*
+      * Este script procesa la transacción a petición del usuario
+      * Se comunica con Pagadito a través de la API, para conectarse y procesar la transacción.
+      *
+      * LICENCIA: Éste código fuente es de uso libre. Su comercialización no está
+      * permitida. Toda publicación o mención del mismo, debe ser referenciada a su autor original Pagadito.com.
+      *
+      * @author      Pagadito.com <soporte@pagadito.com>
+      * @copyright   Copyright (c) 2017, Pagadito.com
+      * @version     2.0
+      * @link        https://dev.pagadito.com/index.php?mod=docs&hac=wspg
+      */
+      /* Se incluyen las constantes de conexión. */
+       define("UID", "41e55e963384e7d3ae88485e94f1a6cb");
+       define("WSK", "c051a71076455a950c870c27543b3783");
+       define("WSPG", "https://sandbox.pagadito.com/comercios/wspg/charges.php?wdsl");
+       define("AMBIENTE_SANDBOX",true);
+
+
+      $this->validate($request,array(
+          'descripcion'=>'required|max:1024',
+          'total'=>'required',
+          'url'=>'required',
+          //agregar todas las validaciones
+      ));
+
+
+      $pago=new Pago;
+      $pago->Descripcion=$request->descripcion;
+      $pago->Cupos=$request->total;
+      $pago->CostoPersona=$request->cpersona;
+      $pago->Url=$request->url;
+      $pago->IdUsuario=$request->usuario;
+      $nombrecliente=$request->nombrecliente;
+      $apellidocliente=$request->apellidocliente;
+      $pago->NombreCliente=$nombrecliente. ' '. $apellidocliente;
+      $pago->Estado=0; //0,1,2
+      $pago->Nap=null;
+      $pago->FechaTransaccion=null;
+
+
+       if (isset($pago->Cupos) && is_numeric($pago->Cupos))
+       {
+          /* Lo primero es crear el objeto nusoap_client, al que se le pasa como parámetro la URL de Conexión definida en la constante WSPG */
+          $Pagadito = new Pagadito(UID, WSK);
+          /* Si se está realizando pruebas, necesita conectarse con Pagadito SandBox. Para ello llamamos
+          * a la función mode_sandbox_on(). De lo contrario omitir la siguiente linea. */
+          if (AMBIENTE_SANDBOX) {
+              $Pagadito->mode_sandbox_on();
+          }
+          /* Validamos la conexión llamando a la función connect(). */
+          if ($Pagadito->connect()) {
+              /* Luego pasamos a agregar el detalle de la venta */
+
+             if ($pago->Cupos > 0) {
+                 $Pagadito->add_detail($pago->Cupos, $pago->Descripcion, $pago->CostoPersona, $pago->Url);
+             }
+             //Agregando campos personalizados de la transacción (se pueden agregar hasta 5)
+             $Pagadito->set_custom_param("param1", $pago->NombreCliente);
+
+             //Habilita la recepción de pagos preautorizados para la orden de cobro.
+             $Pagadito->enable_pending_payments();
+
+              /* Lo siguiente es ejecutar la transacción, enviandole el ern.
+               * A manera de ejemplo el ern es generado como un número aleatorio entre 1000 y 2000. Lo ideal es que sea una
+               * referencia almacenada por el Pagadito Comercio.
+               */
+
+             $ern = rand(1000, 2000);
+             $pago->Ern=$ern;
+             $pago->save();
+             //Guardamos el registro en nuestra BD de un pago iniciado
+
+              if (!$Pagadito->exec_trans($ern)) {
+                  /*  En caso de fallar la transacción, verificamos el error devuelto. */
+                  switch($Pagadito->get_rs_code())
+                  {
+                      case "PG2001":
+                          /*Incomplete data*/
+                      case "PG3002":
+                          /*Error*/
+                      case "PG3003":
+                          /*Unregistered transaction*/
+                      case "PG3004":
+                          /*Match error*/
+                      case "PG3005":
+                          /*Disabled connection*/
+                      default:
+                          echo "
+                              <SCRIPT>
+                                  alert(\"".$Pagadito->get_rs_code().": ".$Pagadito->get_rs_message()."\");
+                                  location.href = 'index.php';
+                              </SCRIPT>
+                          ";
+                          break;
+                  }
+              }
+          } else {
+              /* En caso de fallar la conexión, verificamos el error devuelto. */
+              switch($Pagadito->get_rs_code())
+              {
+                  case "PG2001":
+                      /*Incomplete data*/
+                  case "PG3001":
+                      /*Problem connection*/
+                  case "PG3002":
+                      /*Error*/
+                  case "PG3003":
+                      /*Unregistered transaction*/
+                  case "PG3005":
+                      /*Disabled connection*/
+                  case "PG3006":
+                      /*Exceeded*/
+                  default:
+                      echo "
+                          <SCRIPT>
+                              alert(\"".$Pagadito->get_rs_code().": ".$Pagadito->get_rs_message()."\");
+                              location.href = 'index.php';
+                          </SCRIPT>
+                      ";
+                      break;
+              }
+          }
+
+      return redirect()->back()->with('fallo', "Error");
+       } else {
+           // echo "
+           //     <script>
+           //         alert('No ha llenado los campos adecuadamente.');
+           //         location.href = 'index.php';
+           //     </script>
+           // ";
+           return redirect()->back()->with('fallo', "No ha llenado los campos adecuadamente");
+       }
+
+    }
+
 }
