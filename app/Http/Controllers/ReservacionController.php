@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Facades\Input;
 use App\Pagadito; //API de Pagadito
+use App\Pago;
 
 class ReservacionController extends Controller
 {
@@ -373,11 +374,17 @@ class ReservacionController extends Controller
                           $nap=$Pagadito->get_rs_reference();
                           $fecharespuesta=$Pagadito->get_rs_date_trans();
 
-                          //AQUI SERÍA DE AGREGAR EL INSERT EN COMPROBANTEPAGO
+                          //Editar los datos de la transaccion exitosa
+                          $usuario = Persona::find(auth()->user()->IdPersona);
+                          //hacer update de donde el idusuario y comprobante sean igual
+                          DB::table('PagoEnLinea')
+                            ->where('Ern', $comprobante)
+                            ->update(['Nap' => $nap,'FechaTransaccion' => $fecharespuesta,'Estado' => 1]);
+
                           return view('Reservacion.invoice')
                             ->with('status',$msgPrincipal)
-                            ->with('nap', $nap) //IDPAGO
-                            ->with('fecharespuesta', $fecharespuesta);//fechapago
+                            ->with('nap', $nap)
+                            ->with('fecharespuesta', $fecharespuesta);
                           break;
 
                       case "REGISTERED":
@@ -409,6 +416,7 @@ class ReservacionController extends Controller
 
                       case "FAILED":
                           /* Tratamiento para una transacción fallida.*/
+                          break;
                       default:
                           /* Por ser un ejemplo, se muestra un mensaje de error fijo.*/
                           $msgPrincipal = "Atenci&oacute;n";
@@ -482,23 +490,36 @@ class ReservacionController extends Controller
       * @version     2.0
       * @link        https://dev.pagadito.com/index.php?mod=docs&hac=wspg
       */
-
-      $desc=$request->descripcion;
-      $cupos=$request->total;
-      $cpersona=$request->cpersona;
-      $IdUsuario=$request->usuario;
-      $url=$request->url;
-      $nombrecliente=$request->nombrecliente;
-      $apellidocliente=$request->apellidocliente;
-      $nombrecompleto=$nombrecliente. ' '. $apellidocliente;
-
       /* Se incluyen las constantes de conexión. */
        define("UID", "41e55e963384e7d3ae88485e94f1a6cb");
        define("WSK", "c051a71076455a950c870c27543b3783");
        define("WSPG", "https://sandbox.pagadito.com/comercios/wspg/charges.php?wdsl");
        define("AMBIENTE_SANDBOX",true);
 
-       if (isset($cupos) && is_numeric($_POST["total"]))
+
+      $this->validate($request,array(
+          'descripcion'=>'required|max:1024',
+          'total'=>'required',
+          'url'=>'required',
+          //agregar todas las validaciones
+      ));
+
+
+      $pago=new Pago;
+      $pago->Descripcion=$request->descripcion;
+      $pago->Cupos=$request->total;
+      $pago->CostoPersona=$request->cpersona;
+      $pago->Url=$request->url;
+      $pago->IdUsuario=$request->usuario;
+      $nombrecliente=$request->nombrecliente;
+      $apellidocliente=$request->apellidocliente;
+      $pago->NombreCliente=$nombrecliente. ' '. $apellidocliente;
+      $pago->Estado=0; //0,1,2
+      $pago->Nap=null;
+      $pago->FechaTransaccion=null;
+
+
+       if (isset($pago->Cupos) && is_numeric($pago->Cupos))
        {
           /* Lo primero es crear el objeto nusoap_client, al que se le pasa como parámetro la URL de Conexión definida en la constante WSPG */
           $Pagadito = new Pagadito(UID, WSK);
@@ -510,11 +531,12 @@ class ReservacionController extends Controller
           /* Validamos la conexión llamando a la función connect(). */
           if ($Pagadito->connect()) {
               /* Luego pasamos a agregar el detalle de la venta */
-             if ($cupos > 0) {
-                 $Pagadito->add_detail($cupos, $desc, $cpersona, $url);
+
+             if ($pago->Cupos > 0) {
+                 $Pagadito->add_detail($pago->Cupos, $pago->Descripcion, $pago->CostoPersona, $pago->Url);
              }
              //Agregando campos personalizados de la transacción (se pueden agregar hasta 5)
-             $Pagadito->set_custom_param("param1", $nombrecompleto);
+             $Pagadito->set_custom_param("param1", $pago->NombreCliente);
 
              //Habilita la recepción de pagos preautorizados para la orden de cobro.
              $Pagadito->enable_pending_payments();
@@ -525,6 +547,10 @@ class ReservacionController extends Controller
                */
 
              $ern = rand(1000, 2000);
+             $pago->Ern=$ern;
+             $pago->save();
+             //Guardamos el registro en nuestra BD de un pago iniciado
+
               if (!$Pagadito->exec_trans($ern)) {
                   /*  En caso de fallar la transacción, verificamos el error devuelto. */
                   switch($Pagadito->get_rs_code())

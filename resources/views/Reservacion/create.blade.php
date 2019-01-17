@@ -112,6 +112,7 @@
               <div class="form-group">
                 <input type="hidden" value="{{ $paquete->NombrePaquete }}" name="descripcion" readonly/>
                 <input type="hidden" value="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}" name="url" readonly/>
+                <input type="hidden" value="{{$userTurista[0]->Id }}" name="idusuario" readonly/>
                 <input type="hidden" value="{{$userTurista[0]->Nombre }}" name="nombrecliente" readonly/>
                 <input type="hidden" value="{{$userTurista[0]->Apellido }}" name="apellidocliente" readonly/>
                 <div class="checkbox">
