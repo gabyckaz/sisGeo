@@ -14,6 +14,8 @@ use DB;
 use Illuminate\Support\Facades\Input;
 use App\Pagadito; //API de Pagadito
 use App\Pago;
+use App\Paga;
+
 
 class ReservacionController extends Controller
 {
@@ -71,78 +73,78 @@ class ReservacionController extends Controller
         //
     }
 
-    /**
+    /**Probablemente ya no se ocupe, revisar y borrar, es sustituido por cobro()
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-      $strAcompanantes = '';
-      if($request->input("usuario") == null && $request->strFamilia == null && $request->strAmigos == null){
-      //  dd('No trae idTurista de usuario y strFamilia es nulo y strAmigos es Null')
-        return redirect()->route('adminPaquete.reserva.add',$request->IdPaquete)->with('message','No has reservado para nadie');
-      }elseif($request->input("usuario") != null && $request->strFamilia == null && $request->strAmigos == null){//solo el usuario
-        $strAcompanantes = $request->input("usuario");
-        //dd('solo va el usuario: '.$strAcompanantes);
-      }elseif($request->input("usuario") != null && $request->strFamilia != null && $request->strAmigos == null){//El usuario y la familia
-        $strAcompanantes = $request->input("usuario").",".$request->strFamilia;
-        $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
-        //dd('va el usuario y su familia: '.$strAcompanantes);
-      }elseif($request->input("usuario") != null && $request->strFamilia == null && $request->strAmigos != null){//El usuario y los amigos
-        $strAcompanantes = $request->input("usuario").",".$request->strAmigos;
-        $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
-        //dd('va el usuario y sus amigos: '.$strAcompanantes);
-      }elseif($request->input("usuario") == null && $request->strFamilia != null && $request->strAmigos == null){//Solo la familia
-        $strAcompanantes  = $request->strFamilia;
-        $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
-        //dd('solo va la familia: '.$strAcompanantes);
-      }elseif($request->input("usuario") == null && $request->strFamilia == null && $request->strAmigos != null){//Solo los amigos
-        $strAcompanantes = $request->strAmigos;
-        $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
-        //dd('solo van los amigos: '.$strAcompanantes);
-      }elseif($request->input("usuario") == null && $request->strFamilia != null && $request->strAmigos != null){//Solo la familia y los amigos
-        $strAcompanantes = $request->strFamilia.",".$request->strAmigos;
-        $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
-        //dd('solo la familia y los amigos: '.$strAcompanantes);
-      }elseif($request->input("usuario") != null && $request->strFamilia != null && $request->strAmigos != null){//El usuario la familia y amigos
-        $strAcompanantes  = $request->input("usuario").",".$request->strFamilia.",".$request->strAmigos;
-        $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
-        //dd($strAcompanantes);
-      }
-      //dd($strAcompanantes);
-      $sql = 'SELECT t.IdTurista
-          FROM users as u, personas as p, Turista as t
-          WHERE u.IdPersona = p.IdPersona AND p.IdPersona = t.IdPersona
-          AND u.id = '.auth()->user()->id.';';
-
-          $usuarioreservando = DB::select($sql);
-          $strAcompanantes = $usuarioreservando[0]->IdTurista.'-'.$strAcompanantes;
-
-
-         $reservacion=new Reservacion;
-         $reservacion->IdTurista=$usuarioreservando[0]->IdTurista;
-         $reservacion->IdPaquete=$request->idPaquete->IdPaquete;
-         $reservacion->FechaReservacion= Carbon::now();
-         $reservacion->NumeroAcompanantes = $request->total;
-         $reservacion->IdsAcompanantes=$strAcompanantes;
-         $reservacion->ConfirmacionReservacion='0';
-
-         $reservacion->save();
-
-
-         //Redireccionando
-         $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
-         $imagenes = ImagenPaqueteTuristico::all();
-         $reservaciones=Reservacion::orderBy('FechaReservacion','desc')->paginate(5);
-
-           return view('/home')
-           ->with('reservaciones',$reservaciones)
-           ->with('paquetes',$paquetes)
-           ->with('imagenes',$imagenes)
-           ->with('status', "Guardado con éxito");
-    }
+    // public function store(Request $request)
+    // {
+    //   $strAcompanantes = '';
+    //   if($request->input("usuario") == null && $request->strFamilia == null && $request->strAmigos == null){
+    //   //  dd('No trae idTurista de usuario y strFamilia es nulo y strAmigos es Null')
+    //     return redirect()->route('adminPaquete.reserva.add',$request->IdPaquete)->with('message','No has reservado para nadie');
+    //   }elseif($request->input("usuario") != null && $request->strFamilia == null && $request->strAmigos == null){//solo el usuario
+    //     $strAcompanantes = $request->input("usuario");
+    //     //dd('solo va el usuario: '.$strAcompanantes);
+    //   }elseif($request->input("usuario") != null && $request->strFamilia != null && $request->strAmigos == null){//El usuario y la familia
+    //     $strAcompanantes = $request->input("usuario").",".$request->strFamilia;
+    //     $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
+    //     //dd('va el usuario y su familia: '.$strAcompanantes);
+    //   }elseif($request->input("usuario") != null && $request->strFamilia == null && $request->strAmigos != null){//El usuario y los amigos
+    //     $strAcompanantes = $request->input("usuario").",".$request->strAmigos;
+    //     $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
+    //     //dd('va el usuario y sus amigos: '.$strAcompanantes);
+    //   }elseif($request->input("usuario") == null && $request->strFamilia != null && $request->strAmigos == null){//Solo la familia
+    //     $strAcompanantes  = $request->strFamilia;
+    //     $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
+    //     //dd('solo va la familia: '.$strAcompanantes);
+    //   }elseif($request->input("usuario") == null && $request->strFamilia == null && $request->strAmigos != null){//Solo los amigos
+    //     $strAcompanantes = $request->strAmigos;
+    //     $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
+    //     //dd('solo van los amigos: '.$strAcompanantes);
+    //   }elseif($request->input("usuario") == null && $request->strFamilia != null && $request->strAmigos != null){//Solo la familia y los amigos
+    //     $strAcompanantes = $request->strFamilia.",".$request->strAmigos;
+    //     $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
+    //     //dd('solo la familia y los amigos: '.$strAcompanantes);
+    //   }elseif($request->input("usuario") != null && $request->strFamilia != null && $request->strAmigos != null){//El usuario la familia y amigos
+    //     $strAcompanantes  = $request->input("usuario").",".$request->strFamilia.",".$request->strAmigos;
+    //     $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
+    //     //dd($strAcompanantes);
+    //   }
+    //   //dd($strAcompanantes);
+    //   $sql = 'SELECT t.IdTurista
+    //       FROM users as u, personas as p, Turista as t
+    //       WHERE u.IdPersona = p.IdPersona AND p.IdPersona = t.IdPersona
+    //       AND u.id = '.auth()->user()->id.';';
+    //
+    //       $usuarioreservando = DB::select($sql);
+    //       $strAcompanantes = $usuarioreservando[0]->IdTurista.'-'.$strAcompanantes;
+    //
+    //
+    //      $reservacion=new Reservacion;
+    //      $reservacion->IdTurista=$usuarioreservando[0]->IdTurista;
+    //      $reservacion->IdPaquete=$request->idPaquete->IdPaquete;
+    //      $reservacion->FechaReservacion= Carbon::now();
+    //      $reservacion->NumeroAcompanantes = $request->total;
+    //      $reservacion->IdsAcompanantes=$strAcompanantes;
+    //      $reservacion->ConfirmacionReservacion='0';
+    //
+    //      $reservacion->save();
+    //
+    //
+    //      //Redireccionando
+    //      $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
+    //      $imagenes = ImagenPaqueteTuristico::all();
+    //      $reservaciones=Reservacion::orderBy('FechaReservacion','desc')->paginate(5);
+    //
+    //        return view('/home')
+    //        ->with('reservaciones',$reservaciones)
+    //        ->with('paquetes',$paquetes)
+    //        ->with('imagenes',$imagenes)
+    //        ->with('status', "Guardado con éxito");
+    // }
 
     public function ordenadorAscendente($cadena)
     {
@@ -164,72 +166,72 @@ class ReservacionController extends Controller
         //
     }
 
-    /**
+    /** Probablemente ya no se ocupe, porque ya no se puede editar una compra ya hecha?
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-      $reservacion = Reservacion::find($id);
-      $strAcompanantes = explode('-', $reservacion->IdsAcompanantes);
-      $arryIdsAcompanantes = explode(',', $strAcompanantes[1]);
-      $realizaReserva = $strAcompanantes[0];
-      $encargado = Persona::find(auth()->user()->IdPersona);
-       $sql1 = 'SELECT  a.IdTurista as Id,
-          p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido,p.Genero
-          FROM Acompanante as a, Turista as t,
-          personas as p,Nacionalidad as n
-          WHERE a.IdTurista = t.IdTurista and
-          t.IdPersona=p.IdPersona and t.IdNacionalidad = n.IdNacionalidad and
-          a.IdUsuario = '.auth()->user()->id.'';
-          // AND a.IdTurista in('.$strAcompanantes[1].')';
+    // public function edit($id)
+    // {
+    //   $reservacion = Reservacion::find($id);
+    //   $strAcompanantes = explode('-', $reservacion->IdsAcompanantes);
+    //   $arryIdsAcompanantes = explode(',', $strAcompanantes[1]);
+    //   $realizaReserva = $strAcompanantes[0];
+    //   $encargado = Persona::find(auth()->user()->IdPersona);
+    //    $sql1 = 'SELECT  a.IdTurista as Id,
+    //       p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido,p.Genero
+    //       FROM Acompanante as a, Turista as t,
+    //       personas as p,Nacionalidad as n
+    //       WHERE a.IdTurista = t.IdTurista and
+    //       t.IdPersona=p.IdPersona and t.IdNacionalidad = n.IdNacionalidad and
+    //       a.IdUsuario = '.auth()->user()->id.'';
+    //       // AND a.IdTurista in('.$strAcompanantes[1].')';
+    //
+    //   $sql2= 'SELECT   t.IdTurista as Id,
+    //       p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido,p.Genero
+    //       FROM users as u, Turista as t,
+    //       personas as p
+    //       WHERE u.IdPersona = p.IdPersona and
+    //       t.IdPersona=p.IdPersona and
+    //       u.id = '.auth()->user()->id.';';
+    //   $sql = $sql1.' UNION '.$sql2;
+    //   $acompanantesT = DB::select($sql);
+    //    //   dd($acompanantes);
+    //   /*$users = DB::table('Turista')
+    //                 ->whereIn('IdTurista', $arryIdsAcompanantes)
+    //                 ->get();
+    //   dd($users);*/
+    //   return view('Reservacion.edit', compact('reservacion','acompanantesT','arryIdsAcompanantes','encargado','realizaReserva'))->with('status', "Guardado con éxito");
+    // }
 
-      $sql2= 'SELECT   t.IdTurista as Id,
-          p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido,p.Genero
-          FROM users as u, Turista as t,
-          personas as p
-          WHERE u.IdPersona = p.IdPersona and
-          t.IdPersona=p.IdPersona and
-          u.id = '.auth()->user()->id.';';
-      $sql = $sql1.' UNION '.$sql2;
-      $acompanantesT = DB::select($sql);
-       //   dd($acompanantes);
-      /*$users = DB::table('Turista')
-                    ->whereIn('IdTurista', $arryIdsAcompanantes)
-                    ->get();
-      dd($users);*/
-      return view('Reservacion.edit', compact('reservacion','acompanantesT','arryIdsAcompanantes','encargado','realizaReserva'))->with('status', "Guardado con éxito");
-    }
-
-    /**
+    /** Probablemente ya no se ocupe, porque ya no se puede editar una compra ya hecha?
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-      //dd($id);
-      $strAcompanantes = implode(',', $request->ids);
-      $idacompanantes= $this->ordenadorAscendente($strAcompanantes);
-      dd($idacompanantes);
-      $this->validate($request,array(
-
-        'idacompanantes' => 'required',
-        'numeroacompanantes'=>'required',
-         ));
-
-       //guardar en la bd
-       $reservacion = Reservacion::find($id);
-       $reservacion->NumeroAcompanantes = $request->input('numeroacompanantes'); //si
-       $reservacion->IdsAcompanantes=$request->input('idacompanantes');
-       $reservacion->save();
-
-       return redirect('/home')->with('status', "Guardado con éxito");
-    }
+    // public function update(Request $request, $id)
+    // {
+    //   //dd($id);
+    //   $strAcompanantes = implode(',', $request->ids);
+    //   $idacompanantes= $this->ordenadorAscendente($strAcompanantes);
+    //   dd($idacompanantes);
+    //   $this->validate($request,array(
+    //
+    //     'idacompanantes' => 'required',
+    //     'numeroacompanantes'=>'required',
+    //      ));
+    //
+    //    //guardar en la bd
+    //    $reservacion = Reservacion::find($id);
+    //    $reservacion->NumeroAcompanantes = $request->input('numeroacompanantes'); //si
+    //    $reservacion->IdsAcompanantes=$request->input('idacompanantes');
+    //    $reservacion->save();
+    //
+    //    return redirect('/home')->with('status', "Guardado con éxito");
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -287,14 +289,6 @@ class ReservacionController extends Controller
       //en forma de consulta usando el modelo:
       //$usuarioreservando= User::where('IdPersona','=',auth()->user()->id)->first();
 
-      //Barriendo los turistas
-      /*$turistas =Turista::all();
-      foreach ($turistas as $key => $turista) {
-        if ($turista->IdPersona == $usuarioreservando->IdPersona) {
-        $usuarioreservando=$turista->IdTurista;
-          break;
-        }
-      } */
       $sql = 'SELECT t.IdTurista
           FROM users as u, personas as p, Turista as t
           WHERE u.IdPersona = p.IdPersona AND p.IdPersona = t.IdPersona
@@ -305,29 +299,29 @@ class ReservacionController extends Controller
       return view('Reservacion.create', compact('paquete','usuarioreservando','userTurista','amigos','familia'));
     }
 
-    /**
+    /** Creo que ya no se ocupa, revisar
      *
      *
      */
-    public function showall()
-    {
-      //Obteniendo el turista actual
-
-      //en forma de consulta usando el modelo:
-      $usuarioreservando= User::where('IdPersona','=',auth()->user()->id)->first();
-      //Barriendo los turistas
-      $turistas =Turista::all();
-      foreach ($turistas as $key => $turista) {
-        if ($turista->IdPersona == $usuarioreservando->IdPersona) {
-        $usuarioreservando=$turista->IdTurista;
-          break;
-        }
-      }
-
-      return view('Reservacion.create')
-      ->with('paquete',$paquete)
-      ->with('usuarioreservando',$usuarioreservando);
-    }
+    // public function showall()
+    // {
+    //   //Obteniendo el turista actual
+    //
+    //   //en forma de consulta usando el modelo:
+    //   $usuarioreservando= User::where('IdPersona','=',auth()->user()->id)->first();
+    //   //Barriendo los turistas
+    //   $turistas =Turista::all();
+    //   foreach ($turistas as $key => $turista) {
+    //     if ($turista->IdPersona == $usuarioreservando->IdPersona) {
+    //     $usuarioreservando=$turista->IdTurista;
+    //       break;
+    //     }
+    //   }
+    //
+    //   return view('Reservacion.create')
+    //   ->with('paquete',$paquete)
+    //   ->with('usuarioreservando',$usuarioreservando);
+    // }
 
     /**
      * Vista de Retorno de Pagadito
@@ -374,12 +368,26 @@ class ReservacionController extends Controller
                           $nap=$Pagadito->get_rs_reference();
                           $fecharespuesta=$Pagadito->get_rs_date_trans();
 
-                          //Editar los datos de la transaccion exitosa
+                          //TO DO: Agregar validación que el mismo usuario inicie y termine la transacción
                           $usuario = Persona::find(auth()->user()->IdPersona);
                           //hacer update de donde el idusuario y comprobante sean igual
-                          DB::table('PagoEnLinea')
+                          DB::table('Pago')
                             ->where('Ern', $comprobante)
                             ->update(['Nap' => $nap,'FechaTransaccion' => $fecharespuesta,'Estado' => 1]);
+
+                          //select IdPago y Url del que tiene el Ern actual
+                          $pago= DB::table('Pago')
+                            ->select('IdPago','Url')
+                            ->where('Ern', '=', $comprobante)
+                            ->get();
+
+                          //Extrayendo IdPaquete del campo Url
+                          $IdPaquete=explode('/',$pago[0]->Url);
+                          //Asignando los valores a la tabla intermedia
+                          $paga=new Paga;
+                          $paga->IdPaquete=$IdPaquete[4];
+                          $paga->IdPago=$pago[0]->IdPago;
+                          $paga->save();
 
                           return view('Reservacion.invoice')
                             ->with('status',$msgPrincipal)
@@ -504,8 +512,50 @@ class ReservacionController extends Controller
           //agregar todas las validaciones
       ));
 
+      $strAcompanantes = '';
+      if($request->input("usuario") == null && $request->strFamilia == null && $request->strAmigos == null){
+      //  dd('No trae idTurista de usuario y strFamilia es nulo y strAmigos es Null')
+        return redirect()->route('adminPaquete.reserva.add',$request->IdPaquete)->with('message','No has reservado para nadie');
+      }elseif($request->input("usuario") != null && $request->strFamilia == null && $request->strAmigos == null){//solo el usuario
+        $strAcompanantes = $request->input("usuario");
+        //dd('solo va el usuario: '.$strAcompanantes);
+      }elseif($request->input("usuario") != null && $request->strFamilia != null && $request->strAmigos == null){//El usuario y la familia
+        $strAcompanantes = $request->input("usuario").",".$request->strFamilia;
+        $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
+        //dd('va el usuario y su familia: '.$strAcompanantes);
+      }elseif($request->input("usuario") != null && $request->strFamilia == null && $request->strAmigos != null){//El usuario y los amigos
+        $strAcompanantes = $request->input("usuario").",".$request->strAmigos;
+        $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
+        //dd('va el usuario y sus amigos: '.$strAcompanantes);
+      }elseif($request->input("usuario") == null && $request->strFamilia != null && $request->strAmigos == null){//Solo la familia
+        $strAcompanantes  = $request->strFamilia;
+        $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
+        //dd('solo va la familia: '.$strAcompanantes);
+      }elseif($request->input("usuario") == null && $request->strFamilia == null && $request->strAmigos != null){//Solo los amigos
+        $strAcompanantes = $request->strAmigos;
+        $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
+        //dd('solo van los amigos: '.$strAcompanantes);
+      }elseif($request->input("usuario") == null && $request->strFamilia != null && $request->strAmigos != null){//Solo la familia y los amigos
+        $strAcompanantes = $request->strFamilia.",".$request->strAmigos;
+        $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
+        //dd('solo la familia y los amigos: '.$strAcompanantes);
+      }elseif($request->input("usuario") != null && $request->strFamilia != null && $request->strAmigos != null){//El usuario la familia y amigos
+        $strAcompanantes  = $request->input("usuario").",".$request->strFamilia.",".$request->strAmigos;
+        $strAcompanantes = $this->ordenadorAscendente($strAcompanantes);
+        //dd($strAcompanantes);
+      }
+
+      $sql = 'SELECT t.IdTurista
+          FROM users as u, personas as p, Turista as t
+          WHERE u.IdPersona = p.IdPersona AND p.IdPersona = t.IdPersona
+          AND u.id = '.auth()->user()->id.';';
+          $usuarioreservando = DB::select($sql);
+
+          $strAcompanantes = $usuarioreservando[0]->IdTurista.'-'.$strAcompanantes;
+
 
       $pago=new Pago;
+      $pago->IdTurista=$usuarioreservando[0]->IdTurista;
       $pago->Descripcion=$request->descripcion;
       $pago->Cupos=$request->total;
       $pago->CostoPersona=$request->cpersona;
@@ -517,7 +567,10 @@ class ReservacionController extends Controller
       $pago->Estado=0; //0,1,2
       $pago->Nap=null;
       $pago->FechaTransaccion=null;
-
+      $pago->PagoTotal=$pago->Cupos*$pago->CostoPersona;
+      $pago->TipoPago='Pagadito';
+      $pago->IdsAcompanantes=$strAcompanantes;
+      $pago->ConfirmacionReservacion='0';
 
        if (isset($pago->Cupos) && is_numeric($pago->Cupos))
        {
@@ -541,6 +594,7 @@ class ReservacionController extends Controller
              //Habilita la recepción de pagos preautorizados para la orden de cobro.
              $Pagadito->enable_pending_payments();
 
+             //TO DO: Hacer estandar de código para que sea único(como el carnet de la u, que el código brinde cierta info )
               /* Lo siguiente es ejecutar la transacción, enviandole el ern.
                * A manera de ejemplo el ern es generado como un número aleatorio entre 1000 y 2000. Lo ideal es que sea una
                * referencia almacenada por el Pagadito Comercio.
