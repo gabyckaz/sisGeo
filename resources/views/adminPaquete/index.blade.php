@@ -68,7 +68,9 @@ Ver Paquete
             <a href="{{route('adminPaqueteGuia.show', $paquete['IdPaquete'])}}"
               class="btn btn-info fa fa-leaf" title="Agregar Guia">
             </a>
-
+            <a href="{{route('adminPaquete.reportepersonas', $paquete['IdPaquete'])}}"
+              class="btn btn-info fa fa-th-list" title="Listado de personas">
+            </a>
           </td>
         </tr>
         @endforeach

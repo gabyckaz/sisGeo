@@ -30,6 +30,8 @@ use App\Mail\MensajeGeoturismo;
 use App\Mensaje;
 use App\Empleado;
 use App\GuiaPaquete;
+use App\Pago;
+use App\Paga;
 
 
 
@@ -839,7 +841,7 @@ class PaqueteController extends Controller
     }
 
     public function agregarGuiaPaquete($id){
-    
+
       $paquete = Paquete::findOrFail($id);
 
       $sql = 'SELECT e."IdEmpleadoGEO", p."PrimerNombrePersona",p."PrimerApellidoPersona",
@@ -855,13 +857,13 @@ class PaqueteController extends Controller
           $pIdguias = DB::select($sql);
           $guiasPaquete = array();
          // dd($gIdiomas[0]->IdIdioma);
-         for ($i=0; $i < count($pIdguias); $i++) { 
+         for ($i=0; $i < count($pIdguias); $i++) {
            $guiasPaquete[] = $pIdguias[$i]->IdEmpleadoGEO;
          }
 
          sort($guiasPaquete);
             //dd($guiasPaquete);
-        
+
      return view('adminPaquete.agregarguia',compact('guias','paquete','guiasPaquete'));
     }
 
@@ -904,4 +906,45 @@ class PaqueteController extends Controller
       }
 
     }
+
+    /*
+    * Reporte del guía y los turistas confirmados que asistan a cierto paquete
+    */
+    public function reportepersonas($id){
+
+      $turistas = DB::table('Paga')
+        ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
+        ->join('Turista', 'Pago.IdTurista', '=', 'Turista.IdTurista')
+        ->join('Personas', 'Turista.IdPersona', '=', 'Personas.IdPersona')
+        ->select('Descripcion','IdsAcompanantes','TipoPago','PrimerNombrePersona','PrimerApellidoPersona','Turista.IdTurista','Personas.IdPersona')
+        ->where('IdPaquete','=',$id)
+        ->get();
+
+        foreach($turistas as $turista)
+        {
+          $x[]=explode(',',$turista->IdsAcompanantes);
+        }
+
+
+        //dd($x[0][0]);
+        // dd($x[1][0]);
+        // dd($x[2][0]);
+
+
+        for($i=1;$i=2;$i++){
+          $name = DB::table('Turista')
+            ->join('Personas', 'Turista.IdPersona', '=', 'Personas.IdPersona')
+            ->select('PrimerNombrePersona','PrimerApellidoPersona')
+            ->where('IdTurista','=',$x[$i][0])
+            ->get();
+        }
+
+        dd($name);
+
+
+      return view('adminPaquete.reportepersonas')
+          ->with('turistas',$turistas)
+          ->with('id',$id);
+    }
+
 }
