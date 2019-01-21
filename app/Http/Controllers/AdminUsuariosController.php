@@ -414,8 +414,7 @@ class AdminUsuariosController extends Controller
                  WHERE IdEmpleadoGEO = '.$id.' ;';
           $gIdiomas = DB::select($sql);
           $idiomasGuia = array();
-         //d($gIdiomas);
-         //d($gIdiomas[0]->IdIdioma);
+         
          for ($i=0; $i < count($gIdiomas); $i++) {
            $idiomasGuia[] = $gIdiomas[$i]->IdIdioma;
          }
