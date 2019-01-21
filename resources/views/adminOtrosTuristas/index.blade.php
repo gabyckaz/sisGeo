@@ -41,7 +41,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                    <input type="text" name="Nombre" class="form-control"  id="Nombre" placeholder="Nombre" value="{{old('Nombre')}}" required>
+                    <input type="text" name="Nombre" class="form-control"  id="Nombre" placeholder="Juan" value="{{old('Nombre')}}" required>
                   </div>
                   @if ($errors->has('Nombre'))
                        <span class="help-block">{{ $errors->first('Nombre') }}</span>
@@ -55,7 +55,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                    <input type="text" name="Apellido" class="form-control"  id="Apellido" placeholder="Apellido" value="{{old('Apellido')}}" required>
+                    <input type="text" name="Apellido" class="form-control"  id="Apellido" placeholder="Perez" value="{{old('Apellido')}}" required>
                   </div>
                   @if ($errors->has('Apellido'))
                        <span class="help-block">{{ $errors->first('Apellido') }}</span>
@@ -69,7 +69,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-phone"></i>
                     </div>
-                    <input type="text" name="Telefono" class="form-control"  id="Telefono" placeholder="Telefono" value="{{old('Telefono')}}" required>
+                    <input type="text" name="Telefono" class="form-control"  id="Telefono" placeholder="50372334455" value="{{old('Telefono')}}" required>
                   </div>
                   @if ($errors->has('Telefono'))
                        <span class="help-block">{{ $errors->first('Telefono') }}</span>
@@ -93,7 +93,7 @@
             <div class="form-group has-feedback{{ $errors->has('Pasaporte') ? ' has-error' : '' }}">
                <label for="Nombre" class="control-label">Pasaporte</label>
                   <div class="input-group">
-                    <input type="text" name="Dui" class="form-control"  id="Pasaporte" placeholder="Pasaporte" value="{{old('Pasaporte')}}" >
+                    <input type="text" name="Pasaporte" class="form-control"  id="Pasaporte" placeholder="Pasaporte" value="{{old('Pasaporte')}}" >
                   </div>
                   @if ($errors->has('Pasaporte'))
                        <span class="help-block">{{ $errors->first('Pasaporte') }}</span>
@@ -121,6 +121,7 @@
         <div class="form-group">
           <label>Paquete</label>
             <select name="Paquete" class="form-control" >
+              <option value="1"> | 12/05/03 | guatemala | $40 |</option>
                 @foreach($paquetes as $paquete)
             <option value="{{ $paquete->IdPaquete }}"> | {{ $paquete->FechaSalida }} | {{ $paquete->NombrePaquete }} | ${{ $paquete->Precio }} |</option>
         

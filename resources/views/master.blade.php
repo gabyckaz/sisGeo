@@ -199,7 +199,12 @@
         <span>Conf. Mensajes</span>
       </a>
     </li>
-
+    <li class="{{ activeMenu('otroturista') }}">
+      <a href="{{ route('otroturista.index') }}">
+        <i class="fa fa-money"></i>
+        <span>Otros tipos de pago</span>
+      </a>
+    </li>
     @role('User')
     <li class="treeview {{ (request()->is('user/completarInformacion') || request()->is('user/agregarFamiliarAmigo')) ? 'active' : '' }}">
       <a href="#">
