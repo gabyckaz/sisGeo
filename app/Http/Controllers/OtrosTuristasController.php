@@ -117,13 +117,13 @@ class OtrosTuristasController extends Controller
         //Para pago
         $pago = new Pago();
         $pago->IdOtroTurista = $otroTuristaP->IdOtroTuristas;
-        $pago->Descripcion = "NombrePaquete";
-        $pago->costoPersona = 60;
+        $pago->Descripcion = $paquete->NombrePaquete;
+        $pago->costoPersona = $paquete->Precio;
         $pago->IdUsuario = $idUser;
         $pago->NombreCliente= $otroTuristaP->NombreApellido;
         $pago->Estado= 1;
-        $pago->PagoTotal = "50";
-        $pago->TipoPago = "XX";
+        $pago->PagoTotal = $request->Costo;
+        $pago->TipoPago = $request->MetodoPago;
         $pago->FechaTransaccion= Carbon::now();
         $pago->NumeroAcompanante= $totalAcomp+1;
         $pago->IdsOtroTurista = $idsOtr;
@@ -147,22 +147,22 @@ class OtrosTuristasController extends Controller
             $otroTuristaP->PasaporteOtroTurista = $request->Pasaporte;
          }
          $otroTuristaP->save();
-
+         $idsOtr = $otroTuristaP->IdOtroTuristas.'-'.$otroTuristaP->IdOtroTuristas;
         $pago = new Pago();
         $pago->IdOtroTurista = $otroTuristaP->IdOtroTuristas;
-        $pago->Descripcion = "NombrePaquete";
-        $pago->costoPersona = 60;
+        $pago->Descripcion = $paquete->NombrePaquete;
+        $pago->costoPersona = $paquete->Precio;
         $pago->IdUsuario = $idUser;
         $pago->NombreCliente= $otroTuristaP->NombreApellido;
         $pago->Estado= 1;
-        $pago->PagoTotal = "50";
-        $pago->TipoPago = "XX";
+        $pago->PagoTotal = $request->Costo;
+        $pago->TipoPago = $request->MetodoPago;
         $pago->FechaTransaccion= Carbon::now();
         $pago->NumeroAcompanante= 1;
         $pago->IdsOtroTurista = $idsOtr;
         $pago->save();
         $paga = new Paga();
-        $paga->IdPago = $pago->$pago;
+        $paga->IdPago = $pago->IdPago;
         $paga->IdPaquete = $request->Paquete;
         $paga->save();
         }

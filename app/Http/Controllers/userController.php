@@ -87,7 +87,7 @@ class userController extends Controller
         return view('user.edit', compact('usuario'));
     }else{
 
-        return redirect()->route('home')->with('info','Este no es tu Usuario');;
+        return redirect()->route('home')->with('info','Este no es tu Usuario');
     }
     }
 
@@ -394,7 +394,7 @@ class userController extends Controller
          }
         $nacionalidad = Nacionalidad::all();
         $existeTurista = "si";
-        return view('user.completarInformacionUsuario', compact('usuario','nacionalidad' ,'existeTurista','turista','documentos'))->with('message','Usuario Creado');;
+        return view('user.completarInformacionUsuario', compact('usuario','nacionalidad' ,'existeTurista','turista','documentos'))->with('message','Usuario Creado');
         }else{
          $existeTurista = "si";
          //Actualizo el usuario
