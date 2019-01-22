@@ -78,7 +78,7 @@ class OtrosTuristasController extends Controller
             $conta++;
            // return redirect()->back()->withInput()->with('fallo', '1. Es necesario respetar el patron para acompañantes!');
            }else{
-            return redirect()->back()->withInput()->with('fallo', '2. Es necesario respetar el patron para acompañantes!');
+            return redirect()->back()->withInput()->with('fallo', 'Es necesario respetar el patron para acompañantes!');
            }
           // dd($arre[0]." - ".$arre[1]." - ".$arre[2]);
            
@@ -89,12 +89,16 @@ class OtrosTuristasController extends Controller
             $otroTuristaP->NumTelOtroTurista = $request->Telefono;
             $otroTuristaP->NombreApellido = $request->Nombre.' '.$request->Apellido;
 
+            if($request->Dui == null && $request->Pasaporte == null){
+                return redirect()->back()->withInput()->with('falloDoc', 'Es necesario un documento');
+            }
            if($request->Dui != null){
             $otroTuristaP->DuiOtroTurista = $request->Dui; 
             }
             if($request->Pasaporte != null){
             $otroTuristaP->PasaporteOtroTurista = $request->Pasaporte;
           }
+
           $otroTuristaP->save();
           $idsOtr = $otroTuristaP->IdOtroTuristas.'-'.$otroTuristaP->IdOtroTuristas;
 
@@ -140,6 +144,9 @@ class OtrosTuristasController extends Controller
             $otroTuristaP->CodigoOtroTurista = $randomString;
             $otroTuristaP->NumTelOtroTurista = $request->Telefono;
             $otroTuristaP->NombreApellido = $request->Nombre.' '.$request->Apellido;
+            if($request->Dui == null && $request->Pasaporte == null){
+                return redirect()->back()->withInput()->with('falloDoc', 'Es necesario un documento');
+            }
            if($request->Dui != null){
             $otroTuristaP->DuiOtroTurista = $request->Dui; 
             }
