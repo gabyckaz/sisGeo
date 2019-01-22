@@ -157,6 +157,8 @@ Route::get('/MostrarPaqueteCliente/{id}', ['uses' => 'PaqueteController@getSingl
 //Informacion de paquete para clientes
 Route::get('/informacion/{id}', ['uses' =>  'PaqueteController@informacion','as' => 'adminPaquete.informacion']);
 Route::get('/reporte/{id}', ['uses' =>  'PaqueteController@reporte','as' => 'adminPaquete.reporte']);
+Route::get('/acercade', ['uses' =>  'HomeController@acercade','as' => 'about']);
+Route::get('/condiciones', ['uses' =>  'HomeController@condiciones','as' => 'condiciones']);
 
 //Rutas a las que solo puede accesar visitante sin hacer login
 Route::group(['middleware' => ['guest']], function () {

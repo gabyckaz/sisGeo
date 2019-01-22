@@ -85,4 +85,12 @@ class HomeController extends Controller
 
     }
   }
+    public function acercade(){
+      return view('about');
+    }
+
+    public function condiciones(){
+      return view('condiciones');
+    }
+
 }

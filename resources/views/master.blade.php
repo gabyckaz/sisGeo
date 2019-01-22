@@ -193,18 +193,6 @@
       </a>
     </li>
     @endrole
-    <li class="{{ activeMenu('adminMensaje') }}">
-      <a href="{{ route('adminMensaje.index') }}">
-        <i class="fa fa-envelope-o"></i>
-        <span>Conf. Mensajes</span>
-      </a>
-    </li>
-    <li class="{{ activeMenu('otroturista') }}">
-      <a href="{{ route('otroturista.index') }}">
-        <i class="fa fa-money"></i>
-        <span>Otros tipos de pago</span>
-      </a>
-    </li>
     @role('User')
     <li class="treeview {{ (request()->is('user/completarInformacion') || request()->is('user/agregarFamiliarAmigo')) ? 'active' : '' }}">
       <a href="#">
@@ -222,15 +210,21 @@
             Agregar acompañantes</a></li>
         </ul>
     </li>
-    <li class="{{ activeMenu('Reservacion') }}">
-      <a href="{{ route('Reservacion.index') }}">
-        <i class="fa fa-calendar"></i>
-        <span>Mis Reservas</span> <!--span class="label pull-right bg-green">2</span-->
-      </a>
-    </li>
     @endrole
 
     @role(['Director','Agente'])
+    <li class="{{ activeMenu('adminMensaje') }}">
+      <a href="{{ route('adminMensaje.index') }}">
+        <i class="fa fa-envelope-o"></i>
+        <span>Conf. Mensajes</span>
+      </a>
+    </li>
+    <li class="{{ activeMenu('otroturista') }}">
+      <a href="{{ route('otroturista.index') }}">
+        <i class="fa fa-money"></i>
+        <span>Registrar Pago</span>
+      </a>
+    </li>
     <li class=" treeview {{ (request()->is('MostrarRutaTuristica') ||  request()->is('CrearCategoria'))  ? 'active' : '' }} ">
       <a href="#">
         <i class="fa fa-map-marker"></i><span>Ruta Turistica</span>
@@ -304,8 +298,18 @@
       </a>
     </li>
     @endrole
-
-        <li class=""><a href="#"><i class="fa fa-info"></i> <span>Acerca de</span></a></li>
+      <li class="{{ activeMenu('about') }}">
+        <a href="{{ route('about') }}">
+          <i class="fa fa-info"></i>
+          <span>Acerca de</span>
+        </a>
+      </li>
+      <li class="{{ activeMenu('condiciones') }}">
+        <a href="{{ route('condiciones') }}">
+          <i class="fa fa-check-square-o" aria-hidden="true"></i>
+          <span>Condiciones</span>
+        </a>
+      </li>
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

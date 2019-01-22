@@ -918,6 +918,15 @@ class PaqueteController extends Controller
                 ['Estado','=','1']])
         ->get();
 
+        $otrosturistas = DB::table('Paga')
+          ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
+          ->join('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
+          ->select('*')
+          ->where([['IdPaquete','=',$id ],
+                  ['Estado','=','1']])
+          ->get();
+          dd($otrosturistas);
+
       $z = '';
       for ($i=0; $i < count($turistas); $i++) {
         $x = explode('-',$turistas[$i]->IdsAcompanantes);
