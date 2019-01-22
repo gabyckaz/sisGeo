@@ -41,7 +41,7 @@ Ver Paquete
                   <th>Nombre Paquete</th>
                   <th>Fecha Salida</th>
                   <th>Hora Salida</th>
-                  <th>Precio Paquete</th>
+                  <th>Precio</th>
                   <th>Opciones Paquete</th>
                 </tr>
               </thead>
