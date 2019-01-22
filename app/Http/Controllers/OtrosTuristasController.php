@@ -8,6 +8,7 @@ use App\Pago;
 use App\OtroTurista;
 use App\Reservacion;
 use Carbon\Carbon;
+use App\Paga;
 
 class OtrosTuristasController extends Controller
 {
@@ -39,7 +40,7 @@ class OtrosTuristasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  
+    {  //dd( $request);
          /* $pago = new Pago;
           $pago->PagoTotal='15';
           $pago->FechaPago=Carbon::now();
@@ -58,7 +59,10 @@ class OtrosTuristasController extends Controller
         $randomString = '';
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
-        $conta = 0;
+        $conta  = 0;
+        $idsOtr  = '';
+        $idUser = auth()->user()->id;
+        $paquete = Paquete::find($request->Paquete);
         
         for ($i = 0; $i < 10; $i++) {
              $randomString .= $characters[rand(0, $charactersLength - 1)];
@@ -74,16 +78,100 @@ class OtrosTuristasController extends Controller
             $conta++;
            // return redirect()->back()->withInput()->with('fallo', '1. Es necesario respetar el patron para acompañantes!');
            }else{
-            return redirect()->back()->withInput()->with('fallo', '2. Es necesario respetar el patron para acompañantes!');
+            return redirect()->back()->withInput()->with('fallo', 'Es necesario respetar el patron para acompañantes!');
            }
           // dd($arre[0]." - ".$arre[1]." - ".$arre[2]);
            
         }
-        //meterlos en la bd
+        //guardo el principal y los otros
+            $otroTuristaP = new OtroTurista();
+            $otroTuristaP->CodigoOtroTurista = $randomString;
+            $otroTuristaP->NumTelOtroTurista = $request->Telefono;
+            $otroTuristaP->NombreApellido = $request->Nombre.' '.$request->Apellido;
+
+            if($request->Dui == null && $request->Pasaporte == null){
+                return redirect()->back()->withInput()->with('falloDoc', 'Es necesario un documento');
+            }
+           if($request->Dui != null){
+            $otroTuristaP->DuiOtroTurista = $request->Dui; 
+            }
+            if($request->Pasaporte != null){
+            $otroTuristaP->PasaporteOtroTurista = $request->Pasaporte;
+          }
+
+          $otroTuristaP->save();
+          $idsOtr = $otroTuristaP->IdOtroTuristas.'-'.$otroTuristaP->IdOtroTuristas;
+
+        for ($i=0; $i < $totalAcomp; $i++) {
+           $otroTurista = new OtroTurista();
+           $arre = explode( ',', $request->field_name[$i] );
+          // dd($arre[0]." - ".$arre[1]." - ".$arre[2]);
+            $otroTurista->CodigoOtroTurista = $randomString;
+            $otroTurista->NombreApellido = $arre[0];
+           if($arre[1] != null){
+            $otroTurista->DuiOtroTurista = $arre[1]; 
+            }
+            if($arre[2] != null){
+            $otroTurista->PasaporteOtroTurista = $arre[2];
+          }
+          $otroTurista->save();
+          $idsOtr = $idsOtr.','.$otroTurista->IdOtroTuristas;
+        }
+        //fin
+        //Para pago
+        $pago = new Pago();
+        $pago->IdOtroTurista = $otroTuristaP->IdOtroTuristas;
+        $pago->Descripcion = $paquete->NombrePaquete;
+        $pago->costoPersona = $paquete->Precio;
+        $pago->IdUsuario = $idUser;
+        $pago->NombreCliente= $otroTuristaP->NombreApellido;
+        $pago->Estado= 1;
+        $pago->PagoTotal = $request->Costo;
+        $pago->TipoPago = $request->MetodoPago;
+        $pago->FechaTransaccion= Carbon::now();
+        $pago->NumeroAcompanante= $totalAcomp+1;
+        $pago->IdsOtroTurista = $idsOtr;
+        $pago->save();
+        //fin pago
+        $paga = new Paga();
+        $paga->IdPago = $pago->$pago;
+        $paga->IdPaquete = $request->Paquete;
+        $paga->save();
         }
         if($totalAcomp > 0 && $request->field_name[0] == null){
         //dd('Solo el el principal');
-
+            $otroTuristaP = new OtroTurista();
+            $otroTuristaP->CodigoOtroTurista = $randomString;
+            $otroTuristaP->NumTelOtroTurista = $request->Telefono;
+            $otroTuristaP->NombreApellido = $request->Nombre.' '.$request->Apellido;
+            if($request->Dui == null && $request->Pasaporte == null){
+                return redirect()->back()->withInput()->with('falloDoc', 'Es necesario un documento');
+            }
+           if($request->Dui != null){
+            $otroTuristaP->DuiOtroTurista = $request->Dui; 
+            }
+            if($request->Pasaporte != null){
+            $otroTuristaP->PasaporteOtroTurista = $request->Pasaporte;
+         }
+         $otroTuristaP->save();
+         $idsOtr = $otroTuristaP->IdOtroTuristas.'-'.$otroTuristaP->IdOtroTuristas;
+        $pago = new Pago();
+        $pago->IdOtroTurista = $otroTuristaP->IdOtroTuristas;
+        $pago->Descripcion = $paquete->NombrePaquete;
+        $pago->costoPersona = $paquete->Precio;
+        $pago->IdUsuario = $idUser;
+        $pago->NombreCliente= $otroTuristaP->NombreApellido;
+        $pago->Estado= 1;
+        $pago->PagoTotal = $request->Costo;
+        $pago->TipoPago = $request->MetodoPago;
+        $pago->FechaTransaccion= Carbon::now();
+        $pago->NumeroAcompanante= 1;
+        $pago->IdsOtroTurista = $idsOtr;
+        $pago->save();
+        $paga = new Paga();
+        $paga->IdPago = $pago->IdPago;
+        $paga->IdPaquete = $request->Paquete;
+        $paga->save();
         }
      }
 

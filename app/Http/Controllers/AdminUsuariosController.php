@@ -409,12 +409,12 @@ class AdminUsuariosController extends Controller
            }
          }
          $idiomas = Idioma::all();
-         $sql = 'SELECT "IdIdiomaEmpleado", "IdIdioma", "IdEmpleadoGEO"
-                 FROM "IdiomasEmpleado"
-                 WHERE "IdEmpleadoGEO" = '.$id.' ;';
+         $sql = 'SELECT IdIdiomaEmpleado, IdIdioma, IdEmpleadoGEO
+                 FROM IdiomasEmpleado
+                 WHERE IdEmpleadoGEO = '.$id.' ;';
           $gIdiomas = DB::select($sql);
           $idiomasGuia = array();
-         // dd($gIdiomas[0]->IdIdioma);
+         
          for ($i=0; $i < count($gIdiomas); $i++) {
            $idiomasGuia[] = $gIdiomas[$i]->IdIdioma;
          }

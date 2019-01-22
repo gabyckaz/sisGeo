@@ -16,8 +16,7 @@ class CreateOtroturistaTable extends Migration
         Schema::create('OtrosTuristas', function (Blueprint $table) {
             $table->increments('IdOtroTurista');
             $table->string('CodigoOtroTurista',15);
-            $table->string('AreaTelOtroTurista',4)->nullable();
-            $table->string('NumTelOtroTurista',10)->nullable();
+            $table->string('NumTelOtroTurista',15)->nullable();
             $table->string('NombreApellido',60);
             $table->string('DuiOtroTurista',10)->nullable();
             $table->string('PasaporteOtroTurista',10)->nullable();

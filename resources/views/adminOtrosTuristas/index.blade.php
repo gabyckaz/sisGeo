@@ -41,7 +41,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                    <input type="text" name="Nombre" class="form-control"  id="Nombre" placeholder="Nombre" value="{{old('Nombre')}}" required>
+                    <input type="text" name="Nombre" class="form-control"  id="Nombre" placeholder="Juan" value="{{old('Nombre')}}" required>
                   </div>
                   @if ($errors->has('Nombre'))
                        <span class="help-block">{{ $errors->first('Nombre') }}</span>
@@ -55,7 +55,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                    <input type="text" name="Apellido" class="form-control"  id="Apellido" placeholder="Apellido" value="{{old('Apellido')}}" required>
+                    <input type="text" name="Apellido" class="form-control"  id="Apellido" placeholder="Perez" value="{{old('Apellido')}}" required>
                   </div>
                   @if ($errors->has('Apellido'))
                        <span class="help-block">{{ $errors->first('Apellido') }}</span>
@@ -69,7 +69,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-phone"></i>
                     </div>
-                    <input type="text" name="Telefono" class="form-control"  id="Telefono" placeholder="Telefono" value="{{old('Telefono')}}" required>
+                    <input type="text" name="Telefono" class="form-control"  id="Telefono" placeholder="50372334455" value="{{old('Telefono')}}" required>
                   </div>
                   @if ($errors->has('Telefono'))
                        <span class="help-block">{{ $errors->first('Telefono') }}</span>
@@ -87,16 +87,22 @@
                   @if ($errors->has('Dui'))
                        <span class="help-block">{{ $errors->first('Dui') }}</span>
                     @endif
+                    @if (session('falloDoc'))
+                       <span class="help-block">{{ session("falloDoc") }}</span>
+                    @endif
             </div>
       </div>
         <div class="col-md-4">
-            <div class="form-group has-feedback{{ $errors->has('Pasaporte') ? ' has-error' : '' }}">
-               <label for="Nombre" class="control-label">Pasaporte</label>
+            <div class="form-group has-feedback{{ $errors->has('pasaporte') ? ' has-error' : '' }}">
+               <label for="Pasaporte" class="control-label">Pasaporte</label>
                   <div class="input-group">
-                    <input type="text" name="Dui" class="form-control"  id="Pasaporte" placeholder="Pasaporte" value="{{old('Pasaporte')}}" >
+                    <input type="text" name="pasaporte" class="form-control"  id="pasaporte" placeholder="Pasaporte" value="{{old('pasaporte')}}" >
                   </div>
-                  @if ($errors->has('Pasaporte'))
-                       <span class="help-block">{{ $errors->first('Pasaporte') }}</span>
+                  @if ($errors->has('pasaporte'))
+                       <span class="help-block">{{ $errors->first('pasaporte') }}</span>
+                    @endif
+                    @if (session('falloDoc'))
+                       <span class="help-block">{{ session("falloDoc") }}</span>
                     @endif
             </div>
       </div>
@@ -105,7 +111,7 @@
       <div class="col-md-12">
     <div class="field_wrapper">
       <div class="form-group">
-        <label for="Acompñantes" class="control-label">Acompañantes</label>
+        <label for="Acompñantes" class="control-label">Acompañantes¹</label>
       <div class="input-group">
         <input type="text" class="form-control" name="field_name[]" value="" placeholder="Nombre Apellido,Dui, Pasaporte" />
           <div class="input-group-addon">
@@ -132,9 +138,10 @@
         <div class="form-group">
                 <label>Metodo de Pago</label>
                 <select name="MetodoPago" class="form-control" >
-                  <option value="telefono" >Telefono</option>
-                  <option value="persona" >Persona</option>
-                  <option value="banco" >Banco</option>
+                  <option value="telefono" @if (old('tipo') == "telefono") {{ 'selected' }} @endif >Telefono</option>
+                  <option value="persona" @if (old('tipo') == "persona") {{ 'selected' }} @endif >Persona</option>
+                  <option value="banco" @if (old('tipo') == "banco") {{ 'selected' }} @endif >Banco</option>
+                  <option value="banco" @if (old('tipo') == "puntoExpres") {{ 'selected' }} @endif >Punto expres</option>
                 </select>
         </div>
       </div>
@@ -147,7 +154,7 @@
           </div>
            <input type="text" class="form-control" name="Costo" value="" placeholder="0.00" />
          </div>
-         @if ($errors->has('Pasaporte'))
+         @if ($errors->has('Costo'))
             <span class="help-block">{{ $errors->first('Costo') }}</span>
           @endif
      </div>
@@ -161,7 +168,8 @@
     </form>
             </div>
         </div>
-
+       <p>¹ Es necesario respetar el patron para otros acompañantes.</p>
+       <p>Ejemplo: Nombre Apellido,12345678-1,1234567890</p>
     </div>
   </div>
 </div>

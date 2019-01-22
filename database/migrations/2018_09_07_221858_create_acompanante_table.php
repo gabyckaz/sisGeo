@@ -15,8 +15,8 @@ class CreateAcompananteTable extends Migration
     {
         Schema::create('Acompanante', function (Blueprint $table) {
             $table->increments('IdFamiliarAmigo');
-            $table->integer('IdTurista')->unsigned();;
-            $table->integer('IdUsuario')->unsigned();;
+            $table->integer('IdTurista')->unsigned();
+            $table->integer('IdUsuario')->unsigned();
             $table->string('EsFamiliar',1);
             $table->timestamps();
             $table->foreign('IdTurista')->references('IdTurista')->on('Turista')->onDelete('cascade');

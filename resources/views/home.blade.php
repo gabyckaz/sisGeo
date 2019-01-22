@@ -1,5 +1,4 @@
 <style>
-
 .responsive {
     width: 100%;
     height: auto;
@@ -7,12 +6,10 @@
 .fadein img{
   transition: 1s ease;
 }
-
 .fadein img:hover{
   filter:contrast(125%) brightness(115%);
   transition: 1s ease;
 }
-
 div.figure{
    overflow:hidden; /*hide bounds of image */
    margin:0;   /*reset margin of figure tag*/
@@ -25,7 +22,6 @@ div.figure img{
    position: relative;
    width: 100%; /* for IE 6 */
 }
-
 h4 {
    position: absolute;
    top: 200px;
@@ -59,7 +55,7 @@ h4 span {
 @endif
 
 <div class="text-center" >
-  <img alt="Geoturismo logo" src="http://nebula.wsimg.com/d3657b04208ae150f468167d20de36aa?AccessKeyId=B5E8C3F7E00CA38BCFD7&disposition=0&alloworigin=1">
+  <img alt="Geoturismo logo" src="..\images\logogeo.png">
 </div>
 
 @role(['Director','Agente','Admin'])
@@ -128,36 +124,35 @@ h4 span {
     @elseif (count($reservaciones) >= 1)
       <h3 style="text-align:center">Reservaciones</h3>
       @foreach($reservaciones as $reservacion)
-       @if($reservacion->paquete->compara_fechas == 2)
+        <!-- Agregar validacion de fechas -->
         <div class="col-sm-12 ">
           <!-- box info de cada paquete-->
           <div class="small-box  disabled color-palette" style="background-color:#dbdde0">
             <span class=" label" style="background:#568D51;text-align:right"></span>
             <div class="inner" style="text-align:center;display:block;">
-              <a style="color:#4c5b51; font-weight:bold;align:center" href="{{ url('MostrarPaqueteCliente/'.$reservacion->paquete->IdPaquete) }}"> {{$reservacion->paquete->NombrePaquete}}</a></h3>
+              <a style="color:#4c5b51; font-weight:bold;align:center" href="{{$reservacion->Url }} "> {{$reservacion->Descripcion}}</a></h3>
               <div class="box-body">
-                <p style="color:#4c5b51">Fecha de salida: {{$reservacion->paquete->FechaSalida}} </p>
-                <p style="color:#4c5b51">Cupos reservados: {{$reservacion->NumeroAcompanantes}} </p>
-                <p style="color:#4c5b51">Reservada en {{$reservacion->FechaReservacion}} </p>
+                <p style="color:#4c5b51">Cupos reservados: {{$reservacion->NumeroAcompanante}} </p>
+                <p style="color:#4c5b51">Fecha de transacción: {{ \Carbon\Carbon::parse($reservacion->FechaTransaccion)->format('d/m/Y')}} </p>
+                <p style="color:#4c5b51">Tipo de Pago: {{$reservacion->TipoPago}} </p>
               </div>
             </div><!-- /.contenido-->
-            <a href="{{  route('Reservacion.edit', $reservacion) }}" class="small-box-footer">
-              Editar <i class="fa fa-arrow-circle-right"></i>
-            </a>
           </div> <!--/ box info de cada paquete-->
         </div><!-- /. colm-d-->
-        @endif
+
       @endforeach
-      <a href="{{  route('Reservacion.index') }}" class="small-box-footer">
+      <!-- <a href="{{  route('Reservacion.index') }}" class="small-box-footer">
         Historial de reservas <i class="fa fa-arrow-circle-right"></i>
-      </div>
+      </div> -->
     @endif
   </div><!-- /.row -->
-  <div style="padding:1px 100px 1px 100px;">
+  <div class="col-md-12">
     <div class="text-center">
-      <img class="responsive" alt="Geoturismo banner" src="https://78.media.tumblr.com/6a60fa5ae43c94c672501188c1f2ef02/tumblr_pf41uvQQwE1qa3lvmo1_r1_1280.png">
+      <img class="responsive" alt="Geoturismo banner" src="..\images\bannergeo.png">
     </div>
+    <br>
   </div>
+
   <div class="row">
     <div class="col-md-12">
       @foreach($paquetes as $paquete)
@@ -203,7 +198,6 @@ h4 span {
     <br>
     <br>
     <center><script type="text/javascript" src="https://comercios.pagadito.com/validate/index.php?merchant=1c9ef2047612e210b290a204bbab9c03&size=m&_idioma=es"></script></center>
-    <center><img alt="Geoturismo logo" src="http://nebula.wsimg.com/f1a6ab585e8127b5cc523d8f47ab7fe1?AccessKeyId=B5E8C3F7E00CA38BCFD7&disposition=0&alloworigin=1"></center>
     <center>{!! $paquetes->appends(\Request::except('page'))->render() !!}</center>
   </div>
 @endsection

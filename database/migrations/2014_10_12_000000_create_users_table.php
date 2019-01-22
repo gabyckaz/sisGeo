@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('IdPersona')->unsigned();
-           /* $table->string('segundoNombre')->nullable();;
+           /* $table->string('segundoNombre')->nullable();
             $table->string('primerApellido');
             $table->string('segundoApellido')->nullable();
             $table->string('sexo');

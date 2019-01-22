@@ -318,7 +318,7 @@ $(document).ready(function(){
       /* $('#datepicker').datepicker({ autoclose: true })
        $('#datepicker2').datepicker({ autoclose: true }) */
        $("#dui").inputmask("99999999-9",{ 'placeholder': '00000000-0' })
-       $("#pasaporte").inputmask("999999999",{ 'placeholder': '000000000' })
+       $("#pasaporte").inputmask("aa9999999",{ 'placeholder': 'AA0000000' })
        //Initialize Select2 Elements
        $('.select2').select2()
 

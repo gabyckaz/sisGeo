@@ -6,11 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pago extends Model
 {
-    protected $table = 'Pago';
+  //el nombre de la tabla relacionada al modelo
+  protected $table = 'Pago';
 
-    //Para que no se greguen los atributos automaticos de updated_at y created_at
-   // public $timestamps = true;
-
-    //Cambiando el campo por defecto id a uno personalizado
-    protected $primaryKey = 'IdPago';
+  //Cambiando el campo por defecto id a uno personalizado
+  protected $primaryKey = 'IdPago';
 }

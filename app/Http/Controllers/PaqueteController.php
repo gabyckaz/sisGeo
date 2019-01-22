@@ -30,6 +30,8 @@ use App\Mail\MensajeGeoturismo;
 use App\Mensaje;
 use App\Empleado;
 use App\GuiaPaquete;
+use App\Pago;
+use App\Paga;
 
 
 
@@ -839,29 +841,26 @@ class PaqueteController extends Controller
     }
 
     public function agregarGuiaPaquete($id){
-    
+
       $paquete = Paquete::findOrFail($id);
 
-      $sql = 'SELECT e."IdEmpleadoGEO", p."PrimerNombrePersona",p."PrimerApellidoPersona",
-              p."AreaTelContacto", p."TelefonoContacto", n."Nacionalidad"
-            FROM public."Empleado" as e, public."personas" as p, public."Turista" as t, public."Nacionalidad" as n, public."IdiomasEmpleado" as I_Emp
-            WHERE e."IdPersona" = p."IdPersona" and t."IdPersona" = p."IdPersona" and t."IdNacionalidad" = n."IdNacionalidad" and I_Emp ;';
+      $sql = 'SELECT e.IdEmpleadoGEO, p.PrimerNombrePersona,p.PrimerApellidoPersona,
+              p.AreaTelContacto, p.TelefonoContacto, n.Nacionalidad
+            FROM Empleado as e, personas as p, Turista as t, Nacionalidad as n, IdiomasEmpleado as I_Emp
+            WHERE e.IdPersona = p.IdPersona and t.IdPersona = p.IdPersona and t.IdNacionalidad = n.IdNacionalidad ;';
         $guias = DB::select($sql);
 
-
-         $sql = 'SELECT "IdGuiaPaquete", "IdEmpleadoGEO", "IdPaquete"
-                 FROM "GuiaPaquete"
-                 WHERE "IdPaquete" = '.$id.' ;';
+         $sql = 'SELECT IdGuiaPaquete, IdEmpleadoGEO, IdPaquete
+                 FROM GuiaPaquete
+                 WHERE IdPaquete = '.$id.' ;';
           $pIdguias = DB::select($sql);
           $guiasPaquete = array();
          // dd($gIdiomas[0]->IdIdioma);
-         for ($i=0; $i < count($pIdguias); $i++) { 
+         for ($i=0; $i < count($pIdguias); $i++) {
            $guiasPaquete[] = $pIdguias[$i]->IdEmpleadoGEO;
          }
-
          sort($guiasPaquete);
-            //dd($guiasPaquete);
-        
+
      return view('adminPaquete.agregarguia',compact('guias','paquete','guiasPaquete'));
     }
 
@@ -904,4 +903,72 @@ class PaqueteController extends Controller
       }
 
     }
+
+    /*
+    * Reporte del guía y los turistas confirmados que asistan a cierto paquete
+    */
+    public function reportepersonas($id){
+
+      $turistas = DB::table('Paga')
+        ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
+        ->join('Turista', 'Pago.IdTurista', '=', 'Turista.IdTurista')
+        ->join('Personas', 'Turista.IdPersona', '=', 'Personas.IdPersona')
+        ->select('Descripcion','IdsAcompanantes','TipoPago','PrimerNombrePersona','PrimerApellidoPersona','Turista.IdTurista','Personas.IdPersona','Pago.IdPago','TelefonoContacto')
+        ->where([['IdPaquete','=',$id ],
+                ['Estado','=','1']])
+        ->get();
+
+        $otrosturistas = DB::table('Paga')
+          ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
+          ->join('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
+          ->select('*')
+          ->where([['IdPaquete','=',$id ],
+                  ['Estado','=','1']])
+          ->get();
+          dd($otrosturistas);
+
+      $z = '';
+      for ($i=0; $i < count($turistas); $i++) {
+        $x = explode('-',$turistas[$i]->IdsAcompanantes);
+        $x = explode(',',$x[1]);
+        if(count($turistas)-1 != $i){
+        $z = $z.(implode(',',$x)).',';
+        }
+        else{
+          $z = $z.(implode(',',$x));
+        }
+      }
+
+      $z =explode(',',$z);
+
+      $personas= DB::table('TipoDocumento')
+            ->join('Turista', 'TipoDocumento.IdTurista', '=', 'Turista.IdTurista')
+            ->join('Nacionalidad', 'Turista.IdNacionalidad', '=', 'Nacionalidad.IdNacionalidad')
+            ->join('Personas', 'Turista.IdPersona', '=', 'Personas.IdPersona')
+            ->select('PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona','SegundoApellidoPersona','TelefonoContacto','NumeroDocumento','Nacionalidad')
+            ->whereIn('Turista.IdTurista', $z)
+            ->get();
+
+      $paquete = Paquete::findOrFail($id);
+
+      $guias= DB::table('GuiaPaquete')
+            ->join('Empleado', 'GuiaPaquete.IdEmpleadoGEO', '=', 'Empleado.IdEmpleadoGEO')
+            ->join('Personas', 'Empleado.IdPersona', '=', 'Personas.IdPersona')
+            ->select('PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona','SegundoApellidoPersona')
+            ->where('IdPaquete','=', $id)
+            ->get();
+
+
+      //instantiate and use the dompdf class
+      $view=\View::make('adminPaquete.reportepersonas',compact('personas','paquete','guias'))->render();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($view);
+      // Render the HTML as PDF
+      $dompdf->render();
+      $canvas = $dompdf ->get_canvas();
+      $canvas->page_text(280, 740, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+      // Output the generated PDF to Browser
+      $dompdf->stream('Listado '.$paquete->NombrePaquete.' '.$paquete->FechaSalida.'.pdf');
+    }
+
 }

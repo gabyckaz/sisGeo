@@ -45,8 +45,11 @@ Route::group(['middleware' => ['role:User']], function() {
   Route::resource('user', 'userController');
   //Rutas de reserva
   Route::get('Reservacion/{id}/crear', ['as' => 'adminPaquete.reserva.add', 'uses' => 'ReservacionController@reservar']);
+  Route::post('Reservacion/crear', ['as' => 'cobro', 'uses' => 'ReservacionController@cobro']);//Pagadito
   Route::put('Reservacion/crear', ['as' => 'adminPaquete.reserva.add.store', 'uses' => 'ReservacionController@store']);
+  Route::get('reservacion/{value}/{ern_value}', ['as' => 'reservacion.recibo', 'uses' => 'ReservacionController@recibo']);
   Route::resource('Reservacion', 'ReservacionController');
+  Route::get('reservacion/error', ['as' => 'reservacion.error', 'uses' => 'ReservacionController@error']);
   //Route::put('/{id}/adminPaquete', ['as' => 'adminPaquete.reserva.add', 'uses' =>  'ReservacionController@reservar']);
 });
 
@@ -139,6 +142,7 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   //Guardar costos
   Route::post('/PaquetesCostos/{id}', ['uses' => 'CostoAlquilerTransporteController@store', 'as' => 'adminPaquete.costos.store']);
   Route::get('/ReporteCostos', ['uses' => 'CostoAlquilerTransporteController@reporte','as' => 'adminPaquete.costos.reporte']);
+  Route::get('/ReportePersonas/{id}', ['uses' => 'PaqueteController@reportepersonas','as' => 'adminPaquete.reportepersonas']);
   //FIN RUTAS PAQUETES
   Route::get('/graficas', 'GraficaController@index')->name('graficas'); //Graficas
   //Aprobar paquetes
@@ -153,6 +157,8 @@ Route::get('/MostrarPaqueteCliente/{id}', ['uses' => 'PaqueteController@getSingl
 //Informacion de paquete para clientes
 Route::get('/informacion/{id}', ['uses' =>  'PaqueteController@informacion','as' => 'adminPaquete.informacion']);
 Route::get('/reporte/{id}', ['uses' =>  'PaqueteController@reporte','as' => 'adminPaquete.reporte']);
+Route::get('/acercade', ['uses' =>  'HomeController@acercade','as' => 'about']);
+Route::get('/condiciones', ['uses' =>  'HomeController@condiciones','as' => 'condiciones']);
 
 //Rutas a las que solo puede accesar visitante sin hacer login
 Route::group(['middleware' => ['guest']], function () {
