@@ -10,6 +10,7 @@ use App\User;
 use App\Persona;
 use DB;
 use App\ImagenPaqueteTuristico;
+use App\Pago;
 
 class HomeController extends Controller
 {
@@ -34,9 +35,17 @@ class HomeController extends Controller
         $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
         $imagenes = ImagenPaqueteTuristico::all();
         $usuarioreservando = Turista::where('IdPersona',auth()->user()->IdPersona)->first();
-        //Por el momento,mientras no se registren reservaciones queda comentada la linea y con valor nulo
-        //$reservaciones = Reservacion::where('IdTurista', $usuarioreservando->IdTurista)->orderBy('FechaReservacion','desc')->get();
-        $reservaciones=null;
+        //TO DO: Validar la fecha del paquete
+        $reservaciones= DB::table('Pago')
+          ->select('*')
+          ->where([
+            ['IdUsuario', '=', $usuarioreservando->IdTurista],
+            ['Estado', '=', '1'],
+           ])
+          ->orderBy('FechaTransaccion','asc')
+          ->limit(2)
+          ->get();
+
         $pdisponibles = Paquete::all();
         $x=0;
         foreach ($pdisponibles as $p) {

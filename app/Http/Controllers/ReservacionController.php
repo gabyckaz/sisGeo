@@ -365,6 +365,7 @@ class ReservacionController extends Controller
                       case "COMPLETED":
                           /* Tratamiento para una transacción exitosa.*/
                           $msgPrincipal = "Su compra fue exitosa";
+                          $msgSecundario = "Gracias por comprar con Pagadito";
                           $nap=$Pagadito->get_rs_reference();
                           $fecharespuesta=$Pagadito->get_rs_date_trans();
 
@@ -391,14 +392,17 @@ class ReservacionController extends Controller
 
                           return view('Reservacion.invoice')
                             ->with('status',$msgPrincipal)
+                            ->with('msgSecundario',$msgSecundario)
                             ->with('nap', $nap)
                             ->with('fecharespuesta', $fecharespuesta);
                           break;
 
                       case "REGISTERED":
                           /* Tratamiento para una transacción aún en proceso. */
-                          $msgPrincipal = "Atenci&oacute;n";
-                          $msgSecundario = "La transacci&oacute;n fue cancelada.<br /><br />";
+                          $msgPrincipal = "Atención";
+                          $msgSecundario = "La transacción ha sido registrada correctamente, pero el pago aún se encuentra en proceso.";
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                           break;
 
                       case "VERIFYING":
@@ -408,27 +412,35 @@ class ReservacionController extends Controller
                            * Posteriormente, la transacción puede marcarse como válida o denegada;
                            * por lo que se debe monitorear mediante esta función hasta que su estado cambie a COMPLETED o REVOKED.
                            */
-                          $msgPrincipal = "Atenci&oacute;n";
-                          $msgSecundario = '
-                          Su pago est&aacute; en validaci&oacute;n.<br />
-                          NAP(N&uacute;mero de Aprobaci&oacute;n Pagadito): <label class="respuesta">' . $Pagadito->get_rs_reference() . '</label><br />
-                          Fecha Respuesta: <label class="respuesta">' . $Pagadito->get_rs_date_trans() . '</label><br /><br />';
+                          $msgPrincipal = "Atención";
+                          $msgSecundario = 'Su pago está en validación.
+                          NAP(Número de Aprobación Pagadito): ' . $Pagadito->get_rs_reference() . '
+                          Fecha Respuesta: ' . $Pagadito->get_rs_date_trans() . '.';
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                           break;
 
                       case "REVOKED":
                           /*La transacción en estado VERIFYING ha sido denegada por Pagadito.
                            * En este punto el cobro ya ha sido cancelado.*/
-                          $msgPrincipal = "Atenci&oacute;n";
-                          $msgSecundario = "La transacci&oacute;n fue denegada.<br /><br />";
+                          $msgPrincipal = "Atención";
+                          $msgSecundario = "La transacción fue denegada.";
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                           break;
 
                       case "FAILED":
                           /* Tratamiento para una transacción fallida.*/
+                          $msgPrincipal = "Atención";
+                          $msgSecundario = "La transacción no se pudo realizar.";
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
                           break;
                       default:
                           /* Por ser un ejemplo, se muestra un mensaje de error fijo.*/
-                          $msgPrincipal = "Atenci&oacute;n";
-                          $msgSecundario = "La transacci&oacute;n no fue realizada.<br /><br />";
+                          $msgPrincipal = "Atención";
+                          $msgSecundario = "La transacción no fue realizada.";
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                           break;
                   }
               } else {
@@ -437,14 +449,28 @@ class ReservacionController extends Controller
                   {
                       case "PG2001":
                           /*Incomplete data*/
+                          $msgPrincipal='Error PG2001';
+                          $msgSecundario='Ha ocurrido un error al enviar los datos, pruebe de nuevo';
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                       case "PG3002":
                           /*Error*/
+                          $msgPrincipal='Error PG3002';
+                          $msgSecundario='Error interno. Intente más tarde.';
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                       case "PG3003":
                           /*Unregistered transaction*/
+                          $msgPrincipal='Error PG3003';
+                          $msgSecundario='Error interno al registrar la transacción. Intente más tarde.';
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                       default:
                           /** Por ser un ejemplo, se muestra un mensaje de error fijo. */
-                          $msgPrincipal = "Error en la transacci&oacute;n";
-                          $msgSecundario = "La transacci&oacute;n no fue completada.<br /><br />";
+                          $msgPrincipal = "Error en la transacción";
+                          $msgSecundario = "La transacción no fue completada.";
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                           break;
                   }
               }
@@ -454,29 +480,54 @@ class ReservacionController extends Controller
               {
                   case "PG2001":
                       /*Incomplete data*/
+                      $msgPrincipal='Error PG2001';
+                      $msgSecundario='Ha ocurrido un error al enviar los datos, pruebe de nuevo';
+                      return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                   case "PG3001":
                       /*Problem connection*/
+                      $msgPrincipal='Error PG3001';
+                      $msgSecundario='No se puede establecer conexión';
+                      return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                   case "PG3002":
                       /*Error*/
+                      $msgPrincipal='Error PG3002';
+                      $msgSecundario='Error interno. Intente más tarde.';
+                      return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                   case "PG3003":
                       /*Unregistered transaction*/
+                      $msgPrincipal='Error PG3003';
+                      $msgSecundario='Error interno al registrar la transacción. Intente más tarde';
+                      return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                   case "PG3005":
                       /*Disabled connection*/
+                      $msgPrincipal='Error PG3005';
+                      $msgSecundario='Conexión deshabilitada';
+                      return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                   case "PG3006":
                       /*Exceeded*/
+                      $msgPrincipal='Error PG3006';
+                      $msgSecundario='Se ha sobrepasado el límite máximo por transacción';
+                      return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                   default:
                       /* Aqui se muestra el código y mensaje de la respuesta del WSPG */
                       $msgPrincipal = "Respuesta de Pagadito API";
                       $msgSecundario = "
-                              COD: " . $Pagadito->get_rs_code() . "<br />
-                              MSG: " . $Pagadito->get_rs_message() . "<br /><br />";
+                              COD: " . $Pagadito->get_rs_code() . "
+                              MSG: " . $Pagadito->get_rs_message() . ".";
                       break;
               }
           }
       } else {
           /* Mensaje de error al no haber recibido el token por medio de la URL. */
-          $msgPrincipal = "Atenci&oacute;n";
-          $msgSecundario = "No se recibieron los datos correctamente.<br /> La transacci&oacute;n no fue completada.<br /><br />";
+          $msgPrincipal = "Atención";
+          $msgSecundario = "No se recibieron los datos correctamente. La transacci&oacute;n no fue completada.";
+          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
       }
 
     }
@@ -557,7 +608,6 @@ class ReservacionController extends Controller
       $pago=new Pago;
       $pago->IdTurista=$usuarioreservando[0]->IdTurista;
       $pago->Descripcion=$request->descripcion;
-      $pago->Cupos=$request->total;
       $pago->CostoPersona=$request->cpersona;
       $pago->Url=$request->url;
       $pago->IdUsuario=$request->usuario;
@@ -567,12 +617,13 @@ class ReservacionController extends Controller
       $pago->Estado=0; //0,1,2
       $pago->Nap=null;
       $pago->FechaTransaccion=null;
-      $pago->PagoTotal=$pago->Cupos*$pago->CostoPersona;
       $pago->TipoPago='Pagadito';
+      $pago->NumeroAcompanante=$request->total;
+      $pago->PagoTotal=$pago->NumeroAcompanante*$pago->CostoPersona;
       $pago->IdsAcompanantes=$strAcompanantes;
       $pago->ConfirmacionReservacion='0';
 
-       if (isset($pago->Cupos) && is_numeric($pago->Cupos))
+       if (isset($pago->NumeroAcompanante) && is_numeric($pago->NumeroAcompanante))
        {
           /* Lo primero es crear el objeto nusoap_client, al que se le pasa como parámetro la URL de Conexión definida en la constante WSPG */
           $Pagadito = new Pagadito(UID, WSK);
@@ -585,8 +636,8 @@ class ReservacionController extends Controller
           if ($Pagadito->connect()) {
               /* Luego pasamos a agregar el detalle de la venta */
 
-             if ($pago->Cupos > 0) {
-                 $Pagadito->add_detail($pago->Cupos, $pago->Descripcion, $pago->CostoPersona, $pago->Url);
+             if ($pago->NumeroAcompanante > 0) {
+                 $Pagadito->add_detail($pago->NumeroAcompanante, $pago->Descripcion, $pago->CostoPersona, $pago->Url);
              }
              //Agregando campos personalizados de la transacción (se pueden agregar hasta 5)
              $Pagadito->set_custom_param("param1", $pago->NombreCliente);
@@ -594,13 +645,20 @@ class ReservacionController extends Controller
              //Habilita la recepción de pagos preautorizados para la orden de cobro.
              $Pagadito->enable_pending_payments();
 
-             //TO DO: Hacer estandar de código para que sea único(como el carnet de la u, que el código brinde cierta info )
               /* Lo siguiente es ejecutar la transacción, enviandole el ern.
-               * A manera de ejemplo el ern es generado como un número aleatorio entre 1000 y 2000. Lo ideal es que sea una
-               * referencia almacenada por el Pagadito Comercio.
+               * El ern es formado por 3 caracteres del nombre del paquete turístico y 6 caracteres al azar
                */
 
-             $ern = rand(1000, 2000);
+             $randomString = '';
+             $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+             $charactersLength = strlen($characters);
+             $conta = 0;
+
+             for ($i = 0; $i < 6; $i++) {
+                  $randomString .= $characters[rand(0, $charactersLength - 1)];
+             }
+             $x=substr($pago->Descripcion, 0, 3);
+             $ern=$x.$randomString;
              $pago->Ern=$ern;
              $pago->save();
              //Guardamos el registro en nuestra BD de un pago iniciado
@@ -611,14 +669,34 @@ class ReservacionController extends Controller
                   {
                       case "PG2001":
                           /*Incomplete data*/
+                          $msgPrincipal='Error PG2001';
+                          $msgSecundario='Ha ocurrido un error al enviar los datos, pruebe de nuevo';
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                       case "PG3002":
                           /*Error*/
+                          $msgPrincipal='Error PG3002';
+                          $msgSecundario='Error interno. Intente más tarde.';
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                       case "PG3003":
                           /*Unregistered transaction*/
+                          $msgPrincipal='Error PG3003';
+                          $msgSecundario='Error interno al registrar la transacción. Intente más tarde';
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                       case "PG3004":
                           /*Match error*/
+                          $msgPrincipal='Error PG3004';
+                          $msgSecundario='Cantidad de transacción no concuerda con el calculado';
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                       case "PG3005":
                           /*Disabled connection*/
+                          $msgPrincipal='Error PG3005';
+                          $msgSecundario='Conexión deshabilitada';
+                          return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                       default:
                           echo "
                               <SCRIPT>
@@ -635,16 +713,40 @@ class ReservacionController extends Controller
               {
                   case "PG2001":
                       /*Incomplete data*/
+                      $msgPrincipal='Error PG2001';
+                      $msgSecundario='Ha ocurrido un error al enviar los datos, pruebe de nuevo';
+                      return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                   case "PG3001":
                       /*Problem connection*/
+                      $msgPrincipal='Error PG3001';
+                      $msgSecundario='No se puede establecer conexión';
+                      return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                   case "PG3002":
                       /*Error*/
+                      $msgPrincipal='Error PG3002';
+                      $msgSecundario='Error interno. Intente más tarde.';
+                      return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                   case "PG3003":
                       /*Unregistered transaction*/
+                      $msgPrincipal='Error PG3003';
+                      $msgSecundario='Error interno al registrar la transacción. Intente más tarde';
+                      return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                   case "PG3005":
                       /*Disabled connection*/
+                      $msgPrincipal='Error PG3005';
+                      $msgSecundario='Conexión deshabilitada';
+                      return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                   case "PG3006":
                       /*Exceeded*/
+                      $msgPrincipal='Error PG3006';
+                      $msgSecundario='Se ha sobrepasado el límite máximo por transacción';
+                      return view('errors.pagadito', compact('msgPrincipal','msgSecundario'));
+
                   default:
                       echo "
                           <SCRIPT>
@@ -667,6 +769,10 @@ class ReservacionController extends Controller
            return redirect()->back()->with('fallo', "No ha llenado los campos adecuadamente");
        }
 
+    }
+
+    public function error(){
+      return view('errors.pagadito');
     }
 
 }

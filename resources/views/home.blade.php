@@ -124,29 +124,26 @@ h4 span {
     @elseif (count($reservaciones) >= 1)
       <h3 style="text-align:center">Reservaciones</h3>
       @foreach($reservaciones as $reservacion)
-       @if($reservacion->paquete->compara_fechas == 2)
+        <!-- Agregar validacion de fechas -->
         <div class="col-sm-12 ">
           <!-- box info de cada paquete-->
           <div class="small-box  disabled color-palette" style="background-color:#dbdde0">
             <span class=" label" style="background:#568D51;text-align:right"></span>
             <div class="inner" style="text-align:center;display:block;">
-              <a style="color:#4c5b51; font-weight:bold;align:center" href="{{ url('MostrarPaqueteCliente/'.$reservacion->paquete->IdPaquete) }}"> {{$reservacion->paquete->NombrePaquete}}</a></h3>
+              <a style="color:#4c5b51; font-weight:bold;align:center" href="{{$reservacion->Url }} "> {{$reservacion->Descripcion}}</a></h3>
               <div class="box-body">
-                <p style="color:#4c5b51">Fecha de salida: {{$reservacion->paquete->FechaSalida}} </p>
-                <p style="color:#4c5b51">Cupos reservados: {{$reservacion->NumeroAcompanantes}} </p>
-                <p style="color:#4c5b51">Reservada en {{$reservacion->FechaReservacion}} </p>
+                <p style="color:#4c5b51">Cupos reservados: {{$reservacion->NumeroAcompanante}} </p>
+                <p style="color:#4c5b51">Fecha de transacción: {{ \Carbon\Carbon::parse($reservacion->FechaTransaccion)->format('d/m/Y')}} </p>
+                <p style="color:#4c5b51">Tipo de Pago: {{$reservacion->TipoPago}} </p>
               </div>
             </div><!-- /.contenido-->
-            <a href="{{  route('Reservacion.edit', $reservacion) }}" class="small-box-footer">
-              Editar <i class="fa fa-arrow-circle-right"></i>
-            </a>
           </div> <!--/ box info de cada paquete-->
         </div><!-- /. colm-d-->
-        @endif
+
       @endforeach
-      <a href="{{  route('Reservacion.index') }}" class="small-box-footer">
+      <!-- <a href="{{  route('Reservacion.index') }}" class="small-box-footer">
         Historial de reservas <i class="fa fa-arrow-circle-right"></i>
-      </div>
+      </div> -->
     @endif
   </div><!-- /.row -->
   <div class="col-md-12">

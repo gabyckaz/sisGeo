@@ -17,8 +17,7 @@ class AddIdnacionalidadToPagoTable extends Migration
             $table->integer('IdNacionalidad')->after('IdPago')->unsigned()->nullable();
             $table->integer('IdPersona')->after('IdNacionalidad')->unsigned()->nullable();
             $table->string('Descripcion',256)->after('IdOtroTurista')->nullable();
-            $table->integer('Cupos')->after('Descripcion')->unsigned()->nullable();
-            $table->double('CostoPersona',8,2)->after('Cupos')->nullable();
+            $table->double('CostoPersona',8,2)->after('Descripcion')->nullable();
             $table->string('Url',150)->after('CostoPersona')->nullable();
             $table->integer('IdUsuario')->after('Url')->unsigned()->nullable();
             $table->string('NombreCliente',30)->after('IdUsuario')->nullable();
@@ -28,8 +27,7 @@ class AddIdnacionalidadToPagoTable extends Migration
             $table->string('Ern',256)->after('FechaTransaccion')->nullable();
             $table->integer('NumeroAcompanante')->after('TipoPago')->unsigned()->nullable();
             $table->string('IdsAcompanantes',60)->after('NumeroAcompanante')->nullable();
-            $table->string('ConfirmacionReservacion',1)->after('IdsAcompanantes')->nullable();
-            $table->string('IdsOtroTurista')->after('ConfirmacionReservacion')->nullable();
+            $table->string('IdsOtroTurista')->after('IdsAcompanantes')->nullable();
 
             $table->foreign('IdNacionalidad')->references('IdNacionalidad')->on('Turista');
             $table->foreign('IdPersona')->references('IdPersona')->on('Turista');

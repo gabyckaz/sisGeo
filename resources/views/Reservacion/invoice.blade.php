@@ -28,6 +28,7 @@
     <!-- info row -->
     <div class="row">
       <div class="col-md-6 col-md-offset-3 invoice-col">
+        <h2>{{$msgSecundario}}</h2>
         <h3><b>NAP(Número de Aprobación Pagadito): {{$nap}}</b></h3><br>
         <h4><b>Fecha de transacción: {{$fecharespuesta}}</b></h4><br>
       </div>
