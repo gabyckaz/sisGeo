@@ -56,9 +56,15 @@ class CategoriaSeeder extends Seeder
   ]);
  Categoria::create([
     'IdCategoria'=>8,
-    "NombreCategoria"=>'turismo solidable',
+    "NombreCategoria"=>'Turismo solidable',
     'created_at'=>date('Y-m-d H:m:s'),
     'updated_at'=>date('Y-m-d H:m:s')
   ]);
+  Categoria::create([
+     'IdCategoria'=>9,
+     "NombreCategoria"=>'Arquelogico',
+     'created_at'=>date('Y-m-d H:m:s'),
+     'updated_at'=>date('Y-m-d H:m:s')
+   ]);
     }
 }
