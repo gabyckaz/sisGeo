@@ -134,7 +134,7 @@ class OtrosTuristasController extends Controller
         $pago->save();
         //fin pago
         $paga = new Paga();
-        $paga->IdPago = $pago->$pago;
+        $paga->IdPago = $pago->IdPago;
         $paga->IdPaquete = $request->Paquete;
         $paga->save();
         }

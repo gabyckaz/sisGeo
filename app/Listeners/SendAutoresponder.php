@@ -56,14 +56,15 @@ class SendAutoresponder
 
            $queryEmails = 'SELECT u.email as email
             FROM users as u, turista as t, turistacategoria as tc
-            WHERE u.IdPersona = t.IdPersona AND tc.IdTurista = t.IdTurista AND tc.IdCategoria = '.$idCatP.'
-            AND u.EstadoUsuario = 1 and u.RecibirNotificacion = 1 ;';
+            WHERE u.IdPersona = t.IdPersona and tc.IdTurista = t.IdTurista and u.EstadoUsuario = 1 and u.RecibirNotificacion = 1 and tc.IdCategoria = '.$idCatP[0]->Id.';';
+
             $correos = DB::select($queryEmails);
+
         /*Fin nueva forma*/
         // dd($listaCorreosEnviar[0]);
          //$user2 = User::findOrFail(25);
-         
-         Mail::to($correos)->send(new MensajeGeoturismo($msj)); 
+
+         Mail::to($correos)->send(new MensajeGeoturismo($msj));
 
         }catch(\Exception $e){
          \Log::debug('Test var fails :' . $e->getMessage());
