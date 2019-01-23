@@ -18,6 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 //Ruta de home
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/acercade', function () {
+    return view('about');
+  });
+Route::get('/condiciones', function () {
+    return view('condiciones');
+});
+
 //Rutas a las que puede accesar Administrador
 Route::group(['middleware' => ['role:Admin']], function() {
   Route::get('/adminUser/agregarGuiaTuristico', ['as' => 'admin.agregar.guiaTuristico', 'uses' => 'AdminUsuariosController@crearGuiaTurisco']);
@@ -157,8 +164,6 @@ Route::get('/MostrarPaqueteCliente/{id}', ['uses' => 'PaqueteController@getSingl
 //Informacion de paquete para clientes
 Route::get('/informacion/{id}', ['uses' =>  'PaqueteController@informacion','as' => 'adminPaquete.informacion']);
 Route::get('/reporte/{id}', ['uses' =>  'PaqueteController@reporte','as' => 'adminPaquete.reporte']);
-Route::get('/acercade', ['uses' =>  'HomeController@acercade','as' => 'about']);
-Route::get('/condiciones', ['uses' =>  'HomeController@condiciones','as' => 'condiciones']);
 
 //Rutas a las que solo puede accesar visitante sin hacer login
 Route::group(['middleware' => ['guest']], function () {

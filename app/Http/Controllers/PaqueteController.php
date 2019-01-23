@@ -909,24 +909,26 @@ class PaqueteController extends Controller
     */
     public function reportepersonas($id){
 
+      //Consulta de turistas que han pagado por pagadito
       $turistas = DB::table('Paga')
         ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
         ->join('Turista', 'Pago.IdTurista', '=', 'Turista.IdTurista')
         ->join('Personas', 'Turista.IdPersona', '=', 'Personas.IdPersona')
-        ->select('Descripcion','IdsAcompanantes','TipoPago','PrimerNombrePersona','PrimerApellidoPersona','Turista.IdTurista','Personas.IdPersona','Pago.IdPago','TelefonoContacto')
+        ->select('IdsAcompanantes','TipoPago','PrimerNombrePersona','PrimerApellidoPersona','TelefonoContacto')
         ->where([['IdPaquete','=',$id ],
                 ['Estado','=','1']])
         ->get();
 
-        $otrosturistas = DB::table('Paga')
-          ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
-          ->join('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
-          ->select('*')
-          ->where([['IdPaquete','=',$id ],
-                  ['Estado','=','1']])
-          ->get();
-          dd($otrosturistas);
+      //Consulta de turistas de otros metodos de pago
+      $otrosturistas = DB::table('Paga')
+        ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
+        ->join('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
+        ->select('*')
+        ->where([['IdPaquete','=',$id ],
+                ['Estado','=','1']])
+        ->get();
 
+      //Obteniendo los Ids de acompañantes de Pagadito
       $z = '';
       for ($i=0; $i < count($turistas); $i++) {
         $x = explode('-',$turistas[$i]->IdsAcompanantes);
@@ -938,15 +940,36 @@ class PaqueteController extends Controller
           $z = $z.(implode(',',$x));
         }
       }
-
       $z =explode(',',$z);
 
+      //Obteniendo los Ids de acompañantes  de otros pagos
+      $y = '';
+      for ($i=0; $i < count($otrosturistas); $i++) {
+        $a = explode('-',$otrosturistas[$i]->IdsOtroTurista);
+        $a = explode(',',$a[1]);
+        if(count($otrosturistas)-1 != $i){
+        $y = $y.(implode(',',$a)).',';
+        }
+        else{
+          $y = $y.(implode(',',$a));
+        }
+      }
+      $y =explode(',',$y);
+
+      //Consulta de Datos de cada turista de Pagadito
       $personas= DB::table('TipoDocumento')
             ->join('Turista', 'TipoDocumento.IdTurista', '=', 'Turista.IdTurista')
             ->join('Nacionalidad', 'Turista.IdNacionalidad', '=', 'Nacionalidad.IdNacionalidad')
             ->join('Personas', 'Turista.IdPersona', '=', 'Personas.IdPersona')
             ->select('PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona','SegundoApellidoPersona','TelefonoContacto','NumeroDocumento','Nacionalidad')
             ->whereIn('Turista.IdTurista', $z)
+            ->get();
+
+      //Consulta de Datos de cada turista de otros pagos
+      $otraspersonas= DB::table('Pago')
+            ->join('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
+            ->select('NumTelOtroTurista','NombreApellido','DuiOtroTurista','PasaporteOtroTurista')
+            ->whereIn('OtrosTuristas.IdOtroTurista', $y)
             ->get();
 
       $paquete = Paquete::findOrFail($id);
@@ -960,7 +983,7 @@ class PaqueteController extends Controller
 
 
       //instantiate and use the dompdf class
-      $view=\View::make('adminPaquete.reportepersonas',compact('personas','paquete','guias'))->render();
+      $view=\View::make('adminPaquete.reportepersonas',compact('personas','otraspersonas','paquete','guias'))->render();
       $dompdf = new Dompdf();
       $dompdf->loadHtml($view);
       // Render the HTML as PDF
