@@ -50,10 +50,10 @@ class OtrosTuristasController extends Controller
             "Nombre" => "required|alpha|min:2|max:25",
             "Apellido" => "required|alpha|min:2|max:25",
             "Telefono" => "required",
-            "Paquete" => "required", 
+            "Paquete" => "required",
             "MetodoPago" => "required",
-            "Costo" => "required",        
-          ]);  
+            "Costo" => "required",
+          ]);
 
         $totalAcomp = count($request->field_name);
         $randomString = '';
@@ -63,13 +63,13 @@ class OtrosTuristasController extends Controller
         $idsOtr  = '';
         $idUser = auth()->user()->id;
         $paquete = Paquete::find($request->Paquete);
-        
+
         for ($i = 0; $i < 10; $i++) {
              $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
        // dd($totalAcomp);
         if($totalAcomp > 0 && $request->field_name[0] != null){
-        for ($i=0; $i < $totalAcomp; $i++) { 
+        for ($i=0; $i < $totalAcomp; $i++) {
            // dd($request->field_name[$i]);
 
            $arre = explode( ',', $request->field_name[$i] );
@@ -81,7 +81,7 @@ class OtrosTuristasController extends Controller
             return redirect()->back()->withInput()->with('fallo', 'Es necesario respetar el patron para acompañantes!');
            }
           // dd($arre[0]." - ".$arre[1]." - ".$arre[2]);
-           
+
         }
         //guardo el principal y los otros
             $otroTuristaP = new OtroTurista();
@@ -93,7 +93,7 @@ class OtrosTuristasController extends Controller
                 return redirect()->back()->withInput()->with('falloDoc', 'Es necesario un documento');
             }
            if($request->Dui != null){
-            $otroTuristaP->DuiOtroTurista = $request->Dui; 
+            $otroTuristaP->DuiOtroTurista = $request->Dui;
             }
             if($request->Pasaporte != null){
             $otroTuristaP->PasaporteOtroTurista = $request->Pasaporte;
@@ -109,7 +109,7 @@ class OtrosTuristasController extends Controller
             $otroTurista->CodigoOtroTurista = $randomString;
             $otroTurista->NombreApellido = $arre[0];
            if($arre[1] != null){
-            $otroTurista->DuiOtroTurista = $arre[1]; 
+            $otroTurista->DuiOtroTurista = $arre[1];
             }
             if($arre[2] != null){
             $otroTurista->PasaporteOtroTurista = $arre[2];
@@ -148,7 +148,7 @@ class OtrosTuristasController extends Controller
                 return redirect()->back()->withInput()->with('falloDoc', 'Es necesario un documento');
             }
            if($request->Dui != null){
-            $otroTuristaP->DuiOtroTurista = $request->Dui; 
+            $otroTuristaP->DuiOtroTurista = $request->Dui;
             }
             if($request->Pasaporte != null){
             $otroTuristaP->PasaporteOtroTurista = $request->Pasaporte;

@@ -50,6 +50,14 @@
               <td style="max-width: 100px; overflow: hidden; white-space: wrap;">{{$persona->Nacionalidad }} </td>
             </tr>
           @endforeach
+          @foreach($otraspersonas as $otrapersona)
+            <tr>
+              <td style="max-width: 10px; overflow: hidden; white-space: wrap;">{{$otrapersona->NombreApellido}} </td>
+              <td style="max-width: 100px; overflow: hidden; white-space: wrap;"> {{$otrapersona->NumTelOtroTurista }} </td>
+              <td style="max-width: 100px; overflow: hidden; white-space: wrap;">{{$otrapersona->DuiOtroTurista }} {{$otrapersona->PasaporteOtroTurista }} </td>
+              <td style="max-width: 100px; overflow: hidden; white-space: wrap;"></td>
+            </tr>
+          @endforeach
         </tbody>
         </table>
       </div>

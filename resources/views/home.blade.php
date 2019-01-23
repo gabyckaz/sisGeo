@@ -133,8 +133,7 @@ h4 span {
               <a style="color:#4c5b51; font-weight:bold;align:center" href="{{$reservacion->Url }} "> {{$reservacion->Descripcion}}</a></h3>
               <div class="box-body">
                 <p style="color:#4c5b51">Cupos reservados: {{$reservacion->NumeroAcompanante}} </p>
-                <p style="color:#4c5b51">Fecha de transacción: {{ \Carbon\Carbon::parse($reservacion->FechaTransaccion)->format('d/m/Y')}} </p>
-                <p style="color:#4c5b51">Tipo de Pago: {{$reservacion->TipoPago}} </p>
+                <p style="color:#4c5b51">Fecha de salida: {{ \Carbon\Carbon::parse($reservacion->FechaSalida)->format('d/m/Y')}} </p>
               </div>
             </div><!-- /.contenido-->
           </div> <!--/ box info de cada paquete-->

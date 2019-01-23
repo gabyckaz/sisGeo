@@ -16,7 +16,7 @@ class GraficaController extends Controller
       //Genero de los usuarios
      $data = DB::table('personas')
        ->select(
-        DB::raw('"Genero" as genero'),
+        DB::raw('Genero as genero'),
         DB::raw('count(*) as number'))
        ->groupBy('genero')
        ->get();
@@ -34,7 +34,9 @@ class GraficaController extends Controller
      //Rutas por paises
     $paises = DB::table('Pais')
       ->join('RutaTuristica', 'Pais.IdPais', '=', 'RutaTuristica.IdPais')
-      ->select(DB::raw('"nombrePais" as pais, count("nombrePais") as number'))
+      ->select(
+        DB::raw('nombrePais as pais'),
+        DB::raw('count(nombrePais) as number'))
       ->groupBy('Pais.nombrePais')
       ->get();
     $paisesarray[] = ['Pais', 'Numero'];
@@ -58,18 +60,18 @@ class GraficaController extends Controller
 
      $paquetes = DB::table('Paquetes')
        ->select(
-          DB::raw('EXTRACT(MONTH FROM "FechaSalida") as mes'),
-          DB::raw('COUNT(EXTRACT(MONTH FROM "FechaSalida")) as number')
+          DB::raw('EXTRACT(MONTH FROM FechaSalida) as mes'),
+          DB::raw('COUNT(EXTRACT(MONTH FROM FechaSalida)) as number')
           )
        ->orderBy('mes', 'asc')
        ->groupBy(
-          DB::raw('EXTRACT(MONTH FROM "FechaSalida")')
+          DB::raw('EXTRACT(MONTH FROM FechaSalida)')
          )
        ->where(
-         DB::raw('EXTRACT(YEAR FROM "FechaSalida")'), '=', 2018)
+         DB::raw('EXTRACT(YEAR FROM FechaSalida)'), '=', 2019)
       // ->union($paquetes2017)
        ->get();
-     $paquetesarray[] = ['Mes', 'Viajes 2018'];
+     $paquetesarray[] = ['Mes', 'Viajes 2019'];
 
      //Cambiando el numero del mes por el nombre en español, ej: 1 -> Enero
      foreach($paquetes as $key => $value)
@@ -86,7 +88,9 @@ class GraficaController extends Controller
       //Rutas por categorias
       $categorias = DB::table('Categoria')
         ->join('RutaTuristica', 'Categoria.IdCategoria', '=', 'RutaTuristica.IdCategoria')
-        ->select(DB::raw('"NombreCategoria" as categoria, count("NombreCategoria") as number'))
+        ->select(
+          DB::raw('NombreCategoria as categoria'),
+          DB::raw('count(NombreCategoria) as number'))
         ->groupBy('Categoria.NombreCategoria')
         ->get();
       $categoriasarray[] = ['Categoria', 'Numero'];
@@ -123,7 +127,7 @@ class GraficaController extends Controller
         ->join('users', 'personas.IdPersona', '=', 'users.IdPersona')
         ->select('personas.PrimerNombrePersona','personas.PrimerApellidoPersona','Turista.FechaNacimiento' )
         ->where([
-          [DB::raw('EXTRACT(MONTH FROM "FechaNacimiento")'), '=', $mes_actual],
+          [DB::raw('EXTRACT(MONTH FROM FechaNacimiento)'), '=', $mes_actual],
           ['EstadoUsuario', '=', '1'],
          ])
         ->get();
@@ -133,7 +137,7 @@ class GraficaController extends Controller
         ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
         ->join('users', 'personas.IdPersona', '=', 'users.IdPersona')
         ->where([
-          [DB::raw('EXTRACT(MONTH FROM "FechaNacimiento")'), '=', $mes_actual],
+          [DB::raw('EXTRACT(MONTH FROM FechaNacimiento)'), '=', $mes_actual],
           ['EstadoUsuario', '=', '1'],
          ])
         ->count();
@@ -175,6 +179,20 @@ class GraficaController extends Controller
          $nuevosarray[++$key] = [$value->mes, $value->number];
         }
 
+        //Tipos de Pago
+       $tipospago = DB::table('Pago')
+         ->select(
+          DB::raw('TipoPago as tipo'),
+          DB::raw('count(*) as number'))
+         ->groupBy('tipo')
+         ->get();
+
+       $tiposarray[] = ['Tipo', 'Numero'];
+       foreach($tipospago as $key => $value)
+       {
+          $tiposarray[++$key] = [$value->tipo, $value->number];
+       }
+
 
      return view('graficas.index')
             ->with('genero', json_encode($array))
@@ -186,6 +204,7 @@ class GraficaController extends Controller
             ->with('total_cumples', $total_cumples)
             ->with('mes_actual', $mes_actual)
             ->with('usuarios', $ultimos_usuarios)
-            ->with('nuevos_usuarios',  json_encode($nuevosarray,JSON_UNESCAPED_UNICODE));
+            ->with('nuevos_usuarios',  json_encode($nuevosarray,JSON_UNESCAPED_UNICODE))
+            ->with('tipospago', json_encode($tiposarray));
     }
 }

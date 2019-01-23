@@ -145,7 +145,18 @@
           <ul class="sidebar-menu" data-widget="tree">
             <li class="header">OPCIONES</li>
             <li><a href="{{ route('welcome') }}"><i class="fa fa-home"></i><span>Inicio</span></a></li>
-              <li><a href="#"><i class="fa fa-info"></i><span>Acerca de</span></a></li>
+            <li class="{{ activeMenu('acercade') }}">
+              <a href="/acercade">
+                <i class="fa fa-info"></i>
+                <span>Acerca de</span>
+              </a>
+            </li>
+            <li class="{{ activeMenu('condiciones') }}">
+              <a href="/condiciones">
+                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                <span>Condiciones</span>
+              </a>
+            </li>
           </ul>
       </section>
     </aside>
@@ -209,6 +220,18 @@
             <i class="fa fa-star"></i>
             Agregar acompañantes</a></li>
         </ul>
+    </li>
+    <li class="{{ activeMenu('acercade') }}">
+      <a href="/acercade">
+        <i class="fa fa-info"></i>
+        <span>Acerca de</span>
+      </a>
+    </li>
+    <li class="{{ activeMenu('condiciones') }}">
+      <a href="/condiciones">
+        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        <span>Condiciones</span>
+      </a>
     </li>
     @endrole
 
@@ -298,18 +321,6 @@
       </a>
     </li>
     @endrole
-      <li class="{{ activeMenu('about') }}">
-        <a href="{{ route('about') }}">
-          <i class="fa fa-info"></i>
-          <span>Acerca de</span>
-        </a>
-      </li>
-      <li class="{{ activeMenu('condiciones') }}">
-        <a href="{{ route('condiciones') }}">
-          <i class="fa fa-check-square-o" aria-hidden="true"></i>
-          <span>Condiciones</span>
-        </a>
-      </li>
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

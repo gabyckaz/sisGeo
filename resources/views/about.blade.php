@@ -32,7 +32,7 @@
     </div>
     <div class="col-md-12 ">
         <h2 class="headline text-yellow"><center>Valores</center></h2>
-        <p><center>Seguridad, Respeto, Iniciativa, compromiso, Organiación</center></p>
+        <p><center>Seguridad, Respeto, Iniciativa, Compromiso, Organiación</center></p>
     </div>
       <div class="col-md-12">
         <h2 class="headline text-yellow"><center>Contacto</center></h2>
