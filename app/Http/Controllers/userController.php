@@ -12,6 +12,7 @@ use App\TipoDocumento;
 use App\Acompanante;
 use Carbon\Carbon;
 use App\Categoria;
+use App\TuristaCategoriaPaq;
 use Illuminate\Support\Facades\Storage;
 //use Illuminate\Support\Facades\Paginator;
 //use Illuminate\Pagination\Paginator;
@@ -162,13 +163,26 @@ class userController extends Controller
         //dd($d);
         $documentos="";
         $misPreferencias = array();
+
         if($turista == null){
          $existeTurista = "no";
         }else{
          $existeTurista = "si";
-        if(strlen( $turista->IdsCategoriasStr ) > 0 && $turista->IdsCategoriasStr != null){
+       /* if(strlen( $turista->IdsCategoriasStr ) > 0 && $turista->IdsCategoriasStr != null){
           $misPreferencias = explode(",", $turista->IdsCategoriasStr);
-        }
+        }*/
+        $query = 'SELECT tc.IdCategoria as Id
+          FROM turistacategoria as tc
+          WHERE tc.IdTurista = '.$turista->IdTurista.';';
+          $misPq = DB::select($query);
+          
+          if($misPq != null){
+            for ($i=0; $i < count($misPq); $i++) { 
+             $val= $misPq[$i]->Id;
+             $misPreferencias[] = (int)$val;
+            }
+           
+          }
          if($turista->documentos->count() == 2){
             $documentos = "duiPasaporte";
         }else{
@@ -338,10 +352,16 @@ class userController extends Controller
               "DomicilioTurista" => $request->direccion,
               "Problemas_Salud" => $request->psalud,
         ]);
-         if(count($request->preferencias) > 0){
+         /*if(count($request->preferencias) > 0 ){
           $str_ids = implode(",", $request->preferencias);
             $turista->IdsCategoriasStr = $str_ids;
             $turista->save();
+          }*/
+          for ($i=0; $i<count($request->preferencias);$i++){
+              $turistaCategoria = new TuristaCategoriaPaq();
+              $turistaCategoria->IdTurista = $turista->IdTurista;
+              $turistaCategoria->IdCategoria = $request->preferencias[$i];
+              $turistaCategoria->save();
           }
 
          if($request->input("dui") != null && $request->input("pasaporte") != null){
@@ -434,10 +454,18 @@ class userController extends Controller
           $turista->DomicilioTurista = $request->direccion;
           $turista->Problemas_Salud = $request->psalud;
           $turista->save();
-          if(count($request->preferencias) > 0){
-          $str_ids = implode(",", $request->preferencias);
+          /*if(count($request->preferencias) > 0){
+          $str_ids = implode(",", $request->preferencias);ff
             $turista->IdsCategoriasStr = $str_ids;
             $turista->save();
+          } */
+           $turistaCatPaqBorrar = TuristaCategoriaPaq::where('IdTurista',$turista->IdTurista);
+           $turistaCatPaqBorrar->delete();
+          for ($i=0; $i<count($request->preferencias);$i++){
+              $turistaCategoria = new TuristaCategoriaPaq();
+              $turistaCategoria->IdTurista = $turista->IdTurista;
+              $turistaCategoria->IdCategoria = $request->preferencias[$i];
+              $turistaCategoria->save();
           }
 
         //Actualizo documentos o los creo si no existen
@@ -495,16 +523,29 @@ class userController extends Controller
 
        // $usuario = User::findOrFail(auth()->user()->id);
         $nacionalidad = Nacionalidad::all();
-        $categorias = Categoria::all();
-        if((strlen( $turista->IdsCategoriasStr ) > 0 && $turista->IdsCategoriasStr != null)){
+        $categorias = Categoria::all(); //---- Modificar Aqui :,v solo para las que se muestran
+     /*  if((strlen( $turista->IdsCategoriasStr ) > 0 && $turista->IdsCategoriasStr != null)){
           $misPreferencias = explode(",", $turista->IdsCategoriasStr);
-        }
-
+        }*/
+        $misPreferencias = array();
+          $query = 'SELECT tc.IdCategoria as Id
+          FROM turistacategoria as tc
+          WHERE tc.IdTurista = '.$turista->IdTurista.';';
+          $misPq = DB::select($query);
+          
+          if($misPq != null){
+            for ($i=0; $i < count($misPq); $i++) { 
+             $val= $misPq[$i]->Id;
+             $misPreferencias[] = (int)$val;
+            }
+           
+          }
 
       // return view('user.completarInfoUserTurista', compact('usuario','nacionalidad' ,'existe'));
       return redirect()->route('usuario.completar.informacion',compact('usuario','nacionalidad' ,'existeTurista','documentos','categorias','misPreferencias'))->with('message','Informacion Actualizada');
 
     }
+
 
     public function editInfoUserTurista($id){
        // $id =  Crypt::decrypt($id);

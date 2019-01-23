@@ -177,10 +177,13 @@ class OtrosTuristasController extends Controller
 
      public function valid_patron($val)
         {
-         if(!preg_match("/^[a-zA-Z0-9_\-\.~]{2,}\,[0-9]{0,}\,[0-9]{0,}$/", $val))
+         //if(!preg_match("/^[a-zA-Z0-9_\-\.~]{2,}\,[0-9]{0,}\,[0-9]{0,}$/", $val))
+         if(!preg_match("/^[\w+( \w+)*$]{2,}\,[0-9\-\.~]{0,}\,[a-zA-Z0-9]{0,}$/", $val))
          {
+          // dd($val."  -----> Incorrecto");
          return false; //incorrecto
          }
+        // dd($val."  -----> Correcto");
          return true;//correcto
         }
     /**
