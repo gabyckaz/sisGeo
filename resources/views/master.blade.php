@@ -221,6 +221,18 @@
             Agregar acompañantes</a></li>
         </ul>
     </li>
+    <li class="{{ activeMenu('acercade') }}">
+      <a href="/acercade">
+        <i class="fa fa-info"></i>
+        <span>Acerca de</span>
+      </a>
+    </li>
+    <li class="{{ activeMenu('condiciones') }}">
+      <a href="/condiciones">
+        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        <span>Condiciones</span>
+      </a>
+    </li>
     @endrole
 
     @role(['Director','Agente'])

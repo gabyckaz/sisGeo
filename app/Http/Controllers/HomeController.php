@@ -34,16 +34,18 @@ class HomeController extends Controller
       try{
         $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
         $imagenes = ImagenPaqueteTuristico::all();
-        $usuarioreservando = Turista::where('IdPersona',auth()->user()->IdPersona)->first();
-        //TO DO: Validar la fecha del paquete
-        $reservaciones= DB::table('Pago')
-          ->select('*')
+
+        $reservaciones= DB::table('Paga')
+          ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
+          ->join('Paquetes', 'Paga.IdPaquete', '=', 'Paquetes.IdPaquete')
+          ->select('Descripcion','Url','FechaTransaccion','NumeroAcompanante','FechaSalida')
           ->where([
-            ['IdUsuario', '=', $usuarioreservando->IdTurista],
+            ['IdUsuario', '=', auth()->user()->id],
             ['Estado', '=', '1'],
+            ['TipoPago', '=', 'Pagadito'],
            ])
-          ->orderBy('FechaTransaccion','asc')
-          ->limit(2)
+          ->orderBy('FechaSalida','asc')
+          //->limit(2)
           ->get();
 
         $pdisponibles = Paquete::all();

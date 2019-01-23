@@ -150,6 +150,29 @@
   }
 </script>
 
+<!-- Gráfica de Tipos de pago -->
+<script type="text/javascript">
+ var tipos = <?php echo $tipospago; ?>
+
+ google.charts.load('current', {'packages':['corechart']});
+ google.charts.setOnLoadCallback(drawChart);
+
+ function drawChart()
+ {
+  var data = google.visualization.arrayToDataTable(tipos);
+  var options = {
+    title : 'Tipos de pagos registrados',
+    is3D: true,
+    slices: {
+      0: { color: 'orange' },
+      1: { color: 'green' }
+    }
+  };
+  var chart = new google.visualization.PieChart(document.getElementById('grafica_tipos'));
+  chart.draw(data, options);
+ }
+</script>
+
 <div class="row">
   <div class="col-md-6">
     <div class="box box-warning collapsed-box">
@@ -228,5 +251,6 @@ function imprSelec(grafica_generos)
 <div id="grafica_paquetes" style="width: 900px; height: 400px;"></div>
 <div id="grafica_costos" style="width: 900px; height: 400px;"></div>
 <div id="grafica_categorias_1" style="width: 900px; height: 500px;"></div>
+<div id="grafica_tipos" style="width: 900px; height: 500px;"></div>
 </center>
 @endsection
