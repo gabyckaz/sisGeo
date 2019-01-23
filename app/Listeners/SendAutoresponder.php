@@ -8,7 +8,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MensajeGeoturismo;
 use App\Mensaje;
+use App\Paquete;
 use App\User;
+use DB;
 use Carbon\Carbon;
 
 class SendAutoresponder
@@ -39,15 +41,29 @@ class SendAutoresponder
            //$msj->de ="GEOTURISMO TRAVEL & TOURS EL SALVADOR";
            //$msj->cuerpoMensaje="Le saludamos de Geoturismo, para informale que tenemos disponible un viaje que a usted le puede interesar, esperamos que nos pueda acompañar";
            $msj->url = "http://sisgeo.dev.com:89/MostrarPaqueteCliente/".$event->mensaje->url;
+           $paquete = Paquete::find($event->mensaje->url);
           // $msj->save();
           // Model::where('column_1','value_1')->where('column_2','value_2')->get();
-         $listaCorreosEnviar = User::where('RecibirNotificacion',1)
-                              ->where('EstadoUsuario',1)
-                              ->pluck('email');
+        // $listaCorreosEnviar = User::where('RecibirNotificacion',1)
+          //                    ->where('EstadoUsuario',1)
+            //                  ->pluck('email');
+        /*Nueva forma*/
+            $query = 'SELECT rt.IdCategoria as Id
+            FROM rutaturistica as rt, paquetes as pt
+            WHERE rt.IdRutaTuristica = pt.IdTuristica
+            AND pt.IdPaquete = '.$event->mensaje->url.';';
+            $idCatP = DB::select($query);
+
+           $queryEmails = 'SELECT u.email as email
+            FROM users as u, turista as t, turistacategoria as tc
+            WHERE u.IdPersona = t.IdPersona AND tc.IdTurista = t.IdTurista AND tc.IdCategoria = '.$idCatP.'
+            AND u.EstadoUsuario = 1 and u.RecibirNotificacion = 1 ;';
+            $correos = DB::select($queryEmails);
+        /*Fin nueva forma*/
         // dd($listaCorreosEnviar[0]);
          //$user2 = User::findOrFail(25);
          
-         Mail::to($listaCorreosEnviar)->send(new MensajeGeoturismo($msj)); 
+         Mail::to($correos)->send(new MensajeGeoturismo($msj)); 
 
         }catch(\Exception $e){
          \Log::debug('Test var fails :' . $e->getMessage());

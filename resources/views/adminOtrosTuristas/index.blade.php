@@ -169,7 +169,7 @@
             </div>
         </div>
        <p>¹ Es necesario respetar el patron para otros acompañantes.</p>
-       <p>Ejemplo: Nombre Apellido,12345678-1,1234567890</p>
+       <p>Ejemplo: Nombre Apellido,12345678-1,aa34567890</p>
     </div>
   </div>
 </div>
