@@ -152,7 +152,7 @@
           <div class="input-group-addon">
              <i class="fa  fa-dollar"></i>
           </div>
-           <input type="text" class="form-control" name="Costo" value="" placeholder="0.00" />
+           <input type="text" class="form-control" name="Costo" value="" placeholder="0.00" onkeypress="return filterFloat(event,this);" />
          </div>
          @if ($errors->has('Costo'))
             <span class="help-block">{{ $errors->first('Costo') }}</span>
@@ -161,10 +161,10 @@
       </div>
     </div>
     <div class="row">
-        <div class="col-md-10 col-md-offset-4">
-            <button type="submit" class="btn btn-info "><STRONG>Registrar</STRONG></button>
-        </div>
-     </div>
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-info  col-xs-12 col-sm-2 center-block"><STRONG>Registrar</STRONG></button>
+            </div>
+          </div>
     </form>
             </div>
         </div>
