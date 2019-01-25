@@ -24,6 +24,9 @@ Route::get('/acercade', function () {
 Route::get('/condiciones', function () {
     return view('condiciones');
 });
+Route::get('/migratoria', function () {
+    return view('migratoria');
+});
 
 //Rutas a las que puede accesar Administrador
 Route::group(['middleware' => ['role:Admin']], function() {

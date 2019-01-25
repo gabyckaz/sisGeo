@@ -134,6 +134,7 @@ h4 span {
               <div class="box-body">
                 <p style="color:#4c5b51">Cupos reservados: {{$reservacion->NumeroAcompanante}} </p>
                 <p style="color:#4c5b51">Fecha de salida: {{ \Carbon\Carbon::parse($reservacion->FechaSalida)->format('d/m/Y')}} </p>
+                <p style="color:#4c5b51">Código NAP: {{$reservacion->NAP}} </p>
               </div>
             </div><!-- /.contenido-->
           </div> <!--/ box info de cada paquete-->

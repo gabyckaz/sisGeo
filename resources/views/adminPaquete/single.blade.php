@@ -1,3 +1,4 @@
+<!-- Vista para cliente del paquete -->
 <style>
 .galeria{
   height: 200px;
@@ -103,7 +104,7 @@
         <div class="box box-solid">
           <div class="box-header with-border">
             <center><a class="btn btn-info" title="Descargar como PDF" href="{{route('adminPaquete.informacion', $paquete['IdPaquete'])}}"><i class="fa Example of download fa-download"></i>
-               Descargar información</a></center>
+               Descargar información como PDF</a></center>
           </div>
           <!-- /.box-header -->
           <div class="box-body">
