@@ -41,17 +41,5 @@ class CondicionesSeeder extends Seeder
         'created_at'=>date('Y-m-d H:m:s'),
         'updated_at'=>date('Y-m-d H:m:s')
       ]);
-      Condiciones::create([
-        'idcondiciones'=>6,
-        'nombrecondiciones'=>'Si el turista no se presenta el día y hora indicada de la actividad NO habrá devolución alguna.',
-        'created_at'=>date('Y-m-d H:m:s'),
-        'updated_at'=>date('Y-m-d H:m:s')
-      ]);
-      Condiciones::create([
-        'idcondiciones'=>7,
-        'nombrecondiciones'=>'Si el turista no se presenta el día y hora indicada de la actividad NO habrá devolución alguna.',
-        'created_at'=>date('Y-m-d H:m:s'),
-        'updated_at'=>date('Y-m-d H:m:s')
-      ]);
     }
 }

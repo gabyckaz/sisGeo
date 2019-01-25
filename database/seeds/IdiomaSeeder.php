@@ -55,7 +55,7 @@ class IdiomaSeeder extends Seeder
       ]);
       Idioma::create([
         'ididioma'=>8,
-        'idioma'=>'Español',
+        'idioma'=>'Chino',
         'created_at'=>date('Y-m-d H:m:s'),
         'updated_at'=>date('Y-m-d H:m:s')
       ]);

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\RecomendacionesPaquete as RecomendacionesPaquete;
 
 class RecomendacionesPaqueteSeeder extends Seeder
 {
@@ -11,6 +12,80 @@ class RecomendacionesPaqueteSeeder extends Seeder
      */
     public function run()
     {
-        //
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>1,
+        'recomendaciones_id'=>1,
+        'paquete_id'=>2
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>2,
+        'recomendaciones_id'=>2,
+        'paquete_id'=>2
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>3,
+        'recomendaciones_id'=>3,
+        'paquete_id'=>2
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>4,
+        'recomendaciones_id'=>4,
+        'paquete_id'=>2
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>5,
+        'recomendaciones_id'=>5,
+        'paquete_id'=>2
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>6,
+        'recomendaciones_id'=>6,
+        'paquete_id'=>2
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>7,
+        'recomendaciones_id'=>1,
+        'paquete_id'=>4
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>8,
+        'recomendaciones_id'=>2,
+        'paquete_id'=>4
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>9,
+        'recomendaciones_id'=>3,
+        'paquete_id'=>4
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>10,
+        'recomendaciones_id'=>7,
+        'paquete_id'=>7
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>11,
+        'recomendaciones_id'=>8,
+        'paquete_id'=>7
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>12,
+        'recomendaciones_id'=>9,
+        'paquete_id'=>7
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>13,
+        'recomendaciones_id'=>10,
+        'paquete_id'=>7
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>14,
+        'recomendaciones_id'=>11,
+        'paquete_id'=>7
+      ]);
+      RecomendacionesPaquete::create([
+        'idrecomendacionespaquete'=>15,
+        'recomendaciones_id'=>12,
+        'paquete_id'=>7
+      ]);
     }
 }
