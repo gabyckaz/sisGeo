@@ -26,6 +26,16 @@ class GastosExtrasPaqueteSeeder extends Seeder
         'gastosextras_id'=>3,
         'paquete_id'=>1
       ]);
+      GastosPaquete::create([
+        'idgastosextrapaquete'=>4,
+        'gastosextras_id'=>5,
+        'paquete_id'=>4
+      ]);
+      GastosPaquete::create([
+        'idgastosextrapaquete'=>5,
+        'gastosextras_id'=>6,
+        'paquete_id'=>4
+      ]);
     }
 
 }

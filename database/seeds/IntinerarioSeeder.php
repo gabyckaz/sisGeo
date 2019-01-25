@@ -317,11 +317,5 @@ class IntinerarioSeeder extends Seeder
         'created_at'=>date('Y-m-d H:m:s'),
         'updated_at'=>date('Y-m-d H:m:s')
       ]);
-      Itinerario::create([
-        'iditinerario'=>52,
-        'nombreitinerario'=>'Dia 5: 1:00 a.m. Rumbo a San Salvador.',
-        'created_at'=>date('Y-m-d H:m:s'),
-        'updated_at'=>date('Y-m-d H:m:s')
-      ]);
     }
 }
