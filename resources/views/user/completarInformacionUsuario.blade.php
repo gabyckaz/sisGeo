@@ -21,9 +21,6 @@
          @endif
    <!-- -->
    <div class="box box-solid">
-  <div class="box-header">
-        <h3 class="box-title"><strong>Editar familiares o amigos</strong></h3>
-      </div>
       <div class="box-body">
        <form id="miForm" method="POST" enctype="multipart/form-data" action="{{route('user.completar.informacion.store') }}">
         {!! method_field('PUT') !!}
@@ -154,7 +151,7 @@
              </div>
              <div class="col-md-3">
                <div class="form-group has-feedback{{ session()->has('ErrorFechaVenceD')  ? ' has-error' : '' }}">
-                <label for="inputEmail3" class="control-label">Fecha de vencimiento</label>
+                <label for="inputEmail3" class="control-label">Fecha de vencimiento de DUI</label>
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
@@ -194,7 +191,7 @@
              </div>
              <div class="col-md-3">
                <div class="form-group has-feedback{{  ( $errors->has('fechaVencimientoD') || session()->has('ErrorFechaVenceD') ) ? ' has-error' : '' }}">
-                <label for="inputEmail3" class="control-label">Fecha de vencimiento</label>
+                <label for="inputEmail3" class="control-label">Fecha de vencimiento de DUI</label>
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
@@ -259,7 +256,7 @@
                  </div>
               <div class="col-md-3">
                <div class="form-group has-feedback{{ ( $errors->has('fechaVencimientoP') || session()->has('ErrorFechaVenceP') ) ? ' has-error' : '' }}">
-                <label for="fechaVencimientoP" class="control-label">Fecha de vencimiento</label>
+                <label for="fechaVencimientoP" class="control-label">Fecha de vencimiento de Pasaporte</label>
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
@@ -297,7 +294,7 @@
                 </div>
               <div class="col-md-3">
                <div class="form-group has-feedback{{ ( $errors->has('fechaVencimientoP') || session()->has('ErrorFechaVenceP') ) ? ' has-error' : '' }}">
-                <label for="fechaVencimientoP" class="control-label">Fecha de vencimiento</label>
+                <label for="fechaVencimientoP" class="control-label">Fecha de vencimiento de Pasaporte</label>
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
@@ -356,6 +353,7 @@
           <div class="col-md-6">
               <div class="form-group has-feedback{{ $errors->has('direccion') ? ' has-error' : '' }}">
                      <label for="direccion" class="control-label">Dirección*</label>
+                     <span class="users-list-date" style=" font-size: 11pt">En caso que varias personas se encuentren en el mismo sector que usted se haría una parada cerca para recogerlos</span>
                      <div class="input-group">
                        <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                        <textarea   class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >{{ old('direccion',$turista->DomicilioTurista) }}</textarea>
@@ -368,6 +366,7 @@
           <div class="col-md-6">
               <div class="form-group ">
                      <label for="psalud" class="control-label">Problemas de salud</label>
+                     <span class="users-list-date" style=" font-size: 11pt">Con el fin de estar preparados en alguna emergencia y tomar medidas preventivas. Ej: Asma, hipertensión, etc.</span>
                      <div class="input-group">
                       <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                         <textarea   class="form-control" name="psalud" maxlength="256" placeholder="Problemas de salud..." >{{ $turista->Problemas_Salud }}</textarea>
@@ -378,6 +377,7 @@
             <div class="col-md-6">
               <div class="form-group has-feedback{{ $errors->has('direccion') ? ' has-error' : '' }}">
                 <label for="direccion" class="control-label">Dirección*</label>
+                <span class="users-list-date" style=" font-size: 11pt">En caso que varias personas se encuentren en el mismo sector que usted se haría una parada cerca para recogerlos</span>
                 <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                 <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >{{ old('direccion') }}</textarea>
@@ -390,6 +390,7 @@
           <div class="col-md-6">
               <div class="form-group ">
                 <label for="psalud" class="control-label">Problemas de salud</label>
+                <span class="users-list-date" style=" font-size: 11pt">Con el fin de estar preparados en alguna emergencia y tomar medidas preventivas. Ej: Asma, hipertensión, etc.</span>
                     <div class="input-group">
                      <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
                       <textarea   class="form-control" name="psalud" maxlength="256" placeholder="Problemas de salud..." >{{ old('psalud','Ninguno') }}</textarea>

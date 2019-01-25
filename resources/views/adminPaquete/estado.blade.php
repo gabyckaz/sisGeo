@@ -5,7 +5,16 @@
       @section('Title','Aprobación de Paquetes Turísticos')
 @endsection
 @section('contenido')
-
+@if(session('status'))
+        <script type="text/javascript">
+          alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session("status") }}');
+          </script>
+      @endif
+      @if(session('fallo'))
+          <script type="text/javascript">
+         alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
+         </script>
+@endif
 <div class="row">
   <div class="col-md-9 col-md-offset-1">
     @if (count($paquetes) == 0)
