@@ -5,7 +5,7 @@
 
 @endsection
 @section('Title')
-<STRONG>Editar mi información de usuario</STRONG>
+<STRONG>Actualizar mi información de usuario</STRONG>
 @endsection
 @section('contenido')
         <!-- /.box-header -->
