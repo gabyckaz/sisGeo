@@ -4,7 +4,7 @@
 <h1>Actualizar mensaje</h1>
 @endsection
 @section('Title')
- <STRONG>Administrar Mensaj</STRONG>
+ <STRONG>Administrar Mensaje</STRONG>
 @endsection
 @section('contenido')
 

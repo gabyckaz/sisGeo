@@ -5,7 +5,7 @@
 
 @endsection
 @section('Title')
-<strong>Editar guía turísticos</strong>
+<strong>Actualizar guía turístico</strong>
 @endsection
 @section('contenido')
    @if(session()->has('message'))
@@ -22,7 +22,7 @@
     @endif
  <div class="box box-solid">
   <div class="box-header">
-        <h3 class="box-title"><strong>Editar guías turísticos</strong></h3>
+        <h3 class="box-title"><strong></strong></h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
         </div>
