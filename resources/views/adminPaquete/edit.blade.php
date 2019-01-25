@@ -10,7 +10,7 @@
 
 @section('contenido')
 
-    
+
         <div class="row">
             <div class="col-md-9 col-md-offset-1">
                 <div class="panel panel-default">
@@ -186,8 +186,8 @@
 
                     <div class="row">
                     <div class="col-md-12">
-                      <a href="">
-                          <img src="{{Storage::url($imagen->Imagen4)}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar4" >
+                      <a href="{{Storage::url($imagen->Imagen4)}}">
+                          <img src="{{Storage::url($imagen->Imagen4)}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar">
                       </a>
                         <input class="nuevaFoto4" type="file" name="imagen4" >
                     </div>
@@ -393,6 +393,6 @@
                 </div>
             </div>
         </div>
-    
+
 
 @endsection
