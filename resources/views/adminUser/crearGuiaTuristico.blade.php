@@ -5,17 +5,7 @@
 
 @endsection
 @section('Title')
-<?php 
-   $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < 10; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-  
-
-?>
-<STRONG>Agregar Guías Turístico {{ $randomString }}</STRONG>
+<STRONG>Agregar Guías Turístico</STRONG>
 @endsection
 @section('contenido')
 
@@ -27,7 +17,9 @@
           @endif
    <div class="col-md-8 col-md-offset-2">
     @if($errors->first('Nombre') ||
+        $errors->first('segundoNombre') ||
          $errors->first('apellido') ||
+         $errors->first('segundoApellido') ||
          $errors->first('fechaNacimiento') ||
          $errors->has('pasaporte') ||
          $errors->has('dui') ||
@@ -82,7 +74,7 @@
                     </div>
                     <input type="text" name="segundoNombre" class="form-control"  id="segundoNombre" placeholder="Segundo Nombre" value="{{old('segundoNombre')}}" >
                   </div>
-                  @if ($errors->has('Nombre'))
+                  @if ($errors->has('segundoNombre'))
                        <span class="help-block">{{ $errors->first('segundoNombre') }}</span>
                     @endif
             </div>
@@ -90,7 +82,7 @@
        </div>
        <div class="row">
           <div class="col-md-4">
-            <div class="form-group has-feedback{{ $errors->has('Apellido') ? ' has-error' : '' }}">
+            <div class="form-group has-feedback{{ $errors->has('apellido') ? ' has-error' : '' }}">
               <label for="Apellido" class="control-label">Primer apellido*</label>
                 <div class="input-group">
                   <div class="input-group-addon">
@@ -104,7 +96,7 @@
             </div>
          </div>
           <div class="col-md-4">
-            <div class="form-group has-feedback{{ $errors->has('segundopellido') ? ' has-error' : '' }}">
+            <div class="form-group has-feedback{{ $errors->has('segundoApellido') ? ' has-error' : '' }}">
               <label for="SegundoApellido" class="control-label">Segundo apellido</label>
                 <div class="input-group">
                   <div class="input-group-addon">

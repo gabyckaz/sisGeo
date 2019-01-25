@@ -214,7 +214,20 @@ class AdminUsuariosController extends Controller
     }
 
   public function almacenarGuiaTurisco(Request $request)
-    {
+    {   
+        if($request->input("segundoNombre") != null && $request->input("segundoApellido") != null ){
+         $this->validate($request, [
+          "Nombre" => "required|alpha|min:3|max:25",
+          "segundoNombre" => "alpha|min:3|max:25",
+          "apellido" => "required|alpha|min:3|max:25",
+          "segundoApellido" => "alpha|min:3|max:25",
+          "fechaNacimiento" => "required",
+          "Direccion" => "required|min:10|max:100",
+          "TelefonoContacto" => "required",
+          "idiomasGuia" => "required",
+        ]);
+        }
+        elseif($request->input("segundoNombre") == null && $request->input("segundoApellido") == null ){
          $this->validate($request, [
           "Nombre" => "required|alpha|min:3|max:25",
           "apellido" => "required|alpha|min:3|max:25",
@@ -223,6 +236,29 @@ class AdminUsuariosController extends Controller
           "TelefonoContacto" => "required",
           "idiomasGuia" => "required",
         ]);
+        }
+        elseif($request->input("segundoNombre") != null && $request->input("segundoApellido") == null){
+         $this->validate($request, [
+          "Nombre" => "required|alpha|min:3|max:25",
+          "segundoNombre" => "alpha|min:3|max:25",
+          "apellido" => "required|alpha|min:3|max:25",
+          "fechaNacimiento" => "required",
+          "Direccion" => "required|min:10|max:100",
+          "TelefonoContacto" => "required",
+          "idiomasGuia" => "required",
+        ]);
+        }
+        elseif($request->input("segundoNombre") == null && $request->input("segundoApellido") != null){
+         $this->validate($request, [
+          "Nombre" => "required|alpha|min:3|max:25",
+          "segundoApellido" => "alpha|min:3|max:25",
+          "apellido" => "required|alpha|min:3|max:25",
+          "fechaNacimiento" => "required",
+          "Direccion" => "required|min:10|max:100",
+          "TelefonoContacto" => "required",
+          "idiomasGuia" => "required",
+        ]);
+        }
 
 
          $hoystr = Carbon::now()->format('d-m-Y');

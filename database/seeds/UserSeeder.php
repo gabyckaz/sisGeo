@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
         'created_at'=>date('Y-m-d H:m:s'),
         'updated_at'=>date('Y-m-d H:m:s'),
         'avatar'=>'default.gif'
-      ]);
+      ]); 
       User::create([
         'id'=>3,
         'name'=>'Gabriela',

@@ -40,7 +40,8 @@ class SendAutoresponder
            $msj->fechaEnvio = $date;
            //$msj->de ="GEOTURISMO TRAVEL & TOURS EL SALVADOR";
            //$msj->cuerpoMensaje="Le saludamos de Geoturismo, para informale que tenemos disponible un viaje que a usted le puede interesar, esperamos que nos pueda acompañar";
-           $msj->url = "http://sisgeo.dev.com:89/MostrarPaqueteCliente/".$event->mensaje->url;
+           $dominio = \Request::root();
+           $msj->url = $dominio."/MostrarPaqueteCliente/".$event->mensaje->url;
            $paquete = Paquete::find($event->mensaje->url);
           // $msj->save();
           // Model::where('column_1','value_1')->where('column_2','value_2')->get();

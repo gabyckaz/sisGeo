@@ -207,7 +207,8 @@ class userController extends Controller
     }
 
      public function completarInformacion(Request $request)
-    {
+    {   
+        $categorias = Categoria::all();
         $documentos = "";
         $existeTurista ="";
         $edad = Carbon::parse($request->fechaNacimiento)->age;
@@ -226,6 +227,7 @@ class userController extends Controller
             "pasaporte" => "required",
             "direccion" => "required|min:10|max:100",
             "preferencias" => "required",
+            "RecibirNotificacion" => "required",
           ]);
             return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
         }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
@@ -239,6 +241,7 @@ class userController extends Controller
              "fechaVencimientoP" => "required",
              "direccion" => "required|min:10|max:100",
              "preferencias" => "required",
+             "RecibirNotificacion" => "required",
            ]);
             if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
@@ -264,6 +267,7 @@ class userController extends Controller
               "fechaVencimientoD" => "required",
               "direccion" => "required|min:10|max:100",
               "preferencias" => "required",
+              "RecibirNotificacion" => "required",
            ]);
            if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
@@ -286,6 +290,7 @@ class userController extends Controller
              "fechaVencimientoP" => "required",
              "direccion" => "required|min:10|max:100",
              "preferencias" => "required",
+             "RecibirNotificacion" => "required",
            ]);
            $hoystr = Carbon::now()->format('d-m-Y');
            $hoyObj = Carbon::parse($hoystr);
@@ -412,9 +417,22 @@ class userController extends Controller
             }
            }
          }
+         $misPreferencias = array();
+          $query = 'SELECT tc.IdCategoria as Id
+          FROM turistacategoria as tc
+          WHERE tc.IdTurista = '.$turista->IdTurista.';';
+          $misPq = DB::select($query);
+          
+          if($misPq != null){
+            for ($i=0; $i < count($misPq); $i++) { 
+             $val= $misPq[$i]->Id;
+             $misPreferencias[] = (int)$val;
+            }
+           
+          }
         $nacionalidad = Nacionalidad::all();
         $existeTurista = "si";
-        return view('user.completarInformacionUsuario', compact('usuario','nacionalidad' ,'existeTurista','turista','documentos'))->with('message','Usuario Creado');
+        return redirect('user/completarInformacion')->with('message','Usuario Creado');
         }else{
          $existeTurista = "si";
          //Actualizo el usuario
@@ -542,7 +560,7 @@ class userController extends Controller
           }
 
       // return view('user.completarInfoUserTurista', compact('usuario','nacionalidad' ,'existe'));
-      return redirect()->route('usuario.completar.informacion',compact('usuario','nacionalidad' ,'existeTurista','documentos','categorias','misPreferencias'))->with('message','Informacion Actualizada');
+      return redirect('user/completarInformacion')->with('message','Informacion Actualizada');
 
     }
 
@@ -853,6 +871,11 @@ class userController extends Controller
 
 
    public function guardarInformacionFamiliarAmigoEditado(Request $request){
+     $this->validate($request, [
+             "Nombre" => "required|alpha|min:3|max:25",
+             "Apellido" => "required|alpha|min:3|max:25",
+             "Direccion" => "required|min:10|max:100",
+           ]);
      //Opcion numero 2
        /*$hoystr = Carbon::now()->format('d-m-Y');
        $hoyObj = Carbon::parse($hoystr);

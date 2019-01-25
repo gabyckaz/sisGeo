@@ -413,7 +413,7 @@
                           <span class="custom-control-description">Recibir</span>
                         </label>
                         <label class="custom-control custom-radio col-md-offset-2">
-                          <input id="radio2" name="RecibirNotificacion" value="2" type="radio" class="custom-control-input" {{ $usuario->RecibirNotificacion == '2' ? 'checked' : '' }}>
+                          <input id="radio2" name="RecibirNotificacion" value="0" type="radio" class="custom-control-input" {{ $usuario->RecibirNotificacion == '0' ? 'checked' : '' }}>
                           <span class="custom-control-indicator"></span>
                           <span class="custom-control-description">No recibir</span>
                         </label>
