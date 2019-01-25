@@ -38,7 +38,7 @@ class HomeController extends Controller
         $reservaciones= DB::table('Paga')
           ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
           ->join('Paquetes', 'Paga.IdPaquete', '=', 'Paquetes.IdPaquete')
-          ->select('Descripcion','Url','FechaTransaccion','NumeroAcompanante','FechaSalida')
+          ->select('Descripcion','Url','FechaTransaccion','NumeroAcompanante','FechaSalida','NAP')
           ->where([
             ['IdUsuario', '=', auth()->user()->id],
             ['Estado', '=', '1'],

@@ -621,7 +621,6 @@ class ReservacionController extends Controller
       $pago->NumeroAcompanante=$request->total;
       $pago->PagoTotal=$pago->NumeroAcompanante*$pago->CostoPersona;
       $pago->IdsAcompanantes=$strAcompanantes;
-      $pago->ConfirmacionReservacion='0';
 
        if (isset($pago->NumeroAcompanante) && is_numeric($pago->NumeroAcompanante))
        {

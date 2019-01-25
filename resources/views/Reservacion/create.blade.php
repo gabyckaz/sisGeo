@@ -112,7 +112,7 @@
               <div class="form-group">
                 <input type="hidden" value="{{ $paquete->NombrePaquete }}" name="descripcion" readonly/>
                 <input type="hidden" value="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}" name="url" readonly/>
-                <input type="hidden" value="{{$userTurista[0]->Id }}" name="idusuario" readonly/>
+                <input type="hidden" value="{{ Auth::user()->id }}" name="idusuario" readonly/>
                 <input type="hidden" value="{{$userTurista[0]->Nombre }}" name="nombrecliente" readonly/>
                 <input type="hidden" value="{{$userTurista[0]->Apellido }}" name="apellidocliente" readonly/>
                 <div class="checkbox">
@@ -126,7 +126,7 @@
             <div class="row">
               <div class="col-md-4">
               <div class="form-group">
-                <label>Cupos a reservar</label>
+                <label>Cupos a reservar *</label>
                   <div class="input-group">
                     <span class="input-group-addon">N°</span>
                     <input type="text" class="form-control" name="total" id="total" readonly>
@@ -177,34 +177,16 @@
                  </div>
               </div>
             </div> -->
-            <div class="row">
-              <p>Sleccionar forma de pago: </p>
-              <div class="col-md-4">
+            <br>
                <div class="form-group">
-                <button type="submit" class="btn btn-info">Completar reserva por medio de tarjeta o cuenta Pagadito</button>
+                <center><button type="submit" class="btn btn-info">Reservar</button></center>
+                <br>
+                <center><p>Al reservar acepto que he leído las <a href="/condiciones" target="_blank" >Condiciones</a>  e <a href="/migratoria" target="_blank" >Información migratoria</a></p></center>
                </div>
-              </div>
-            <!-- button type="reset" class="btn btn-warning ">Limpiar</button -->
-            </div>
-
-          <div class="row">
-            <p>O a través de PuntoExpress *</p>
-            <input type="hidden" name="@idTrx" value="123"/> <!-- Identifica la transaccion / La ponemos nosotros? -->
-            <input type="hidden" name="@idRef" value="3234"/> <!-- Identifica la referencia de parte del comercio / La referencia que le ponen cuando lo hacen de forma manual, lo ideal 1 código por cada ruta -->
-            <input type="hidden" name="@idUser" value="1"/> <!-- Usuario Asignado / Valor Geo= 194 -->
-            <input type="hidden" name="@idSeller" value="1"/> <!-- Comercio o empresa afiliada a Puntoxpress / Valor Geo= 55 -->
-            <input type="hidden" name="@currency" value="USD"/> <!-- Moneda de la transaccion  -->
-            <input type="hidden" name="@amount" value="1000"/> <!-- Monto de la transaccion -->
-            <input type="hidden" name="@validity" value="5"/> <!-- Dias de valides del comprobante o voleta de cobro / Consultar con Geo -->
-            <input type="hidden" name="@fieldsAdded" value=""/> <!-- Campos extras en caso de que el comercio los requiera -->
-            <input type="hidden" name="@dateTrx" value="20130225 15:59:59"/> <!-- Fecha de la transaccion segun el comercio / Setear fecha actual-->
-            <input type="hidden" name="@phone"  value="69873350"/> <!-- Numero de telefono / Teléfono de quién? -->
-            <input type="hidden" name="@email" value="sisgeo2018@outlook.es"/> <!-- Email a donde se debera de reenviar la voleta ocomprobante / Setear correo del cliente-->
-            <input type="hidden" name="@urlRedirect" value="http://www.google.com/"/> <!-- Url a la que se redirige al usuario al cerrar el modal -->
-            <button class="pexButton" type="button" onclick="PEX.box.tokenServ();"> <img src="img/PexButton.png" width="130" heght="60" alt="Puntoxpress"/> </button>
-          </div>
+            <br>
            <div class="box-footer">
-                <p>* Se genera ticket para luego realizar el pago en uno de los puntoexpress, puede consultar los puntos de pago en El Salvador <a href="http://www.puntoxpress.com/elsalvador/adonde-pago.html" >aquí</a></p>
+             <p>Para completar el pago se redireccionará a un sitio externo(Pagadito)</p>
+             <p>*Para reservar debe pagar el 100% del costo</p>
             </div>
           </form>
     </div>
