@@ -41,22 +41,15 @@
           Geoturismo de El Salvador S.A de C.V. Col. Campestre #17, Pje.3, Calle Circunvalación<br>
           San Salvador, El Salvador, C.A. <br>
           Tel: 2284-8404 / 6302-8424<br>
-          Email: ​info@geoturismoelsalvador.com
+          Email: ​info@geoturismoelsalvador.com<br><br>
+          Se le ha enviado un correo eléctronico con todo el detalle de su compra.
         </address>
       </div>
     </div>
+
     <!-- /.row -->
     <!-- this row will not appear when printing -->
-    <div class="row no-print">
-      <div class="col-xs-12">
-        <!-- <a href="{{ url('reservacion/'.$nap.'/print') }}" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Print</a> -->
-        <!-- <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment
-        </button> -->
-        <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
-          <i class="fa fa-download"></i> Generar PDF
-        </button>
-      </div>
-    </div>
+
   </section>
   <!-- /.content -->
   <div class="clearfix"></div>

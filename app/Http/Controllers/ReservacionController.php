@@ -385,16 +385,21 @@ class ReservacionController extends Controller
                           //Extrayendo IdPaquete del campo Url
                           $IdPaquete=explode('/',$pago[0]->Url);
                           //Asignando los valores a la tabla intermedia
-                          $paga=new Paga;
-                          $paga->IdPaquete=$IdPaquete[4];
-                          $paga->IdPago=$pago[0]->IdPago;
-                          $paga->save();
+                          try{
+                            $paga=new Paga;
+                            $paga->IdPaquete=$IdPaquete[4];
+                            $paga->IdPago=$pago[0]->IdPago;
+                            $paga->save();
 
-                          return view('Reservacion.invoice')
-                            ->with('status',$msgPrincipal)
-                            ->with('msgSecundario',$msgSecundario)
-                            ->with('nap', $nap)
-                            ->with('fecharespuesta', $fecharespuesta);
+                            return view('Reservacion.invoice')
+                              ->with('status',$msgPrincipal)
+                              ->with('msgSecundario',$msgSecundario)
+                              ->with('nap', $nap)
+                              ->with('fecharespuesta', $fecharespuesta);
+                          }catch(\Exception $e){
+                            return redirect('home')->with('fallo',"Ha ocurrido un error");
+                          }
+
                           break;
 
                       case "REGISTERED":
@@ -610,7 +615,7 @@ class ReservacionController extends Controller
       $pago->Descripcion=$request->descripcion;
       $pago->CostoPersona=$request->cpersona;
       $pago->Url=$request->url;
-      $pago->IdUsuario=$request->usuario;
+      $pago->IdUsuario=$request->idusuario;
       $nombrecliente=$request->nombrecliente;
       $apellidocliente=$request->apellidocliente;
       $pago->NombreCliente=$nombrecliente. ' '. $apellidocliente;

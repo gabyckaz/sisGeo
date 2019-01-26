@@ -71,9 +71,7 @@ class PaqueteController extends Controller
        'precio'=>'required',
        'tipopaquete'=>'required|max:20',
        'cupos'=>'required',
-       'dificultad'=>'required|max:20',
-        'video'=>'required',
-        'galeria'=>'required',
+       'dificultad'=>'required|max:20'
      ));
      $mytime = Carbon::now();
        $hoystr = Carbon::now()->format('d-m-Y');
@@ -992,6 +990,85 @@ class PaqueteController extends Controller
       $canvas->page_text(280, 740, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
       // Output the generated PDF to Browser
       $dompdf->stream('Listado '.$paquete->NombrePaquete.' '.$paquete->FechaSalida.'.pdf');
+    }
+
+    public function listadopersonas($id){
+      //Consulta de turistas que han pagado por pagadito
+      $turistas = DB::table('Paga')
+        ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
+        ->join('Turista', 'Pago.IdTurista', '=', 'Turista.IdTurista')
+        ->join('Personas', 'Turista.IdPersona', '=', 'Personas.IdPersona')
+        ->select('IdsAcompanantes','TipoPago','PrimerNombrePersona','PrimerApellidoPersona','TelefonoContacto')
+        ->where([['IdPaquete','=',$id ],
+                ['Estado','=','1']])
+        ->get();
+
+      //Consulta de turistas de otros metodos de pago
+      $otrosturistas = DB::table('Paga')
+        ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
+        ->join('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
+        ->select('*')
+        ->where([['IdPaquete','=',$id ],
+                ['Estado','=','1']])
+        ->get();
+
+      //Obteniendo los Ids de acompañantes de Pagadito
+      $z = '';
+      for ($i=0; $i < count($turistas); $i++) {
+        $x = explode('-',$turistas[$i]->IdsAcompanantes);
+        $x = explode(',',$x[1]);
+        if(count($turistas)-1 != $i){
+        $z = $z.(implode(',',$x)).',';
+        }
+        else{
+          $z = $z.(implode(',',$x));
+        }
+      }
+      $z =explode(',',$z);
+
+      //Obteniendo los Ids de acompañantes  de otros pagos
+      $y = '';
+      for ($i=0; $i < count($otrosturistas); $i++) {
+        $a = explode('-',$otrosturistas[$i]->IdsOtroTurista);
+        $a = explode(',',$a[1]);
+        if(count($otrosturistas)-1 != $i){
+        $y = $y.(implode(',',$a)).',';
+        }
+        else{
+          $y = $y.(implode(',',$a));
+        }
+      }
+      $y =explode(',',$y);
+
+      //Consulta de Datos de cada turista de Pagadito
+      $personas= DB::table('TipoDocumento')
+            ->join('Turista', 'TipoDocumento.IdTurista', '=', 'Turista.IdTurista')
+            ->join('Nacionalidad', 'Turista.IdNacionalidad', '=', 'Nacionalidad.IdNacionalidad')
+            ->join('Personas', 'Turista.IdPersona', '=', 'Personas.IdPersona')
+            ->select('TipoDocumento.IdTurista','PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona',
+                     'SegundoApellidoPersona','TelefonoContacto','NumeroDocumento','Nacionalidad')
+            ->whereIn('Turista.IdTurista', $z)
+            ->get();
+
+      //Consulta de Datos de cada turista de otros pagos
+      $otraspersonas= DB::table('Pago')
+            ->join('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
+            ->select('NumTelOtroTurista','NombreApellido','DuiOtroTurista','PasaporteOtroTurista')
+            ->whereIn('OtrosTuristas.IdOtroTurista', $y)
+            ->get();
+
+      $paquete = Paquete::findOrFail($id);
+
+      $guias= DB::table('GuiaPaquete')
+            ->join('Empleado', 'GuiaPaquete.IdEmpleadoGEO', '=', 'Empleado.IdEmpleadoGEO')
+            ->join('Personas', 'Empleado.IdPersona', '=', 'Personas.IdPersona')
+            ->select('PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona','SegundoApellidoPersona')
+            ->where('IdPaquete','=', $id)
+            ->get();
+
+
+      //instantiate and use the dompdf class
+    return view('adminPaquete.listadopersonas',compact('personas','otraspersonas','paquete','guias'));
     }
 
 }
