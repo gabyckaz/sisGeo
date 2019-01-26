@@ -61,7 +61,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                    <input type="text" name="Nombre" class="form-control"  id="Nombre" placeholder="Nombre" value="{{old('Nombre')}}" required>
+                    <input type="text" name="Nombre" class="form-control"  id="Nombre" placeholder="Juan" value="{{old('Nombre')}}" required>
                 </div>
                   @if ($errors->has('Nombre'))
                        <span class="help-block">{{ $errors->first('Nombre') }}</span>
@@ -75,7 +75,7 @@
                 <div class="input-group-addon">
                      <i class="fa fa-user"></i>
                   </div>
-                <input type="text" name="Apellido" class="form-control" id="Apellido" placeholder="Apellido" value="{{ old('Apellido') }}" required>
+                <input type="text" name="Apellido" class="form-control" id="Apellido" placeholder="Pérez" value="{{ old('Apellido') }}" required>
               </div>
               @if ($errors->has('Apellido'))
                      <span class="help-block">{{ $errors->first('Apellido') }}</span>
@@ -126,7 +126,7 @@
             <label for="observacionestransporte">Dirección*</label>
             <div class="input-group">
             <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-              <textarea id="Direccion" type="text" class="form-control" name="Direccion" placeholder="Direccion" required autofocus>{{ old('Direccion') }}</textarea>
+              <textarea id="Direccion" type="text" class="form-control" name="Direccion" placeholder="Ej. El salvador San Salvador Col. Escalon #34" required autofocus>{{ old('Direccion') }}</textarea>
             </div>
             @if ($errors->has('Direccion'))
             <span class="help-block">{{ $errors->first('Direccion') }}</span>
@@ -139,7 +139,7 @@
           <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('Errordui') ) ? ' has-error' : '' }}">
               <label for="dui" class="control-label">DUI</label>
                 <div class="">
-                  <input type="text" name="dui" class="form-control" id="dui" placeholder="Dui" value="{{ old('dui') }}">
+                  <input type="text" name="dui" class="form-control" id="dui" value="{{ old('dui') }}" placeholder="11111111-1">
                    @if ($errors->has('dui'))
                        <span class="help-block">Un documento es requerido</span>
                   @endif
@@ -156,7 +156,7 @@
            <div class="form-group has-feedback{{ $errors->has('pasaporte') ? ' has-error' : '' }}">
               <label for="pasaporte" class="control-label">Pasaporte</label>
                 <div class="">
-                  <input type="text" name="pasaporte" class="form-control" id="pasaporte" placeholder="Pasaporte" value="{{ old('pasaporte') }}">
+                  <input type="text" name="pasaporte" class="form-control" id="pasaporte" placeholder="BB11111111" value="{{ old('pasaporte') }}">
                     @if ($errors->has('pasaporte'))
                        <span class="help-block">Un documento es requerido</span>
                     @endif
@@ -213,7 +213,7 @@
             <label for="psalud">Problemas de salud</label>
             <div class="input-group">
             <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-              <textarea id="psalud" type="text" class="form-control" name="psalud" placeholder="Ninguno">{{ old('psalud') }}</textarea>
+              <textarea id="psalud" type="text" class="form-control" name="psalud" >{{ old('psalud','Ninguno') }}</textarea>
             </div>
             @if ($errors->has('psalud'))
             <span class="help-block">{{ $errors->first('psalud') }}</span>

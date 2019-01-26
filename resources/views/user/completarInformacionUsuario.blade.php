@@ -59,7 +59,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                      <input type="text" name="SegundoNombrePersona" class="form-control"  id="input3" value="{{ $usuario->persona->SegundoNombrePersona }}" placeholder="Segundo Nombre">
+                      <input type="text" name="SegundoNombrePersona" class="form-control"  id="input3" value="{{ $usuario->persona->SegundoNombrePersona }}" placeholder="josé">
                    </div>
                 </div>
           </div>
@@ -84,7 +84,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-user"></i>
                         </div>
-                        <input type="text" name="SegundoApellidoPersona" class="form-control"  id="input5" value="{{ $usuario->persona->SegundoApellidoPersona }}" id="input6" placeholder="Segundo Apellido">
+                        <input type="text" name="SegundoApellidoPersona" class="form-control"  id="input5" value="{{ $usuario->persona->SegundoApellidoPersona }}" id="input6" placeholder="Pérez">
                     </div>
                 </div>
           </div>
@@ -180,7 +180,7 @@
               <div class="col-md-3">
                  <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('Errordui') ) ? ' has-error' : '' }}">
                    <label for="dui" class="control-label">DUI</label>
-                    <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" id="dui">
+                    <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" id="dui" placeholder="11111111-1">
                      @if ($errors->has('dui'))
                        <span class="help-block">Un documento es requerido</span>
                      @endif
@@ -286,7 +286,7 @@
                 <div class="col-md-3">
                   <div class="form-group has-feedback{{ $errors->has('pasaporte') ? ' has-error' : '' }}">
                       <label for="pasaporte" class="control-label">Pasaporte</label>
-                        <input  type="text" name="pasaporte" value="{{ old('pasaporte')}}" class="form-control" id="pasaporte" placeholder="Pasaporte">
+                        <input  type="text" name="pasaporte" value="{{ old('pasaporte')}}" class="form-control" id="pasaporte" placeholder="1111111111">
                       @if ($errors->has('pasaporte'))
                         <span class="help-block">Un documento es requerido</span>
                       @endif
@@ -344,7 +344,7 @@
                    <div class="input-group-addon">
                        <i class="fa fa-phone"></i>
                    </div>
-                    <input type="text" name="TelefonoContacto" class="form-control"  id="telefono" value="{{ $usuario->persona->TelefonoContacto }}" placeholder="Telefono">
+                    <input type="text" name="TelefonoContacto" class="form-control"  id="telefono" value="{{ $usuario->persona->TelefonoContacto }}" placeholder="22223333">
                 </div>
              </div>
         </div>
@@ -356,7 +356,7 @@
                      <span class="users-list-date" style=" font-size: 11pt">En caso que varias personas se encuentren en el mismo sector que usted se haría una parada cerca para recogerlos</span>
                      <div class="input-group">
                        <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-                       <textarea   class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >{{ old('direccion',$turista->DomicilioTurista) }}</textarea>
+                       <textarea   class="form-control" name="direccion" maxlength="100" placeholder="Ej. El salvador San Salvador Col. Escalon #34" >{{ old('direccion',$turista->DomicilioTurista) }}</textarea>
                      </div>
                 @if ($errors->has('direccion'))
                   <span class="help-block">{{ $errors->first('direccion') }}</span>
@@ -380,7 +380,7 @@
                 <span class="users-list-date" style=" font-size: 11pt">En caso que varias personas se encuentren en el mismo sector que usted se haría una parada cerca para recogerlos</span>
                 <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-                <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Direccion..." >{{ old('direccion') }}</textarea>
+                <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Ej. El salvador San Salvador Col. Escalon #34" >{{ old('direccion') }}</textarea>
                </div>
               @if ($errors->has('direccion'))
                   <span class="help-block">{{ $errors->first('direccion') }}</span>
