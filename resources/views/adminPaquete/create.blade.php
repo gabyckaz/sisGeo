@@ -176,14 +176,14 @@
                           <label for="video"  class="control-label">URL del video en YouTube</label>
                           <div class="input-group">
                               <span class="input-group-addon"><i class="fa fa-file-video-o"></i></span>
-                            <input type="text" name="video" class="form-control" id="video" value="{{ old('video')}}" placeholder="URL del Video en YouTube como Copiar código de inserción" required >
+                            <input type="text" name="video" class="form-control" id="video" value="{{ old('video')}}" placeholder="URL del Video en YouTube como Copiar código de inserción">
                           </div>
                       </div>
                       <div class="form-group">
                           <label for="galeria"  class="control-label">URL de la galeria de Facebook de este paquete</label>
                           <div class="input-group">
                               <span class="input-group-addon"><i class="fa fa-image"></i></span>
-                            <input type="text" name="galeria" class="form-control" id="galeria" value="{{ old('galeria')}}" placeholder="URL de la galeria de imagenes en Facebook" required >
+                            <input type="text" name="galeria" class="form-control" id="galeria" value="{{ old('galeria')}}" placeholder="URL de la galeria de imagenes en Facebook">
                           </div>
                       </div>
                     <div class="row">

@@ -1,14 +1,5 @@
 <!-- Vista para cliente del paquete -->
 <style>
-.galeria{
-  height: 200px;
-  overflow:hidden; /*hide bounds of image */
-  margin:0;   /*reset margin of figure tag*/
-}
-
-.thumbnail:hover {
-    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-}
 .responsive {
     width: 100%;
     height: auto;
@@ -37,11 +28,6 @@
       <br>
       <!-- Carousel de fotos -->
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-          <!-- <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
-          </ol> -->
           <div class="carousel-inner">
             <div class="item active">
               <a href="{{Storage::url($imagenes->Imagen1)}}">
@@ -66,28 +52,6 @@
             <span class="fa fa-angle-right"></span>
           </a>
         </div>
-    <!-- <div class="galeria">
-
-      @foreach ($imagen as $imagenes)
-        <div class="col-sm-4 galeria" style="height:200px">
-        <a href="{{Storage::url($imagenes->Imagen1)}}">
-          <img src="{{Storage::url($imagenes->Imagen1)}}"  class="thumbnail responsive" style="height: 100%; margin:10 -38.885%;  width:177.777%; ">
-        </a>
-        </div>
-        <div class="col-sm-4 galeria" style="height:200px">
-        <a href="{{Storage::url($imagenes->Imagen2)}}">
-          <img src="{{Storage::url($imagenes->Imagen2)}}"  class="thumbnail responsive" style="height: 100%; margin:10 -38.885%;  width:177.777%; ">
-        </a>
-        </div>
-        <div class="col-sm-4 galeria" style="height:200px">
-        <a href="{{Storage::url($imagenes->Imagen3)}}">
-          <img src="{{Storage::url($imagenes->Imagen3)}}"  class="thumbnail responsive" style="height: 100%; margin:10 -38.885%;  width:177.777%; ">
-        </a>
-        </div>
-
-      @endforeach
-
-    </div> -->
     <div class="row">
       <div class="col-md-6">
         <h3 style="text-align:center;"><b>Dificultad:</b> {{ $paquete->Dificultad}}</h3>
@@ -103,6 +67,13 @@
       <div class="col-md-6"><!-- columna derecha -->
         <div class="box box-solid">
           <div class="box-header with-border">
+            @role(['Director','Agente'])
+            <center>
+              <a class="btn btn-warning fa fa-cog" title="Editar" href="{{route('adminPaquete.edit', $paquete['IdPaquete'])}}"> Editar información</a>
+              <a class="btn btn-warning fa fa-th-list" title="Editar" href="{{route('adminPaquete.listadopersonas', $paquete['IdPaquete'])}}"> Consultar listado de persona</a>
+            </center>
+              <br>
+            @endrole
             <center><a class="btn btn-info" title="Descargar como PDF" href="{{route('adminPaquete.informacion', $paquete['IdPaquete'])}}"><i class="fa Example of download fa-download"></i>
                Descargar información como PDF</a></center>
           </div>
