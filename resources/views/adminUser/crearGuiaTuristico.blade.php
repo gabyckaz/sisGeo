@@ -72,7 +72,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                    <input type="text" name="segundoNombre" class="form-control"  id="segundoNombre" placeholder="Jose" value="{{old('segundoNombre')}}" >
+                    <input type="text" name="segundoNombre" class="form-control"  id="segundoNombre" placeholder="José" value="{{old('segundoNombre')}}" >
                   </div>
                   @if ($errors->has('segundoNombre'))
                        <span class="help-block">{{ $errors->first('segundoNombre') }}</span>
@@ -88,7 +88,7 @@
                   <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                  <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Perez" value="{{ old('apellido') }}" required>
+                  <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Pérez" value="{{ old('apellido') }}" required>
                 </div>
                 @if ($errors->has('apellido'))
                        <span class="help-block">{{ $errors->first('apellido') }}</span>
@@ -205,7 +205,7 @@
           <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('Errordui') ) ? ' has-error' : '' }}">
               <label for="dui" class="control-label">DUI</label>
                 <div class="">
-                  <input type="text" name="dui" class="form-control" id="dui" placeholder="00000000-0" value="{{ old('dui') }}">
+                  <input type="text" name="dui" class="form-control" id="dui" placeholder="11111111-1" value="{{ old('dui') }}">
                    @if ($errors->has('dui'))
                        <span class="help-block">Un documento es requerido</span>
                   @endif
@@ -242,7 +242,7 @@
            <div class="form-group has-feedback{{ $errors->has('pasaporte') ? ' has-error' : '' }}">
               <label for="pasaporte" class="control-label">Pasaporte</label>
                 <div class="">
-                  <input type="text" name="pasaporte" class="form-control" id="pasaporte" placeholder="AA0000000" value="{{ old('pasaporte') }}">
+                  <input type="text" name="pasaporte" class="form-control" id="pasaporte" placeholder="BB1111111" value="{{ old('pasaporte') }}">
                     @if ($errors->has('pasaporte'))
                        <span class="help-block">Un documento es requerido</span>
                     @endif
