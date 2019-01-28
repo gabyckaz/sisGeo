@@ -165,7 +165,7 @@ return [
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         BackupManager\Laravel\Laravel55ServiceProvider::class,
-
+        Spatie\Backup\BackupServiceProvider::class,
     ],
 
     /*
