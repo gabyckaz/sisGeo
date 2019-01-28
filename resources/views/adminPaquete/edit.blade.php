@@ -159,9 +159,10 @@
                     <br>
                     <br>
                     <br>
+                    <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-file-video-o"></i></span>
-                        <input type="text" name="video" class="form-control" id="video" value="{{ old('video')}}" placeholder="URL del Video en YouTube como Copiar código de inserción" >
+                        <input type="text" name="video" class="form-control" id="video" value="{{$paquete->Video}}" placeholder="URL del Video en YouTube como Copiar código de inserción" >
                     </div>
                   </div>
                     <br>

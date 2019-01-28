@@ -16,6 +16,25 @@
     </a>
   </div>
   <div class="box-body">
+    @if (count($transportesasignados) == 0)
+      <p>No hay transporte asignado<p>
+    @elseif (count($transportesasignados) >= 1)
+    <p><b>Transporte asignado</b></p>
+      @foreach($transportesasignados as $transporteasignado)
+        <p>{{$transporteasignado->NombreTipoTransporte}} {{$transporteasignado->Marca}} {{$transporteasignado->Modelo}}, color {{$transporteasignado->Color}} <br>
+       Placa: {{$transporteasignado->Placa_Matricula}} No. Asientos: {{$transporteasignado->NumeroAsientos}} <br>Empresa: {{$transporteasignado->NombreEmpresaTransporte}}</p>
+      @endforeach
+    @endif
+
+    @if (count($conductoresasignados) == 0)
+      <p>No hay conductor asignado<p>
+    @elseif (count($conductoresasignados) >= 1)
+    <p><b>Conductor asignado</b></p>
+      @foreach($conductoresasignados as $conductor)
+        <p>{{$conductor->NombreConductor}}</p>
+      @endforeach
+    @endif
+
     @if (count($guias) == 0)
       <p>No hay guía asignado<p>
     @elseif (count($guias) >= 1)
@@ -27,7 +46,7 @@
     @endif
 
     @if (count($personas) == 0)
-      <p>No hay conductor asignado<p>
+      <p>No hay reservas realizadas<p>
     @elseif (count($personas) >= 1)
     <p><strong>Listado Personas</strong></p>
 
