@@ -337,9 +337,10 @@ class userController extends Controller
           $usuario = User::find(auth()->user()->id);
           $usuario->name = $request->PrimerNombrePersona;
           $usuario->save();
-
+          
         //Actualizo a la persona
-          $persona = Persona::find(auth()->user()->IdPersona)->first();
+          $persona = Persona::find(auth()->user()->IdPersona);
+          
           $persona->PrimerNombrePersona = $request->PrimerNombrePersona;
           $persona->SegundoNombrePersona = $request->SegundoNombrePersona;
           $persona->PrimerApellidoPersona = $request->PrimerApellidoPersona;
@@ -430,6 +431,7 @@ class userController extends Controller
             }
            
           }
+          
         $nacionalidad = Nacionalidad::all();
         $existeTurista = "si";
         return redirect('user/completarInformacion')->with('message','Usuario Creado');
