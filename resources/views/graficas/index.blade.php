@@ -118,7 +118,9 @@
       var data = google.visualization.arrayToDataTable(categorias);
       var options = {
         title: 'Paquetes turísticos por categoría',
-        pieHole: 0.4,
+        is3D: true,
+        colors: ['orange','green','#5dcaba','#2c8f4f','#f8d895','#64ab7d']
+        //pieHole: 0.4,
       };
 
       var chart = new google.visualization.PieChart(document.getElementById('grafica_categorias_1'));

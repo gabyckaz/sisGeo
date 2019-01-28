@@ -713,7 +713,8 @@ class PaqueteController extends Controller
     public function cambiarEstado(Request $request)
     {
       //$aprobacionpaquete = Paquete::where('paquete_id',$id)->update(array('AprobacionPaquete' => $request->aprobacionpaquete));
-      $paquetes=Paquete::all();
+      $paquetes=Paquete::where('DisponibilidadPaquete','0')->get();
+      //$paquetes=Paquete::all();
       return view('adminPaquete.estado', compact('paquetes'));
 
     }
@@ -911,7 +912,7 @@ class PaqueteController extends Controller
       $turistas = DB::table('Paga')
         ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
         ->join('Turista', 'Pago.IdTurista', '=', 'Turista.IdTurista')
-        ->join('Personas', 'Turista.IdPersona', '=', 'Personas.IdPersona')
+        ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
         ->select('IdsAcompanantes','TipoPago','PrimerNombrePersona','PrimerApellidoPersona','TelefonoContacto')
         ->where([['IdPaquete','=',$id ],
                 ['Estado','=','1']])
@@ -958,7 +959,7 @@ class PaqueteController extends Controller
       $personas= DB::table('TipoDocumento')
             ->join('Turista', 'TipoDocumento.IdTurista', '=', 'Turista.IdTurista')
             ->join('Nacionalidad', 'Turista.IdNacionalidad', '=', 'Nacionalidad.IdNacionalidad')
-            ->join('Personas', 'Turista.IdPersona', '=', 'Personas.IdPersona')
+            ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
             ->select('PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona','SegundoApellidoPersona','TelefonoContacto','NumeroDocumento','Nacionalidad')
             ->whereIn('Turista.IdTurista', $z)
             ->get();
@@ -974,14 +975,27 @@ class PaqueteController extends Controller
 
       $guias= DB::table('GuiaPaquete')
             ->join('Empleado', 'GuiaPaquete.IdEmpleadoGEO', '=', 'Empleado.IdEmpleadoGEO')
-            ->join('Personas', 'Empleado.IdPersona', '=', 'Personas.IdPersona')
+            ->join('personas', 'Empleado.IdPersona', '=', 'personas.IdPersona')
             ->select('PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona','SegundoApellidoPersona')
             ->where('IdPaquete','=', $id)
             ->get();
 
+      $transportesasignados = DB::table('Contrata')
+            ->join('Transporte', 'Contrata.IdTransporte', '=', 'Transporte.IdTransporte')
+            ->join('TipoTransporte', 'Transporte.IdTipoTransporte', '=', 'TipoTransporte.IdTipoTransporte')
+            ->join('EmpresaAlquilerTransporte', 'Transporte.IdEmpresaTransporte', '=', 'EmpresaAlquilerTransporte.IdEmpresaTransporte')
+            ->select('NombreTipoTransporte','Marca','Modelo','Color','Placa_Matricula','NumeroAsientos','NombreEmpresaTransporte')
+            ->where('Contrata.IdPaquete','=',$id)
+            ->get();
+
+      $conductoresasignados= DB::table('Conduce')
+            ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
+            ->select('Conductor.NombreConductor')
+                  ->where('Conduce.IdPaquete','=',$id)
+                  ->get();
 
       //instantiate and use the dompdf class
-      $view=\View::make('adminPaquete.reportepersonas',compact('personas','otraspersonas','paquete','guias'))->render();
+      $view=\View::make('adminPaquete.reportepersonas',compact('personas','otraspersonas','paquete','guias','transportesasignados','conductoresasignados'))->render();
       $dompdf = new Dompdf();
       $dompdf->loadHtml($view);
       // Render the HTML as PDF
@@ -997,7 +1011,7 @@ class PaqueteController extends Controller
       $turistas = DB::table('Paga')
         ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
         ->join('Turista', 'Pago.IdTurista', '=', 'Turista.IdTurista')
-        ->join('Personas', 'Turista.IdPersona', '=', 'Personas.IdPersona')
+        ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
         ->select('IdsAcompanantes','TipoPago','PrimerNombrePersona','PrimerApellidoPersona','TelefonoContacto')
         ->where([['IdPaquete','=',$id ],
                 ['Estado','=','1']])
@@ -1044,7 +1058,7 @@ class PaqueteController extends Controller
       $personas= DB::table('TipoDocumento')
             ->join('Turista', 'TipoDocumento.IdTurista', '=', 'Turista.IdTurista')
             ->join('Nacionalidad', 'Turista.IdNacionalidad', '=', 'Nacionalidad.IdNacionalidad')
-            ->join('Personas', 'Turista.IdPersona', '=', 'Personas.IdPersona')
+            ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
             ->select('TipoDocumento.IdTurista','PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona',
                      'SegundoApellidoPersona','TelefonoContacto','NumeroDocumento','Nacionalidad')
             ->whereIn('Turista.IdTurista', $z)
@@ -1061,14 +1075,26 @@ class PaqueteController extends Controller
 
       $guias= DB::table('GuiaPaquete')
             ->join('Empleado', 'GuiaPaquete.IdEmpleadoGEO', '=', 'Empleado.IdEmpleadoGEO')
-            ->join('Personas', 'Empleado.IdPersona', '=', 'Personas.IdPersona')
+            ->join('personas', 'Empleado.IdPersona', '=', 'personas.IdPersona')
             ->select('PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona','SegundoApellidoPersona')
             ->where('IdPaquete','=', $id)
             ->get();
 
+      $transportesasignados = DB::table('Contrata')
+            ->join('Transporte', 'Contrata.IdTransporte', '=', 'Transporte.IdTransporte')
+            ->join('TipoTransporte', 'Transporte.IdTipoTransporte', '=', 'TipoTransporte.IdTipoTransporte')
+            ->join('EmpresaAlquilerTransporte', 'Transporte.IdEmpresaTransporte', '=', 'EmpresaAlquilerTransporte.IdEmpresaTransporte')
+            ->select('NombreTipoTransporte','Marca','Modelo','Color','Placa_Matricula','NumeroAsientos','NombreEmpresaTransporte')
+            ->where('Contrata.IdPaquete','=',$id)
+            ->get();
 
-      //instantiate and use the dompdf class
-    return view('adminPaquete.listadopersonas',compact('personas','otraspersonas','paquete','guias'));
+      $conductoresasignados= DB::table('Conduce')
+            ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
+            ->select('Conductor.NombreConductor')
+            ->where('Conduce.IdPaquete','=',$id)
+            ->get();
+
+    return view('adminPaquete.listadopersonas',compact('personas','otraspersonas','paquete','guias','transportesasignados','conductoresasignados'));
     }
 
 }

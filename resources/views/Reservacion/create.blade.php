@@ -17,6 +17,7 @@
      </script>
     @endif
  @if($usuarioreservando != null) <!-- Si el cliente ya completó su información -->
+    <p>Seleccione sus acompañantes para la excursión, si no los tiene registrados lo puede hacer <a href="{{ route('user.agregar.familiarAmigo') }}">aquí</a></p>
     <div class="row">
       <div class="col-sm-12 col-md-6">
         <div class="box box-warning collapsed-box">

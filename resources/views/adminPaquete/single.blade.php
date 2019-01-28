@@ -69,8 +69,8 @@
           <div class="box-header with-border">
             @role(['Director','Agente'])
             <center>
-              <a class="btn btn-warning fa fa-cog" title="Editar" href="{{route('adminPaquete.edit', $paquete['IdPaquete'])}}"> Editar información</a>
-              <a class="btn btn-warning fa fa-th-list" title="Editar" href="{{route('adminPaquete.listadopersonas', $paquete['IdPaquete'])}}"> Consultar listado de persona</a>
+              <a class="btn btn-warning fa fa-cog" title="Editar" href="{{route('adminPaquete.edit', $paquete['IdPaquete'])}}" target="_blank"> Editar información</a>
+              <a class="btn btn-warning fa fa-th-list" title="Editar" href="{{route('adminPaquete.listadopersonas', $paquete['IdPaquete'])}}" target="_blank"> Consultar listado de persona</a>
             </center>
               <br>
             @endrole

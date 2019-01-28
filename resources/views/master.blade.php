@@ -224,24 +224,6 @@
             Agregar acompañantes</a></li>
         </ul>
     </li>
-    <li class="{{ activeMenu('acercade') }}">
-      <a href="/acercade">
-        <i class="fa fa-info"></i>
-        <span>Acerca de</span>
-      </a>
-    </li>
-    <li class="{{ activeMenu('condiciones') }}">
-      <a href="/condiciones">
-        <i class="fa fa-check-square-o" aria-hidden="true"></i>
-        <span>Condiciones</span>
-      </a>
-    </li>
-    <li class="{{ activeMenu('migratoria') }}">
-      <a href="/migratoria">
-        <i class="fa fa-check-square-o" aria-hidden="true"></i>
-        <span>Información migratoria</span>
-      </a>
-    </li>
     @endrole
 
     @role(['Director','Agente'])
@@ -330,6 +312,24 @@
       </a>
     </li>
     @endrole
+    <li class="{{ activeMenu('acercade') }}">
+      <a href="/acercade">
+        <i class="fa fa-info"></i>
+        <span>Acerca de</span>
+      </a>
+    </li>
+    <li class="{{ activeMenu('condiciones') }}">
+      <a href="/condiciones">
+        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        <span>Condiciones</span>
+      </a>
+    </li>
+    <li class="{{ activeMenu('migratoria') }}">
+      <a href="/migratoria">
+        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        <span>Información migratoria</span>
+      </a>
+    </li>
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

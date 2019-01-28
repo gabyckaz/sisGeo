@@ -38,7 +38,7 @@
       @else
      <div class="box box-warning collapsed-box">
      @endif
-    
+
       <div class="box-header">
         <h3 class="box-title"><STRONG>Registrar</STRONG></h3>
         <div class="box-tools pull-right">
@@ -183,7 +183,7 @@
             @endif
 
              </div>
-         
+
        </div>
        </div>
         <div class="row">
@@ -231,7 +231,7 @@
                   @if (session()->has('ErrorFechaVenceD'))
                        <span class="help-block">{{ session()->get('ErrorFechaVenceD') }}</span>
                   @endif
-                  
+
                 </div>
           </div>
         </div>
@@ -303,7 +303,7 @@
        <div class="col-md-8  col-md-offset-2">
         <div class="box box-warning">
         <div class="box-header">
-          <h3 class="box-title"><STRONG></STRONG></h3>
+          <!-- <h3 class="box-title"><STRONG></STRONG></h3> -->
           </div>
                 <div class="box-body">
                     <div class="table-responsive">
@@ -318,12 +318,12 @@
                              @foreach($guias as $guia)
                              <tr>
                                 <td>{{ ucfirst(strtolower($guia->PrimerNombrePersona)) }}  {{ ucfirst(strtolower($guia->PrimerApellidoPersona)) }}</td>
-                                <td>({{$guia->AreaTelContacto}}){{$guia->TelefonoContacto}}</td>                           
+                                <td>({{$guia->AreaTelContacto}}){{$guia->TelefonoContacto}}</td>
                                 <td>{{$guia->Nacionalidad}}</td>
                                 <td><a class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editar guia"
                                 href="{{ route('user.editar.informacion.guia', $guia->IdEmpleadoGEO) }}"></a></td>
                             </tr>
-                             @endforeach 
+                             @endforeach
                           </tbody>
                       </table>
                       <center>{{ $guias->links() }} </center>

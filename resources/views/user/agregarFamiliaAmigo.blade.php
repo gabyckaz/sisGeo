@@ -239,7 +239,7 @@
        <div class="col-md-8  col-md-offset-2">
         <div class="box box-warning">
         <div class="box-header">
-          <h3 class="box-title"><STRONG></STRONG></h3>
+          <!-- <h3 class="box-title"><STRONG></STRONG></h3> -->
           </div>
                 <div class="box-body">
                     <div class="table-responsive">
