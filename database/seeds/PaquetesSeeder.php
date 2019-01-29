@@ -64,7 +64,7 @@ class PaquetesSeeder extends Seeder
         'video'=>'<iframe width="812" height="457" src="https://www.youtube.com/embed/mf0yiVll2zI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
         'aprobacionpaquete'=>0,
         'disponibilidadpaquete'=>0,
-        'idturistica'=>3,
+        'idturistica'=>4,
         'created_at'=>date('Y-m-d H:m:s'),
         'updated_at'=>date('Y-m-d H:m:s')
       ]);
@@ -83,7 +83,7 @@ class PaquetesSeeder extends Seeder
         'video'=>'<iframe width="812" height="457" src="https://www.youtube.com/embed/8MRmXrHyEKo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
         'aprobacionpaquete'=>1,
         'disponibilidadpaquete'=>1,
-        'idturistica'=>4,
+        'idturistica'=>5,
         'created_at'=>date('Y-m-d H:m:s'),
         'updated_at'=>date('Y-m-d H:m:s')
       ]);
@@ -102,7 +102,7 @@ class PaquetesSeeder extends Seeder
         'video'=>'<iframe width="812" height="457" src="https://www.youtube.com/embed/HTze0Rg_XYw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
         'aprobacionpaquete'=>0,
         'disponibilidadpaquete'=>0,
-        'idturistica'=>5,
+        'idturistica'=>7,
         'created_at'=>date('Y-m-d H:m:s'),
         'updated_at'=>date('Y-m-d H:m:s')
       ]);
@@ -121,7 +121,7 @@ class PaquetesSeeder extends Seeder
         'video'=>'<iframe width="570" height="321" src="https://www.youtube.com/embed/tGzetzJ67HU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
         'aprobacionpaquete'=>0,
         'disponibilidadpaquete'=>0,
-        'idturistica'=>6,
+        'idturistica'=>3,
         'created_at'=>date('Y-m-d H:m:s'),
         'updated_at'=>date('Y-m-d H:m:s')
       ]);
@@ -140,7 +140,7 @@ class PaquetesSeeder extends Seeder
         'video'=>'<iframe width="812" height="457" src="https://www.youtube.com/embed/d9U6zYrcASc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
         'aprobacionpaquete'=>0,
         'disponibilidadpaquete'=>0,
-        'idturistica'=>7,
+        'idturistica'=>6,
         'created_at'=>date('Y-m-d H:m:s'),
         'updated_at'=>date('Y-m-d H:m:s')
       ]);
