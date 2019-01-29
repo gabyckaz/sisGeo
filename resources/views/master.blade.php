@@ -276,9 +276,11 @@
             <li><a href="{{ route('adminOpcionesPaquete.create')}}">
               <i class="fa fa-star"></i>
               Opciones Paquete</a></li>
+              @role('Director') 
             <li><a href="{{ route('adminPaquete.estado')}}">
               <i class="fa fa-star"></i>
               Aprobar Paquete</a></li>
+              @endrole
             <li><a href="{{ route('adminPaquete.costos.index')}}">
               <i class="fa fa-star"></i>
               Agregar Costos</a></li>
