@@ -22,6 +22,10 @@ div.figure img{
    position: relative;
    width: 100%; /* for IE 6 */
 }
+img.resize {
+  width:200px;
+  height:250px;
+}
 h4 {
    position: absolute;
    top: 200px;
@@ -165,7 +169,7 @@ h4 span {
               @if($imagen->id_paquete == $paquete->IdPaquete )
               @php  ++$key @endphp
                 <a href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}">
-                  <img src="{{Storage::url($imagen->Imagen1)}}" class="responsive figure"/>
+                  <img src="{{Storage::url($imagen->Imagen1)}}" class="responsive figure resize"/>
                 </a>
               @endif
               @if($key == 1)

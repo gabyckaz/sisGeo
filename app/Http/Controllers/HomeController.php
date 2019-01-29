@@ -32,7 +32,8 @@ class HomeController extends Controller
     public function index()
     {
       try{
-        $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
+        $paquetes=Paquete::where('DisponibilidadPaquete','=','1')->paginate(6);
+
         $imagenes = ImagenPaqueteTuristico::all();
 
         $reservaciones= DB::table('Paga')

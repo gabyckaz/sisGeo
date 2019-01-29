@@ -9,6 +9,38 @@
 @section('contenido')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+function imprSelec(grafica_generos)
+{
+  var ficha=document.getElementById(grafica_generos);
+  var ventimp=window.open(' ','popimpr');
+  ventimp.document.write(ficha.innerHTML);
+  ventimp.document.close();
+  ventimp.print();
+  ventimp.close();
+}
+</script>
+
+<!-- Mapa de paises con paquetes realizados -->
+<script type="text/javascript">
+  var paises = <?php echo $pais; ?>
+
+  google.charts.load('current', {
+    'packages':['geochart'],
+      'mapsApiKey': 'AIzaSyDpx9sGl-aow6KIWf_j2DLSspROtqt6UtM'
+  });
+  google.charts.setOnLoadCallback(drawRegionsMap);
+
+  function drawRegionsMap() {
+    var data = google.visualization.arrayToDataTable(paises);
+    var options = {
+      region: '013',
+      colorAxis: {colors: ['orange','green']}
+     };
+    var chart = new google.visualization.GeoChart(document.getElementById('mapa_paises'));
+    chart.draw(data, options);
+  }
+</script>
 
 <!-- Gráfica de Generos -->
 <script type="text/javascript">
@@ -29,33 +61,82 @@
     }
   };
   var chart = new google.visualization.PieChart(document.getElementById('grafica_generos'));
-//   google.visualization.events.addListener(chart, 'ready', function () {
-//   grafica_generos.innerHTML = '<img src="' + chart.getImageURI() + '">';
-//   console.log(grafica_generos.innerHTML);
-// });
+  google.visualization.events.addListener(chart, 'ready', function () {
+    document.getElementById('grafica_generos_png').outerHTML = '<a href="' + chart.getImageURI() + '"> <i class="fa fa-file-image-o" aria-hidden="true"></i> Exportar imagen</a>';
+  });
   chart.draw(data, options);
-  document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Otra forma de impresion</a>';
  }
 </script>
 
-<!-- Mapa de paises con paquetes realizados -->
+<!-- Gráfica con categorias de rutas -->
 <script type="text/javascript">
-  var paises = <?php echo $pais; ?>
+  var categorias = <?php echo $categorias; ?>
 
-  google.charts.load('current', {
-    'packages':['geochart'],
-      'mapsApiKey': 'AIzaSyDpx9sGl-aow6KIWf_j2DLSspROtqt6UtM'
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable(categorias);
+      var options = {
+        title: 'Paquetes turísticos por categoría',
+        is3D: true,
+        colors: ['orange','green','#5dcaba','#2c8f4f','#f8d895','#64ab7d']
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('grafica_categorias'));
+      google.visualization.events.addListener(chart, 'ready', function () {
+        document.getElementById('grafica_categorias_png').outerHTML = '<a href="' + chart.getImageURI() + '"> <i class="fa fa-file-image-o" aria-hidden="true"></i> Exportar imagen</a>';
+      });
+      chart.draw(data, options);
+    }
+</script>
+
+<!-- Gráfica de Tipos de pago -->
+<script type="text/javascript">
+ var tipos = <?php echo $tipospago; ?>
+
+ google.charts.load('current', {'packages':['corechart']});
+ google.charts.setOnLoadCallback(drawChart);
+
+ function drawChart()
+ {
+  var data = google.visualization.arrayToDataTable(tipos);
+  var options = {
+    title : 'Tipos de pagos registrados',
+    is3D: true,
+    slices: {
+      0: { color: 'orange' },
+      1: { color: 'green' }
+    }
+  };
+  var chart = new google.visualization.PieChart(document.getElementById('grafica_tipos'));
+  google.visualization.events.addListener(chart, 'ready', function () {
+    document.getElementById('grafica_tipos_png').outerHTML = '<a href="' + chart.getImageURI() + '"> <i class="fa fa-file-image-o" aria-hidden="true"></i> Exportar imagen</a>';
   });
-  google.charts.setOnLoadCallback(drawRegionsMap);
+  chart.draw(data, options);
+ }
+</script>
 
-  function drawRegionsMap() {
-    var data = google.visualization.arrayToDataTable(paises);
+<!-- Gráfica nuevos usuarios por mes -->
+<script type="text/javascript">
+  var nuevos_usuarios = <?php echo $nuevos_usuarios; ?>
+
+  google.charts.load('current', {'packages':['bar']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(nuevos_usuarios);
     var options = {
-      region: '013',
-      colorAxis: {colors: ['orange','green']},
-     };
-    var chart = new google.visualization.GeoChart(document.getElementById('mapa_paises'));
-    chart.draw(data, options);
+      chart: {
+        title: 'Nuevos usuarios',
+        subtitle: 'Número de usuarios registrados mensualmente',
+      },
+      bars: 'vertical',
+      vAxis: {format: 'decimal'},
+      height: 400,
+      colors: ['orange']
+    };
+    var chart = new google.charts.Bar(document.getElementById('grafica_nuevos_usuarios'));
+    chart.draw(data, google.charts.Bar.convertOptions(options));
   }
 </script>
 
@@ -70,8 +151,8 @@
     var data = google.visualization.arrayToDataTable(paquetes);
     var options = {
       chart: {
-        title: 'Viajes realizados',
-        subtitle: 'Numero de paquetes realizados en el año 2018',
+        title: 'Excursiones a realizar',
+        subtitle: 'Numero de paquetes a realizar',
       },
       bars: 'vertical',
       vAxis: {format: 'decimal'},
@@ -108,72 +189,6 @@
   }
 </script>
 
-<!-- Gráfica con categorias de rutas -->
-<script type="text/javascript">
-  var categorias = <?php echo $categorias; ?>
-
-    google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-      var data = google.visualization.arrayToDataTable(categorias);
-      var options = {
-        title: 'Paquetes turísticos por categoría',
-        is3D: true,
-        colors: ['orange','green','#5dcaba','#2c8f4f','#f8d895','#64ab7d']
-        //pieHole: 0.4,
-      };
-
-      var chart = new google.visualization.PieChart(document.getElementById('grafica_categorias_1'));
-      chart.draw(data, options);
-    }
-</script>
-
-<!-- Gráfica nuevos usuarios por mes -->
-<script type="text/javascript">
-  var nuevos_usuarios = <?php echo $nuevos_usuarios; ?>
-
-  google.charts.load('current', {'packages':['bar']});
-  google.charts.setOnLoadCallback(drawChart);
-
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable(nuevos_usuarios);
-    var options = {
-      chart: {
-        title: 'Nuevos usuarios por mes',
-      //  subtitle: 'Número de usuarios por mes',
-      },
-      bars: 'vertical',
-      vAxis: {format: 'decimal'},
-      height: 400,
-      colors: ['orange']
-    };
-    var chart = new google.charts.Bar(document.getElementById('grafica_nuevos_usuarios'));
-    chart.draw(data, google.charts.Bar.convertOptions(options));
-  }
-</script>
-
-<!-- Gráfica de Tipos de pago -->
-<script type="text/javascript">
- var tipos = <?php echo $tipospago; ?>
-
- google.charts.load('current', {'packages':['corechart']});
- google.charts.setOnLoadCallback(drawChart);
-
- function drawChart()
- {
-  var data = google.visualization.arrayToDataTable(tipos);
-  var options = {
-    title : 'Tipos de pagos registrados',
-    is3D: true,
-    slices: {
-      0: { color: 'orange' },
-      1: { color: 'green' }
-    }
-  };
-  var chart = new google.visualization.PieChart(document.getElementById('grafica_tipos'));
-  chart.draw(data, options);
- }
-</script>
 
 <div class="row">
   <div class="col-md-6">
@@ -234,25 +249,49 @@
 </div>
 
 <!-- Para imprimir gráfica -->
-<script type="text/javascript">
-function imprSelec(grafica_generos)
-{var ficha=document.getElementById(grafica_generos);var ventimp=window.open(' ','popimpr');ventimp.document.write(ficha.innerHTML);ventimp.document.close();ventimp.print();ventimp.close();}
-</script>
+<div class="row">
+  <div class="col-md-12">
+    <p class="text-center"><b>Rutas Turísticas por país</b></p>
+    <center>
+    <div id="mapa_paises" style="width: 900px; height: 500px;"></div>
+    <a href="javascript:imprSelec('mapa_paises')"><i class="fa Example of download fa-download"></i> Imprimir gráfica</a>
+  </center>
+    <br><br>
+    <br>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div id="grafica_generos" style="width:640px; height:400px;"></div>
+    <a href="javascript:imprSelec('grafica_generos')"><i class="fa Example of download fa-download"></i> Imprimir gráfica</a>
+    <div id='grafica_generos_png'></div>
+    <br><br><br>
+    <div id="grafica_tipos" style="width: 640px; height: 400px;"></div>
+    <a href="javascript:imprSelec('grafica_tipos')"><i class="fa Example of download fa-download"></i> Imprimir gráfica</a>
+    <div id='grafica_tipos_png'></div>
+  </div>
+  <div class="col-md-6">
+    <div id="grafica_categorias" style="width: 640px; height: 400px;"></div>
+    <a href="javascript:imprSelec('grafica_generos')"><i class="fa Example of download fa-download"></i> Imprimir gráfica</a>
+    <div id='grafica_categorias_png'></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <br><br><br><br>
+    <center><div id="grafica_nuevos_usuarios" style="width: 1000px; height: 450px;"></div></center>
+    <a href="javascript:imprSelec('grafica_nuevos_usuarios')"><i class="fa Example of download fa-download"></i> Imprimir gráfica</a>
+  </div>
+  <div class="col-md-12">
+    <br><br><br><br>
+    <center><div id="grafica_paquetes" style="width: 1000px; height: 450px;"></div></center>
+    <a href="javascript:imprSelec('grafica_paquetes')"><i class="fa Example of download fa-download"></i> Imprimir gráfica</a>
+  </div>
+  <div class="col-md-12">
+    <br><br><br><br>
+    <center><div id="grafica_costos" style="width: 1100px; height: 450px;"></div></center>
+    <a href="javascript:imprSelec('grafica_costos')"><i class="fa Example of download fa-download"></i> Imprimir gráfica</a>
+  </div>
+</div>
 
-<center>
-<div id="grafica_generos" style="width:750px; height:450px;"></div>
-<a href="javascript:imprSelec('grafica_generos')">Imprimir gráfica</a>
-<div id='png'></div>
-<br><br><br>
-<div id="grafica_nuevos_usuarios" style="width: 900px; height: 400px;"></div>
-<br><br><br>
-<h4>Rutas Turísticas por país</h4>
-<div id="mapa_paises" style="width: 900px; height: 500px;"></div>
-<br><br>
-<br><br>
-<div id="grafica_paquetes" style="width: 900px; height: 400px;"></div>
-<div id="grafica_costos" style="width: 900px; height: 400px;"></div>
-<div id="grafica_categorias_1" style="width: 900px; height: 500px;"></div>
-<div id="grafica_tipos" style="width: 900px; height: 500px;"></div>
-</center>
 @endsection
