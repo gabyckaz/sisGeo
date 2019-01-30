@@ -48,7 +48,7 @@ class EmpresaAlquilerTransporteController extends Controller
         'nombreContacto' => 'required|max:40',
         'codigoArea' => 'required',
         'numeroTelefono'=>'required|size:8',
-        'emailEmpresa'=>'required|max:30',
+        'emailEmpresa'=>'required|max:30|unique:EmpresaAlquilerTransporte,EmailEmpresaTransporte',
         'observacionesEmpresa'=>'max:255',
       ));
       //Guardar en la BD

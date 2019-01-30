@@ -71,7 +71,7 @@ class GraficaController extends Controller
          DB::raw('EXTRACT(YEAR FROM FechaSalida)'), '=', 2019)
       // ->union($paquetes2017)
        ->get();
-     $paquetesarray[] = ['Mes', 'Viajes 2019'];
+     $paquetesarray[] = ['Mes', 'Excursiones'];
 
      //Cambiando el numero del mes por el nombre en español, ej: 1 -> Enero
      foreach($paquetes as $key => $value)

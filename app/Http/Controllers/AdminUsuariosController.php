@@ -214,7 +214,7 @@ class AdminUsuariosController extends Controller
     }
 
   public function almacenarGuiaTurisco(Request $request)
-    {   
+    {
         if($request->input("segundoNombre") != null && $request->input("segundoApellido") != null ){
          $this->validate($request, [
           "Nombre" => "required|alpha|min:3|max:25",
@@ -223,7 +223,7 @@ class AdminUsuariosController extends Controller
           "segundoApellido" => "alpha|min:3|max:25",
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
-          "TelefonoContacto" => "required",
+          "TelefonoContacto" => "required|size:10",
           "idiomasGuia" => "required",
         ]);
         }
@@ -233,7 +233,7 @@ class AdminUsuariosController extends Controller
           "apellido" => "required|alpha|min:3|max:25",
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
-          "TelefonoContacto" => "required",
+          "TelefonoContacto" => "required|size:10",
           "idiomasGuia" => "required",
         ]);
         }
@@ -244,7 +244,7 @@ class AdminUsuariosController extends Controller
           "apellido" => "required|alpha|min:3|max:25",
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
-          "TelefonoContacto" => "required",
+          "TelefonoContacto" => "required|size:10",
           "idiomasGuia" => "required",
         ]);
         }
@@ -255,7 +255,7 @@ class AdminUsuariosController extends Controller
           "apellido" => "required|alpha|min:3|max:25",
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
-          "TelefonoContacto" => "required",
+          "TelefonoContacto" => "required|size:10",
           "idiomasGuia" => "required",
         ]);
         }
@@ -416,7 +416,7 @@ class AdminUsuariosController extends Controller
               $idiomaEmpleado->save();
           }
 
-        return redirect()->route('admin.agregar.guiaTuristico')->with('message',' Agregado con éxito');
+        return redirect()->route('admin.agregar.guiaTuristico')->with('message','Agregado con éxito');
     }
 
     public function editarInformacionGuia($id){
@@ -450,7 +450,7 @@ class AdminUsuariosController extends Controller
                  WHERE IdEmpleadoGEO = '.$id.' ;';
           $gIdiomas = DB::select($sql);
           $idiomasGuia = array();
-         
+
          for ($i=0; $i < count($gIdiomas); $i++) {
            $idiomasGuia[] = $gIdiomas[$i]->IdIdioma;
          }
@@ -467,7 +467,7 @@ class AdminUsuariosController extends Controller
           "Apellido" => "required|alpha|min:3|max:25",
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
-          "TelefonoContacto" => "required",
+          "TelefonoContacto" => "required|size:10",
           "idiomasGuia" => "required",
         ]);
 
@@ -511,7 +511,7 @@ class AdminUsuariosController extends Controller
           }
 
         }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
-           $hola1 = "Solo Ingresastes El dui";
+           $hola1 = "Solo ingresastes el DUI";
            $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
               "Apellido" => "required|alpha|min:3|max:25",
@@ -532,7 +532,7 @@ class AdminUsuariosController extends Controller
 
 
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
-           $hola1 = "Solo Ingresastes El pasaporte";
+           $hola1 = "Solo ingresastes el pasaporte";
 
             $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",

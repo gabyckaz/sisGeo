@@ -405,18 +405,18 @@
 
              <div class="col-md-4">
                 <div class="form-group">
-                     <label for="notificaciones" class="control-label">Notificaciones</label>
+                     <label for="notificaciones" class="control-label">Desea recibir notificaciones sobre nuevas excursiones por email</label>
                       <div >
                         <label class="custom-control custom-radio">
                           <input id="radio1" name="RecibirNotificacion" value="1" type="radio" class="custom-control-input" {{ $usuario->RecibirNotificacion == '1' ? 'checked' : '' }}>
 
                           <span class="custom-control-indicator"></span>
-                          <span class="custom-control-description">Recibir</span>
+                          <span class="custom-control-description">Sí</span>
                         </label>
                         <label class="custom-control custom-radio col-md-offset-2">
                           <input id="radio2" name="RecibirNotificacion" value="0" type="radio" class="custom-control-input" {{ $usuario->RecibirNotificacion == '0' ? 'checked' : '' }}>
                           <span class="custom-control-indicator"></span>
-                          <span class="custom-control-description">No recibir</span>
+                          <span class="custom-control-description">No</span>
                         </label>
                       </div>
                    </div>

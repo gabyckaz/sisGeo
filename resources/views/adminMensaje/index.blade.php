@@ -60,8 +60,8 @@
               </div>
           </div>
           <div class="row">
-              <div class="col-md-10 col-md-offset-4">
-                <button type="submit" class="btn btn-info "><STRONG>Actualizar</STRONG></button>
+              <div class="col-md-12">
+                <center><button type="submit" class="btn btn-info "><STRONG>Actualizar</STRONG></button></center>
               </div>
           </div>
         </div>

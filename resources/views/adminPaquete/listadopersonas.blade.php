@@ -45,9 +45,9 @@
       </p>
     @endif
 
-    @if (count($personas) == 0)
+    @if (count($personas) == 0 && count($otraspersonas) == 0)
       <p>No hay reservas realizadas<p>
-    @elseif (count($personas) >= 1)
+    @else
     <p><strong>Listado Personas</strong></p>
 
     <div class="table-responsive">

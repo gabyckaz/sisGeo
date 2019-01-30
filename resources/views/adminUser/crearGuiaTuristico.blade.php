@@ -51,7 +51,7 @@
       {!! method_field('PUT') !!}
       {!! csrf_field() !!}
        <div class="row">
-         <div class="col-md-4">
+         <div class="col-md-3">
             <div class="form-group has-feedback{{ $errors->has('Nombre') ? ' has-error' : '' }}">
                <label for="Nombre" class="control-label">Primer nombre*</label>
                   <div class="input-group">
@@ -65,7 +65,7 @@
                     @endif
             </div>
          </div>
-         <div class="col-md-4">
+         <div class="col-md-3">
             <div class="form-group has-feedback{{ $errors->has('segundoNombre') ? ' has-error' : '' }}">
                <label for="segundo Nombre" class="control-label">Segundo nombre</label>
                   <div class="input-group">
@@ -79,9 +79,7 @@
                     @endif
             </div>
          </div>
-       </div>
-       <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="form-group has-feedback{{ $errors->has('apellido') ? ' has-error' : '' }}">
               <label for="Apellido" class="control-label">Primer apellido*</label>
                 <div class="input-group">
@@ -95,7 +93,7 @@
                   @endif
             </div>
          </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="form-group has-feedback{{ $errors->has('segundoApellido') ? ' has-error' : '' }}">
               <label for="SegundoApellido" class="control-label">Segundo apellido</label>
                 <div class="input-group">
@@ -138,7 +136,7 @@
         <div class="col-md-3">
           <div class="form-group has-feedback{{ ($errors->has('fechaNacimiento') || session()->has('ErrorFechaNac') ) ? ' has-error' : '' }}">
             <label for="fechaNacimiento" class="control-label">Fecha de nacimiento*</label>
-               <div class="">
+               <div class="form-group">
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
@@ -170,7 +168,7 @@
                 </select>
               </div>
              </div>
-             <div class="col-md-4">
+             <div class="col-md-3">
                  <div class="form-group has-feedback{{ $errors->has('TelefonoContacto')  ? ' has-error' : '' }}">
                   <label for="telefono" class="control-label">Teléfono*</label>
                   <div class="input-group">
@@ -187,7 +185,7 @@
        </div>
        </div>
         <div class="row">
-          <div class="form-group col-md-8 has-feedback{{ $errors->has('Direccion') ? ' has-error' : '' }}">
+          <div class="form-group col-md-6 has-feedback{{ $errors->has('Direccion') ? ' has-error' : '' }}">
             <label for="observacionestransporte">Dirección*</label>
             <div class="input-group">
             <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
@@ -197,14 +195,26 @@
             <span class="help-block">{{ $errors->first('Direccion') }}</span>
             @endif
           </div>
+          <div class="col-xs-6 col-md-6">
+          <div class="form-group has-feedback{{ $errors->has('idiomasGuia') ? ' has-error' : '' }}">
+              <label name="idiomasGuia" for="idioma">Idiomas(elegir al menos 1) *</label>
+                <select class="form-control select2" multiple="multiple" name="idiomasGuia[]" id="idiomasGuia"  data-placeholder="Select a State" style="width: 100%;">
+                @foreach ($idiomas as $idioma)
+                <option value="{{$idioma->IdIdioma }}" {{ (collect(old('idiomasGuia'))->contains($idioma->IdIdioma)) ? 'selected':'' }} >{{$idioma->Idioma}}</option>
+                @endforeach
+                </select>
+                @if ($errors->has('idiomasGuia'))
+                <span class="help-block">{{ $errors->first('idiomasGuia') }}</span>
+              @endif
+           </div>
+          </div>
       </div>
        <hr>
       <div class="row">
 
-        <div class="col-md-3">
+        <div class="col-md-3 col-md-offset-2">
           <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('Errordui') ) ? ' has-error' : '' }}">
               <label for="dui" class="control-label">DUI</label>
-                <div class="">
                   <input type="text" name="dui" class="form-control" id="dui" placeholder="11111111-1" value="{{ old('dui') }}">
                    @if ($errors->has('dui'))
                        <span class="help-block">Un documento es requerido</span>
@@ -212,13 +222,11 @@
                   @if(session()->has('Errordui'))
                      <span class="help-block">{{ session()->get('Errordui') }}</span>
                      @endif
-                </div>
            </div>
         </div>
         <div class="col-md-3">
            <div class="form-group has-feedback{{ ( $errors->has('fechaVencimentoD') || session()->get('ErrorFechaVenceD')) ? ' has-error' : '' }}">
             <label for="fechaVencimentoD" class="control-label">Fecha de vencimiento</label>
-               <div class="">
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
@@ -232,13 +240,12 @@
                        <span class="help-block">{{ session()->get('ErrorFechaVenceD') }}</span>
                   @endif
 
-                </div>
           </div>
         </div>
 
       </div>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 col-md-offset-2">
            <div class="form-group has-feedback{{ $errors->has('pasaporte') ? ' has-error' : '' }}">
               <label for="pasaporte" class="control-label">Pasaporte</label>
                 <div class="">
@@ -269,30 +276,13 @@
           </div>
         </div>
       </div>
-         <div class="row">
-            <div class="col-xs-12 col-md-12">
-            <div class="form-group has-feedback{{ $errors->has('idiomasGuia') ? ' has-error' : '' }}">
-                <label name="idiomasGuia" for="idioma">Idiomas(elegir al menos 1) *</label>
-                  <select class="form-control select2" multiple="multiple" name="idiomasGuia[]" id="idiomasGuia"  data-placeholder="Select a State" style="width: 100%;">
-                  @foreach ($idiomas as $idioma)
-                  <option value="{{$idioma->IdIdioma }}" {{ (collect(old('idiomasGuia'))->contains($idioma->IdIdioma)) ? 'selected':'' }} >{{$idioma->Idioma}}</option>
-                  @endforeach
-                  </select>
-                  @if ($errors->has('idiomasGuia'))
-                  <span class="help-block">{{ $errors->first('idiomasGuia') }}</span>
-                @endif
-             </div>
-            </div>
+       <div class="row">
+          <div class="col-md-12 col-md-offset-4">
+            <br>
+              <button type="submit" class="btn btn-info "><STRONG>Registrar</STRONG></button>
+              <button type="reset" class="btn btn-warning "><STRONG>Limpiar</STRONG></button>
           </div>
-
-           <div class="row">
-
-              <div class="col-md-10 col-md-offset-4">
-                      <button type="submit" class="btn btn-info "><STRONG>Registrar</STRONG></button>
-                      <button type="reset" class="btn btn-warning "><STRONG>Limpiar</STRONG></button>
-                    </div>
-                    <!-- /.col -->
-            </div>
+        </div>
         </form>
       </div>
         <div class="box-footer">

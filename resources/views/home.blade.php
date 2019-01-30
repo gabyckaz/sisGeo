@@ -22,6 +22,10 @@ div.figure img{
    position: relative;
    width: 100%; /* for IE 6 */
 }
+img.resize {
+  width:200px;
+  height:250px;
+}
 h4 {
    position: absolute;
    top: 200px;
@@ -46,12 +50,12 @@ h4 span {
 @if(session('status'))
   <script type="text/javascript">
     alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session("status") }}');
-  </script>
+    </script>
 @endif
 @if(session('fallo'))
-  <script type="text/javascript">
-    alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
-  </script>
+    <script type="text/javascript">
+   alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
+   </script>
 @endif
 
 <div class="text-center" >
@@ -165,7 +169,7 @@ h4 span {
               @if($imagen->id_paquete == $paquete->IdPaquete )
               @php  ++$key @endphp
                 <a href="{{ url('MostrarPaqueteCliente/'.$paquete->IdPaquete) }}">
-                  <img src="{{Storage::url($imagen->Imagen1)}}" class="responsive figure"/>
+                  <img src="{{Storage::url($imagen->Imagen1)}}" class="responsive figure resize"/>
                 </a>
               @endif
               @if($key == 1)
