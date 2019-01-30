@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\MyResetPassword;
 
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Kyslik\ColumnSortable\Sortable;
@@ -87,6 +88,11 @@ class User extends Authenticatable
            // ->withPivot('EsFamiliar');
      // return $this->belongsToMany('App\Turista');
    // }
+  
+public function sendPasswordResetNotification($token)
+{
+    $this->notify(new MyResetPassword($token));
+}
 
 
 }

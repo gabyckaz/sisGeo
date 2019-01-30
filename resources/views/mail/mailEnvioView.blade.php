@@ -5,13 +5,17 @@
     <title>Notificacion Geouturismo</title>
 </head>
 <body>
+    <center>
     <p>{{ $mensaje->de }}</p>
-    <p>----</p>
-    <textarea rows="10" cols="75" >{{ $mensaje->cuerpoMensaje }}</textarea>
-    <p>--------</p>
-     <p>Puedes visitar el siguiente link para mas informacion  </p>
     
-    <p><a href="{{$mensaje->url}}">{{$mensaje->url}}</a></p>
+    <textarea rows="10" cols="75" readonly>{{ $mensaje->cuerpoMensaje }}</textarea>
+
+     <p>@lang("Puedes visitar el siguiente enlace para mas informacion:")  </p>
+    <p><a href="{{ $mensaje->url }} ">Nuevo Paquete</a></p>
+    <p>La idea de viajar es contemplar el mismo sol en un lugar diferente!</p>
+    <p>Feliz Dia!!!</p>
     <p>Fecha de recibo : {{ $mensaje->fechaEnvio }}</p>
+    </center>
+
 </body>
 </html>

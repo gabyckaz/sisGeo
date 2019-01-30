@@ -38,11 +38,11 @@
                           <div class="col-md-4">
                         <div class="form-group">
                             <label name="idrutaturistica" for="nombrerutaturistica">Nombre de Ruta Turística</label>
-
+{{$paquete->IdTuristica}}XXX
                                   @if($ruta !=null)
                                     <select  class="form-control" name="idrutaturistica"  id="idrutaturistica" readonly>
                                     @foreach ($ruta as $ruta)
-                                     <option value="{{ $ruta->IdRutaTuristica }}" {{ $ruta->IdRutaTuristica == $ruta->IdRutaTuristica ? 'selected' : '' }}>{{ $ruta->NombreRutaTuristica }}</option>
+                                     <option value="{{ $ruta->IdRutaTuristica }}" {{ $ruta->IdRutaTuristica == $paquete->IdTuristica ? 'selected' : '' }}>{{ $ruta->NombreRutaTuristica }}</option> 
                                     @endforeach
                                     </select>
                                     <hr>

@@ -43,6 +43,7 @@ class SendAutoresponder
            $dominio = \Request::root();
            $msj->url = $dominio."/MostrarPaqueteCliente/".$event->mensaje->url;
            $paquete = Paquete::find($event->mensaje->url);
+           $msj->save();
           // $msj->save();
           // Model::where('column_1','value_1')->where('column_2','value_2')->get();
         // $listaCorreosEnviar = User::where('RecibirNotificacion',1)
