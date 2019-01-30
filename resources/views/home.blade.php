@@ -50,12 +50,12 @@ h4 span {
 @if(session('status'))
   <script type="text/javascript">
     alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session("status") }}');
-  </script>
+    </script>
 @endif
 @if(session('fallo'))
-  <script type="text/javascript">
-    alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
-  </script>
+    <script type="text/javascript">
+   alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
+   </script>
 @endif
 
 <div class="text-center" >

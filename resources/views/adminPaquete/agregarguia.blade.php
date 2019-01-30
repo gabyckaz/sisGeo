@@ -5,32 +5,29 @@
 
 @endsection
 @section('Title')
-<strong>Agragar guia a paquete</strong>
+<strong>Asignar guía</strong>
 @endsection
 @section('contenido')
    @if(session()->has('message'))
-          <script type="text/javascript"> 
+          <script type="text/javascript">
            alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4>{{ session()->get('message') }} ');
           </script>
     @endif
     @if(session()->has('error'))
-        <script type="text/javascript"> 
+        <script type="text/javascript">
            alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4>{{ session()->get('error') }} ');
         </script>
     @endif
  <div class="box box-solid">
   <div class="box-header">
-        <h3 class="box-title"><strong><h2>{{ $paquete->NombrePaquete }}</h2></strong></h3>
-        <div class="box-tools pull-right">
-          <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
-        </div>
-      </div> 
+        <h3 class="box-title"><strong><h3>{{ $paquete->NombrePaquete }}</h3></strong></h3>
+      </div>
       <div class="box-body">
        <form id="miForm" method="POST" action="{{ route('adminPaquete.saveUpGuia',$paquete->IdPaquete) }}">
 	      {!! method_field('PUT') !!}
 	      {!! csrf_field() !!}
 	      {{-- <input type="hidden" name="idTurista" value="xx"/> --}}
-       
+
          <div class="row">
             <div class="col-xs-12 col-md-12">
             <div class="form-group has-feedback{{ $errors->has('guiasP') ? ' has-error' : '' }}">
@@ -54,7 +51,7 @@
        </form>
       </div>
          <div class="box-footer">
-             
+
         </div>
-   </div> 
+   </div>
 @endsection

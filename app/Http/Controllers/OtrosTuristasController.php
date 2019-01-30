@@ -9,6 +9,7 @@ use App\OtroTurista;
 use App\Reservacion;
 use Carbon\Carbon;
 use App\Paga;
+use DB;
 
 class OtrosTuristasController extends Controller
 {
@@ -19,7 +20,12 @@ class OtrosTuristasController extends Controller
      */
     public function index()
     {
-        $paquetes = Paquete::all();
+        $hoystr = Carbon::now()->format('Y-m-d');
+        $paquetes = DB::table('Paquetes')
+          ->select('*')
+          ->orderBy('FechaSalida', 'asc')
+          ->where('FechaSalida','>',$hoystr)
+          ->get();
         return view('adminOtrosTuristas.index', compact('paquetes'));
     }
 
@@ -49,7 +55,7 @@ class OtrosTuristasController extends Controller
         $this->validate($request, [
             "Nombre" => "required|alpha|min:2|max:25",
             "Apellido" => "required|alpha|min:2|max:25",
-            "Telefono" => "required",
+            "Telefono" => "required|min:8|max:12",
             "Paquete" => "required",
             "MetodoPago" => "required",
             "Costo" => "required",
@@ -173,6 +179,7 @@ class OtrosTuristasController extends Controller
         $paga->IdPaquete = $request->Paquete;
         $paga->save();
         }
+      return redirect('home')->with('status',"Agregado con éxito");
      }
 
      public function valid_patron($val)

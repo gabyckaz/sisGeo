@@ -172,16 +172,16 @@ class userController extends Controller
           $misPreferencias = explode(",", $turista->IdsCategoriasStr);
         }*/
         $query = 'SELECT tc.IdCategoria as Id
-          FROM turistacategoria as tc
+          FROM TuristaCategoria as tc
           WHERE tc.IdTurista = '.$turista->IdTurista.';';
           $misPq = DB::select($query);
-          
+
           if($misPq != null){
-            for ($i=0; $i < count($misPq); $i++) { 
+            for ($i=0; $i < count($misPq); $i++) {
              $val= $misPq[$i]->Id;
              $misPreferencias[] = (int)$val;
             }
-           
+
           }
          if($turista->documentos->count() == 2){
             $documentos = "duiPasaporte";
@@ -207,7 +207,7 @@ class userController extends Controller
     }
 
      public function completarInformacion(Request $request)
-    {   
+    {
         $categorias = Categoria::all();
         $documentos = "";
         $existeTurista ="";
@@ -337,10 +337,10 @@ class userController extends Controller
           $usuario = User::find(auth()->user()->id);
           $usuario->name = $request->PrimerNombrePersona;
           $usuario->save();
-          
+
         //Actualizo a la persona
           $persona = Persona::find(auth()->user()->IdPersona);
-          
+
           $persona->PrimerNombrePersona = $request->PrimerNombrePersona;
           $persona->SegundoNombrePersona = $request->SegundoNombrePersona;
           $persona->PrimerApellidoPersona = $request->PrimerApellidoPersona;
@@ -420,21 +420,21 @@ class userController extends Controller
          }
          $misPreferencias = array();
           $query = 'SELECT tc.IdCategoria as Id
-          FROM turistacategoria as tc
+          FROM TuristaCategoria as tc
           WHERE tc.IdTurista = '.$turista->IdTurista.';';
           $misPq = DB::select($query);
-          
+
           if($misPq != null){
-            for ($i=0; $i < count($misPq); $i++) { 
+            for ($i=0; $i < count($misPq); $i++) {
              $val= $misPq[$i]->Id;
              $misPreferencias[] = (int)$val;
             }
-           
+
           }
-          
+
         $nacionalidad = Nacionalidad::all();
         $existeTurista = "si";
-        return redirect('user/completarInformacion')->with('message','Usuario Creado');
+        return redirect('user/completarInformacion')->with('message','Actualizado con éxito');
         }else{
          $existeTurista = "si";
          //Actualizo el usuario
@@ -549,16 +549,16 @@ class userController extends Controller
         }*/
         $misPreferencias = array();
           $query = 'SELECT tc.IdCategoria as Id
-          FROM turistacategoria as tc
+          FROM TuristaCategoria as tc
           WHERE tc.IdTurista = '.$turista->IdTurista.';';
           $misPq = DB::select($query);
-          
+
           if($misPq != null){
-            for ($i=0; $i < count($misPq); $i++) { 
+            for ($i=0; $i < count($misPq); $i++) {
              $val= $misPq[$i]->Id;
              $misPreferencias[] = (int)$val;
             }
-           
+
           }
 
       // return view('user.completarInfoUserTurista', compact('usuario','nacionalidad' ,'existe'));

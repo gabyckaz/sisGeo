@@ -174,7 +174,7 @@ class PaqueteController extends Controller
     }
     public function show()
     {
-      $paquetes=Paquete::orderBy('IdPaquete','desc')->paginate(6);
+      $paquetes=Paquete::where('DisponibilidadPaquete','=','1')->paginate(6);
       $imagenes = ImagenPaqueteTuristico::all();
       return view('welcome')->with('imagenes',$imagenes)->with('paquetes',$paquetes);
     }
@@ -845,7 +845,7 @@ class PaqueteController extends Controller
 
       $sql = 'SELECT e.IdEmpleadoGEO, p.PrimerNombrePersona,p.PrimerApellidoPersona,
               p.AreaTelContacto, p.TelefonoContacto, n.Nacionalidad
-            FROM Empleado as e, personas as p, Turista as t, Nacionalidad as n, IdiomasEmpleado as I_Emp
+            FROM Empleado as e, personas as p, Turista as t, Nacionalidad as n
             WHERE e.IdPersona = p.IdPersona and t.IdPersona = p.IdPersona and t.IdNacionalidad = n.IdNacionalidad ;';
         $guias = DB::select($sql);
 

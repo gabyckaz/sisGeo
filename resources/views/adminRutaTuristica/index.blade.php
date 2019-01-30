@@ -8,7 +8,7 @@
 
 @section('contenido')
 <div class="row">
-  <div class="col-md-7 col-md-offset-2">
+  <div class="col-md-8 col-md-offset-2">
     @if(session('status'))
       <br>
       <script type="text/javascript">
@@ -30,7 +30,7 @@
     @endif
 
       <div class="box-header">
-        <h3 class="box-title"><STRONG>Agregar nueva Ruta Turística</STRONG></h3>
+        <h3 class="box-title"><STRONG>Registrar</STRONG></h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
         </div>
@@ -105,10 +105,11 @@
     </div>
   </div>
 
-  <div class="col-md-7 col-md-offset-2">
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
     <div class="box box-warning">
       <div class="box-header">
-        <h3 class="box-title"><STRONG>Listado de Rutas</STRONG></h3>
+        <h3 class="box-title"></h3>
         <div class="box-tools pull-right">
           <a class="btn btn-info" title="Descargar como PDF" href="{{ route('adminRutaTuristica.reporte')}}"><i class="fa Example of download fa-download"></i></a>
         </div>
@@ -142,4 +143,5 @@
     </div>
   </div>
 </div>
+
 @endsection

@@ -103,12 +103,19 @@ class CategoriaController extends Controller
     }
     public function eliminarcategoria($id){
 
+      try {
         $categoria=Categoria::where('IdCategoria',$id)->get()->first();
         if ($categoria!=null) {
           $categoria->delete();
           return back()->with('status',"Eliminado con éxito");
-            }else {
+        }else {
           return back()->with('fallo',"Error Categoria es parte de una ruta no se puede eliminar");
-            }
-         }
+        }
+
+      } catch (\Exception $e) {
+          return back()->with('fallo',"Error. Categoria es parte de una ruta no se puede eliminar");
+      }
+
+
+    }
 }

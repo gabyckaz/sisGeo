@@ -2,7 +2,7 @@
 
 @section('head')
 @section('Title')
-<STRONG>Transportes</STRONG>
+<STRONG>Unidades de Transportes</STRONG>
 
 @endsection
 
@@ -27,7 +27,7 @@
       <div class="box box-warning collapsed-box">
     @endif
       <div class="box-header">
-        <h3 class="box-title"><STRONG>Agregar nueva unidad de transporte</STRONG></h3>
+        <h3 class="box-title"><STRONG>Registrar</STRONG></h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
         </div>
@@ -165,7 +165,7 @@
   <div class="col-md-7  col-md-offset-2"><!-- Vista index -->
     <div class="box box-warning">
       <div class="box-header">
-        <h3 class="box-title"><STRONG>Listado de unidades de transporte</STRONG></h3>
+        <!-- <h3 class="box-title"><STRONG>Listado de unidades de transporte</STRONG></h3> -->
       </div>
       <div class="box-body">
         <div class="table-responsive">
