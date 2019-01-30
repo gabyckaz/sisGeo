@@ -30,7 +30,7 @@
     @endif
 
       <div class="box-header">
-        <h3 class="box-title"><STRONG>Registrar nueva empresa de transporte</STRONG></h3>
+        <h3 class="box-title"><STRONG>Registrar</STRONG></h3>
         <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse" ><i class="fa fa-plus"></i></button>
         </div>
@@ -114,11 +114,11 @@
       </div>
     </div>
   </div>
-
+<div class="row">
   <div class="col-md-8 col-md-offset-2">
     <div class="box box-warning">
       <div class="box-header">
-        <h3 class="box-title"><STRONG>Listado de Empresas</STRONG></h3>
+        <h3 class="box-title"><STRONG></STRONG></h3>
           <div class="box-tools pull-right">
             <a class="btn btn-info" title="Descargar como PDF" href="{{ route('adminEmpresaTransporte.reporte') }}"><i class="fa Example of download fa-download"></i></a>
           </div>
