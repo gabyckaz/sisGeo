@@ -172,6 +172,8 @@
                         </div>
 
                       </div>
+                      <div class="row">
+                        <div class="col-md-12">
                       <div class="form-group">
                           <label for="video"  class="control-label">URL del video en YouTube</label>
                           <div class="input-group">
@@ -179,6 +181,10 @@
                             <input type="text" name="video" class="form-control" id="video" value="{{ old('video')}}" placeholder="URL del Video en YouTube como Copiar código de inserción">
                           </div>
                       </div>
+                      </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
                       <div class="form-group">
                           <label for="galeria"  class="control-label">URL de la galeria de Facebook de este paquete</label>
                           <div class="input-group">
@@ -186,9 +192,11 @@
                             <input type="text" name="galeria" class="form-control" id="galeria" value="{{ old('galeria')}}" placeholder="URL de la galeria de imagenes en Facebook">
                           </div>
                       </div>
+                    </div>
+                  </div>
                     <div class="row">
                     <div class="col-md-12">
-                        <strong>  <p class="help-block">Mapa.</p></strong>
+                        <strong><p class="help-block">Mapa:</p></strong>
                       <a href="">
                           <img src="{{Storage::url("geoturismo.png")}}"  style="width: 800px; height: 400px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar4" >
                       </a>

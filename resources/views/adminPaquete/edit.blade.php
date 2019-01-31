@@ -38,7 +38,6 @@
                           <div class="col-md-4">
                         <div class="form-group">
                             <label name="idrutaturistica" for="nombrerutaturistica">Nombre de Ruta Turística</label>
-{{$paquete->IdTuristica}}XXX
                                   @if($ruta !=null)
                                     <select  class="form-control" name="idrutaturistica"  id="idrutaturistica" readonly>
                                     @foreach ($ruta as $ruta)
