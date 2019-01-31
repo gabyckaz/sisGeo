@@ -324,30 +324,51 @@
                           @endfor
                         </select>
                     </div>
-                        <strong><h4><span class="label label-primary">Imagenes Paquete</span></h4></strong>
-                        <div class="row">
-                          <div  id="lightgallery" >
-                            <div class="row">
-                              <input class="nuevaFoto" type="file" name="imagen1" id="imagen1" required>
-                              <a href="">
-                               <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" required>
-                              </a>
-                            </div>
-                            <div class="row">
-                              <input class="nuevaFoto2" type="file" name="imagen2" required>
-                                <a href="">
-                                  <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" required>
-                                </a>
-                            </div>
-                            <div class="row">
-                                <input class="nuevaFoto3" type="file" name="imagen3" required>
-                                  <a href="">
-                                    <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" required>
-                                  </a>
-                            </div>
-                           </div>
-                          </div>
+                     <div class="row">
+                    <div class="col-md-12">
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <strong><h3 class="panel-title">Imagenes para presentacion de paquete</h3></strong>
                         </div>
+                        <div class="panel-body">
+                          <hr>
+                           <table>
+                             <tbody>
+                               <tr>
+                                 <td><input class="nuevaFoto" type="file" name="imagen1" id="imagen1" required></td>
+                                 <td> <a href="">
+                                      <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar" required>
+                                  </a></td>
+                               </tr>
+                             </tbody>
+                           </table>
+                           <hr>
+                           <table>
+                             <tbody>
+                               <tr>
+                                 <td><input class="nuevaFoto2" type="file" name="imagen2" required></td>
+                                 <td><a href="">
+                                  <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar2" required>
+                                </a></td>
+                               </tr>
+                             </tbody>
+                           </table>
+                           <hr>
+                           <table>
+                             <tbody>
+                               <tr>
+                                 <td><input class="nuevaFoto3" type="file" name="imagen3" required></td>
+                                 <td><a href="">
+                                    <img src="{{Storage::url("geoturismo.png")}}"  style="width: 200px; height: 200px; border: 334px vspace=10" class="img-responsive img-rounded col-md-4 previsualizar3" required>
+                                  </a></td>
+                               </tr>
+                             </tbody>
+                           </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                         <!-- /.box-body -->
 
                          <div class="box-footer">

@@ -257,7 +257,7 @@
                Categorias</a></li>
         </ul>
     </li>
-     <li class=" treeview {{ (request()->is('CrearPaquete') || request()->is('MostrarPaquete') || request()->is('ActualizarEstado') || request()->is('CrearOpcionesPaquete')) ? 'active' : '' }}">
+     <li class=" treeview {{ (request()->is('CrearPaquete') || request()->is('MostrarPaquete') || request()->is('ActualizarEstado') || request()->is('CrearOpcionesPaquete') || request()->is('ActualizarEstadoPaquete') || request()->is('CrearOpcionesPaquete')) ? 'active' : '' }}">
       <a href="#">
         <i class="fa fa-ticket"></i><span>Paquetes Turísticos</span>
           <i class="pull-right-container"></i>
