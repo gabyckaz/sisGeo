@@ -7,7 +7,7 @@
 <strong>Listado de personas a asistir a {{$paquete->NombrePaquete}} el  {{ \Carbon\Carbon::parse($paquete->FechaSalida)->format('d/m/Y')}}</strong>
 @endsection
 @section('contenido')
-
+<div class="col-md-9 col-md-offset-1">
  <div class="box box-solid">
   <div class="box-header">
     <!-- <h3 class="box-title"><strong><h2>ddd</h2></strong></h3> -->
@@ -80,11 +80,13 @@
           @endforeach
         </tbody>
         </table>
+        <p>Total de personas: </p>
       </div>
 
     @endif
   </div>
   <div class="box-footer">
   </div>
-   </div>
+  </div>
+</div>
 @endsection

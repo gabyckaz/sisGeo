@@ -88,9 +88,7 @@ h4 span {
         <div class="icon">
           <i class="ion ion-stats-bars"></i>
         </div>
-        @role('Director')
         <a href="{{ route('adminPaquete.estado')}}" class="small-box-footer">Ver detalle <i class="fa fa-arrow-circle-right"></i></a>
-        @endrole
       </div>
     </div>
     <div class="col-md-3">

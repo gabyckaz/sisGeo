@@ -45,19 +45,7 @@ class GraficaController extends Controller
       $paisesarray[++$key] = [$value->pais, $value->number];
      }
 
-     //Paquetes por mes de año de 2018 que fueron aprobados y disponibles
-     // $paquetes2017 = DB::table('Paquetes')
-     //   ->select(
-     //      DB::raw('EXTRACT(MONTH FROM "FechaSalida") as mes2017'),
-     //      DB::raw('COUNT(EXTRACT(MONTH FROM "FechaSalida")) as number1')
-     //      )
-     //   //->orderBy('mes', 'asc')
-     //   ->groupBy(
-     //      DB::raw('EXTRACT(MONTH FROM "FechaSalida")')
-     //     )
-     //   ->where(
-     //     DB::raw('EXTRACT(YEAR FROM "FechaSalida")'), '=', 2017);
-
+     //Paquetes a realizar en 2019
      $paquetes = DB::table('Paquetes')
        ->select(
           DB::raw('EXTRACT(MONTH FROM FechaSalida) as mes'),
@@ -69,7 +57,6 @@ class GraficaController extends Controller
          )
        ->where(
          DB::raw('EXTRACT(YEAR FROM FechaSalida)'), '=', 2019)
-      // ->union($paquetes2017)
        ->get();
      $paquetesarray[] = ['Mes', 'Excursiones'];
 
@@ -155,12 +142,14 @@ class GraficaController extends Controller
         ->limit(8)
         ->get();
 
-      //Grafica de nuevos usuarios por mes
+      //Grafica de nuevos usuarios por mes durante el 2018
       $nuevos_usuarios= DB::table('users')
         ->select(
           DB::raw('EXTRACT(MONTH FROM created_at) as mes'),
           DB::raw('COUNT(EXTRACT(MONTH FROM created_at)) as number')
           )
+        ->where(
+          DB::raw('EXTRACT(YEAR FROM created_at)'), '=', 2018)
         ->groupBy(
           DB::raw('EXTRACT(MONTH FROM created_at)')
           )

@@ -966,7 +966,7 @@ class PaqueteController extends Controller
 
       //Consulta de Datos de cada turista de otros pagos
       $otraspersonas= DB::table('Pago')
-            ->join('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
+            ->rightjoin('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
             ->select('NumTelOtroTurista','NombreApellido','DuiOtroTurista','PasaporteOtroTurista')
             ->whereIn('OtrosTuristas.IdOtroTurista', $y)
             ->get();
@@ -1066,7 +1066,7 @@ class PaqueteController extends Controller
 
       //Consulta de Datos de cada turista de otros pagos
       $otraspersonas= DB::table('Pago')
-            ->join('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
+            ->rightjoin('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
             ->select('NumTelOtroTurista','NombreApellido','DuiOtroTurista','PasaporteOtroTurista')
             ->whereIn('OtrosTuristas.IdOtroTurista', $y)
             ->get();

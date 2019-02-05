@@ -122,6 +122,7 @@
                 <th class="text-center">Nombre</th>
                 <th class="text-center">Datos Generales</th>
                 <th class="text-center">País</th>
+                <th class="text-center">Categoría</th>
                 <th class="text-center">Opciones</th>
               </tr>
             </thead>
@@ -131,6 +132,7 @@
                   <td>{{$ruta->NombreRutaTuristica}}</td>
                   <td>{{ substr(($ruta->DatosGenerales),0,170) }}{{ strlen($ruta->DatosGenerales) > 10 ? "..." : "" }}</td>
                   <td>{{$ruta->pais->nombrePais}}</td>
+                  <td>{{$ruta->categoria->NombreCategoria}}</td>
                   <td><a class="btn btn-warning btn-sm fa fa-cog btn-block" title="Editar"
                                 href="{{ route('adminRutaTuristica.edit', $ruta )}}"></a>
                   </td>

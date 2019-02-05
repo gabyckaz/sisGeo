@@ -223,7 +223,7 @@ class AdminUsuariosController extends Controller
           "segundoApellido" => "alpha|min:3|max:25",
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
-          "TelefonoContacto" => "required|size:10",
+          "TelefonoContacto" => "required|min:8|max:10",
           "idiomasGuia" => "required",
         ]);
         }
@@ -233,7 +233,7 @@ class AdminUsuariosController extends Controller
           "apellido" => "required|alpha|min:3|max:25",
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
-          "TelefonoContacto" => "required|size:10",
+          "TelefonoContacto" => "required|min:8|max:10",
           "idiomasGuia" => "required",
         ]);
         }
@@ -244,7 +244,7 @@ class AdminUsuariosController extends Controller
           "apellido" => "required|alpha|min:3|max:25",
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
-          "TelefonoContacto" => "required|size:10",
+          "TelefonoContacto" => "required|min:8|max:10",
           "idiomasGuia" => "required",
         ]);
         }
@@ -255,7 +255,7 @@ class AdminUsuariosController extends Controller
           "apellido" => "required|alpha|min:3|max:25",
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
-          "TelefonoContacto" => "required|size:10",
+          "TelefonoContacto" => "required|min:8|max:10",
           "idiomasGuia" => "required",
         ]);
         }
@@ -467,7 +467,7 @@ class AdminUsuariosController extends Controller
           "Apellido" => "required|alpha|min:3|max:25",
           "fechaNacimiento" => "required",
           "Direccion" => "required|min:10|max:100",
-          "TelefonoContacto" => "required|size:10",
+          "TelefonoContacto" => "required|min:8|max:10",
           "idiomasGuia" => "required",
         ]);
 

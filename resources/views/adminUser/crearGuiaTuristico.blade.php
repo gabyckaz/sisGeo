@@ -175,7 +175,7 @@
                    <div class="input-group-addon">
                        <i class="fa fa-phone"></i>
                    </div>
-                    <input type="text" name="TelefonoContacto" class="form-control"  id="telefono" value="{{ old('TelefonoContacto')}}" placeholder="22223333">
+                    <input type="number" name="TelefonoContacto" class="form-control"  id="telefono" value="{{ old('TelefonoContacto')}}" placeholder="22223333">
                 </div> @if ($errors->has('TelefonoContacto'))
             <span class="help-block">{{ $errors->first('TelefonoContacto') }}</span>
             @endif

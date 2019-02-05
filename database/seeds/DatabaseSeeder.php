@@ -35,5 +35,8 @@ class DatabaseSeeder extends Seeder
         $this->call('ItinerarioPaqueteSeeder');
         $this->call('GastosExtrasPaqueteSeeder');
         $this->call('RecomendacionesPaqueteSeeder');
+        $this->call('TipoTransporteSeeder');
+        $this->call('EmpresaAlquilerTransporteSeeder');
+        $this->call('ConductorSeeder');
     }
 }

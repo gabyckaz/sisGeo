@@ -9,7 +9,7 @@ Ver Paquete
 @section('contenido')
 
 <div class="row">
-  <div class="col-md-9 col-md-offset-1">
+  <div class="col-md-10 col-md-offset-1">
     @if(session('status'))
     <script type="text/javascript">
     alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session("status") }}');
@@ -43,6 +43,7 @@ Ver Paquete
                   <th>Hora Salida</th>
                   <th>Precio</th>
                   <th>Opciones Paquete</th>
+                  <th>Estado</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,6 +72,12 @@ Ver Paquete
             <a href="{{route('adminPaquete.listadopersonas', $paquete['IdPaquete'])}}"
               class="btn btn-info fa fa-th-list" title="Listado de personas">
             </a>
+          </td>
+          <td>@if($paquete->FechaSalida < \Carbon\Carbon::now()->format('Y-m-d'))
+              <p>Realizado</p>
+              @else
+              <p>Por realizar</p>
+              @endif
           </td>
         </tr>
         @endforeach
