@@ -174,7 +174,7 @@ class PaqueteController extends Controller
     }
     public function show()
     {
-      $paquetes=Paquete::where('DisponibilidadPaquete','=','1')->paginate(6);
+      $paquetes=Paquete::where('DisponibilidadPaquete','=','1')->where('FechaSalida','>',Carbon::now()->format('Y-m-d'))->paginate(6);
       $imagenes = ImagenPaqueteTuristico::all();
       return view('welcome')->with('imagenes',$imagenes)->with('paquetes',$paquetes);
     }
@@ -361,6 +361,8 @@ class PaqueteController extends Controller
     { //Arreglar para mostrar solo paquete q esten activos
       $paquete= Paquete::findOrfail($id);//where('IdPaquete','=',$id)->first();
       $user = \Auth::user();//Usuario actual
+      if(!$user && $paquete->DisponibilidadPaquete == 0) //Si es visitante y el paquete no está aprobado
+        return abort(403);
       if($paquete->compara_fechas != 2 || $paquete->AprobacionPaquete == 0 || $paquete->DisponibilidadPaquete == 0){
         if(!($user->hasRole('Director') || $user->hasRole('Agente')))
           return abort(403);
@@ -1059,7 +1061,7 @@ class PaqueteController extends Controller
             ->join('Turista', 'TipoDocumento.IdTurista', '=', 'Turista.IdTurista')
             ->join('Nacionalidad', 'Turista.IdNacionalidad', '=', 'Nacionalidad.IdNacionalidad')
             ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
-            ->select('TipoDocumento.IdTurista','PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona',
+            ->select('Turista.IdTurista','TipoDocumento.IdTurista','PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona',
                      'SegundoApellidoPersona','TelefonoContacto','NumeroDocumento','Nacionalidad')
             ->whereIn('Turista.IdTurista', $z)
             ->get();

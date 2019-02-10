@@ -80,7 +80,6 @@
           @endforeach
         </tbody>
         </table>
-        <p>Total de personas: </p>
       </div>
 
     @endif

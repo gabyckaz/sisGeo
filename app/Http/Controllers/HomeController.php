@@ -11,6 +11,7 @@ use App\Persona;
 use DB;
 use App\ImagenPaqueteTuristico;
 use App\Pago;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -32,7 +33,7 @@ class HomeController extends Controller
     public function index()
     {
       try{
-        $paquetes=Paquete::where('DisponibilidadPaquete','=','1')->paginate(6);
+        $paquetes=Paquete::where('DisponibilidadPaquete','=','1')->where('FechaSalida','>',Carbon::now()->format('Y-m-d'))->paginate(6);
 
         $imagenes = ImagenPaqueteTuristico::all();
 

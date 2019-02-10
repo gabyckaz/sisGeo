@@ -105,7 +105,8 @@ function imprSelec(grafica_generos)
     is3D: true,
     slices: {
       0: { color: 'orange' },
-      1: { color: 'green' }
+      1: { color: 'green' },
+      2: { color: '#2c8f4f' }
     }
   };
   var chart = new google.visualization.PieChart(document.getElementById('grafica_tipos'));
@@ -151,8 +152,8 @@ function imprSelec(grafica_generos)
     var data = google.visualization.arrayToDataTable(paquetes);
     var options = {
       chart: {
-        title: 'Excursiones a realizar',
-        subtitle: 'Numero de paquetes a realizar',
+        title: 'Excursiones realizados',
+        subtitle: 'Número de paquetes realizados',
       },
       bars: 'vertical',
       vAxis: {format: 'decimal'},
@@ -206,6 +207,7 @@ function imprSelec(grafica_generos)
             <thead class="thead-dark">
               <tr>
                 <th class="text-center">Nombre</th>
+                <th class="text-center">Email</th>
                 <th class="text-center">Fecha</th>
               </tr>
             </thead>
@@ -213,6 +215,7 @@ function imprSelec(grafica_generos)
               @foreach($cumples as $cumple)
                 <tr>
                   <td>{{$cumple->PrimerNombrePersona}} {{$cumple->PrimerApellidoPersona}}</td>
+                  <td>{{$cumple->email}}</td>
                   <td>{{$cumple->FechaNacimiento}}</td>
                 </tr>
               @endforeach
@@ -289,7 +292,7 @@ function imprSelec(grafica_generos)
   </div>
   <div class="col-md-12">
     <br><br><br><br>
-    <center><div id="grafica_costos" style="width: 1100px; height: 450px;"></div></center>
+    <center><div id="grafica_costos" style="width: 1000px; height: 450px;"></div></center>
     <a href="javascript:imprSelec('grafica_costos')"><i class="fa Example of download fa-download"></i> Imprimir gráfica</a>
   </div>
 </div>

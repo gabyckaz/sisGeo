@@ -45,7 +45,7 @@ class GraficaController extends Controller
       $paisesarray[++$key] = [$value->pais, $value->number];
      }
 
-     //Paquetes a realizar en 2019
+     //Paquetes realizados en 2018
      $paquetes = DB::table('Paquetes')
        ->select(
           DB::raw('EXTRACT(MONTH FROM FechaSalida) as mes'),
@@ -56,7 +56,7 @@ class GraficaController extends Controller
           DB::raw('EXTRACT(MONTH FROM FechaSalida)')
          )
        ->where(
-         DB::raw('EXTRACT(YEAR FROM FechaSalida)'), '=', 2019)
+         DB::raw('EXTRACT(YEAR FROM FechaSalida)'), '=', 2018)
        ->get();
      $paquetesarray[] = ['Mes', 'Excursiones'];
 
@@ -95,7 +95,7 @@ class GraficaController extends Controller
           )
         ->groupBy(DB::raw('EXTRACT(MONTH FROM FechaSalida)'))
         ->get();
-      $costosarray[] = ['Meses', 'Cantidad en dólares ($)'];
+      $costosarray[] = ['Meses', 'En dólares ($)'];
       foreach($costos as $key => $value)
       {
         $value->mes=DateTime::createFromFormat('!m', $value->mes);
@@ -112,7 +112,7 @@ class GraficaController extends Controller
       $cumples= DB::table('Turista')
         ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
         ->join('users', 'personas.IdPersona', '=', 'users.IdPersona')
-        ->select('personas.PrimerNombrePersona','personas.PrimerApellidoPersona','Turista.FechaNacimiento' )
+        ->select('personas.PrimerNombrePersona','personas.PrimerApellidoPersona','Turista.FechaNacimiento','email' )
         ->where([
           [DB::raw('EXTRACT(MONTH FROM FechaNacimiento)'), '=', $mes_actual],
           ['EstadoUsuario', '=', '1'],

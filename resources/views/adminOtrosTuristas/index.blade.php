@@ -129,10 +129,10 @@
               <div class="form-group">
                 <label>Metodo de Pago</label>
                 <select name="MetodoPago" class="form-control" >
-                  <option value="telefono" @if (old('tipo') == "telefono") {{ 'selected' }} @endif >Telefono</option>
-                  <option value="persona" @if (old('tipo') == "persona") {{ 'selected' }} @endif >Persona</option>
-                  <option value="banco" @if (old('tipo') == "banco") {{ 'selected' }} @endif >Banco</option>
-                  <option value="banco" @if (old('tipo') == "puntoExpres") {{ 'selected' }} @endif >Punto Express</option>
+                  <option value="Teléfono" @if (old('tipo') == "Teléfono") {{ 'selected' }} @endif >Telefono</option>
+                  <option value="Presencial" @if (old('tipo') == "Presencial") {{ 'selected' }} @endif >Persona</option>
+                  <option value="Banco" @if (old('tipo') == "Banco") {{ 'selected' }} @endif >Banco</option>
+                  <option value="PuntoExpress" @if (old('tipo') == "PuntoExpress") {{ 'selected' }} @endif >Punto Express</option>
                 </select>
               </div>
             </div>

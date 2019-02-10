@@ -84,7 +84,7 @@
           </div>
           <div class="col-md-4">
             <div class="form-group">
-                <label for="cupos">Número de Asientos</label>
+                <label for="cupos">Cupos</label>
                 <div class="input-group">
                   <span class="input-group-addon">
                     <i class="fa fa-child"></i>

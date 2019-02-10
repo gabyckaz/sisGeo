@@ -31,13 +31,13 @@ class UserSeeder extends Seeder
         'IdPersona'=>2,
         'email'=>'yanira@gmail.com',
         'password'=>bcrypt('geoturismo2019'),
-        'RecibirNotificacion'=>0,
+        'RecibirNotificacion'=>1,
         'EstadoUsuario'=>1,
         'remember_token'=>' ',
         'created_at'=>date('Y-m-d H:m:s'),
         'updated_at'=>date('Y-m-d H:m:s'),
         'avatar'=>'default.gif'
-      ]); 
+      ]);
       User::create([
         'id'=>3,
         'name'=>'Gabriela',
