@@ -16,7 +16,7 @@ class PaisSeeder extends Seeder
         /*  $faker = Faker::create();
       for ($i=0; $i < 9; $i++) {
 
-        \DB::table('Pais')->insert(array(
+        \DB::table('pais')->insert(array(
          'nombrePais' => $faker->randomElement(['El Salvador','Guatemala','Honduras','Costa Rica','Belice','Nicaragua','Panama','Mexico','Peru']),
          'created_at' => date('Y-m-d H:m:s'),
          'updated_at' => date('Y-m-d H:m:s')

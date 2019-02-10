@@ -10,7 +10,7 @@ class Paquete extends Model
 {
     use Sortable;
     //aqui se especifica el nombre de la tabla relacionada al modelo
-    protected $table = 'Paquetes';
+    protected $table = 'paquetes';
 
     //Para que no se greguen los atributos automaticos de updated_at y created_at
     public $timestamps = true;
@@ -42,13 +42,13 @@ class Paquete extends Model
     //relacion muchos a muchos con Transporte
     public function transportes()
     {
-      return $this->belongsToMany('App\Transporte', 'Contrata', 'IdPaquete', 'IdTransporte');
+      return $this->belongsToMany('App\Transporte', 'contrata', 'IdPaquete', 'IdTransporte');
     }
 
     //relacion muchos a muchos con Conductor
     public function conductores()
     {
-      return $this->belongsToMany('App\Conductor', 'Conduce', 'IdPaquete', 'IdConductor');
+      return $this->belongsToMany('App\Conductor', 'conduce', 'IdPaquete', 'IdConductor');
     }
     /*
      1. Si hoy es mayor que fecha de salida return 1.

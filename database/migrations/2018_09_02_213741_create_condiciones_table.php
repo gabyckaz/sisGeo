@@ -13,21 +13,21 @@ class CreateCondicionesTable extends Migration
      */
     public function up()
     {
-      Schema::create('Condiciones', function (Blueprint $table) {
+      Schema::create('condiciones', function (Blueprint $table) {
           $table->increments('IdCondiciones');
           $table->string('NombreCondiciones');
           $table->timestamps();
       });
 
       // Create table for associating gastosextras to paquete (Many-to-Many)
-      Schema::create('Condiciones_Paquete', function (Blueprint $table) {
+      Schema::create('condiciones_paquete', function (Blueprint $table) {
         $table->increments('IdCondicionesPaquete');
           $table->integer('condiciones_id')->unsigned();
           $table->integer('paquete_id')->unsigned();
 
-          $table->foreign('condiciones_id')->references('IdCondiciones')->on('Condiciones')
+          $table->foreign('condiciones_id')->references('IdCondiciones')->on('condiciones')
               ->onUpdate('cascade')->onDelete('cascade');
-          $table->foreign('paquete_id')->references('IdPaquete')->on('Paquetes')
+          $table->foreign('paquete_id')->references('IdPaquete')->on('paquetes')
               ->onUpdate('cascade')->onDelete('cascade');
       });
     }
@@ -39,7 +39,7 @@ class CreateCondicionesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Condiciones_Paquete');
-        Schema::dropIfExists('Condiciones');
+        Schema::dropIfExists('condiciones_paquete');
+        Schema::dropIfExists('condiciones');
     }
 }

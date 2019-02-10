@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Idioma extends Model
 {
-    protected $table = 'Idiomas';
+    protected $table = 'idiomas';
     //Para que no se greguen los atributos automaticos de updated_at y created_at
     public $timestamps = true;
 

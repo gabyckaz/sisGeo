@@ -155,7 +155,7 @@ class userController extends Controller
 	public function editarInformacion()
     {
         $existeturista ="";
-        //$t = DB::table('Turista')->where('IdPersona', auth()->user()->IdPersona)->first();
+        //$t = DB::table('turista')->where('IdPersona', auth()->user()->IdPersona)->first();
         //$t = Turista::find(auth()->user()->IdPersona); //--> arreglar esto xq no me esta buscando el turista con id de turista
         $turista = Turista::where('IdPersona',auth()->user()->IdPersona)->first();
         //$documento = TipoDocumento::where('IdTurista',$t->IdTurista);
@@ -172,7 +172,7 @@ class userController extends Controller
           $misPreferencias = explode(",", $turista->IdsCategoriasStr);
         }*/
         $query = 'SELECT tc.IdCategoria as Id
-          FROM TuristaCategoria as tc
+          FROM turistacategoria as tc
           WHERE tc.IdTurista = '.$turista->IdTurista.';';
           $misPq = DB::select($query);
 
@@ -420,7 +420,7 @@ class userController extends Controller
          }
          $misPreferencias = array();
           $query = 'SELECT tc.IdCategoria as Id
-          FROM TuristaCategoria as tc
+          FROM turistacategoria as tc
           WHERE tc.IdTurista = '.$turista->IdTurista.';';
           $misPq = DB::select($query);
 
@@ -549,7 +549,7 @@ class userController extends Controller
         }*/
         $misPreferencias = array();
           $query = 'SELECT tc.IdCategoria as Id
-          FROM TuristaCategoria as tc
+          FROM turistacategoria as tc
           WHERE tc.IdTurista = '.$turista->IdTurista.';';
           $misPq = DB::select($query);
 
@@ -570,7 +570,7 @@ class userController extends Controller
     public function editInfoUserTurista($id){
        // $id =  Crypt::decrypt($id);
 
-        $turista = DB::table('Turista')->where('IdPersona', auth()->user()->IdPersona)->first();
+        $turista = DB::table('turista')->where('IdPersona', auth()->user()->IdPersona)->first();
         $nacionalidad = Nacionalidad::all();
 
         return view('user.editInfoUserTurista', compact('turista', 'nacionalidad'));
@@ -582,7 +582,7 @@ class userController extends Controller
        // $usuario = User::findOrFail(auth()->user()->id);
          $nacionalidad = Nacionalidad::all();
          $sqlUserTurista = 'SELECT   t.IdTurista as Id
-          FROM users as u, Turista as t,
+          FROM users as u, turista as t,
           personas as p
           WHERE u.IdPersona = p.IdPersona and
           t.IdPersona=p.IdPersona and
@@ -596,8 +596,8 @@ class userController extends Controller
           p.PrimerNombrePersona,p.PrimerApellidoPersona,p.Genero,
           n.Nacionalidad,t.FechaNacimiento, t.DomicilioTurista,
           t.Problemas_Salud
-          FROM Acompanante as a, Turista as t,
-          personas as p, Nacionalidad as n
+          FROM acompanante as a, turista as t,
+          personas as p, nacionalidad as n
           WHERE a.IdTurista = t.IdTurista and
           t.IdPersona=p.IdPersona and t.IdNacionalidad = n.IdNacionalidad and
           a.IdUsuario = '.auth()->user()->id.' )
@@ -606,8 +606,8 @@ class userController extends Controller
           p.PrimerNombrePersona,p.PrimerApellidoPersona,p.Genero,
           n.Nacionalidad,t.FechaNacimiento, t.DomicilioTurista,
           t.Problemas_Salud
-          FROM users as u, Turista as t,
-          personas as p, Nacionalidad as n
+          FROM users as u, turista as t,
+          personas as p, nacionalidad as n
           WHERE u.IdPersona = p.IdPersona and
           t.IdPersona=p.IdPersona and t.IdNacionalidad = n.IdNacionalidad and
           u.id = '.auth()->user()->id.')';
@@ -836,7 +836,7 @@ class userController extends Controller
    public function editarInformacionFamiliarAmigo($idTurista){
         $nacionalidad = Nacionalidad::all();
        $sql = 'SELECT IdFamiliarAmigo, IdTurista, IdUsuario, EsFamiliar
-                FROM Acompanante
+                FROM acompanante
                 WHERE IdUsuario = '.auth()->user()->id.' AND IdTurista = '.$idTurista.';';
        $resultado= DB::select($sql);
        if($resultado == null){
@@ -845,7 +845,7 @@ class userController extends Controller
 
        $turista = Turista::find($idTurista );
         $sqltipo = 'SELECT EsFamiliar
-                    FROM Acompanante
+                    FROM acompanante
                     WHERE IdTurista = '.$turista->IdTurista.';';
         $tipo = DB::select($sqltipo);
         $tipo = $tipo[0]->EsFamiliar;
@@ -1011,11 +1011,11 @@ class userController extends Controller
  public function prueba(){
     //$ts = Turista::all();
          /*$sql = 'SELECT "IdTurista", "IdNacionalidad", "IdPersona", "CategoriaTurista", "FechaNacimiento", "DomicilioTurista", "Problemas_Salud"
-          FROM "Turista"';
+          FROM "turista"';
          */
           $sqlUserTurista = 'SELECT   t.IdTurista as Id,
           p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido
-          FROM users as u, Turista as t,
+          FROM users as u, turista as t,
           personas as p
           WHERE u.IdPersona = p.IdPersona and
           t.IdPersona=p.IdPersona and
@@ -1024,8 +1024,8 @@ class userController extends Controller
 
           $sqlAmigos = 'SELECT  a.IdTurista as Id,
           p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido,a.EsFamiliar as Tipo,p.Genero
-          FROM Acompanante as a, Turista as t,
-          personas as p, Nacionalidad as n
+          FROM acompanante as a, turista as t,
+          personas as p, nacionalidad as n
           WHERE a.IdTurista = t.IdTurista and
           t.IdPersona=p.IdPersona and t.IdNacionalidad = n.IdNacionalidad and
           a.IdUsuario = '.auth()->user()->id.' AND a.EsFamiliar = \'A\';';
@@ -1033,8 +1033,8 @@ class userController extends Controller
 
           $sqlFamilia = 'SELECT  a.IdTurista as Id,
           p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido,a.EsFamiliar as Tipo,p.Genero
-          FROM Acompanante as a, Turista as t,
-          personas as p, Nacionalidad as n
+          FROM acompanante as a, turista as t,
+          personas as p, nacionalidad as n
           WHERE a.IdTurista = t.IdTurista and
           t.IdPersona=p.IdPersona and t.IdNacionalidad = n.IdNacionalidad and
           a.IdUsuario = '.auth()->user()->id.' AND a.EsFamiliar = \'F\';';

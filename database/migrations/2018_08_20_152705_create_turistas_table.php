@@ -14,13 +14,13 @@ class CreateTuristasTable extends Migration
      */
     public function up()
     {
-           Schema::create('Nacionalidad', function (Blueprint $table) {
+           Schema::create('nacionalidad', function (Blueprint $table) {
             $table->increments('IdNacionalidad');
             $table->string('Nacionalidad',25)->unique();
             $table->timestamps();
         });
 
-        Schema::create('Turista', function (Blueprint $table) {
+        Schema::create('turista', function (Blueprint $table) {
             $table->increments('IdTurista');
             $table->integer('IdNacionalidad')->unsigned();
             $table->integer('IdPersona')->unsigned();
@@ -33,16 +33,16 @@ class CreateTuristasTable extends Migration
             $table->string('Problemas_Salud',256)->nullable();
             $table->timestamps();
             $table->foreign('IdPersona')->references('IdPersona')->on('personas')->onDelete('cascade');
-            $table->foreign('IdNacionalidad')->references('IdNacionalidad')->on('Nacionalidad')->onDelete('cascade');
+            $table->foreign('IdNacionalidad')->references('IdNacionalidad')->on('nacionalidad')->onDelete('cascade');
         });
 
-        Schema::create('TipoDocumento', function (Blueprint $table) {
+        Schema::create('tipodocumento', function (Blueprint $table) {
             $table->increments('IdTipoDocumento');
             $table->integer('IdTurista')->unsigned();
             $table->string('TipoDocumento',9);
             $table->string('NumeroDocumento',10);
             $table->date('FechaVenceDocumento');
-            $table->foreign('IdTurista')->references('IdTurista')->on('Turista')->onDelete('cascade');
+            $table->foreign('IdTurista')->references('IdTurista')->on('turista')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -54,8 +54,8 @@ class CreateTuristasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('TipoDocumento');
-        Schema::dropIfExists('Turista');
-        Schema::dropIfExists('Nacionalidad');
+        Schema::dropIfExists('tipodocumento');
+        Schema::dropIfExists('turista');
+        Schema::dropIfExists('nacionalidad');
     }
 }

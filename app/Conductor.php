@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Conductor extends Model
 {
   //aqui se especifica el nombre de la tabla relacionada al modelo
-  protected $table = 'Conductor';
+  protected $table = 'conductor';
 
   //Para que no se greguen los atributos automaticos de updated_at y created_at
   public $timestamps = false;
@@ -24,6 +24,6 @@ class Conductor extends Model
   //relacion muchos a muchos con paquetes
   public function paquetescon()
   {
-      return $this->belongsToMany('App\Paquete', 'Conduce', 'IdConductor', 'IdPaquete');
+      return $this->belongsToMany('App\Paquete', 'conduce', 'IdConductor', 'IdPaquete');
   }
 }

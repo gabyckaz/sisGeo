@@ -32,12 +32,12 @@ class GraficaController extends Controller
      }
 
      //Rutas por paises
-    $paises = DB::table('Pais')
-      ->join('RutaTuristica', 'Pais.IdPais', '=', 'RutaTuristica.IdPais')
+    $paises = DB::table('pais')
+      ->join('rutaturistica', 'pais.IdPais', '=', 'rutaturistica.IdPais')
       ->select(
         DB::raw('nombrePais as pais'),
         DB::raw('count(nombrePais) as number'))
-      ->groupBy('Pais.nombrePais')
+      ->groupBy('pais.nombrePais')
       ->get();
     $paisesarray[] = ['Pais', 'Numero'];
      foreach($paises as $key => $value)
@@ -46,7 +46,7 @@ class GraficaController extends Controller
      }
 
      //Paquetes realizados en 2018
-     $paquetes = DB::table('Paquetes')
+     $paquetes = DB::table('paquetes')
        ->select(
           DB::raw('EXTRACT(MONTH FROM FechaSalida) as mes'),
           DB::raw('COUNT(EXTRACT(MONTH FROM FechaSalida)) as number')
@@ -73,12 +73,12 @@ class GraficaController extends Controller
       }
 
       //Rutas por categorias
-      $categorias = DB::table('Categoria')
-        ->join('RutaTuristica', 'Categoria.IdCategoria', '=', 'RutaTuristica.IdCategoria')
+      $categorias = DB::table('categoria')
+        ->join('rutaturistica', 'categoria.IdCategoria', '=', 'rutaturistica.IdCategoria')
         ->select(
           DB::raw('NombreCategoria as categoria'),
           DB::raw('count(NombreCategoria) as number'))
-        ->groupBy('Categoria.NombreCategoria')
+        ->groupBy('categoria.NombreCategoria')
         ->get();
       $categoriasarray[] = ['Categoria', 'Numero'];
       foreach($categorias as $key => $value)
@@ -87,10 +87,10 @@ class GraficaController extends Controller
       }
 
       //Costos de trasporte
-      $costos = DB::table('Paquetes')
-        ->join('CostoAlquilerTransporte', 'Paquetes.IdPaquete', '=', 'CostoAlquilerTransporte.IdPaquete')
+      $costos = DB::table('paquetes')
+        ->join('costoalquilertransporte', 'paquetes.IdPaquete', '=', 'costoalquilertransporte.IdPaquete')
         ->select(
-          DB::raw('EXTRACT(MONTH FROM Paquetes.FechaSalida) as mes'),
+          DB::raw('EXTRACT(MONTH FROM paquetes.FechaSalida) as mes'),
           DB::raw('SUM(CostoAlquilerTransporte) as number')
           )
         ->groupBy(DB::raw('EXTRACT(MONTH FROM FechaSalida)'))
@@ -109,10 +109,10 @@ class GraficaController extends Controller
 
       //Listado de cumpleañeros del mes (usuarios activos)
       $mes_actual = Carbon\Carbon::now()->format('m');
-      $cumples= DB::table('Turista')
-        ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
+      $cumples= DB::table('turista')
+        ->join('personas', 'turista.IdPersona', '=', 'personas.IdPersona')
         ->join('users', 'personas.IdPersona', '=', 'users.IdPersona')
-        ->select('personas.PrimerNombrePersona','personas.PrimerApellidoPersona','Turista.FechaNacimiento','email' )
+        ->select('personas.PrimerNombrePersona','personas.PrimerApellidoPersona','turista.FechaNacimiento','email' )
         ->where([
           [DB::raw('EXTRACT(MONTH FROM FechaNacimiento)'), '=', $mes_actual],
           ['EstadoUsuario', '=', '1'],
@@ -120,8 +120,8 @@ class GraficaController extends Controller
         ->get();
 
       //Total de cumpleañeros del mes (usuarios activos)
-      $total_cumples= DB::table('Turista')
-        ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
+      $total_cumples= DB::table('turista')
+        ->join('personas', 'turista.IdPersona', '=', 'personas.IdPersona')
         ->join('users', 'personas.IdPersona', '=', 'users.IdPersona')
         ->where([
           [DB::raw('EXTRACT(MONTH FROM FechaNacimiento)'), '=', $mes_actual],
@@ -169,7 +169,7 @@ class GraficaController extends Controller
         }
 
         //Tipos de Pago
-       $tipospago = DB::table('Pago')
+       $tipospago = DB::table('pago')
          ->select(
           DB::raw('TipoPago as tipo'),
           DB::raw('count(*) as number'))

@@ -13,7 +13,7 @@ class CreateMensajeTable extends Migration
      */
     public function up()
     {
-        Schema::create('Mensaje', function (Blueprint $table) {
+        Schema::create('mensaje', function (Blueprint $table) {
             $table->increments('id');
             $table->date('fechaEnvio');
             $table->string('de');
@@ -30,6 +30,6 @@ class CreateMensajeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Mensaje');
+        Schema::dropIfExists('mensaje');
     }
 }

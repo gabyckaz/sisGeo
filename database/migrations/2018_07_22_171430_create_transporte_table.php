@@ -13,7 +13,7 @@ class CreateTransporteTable extends Migration
      */
     public function up()
     {
-        Schema::create('Transporte', function (Blueprint $table) {
+        Schema::create('transporte', function (Blueprint $table) {
             $table->increments('IdTransporte');
             $table->integer('IdTipoTransporte')->unsigned();
             $table->integer('IdEmpresaTransporte')->unsigned();
@@ -26,8 +26,8 @@ class CreateTransporteTable extends Migration
             $table->string('TieneTV',2)->nullable();
             $table->string('TieneWifi',2)->nullable();
             $table->string('ObservacionesTransporte',250)->nullable();
-            $table->foreign('IdTipoTransporte')->references('IdTipoTransporte')->on('TipoTransporte');
-            $table->foreign('IdEmpresaTransporte')->references('IdEmpresaTransporte')->on('EmpresaAlquilerTransporte');
+            $table->foreign('IdTipoTransporte')->references('IdTipoTransporte')->on('tipotransporte');
+            $table->foreign('IdEmpresaTransporte')->references('IdEmpresaTransporte')->on('empresaalquilertransporte');
         });
 
     }
@@ -39,6 +39,6 @@ class CreateTransporteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Transporte');
+        Schema::dropIfExists('transporte');
     }
 }

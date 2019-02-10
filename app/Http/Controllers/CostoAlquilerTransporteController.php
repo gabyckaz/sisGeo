@@ -26,7 +26,7 @@ class CostoAlquilerTransporteController extends Controller
     public function create(Request $request, $id)
     {
       $paquete = Paquete::findOrFail($id);
-      $costo= DB::table('CostoAlquilerTransporte')->where('IdPaquete', $id)->value('CostoAlquilerTransporte');
+      $costo= DB::table('costoalquilertransporte')->where('IdPaquete', $id)->value('costoalquilertransporte');
       return view('adminPaquete.costos.create',compact('paquete','costo'));
     }
 
@@ -36,12 +36,12 @@ class CostoAlquilerTransporteController extends Controller
     */
     public function store(Request $request,$id)
     {
-        $costo= DB::table('CostoAlquilerTransporte')->where('IdPaquete', $id)->exists(); //consulta si ya existe un registro de costos con este paquete
+        $costo= DB::table('costoalquilertransporte')->where('IdPaquete', $id)->exists(); //consulta si ya existe un registro de costos con este paquete
         if($costo){//si ya existe hace un update
           $this->validate($request,array(
             'precio'=>'required|min:2|max:7'
           ));
-          $IdCostoAlquilerTransporte= DB::table('CostoAlquilerTransporte')->where('IdPaquete', $id)->value('IdCostoAlquilerTransporte');
+          $IdCostoAlquilerTransporte= DB::table('costoalquilertransporte')->where('IdPaquete', $id)->value('IdCostoAlquilerTransporte');
           $costo = CostoAlquilerTransporte::find($IdCostoAlquilerTransporte);
           $costo->IdPaquete=$id;
           $costo->CostoAlquilerTransporte=$request->precio;
@@ -65,9 +65,9 @@ class CostoAlquilerTransporteController extends Controller
     */
     public function reporte()
     {
-      $costos = DB::table('CostoAlquilerTransporte')
-            ->join('Paquetes', 'CostoAlquilerTransporte.IdPaquete', '=', 'Paquetes.IdPaquete')
-            ->select('Paquetes.NombrePaquete','FechaSalida', 'CostoAlquilerTransporte.CostoAlquilerTransporte')
+      $costos = DB::table('costoalquilertransporte')
+            ->join('paquetes', 'costoalquilertransporte.IdPaquete', '=', 'paquetes.IdPaquete')
+            ->select('paquetes.NombrePaquete','FechaSalida', 'costoalquilertransporte.CostoAlquilerTransporte')
             ->orderBy('CostoAlquilerTransporte', 'desc')
             ->limit(10)
             ->get();

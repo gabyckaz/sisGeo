@@ -13,27 +13,27 @@ class CreateEmpleadoTable extends Migration
      */
     public function up()
     {
-        Schema::create('Empleado', function (Blueprint $table) {
+        Schema::create('empleado', function (Blueprint $table) {
             $table->increments('IdEmpleadoGEO');
             $table->integer('IdPersona')->unsigned();
             $table->timestamps();
             $table->foreign('IdPersona')->references('IdPersona')->on('personas')->onDelete('cascade');
         });
 
-         Schema::create('Idiomas', function (Blueprint $table) {
+         Schema::create('idiomas', function (Blueprint $table) {
             $table->increments('IdIdioma');
             $table->string('Idioma',30);
             $table->timestamps();
         });
 
-        Schema::create('IdiomasEmpleado', function (Blueprint $table) {
+        Schema::create('idiomasempleado', function (Blueprint $table) {
             $table->increments('IdIdiomaEmpleado');
             $table->integer('IdIdioma')->unsigned();
             $table->integer('IdEmpleadoGEO')->unsigned();
 
-            $table->foreign('IdIdioma')->references('IdIdioma')->on('Idiomas')
+            $table->foreign('IdIdioma')->references('IdIdioma')->on('idiomas')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('IdEmpleadoGEO')->references('IdEmpleadoGEO')->on('Empleado')
+            $table->foreign('IdEmpleadoGEO')->references('IdEmpleadoGEO')->on('empleado')
                 ->onUpdate('cascade')->onDelete('cascade');
        });
 
@@ -46,9 +46,9 @@ class CreateEmpleadoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('IdiomasEmpleado');
-        Schema::dropIfExists('Empleado');
-        Schema::dropIfExists('Idiomas');
+        Schema::dropIfExists('idiomasempleado');
+        Schema::dropIfExists('empleado');
+        Schema::dropIfExists('idiomas');
 
     }
 

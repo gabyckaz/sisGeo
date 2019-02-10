@@ -13,11 +13,11 @@ class CreateDepartamentoTable extends Migration
      */
     public function up()
     {
-      Schema::create('Departamento', function (Blueprint $table) {
+      Schema::create('departamento', function (Blueprint $table) {
           $table->increments('IdDepartamento');
           $table->string('NombreDepartamento',1024);
           $table->integer('id_pais')->unsigned();
-          $table->foreign('id_pais')->references('IdPais')->on('Pais');
+          $table->foreign('id_pais')->references('IdPais')->on('pais');
           $table->timestamps();
 
       });
@@ -32,6 +32,6 @@ class CreateDepartamentoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Departamento');
+        Schema::dropIfExists('departamento');
     }
 }

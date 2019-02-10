@@ -13,12 +13,12 @@ class CreateContrataTable extends Migration
      */
     public function up()
     {
-        Schema::create('Contrata', function (Blueprint $table) {
+        Schema::create('contrata', function (Blueprint $table) {
           $table->integer('IdPaquete')->unsigned();
           $table->integer('IdTransporte')->unsigned();
           //agregando las relaciones y llaves
-          $table->foreign('IdPaquete')->references('IdPaquete')->on('Paquetes');
-          $table->foreign('IdTransporte')->references('IdTransporte')->on('Transporte');
+          $table->foreign('IdPaquete')->references('IdPaquete')->on('paquetes');
+          $table->foreign('IdTransporte')->references('IdTransporte')->on('transporte');
 
           $table->primary(['IdPaquete', 'IdTransporte']);
         });
@@ -31,6 +31,6 @@ class CreateContrataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Contrata');
+        Schema::dropIfExists('contrata');
     }
 }

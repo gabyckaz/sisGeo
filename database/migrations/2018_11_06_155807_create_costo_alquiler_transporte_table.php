@@ -13,10 +13,10 @@ class CreateCostoAlquilerTransporteTable extends Migration
      */
     public function up()
     {
-        Schema::create('CostoAlquilerTransporte', function (Blueprint $table) {
+        Schema::create('costoalquilertransporte', function (Blueprint $table) {
             $table->increments('IdCostoAlquilerTransporte');
             $table->integer('IdPaquete')->unsigned();
-            $table->foreign('IdPaquete')->references('IdPaquete')->on('Paquetes');
+            $table->foreign('IdPaquete')->references('IdPaquete')->on('paquetes');
             $table->double('CostoAlquilerTransporte',8,2);
         });
     }
@@ -28,6 +28,6 @@ class CreateCostoAlquilerTransporteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('CostoAlquilerTransporte');
+        Schema::dropIfExists('costoalquilertransporte');
     }
 }

@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Turista extends Model
 {
     //aqui se especifica el nombre de la tabla relacionada al modelo
-  protected $table = 'Turista';
+  protected $table = 'turista';
 
- protected $fillable = [        
+ protected $fillable = [
         'IdNacionalidad', 'IdPersona', "FechaNacimiento", "TipoDocumento", "Dui_Pasaporte", "FechaVenceDocumen", "DomicilioTurista", "Problemas_Salud", 'CategoriaTurista',
     ];
-     
+
 
   //Para que no se greguen los atributos automaticos de updated_at y created_at
   //public $timestamps = false;
@@ -33,8 +33,8 @@ class Turista extends Model
     }
 
     public function usuarios(){
-      return $this->belongsToMany('App\User', 'Acompanante')
-     ->withPivot('IdUsuario','EsFamiliar'); 
- } 
+      return $this->belongsToMany('App\User', 'acompanante')
+     ->withPivot('IdUsuario','EsFamiliar');
+ }
 
 }

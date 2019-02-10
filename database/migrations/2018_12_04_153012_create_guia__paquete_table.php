@@ -13,14 +13,14 @@ class CreateGuiaPaqueteTable extends Migration
      */
     public function up()
     {
-        Schema::create('GuiaPaquete', function (Blueprint $table) {
+        Schema::create('guiapaquete', function (Blueprint $table) {
             $table->increments('IdGuiaPaquete');
             $table->integer('IdEmpleadoGEO')->unsigned();
             $table->integer('IdPaquete')->unsigned();
 
-            $table->foreign('IdEmpleadoGEO')->references('IdEmpleadoGEO')->on('Empleado')
+            $table->foreign('IdEmpleadoGEO')->references('IdEmpleadoGEO')->on('empleado')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('IdPaquete')->references('IdPaquete')->on('Paquetes')
+            $table->foreign('IdPaquete')->references('IdPaquete')->on('paquetes')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreateGuiaPaqueteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('GuiaPaquete');
+        Schema::dropIfExists('guiapaquete');
     }
 }

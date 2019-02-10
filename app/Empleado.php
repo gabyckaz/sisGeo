@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Empleado extends Model
 {
-    protected $table = 'Empleado';
-
-     
+    protected $table = 'empleado';
 
     //Para que no se greguen los atributos automaticos de updated_at y created_at
     public $timestamps = true;

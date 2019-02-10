@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TipoTransporte extends Model
 {
   //aqui se especifica el nombre de la tabla relacionada al modelo
-  protected $table = 'TipoTransporte';
+  protected $table = 'tipotransporte';
 
   //Para que no se greguen los atributos automaticos de updated_at y created_at
   public $timestamps = false;

@@ -13,7 +13,7 @@ class CreateReservacionTable extends Migration
      */
     public function up()
     {
-        Schema::create('Reservacion', function (Blueprint $table) {
+        Schema::create('reservacion', function (Blueprint $table) {
             $table->increments('IdReservacion');
             $table->integer('IdTurista')->unsigned();
             $table->integer('IdPaquete')->unsigned();
@@ -22,8 +22,8 @@ class CreateReservacionTable extends Migration
             $table->string('IdsAcompanantes',40);
             $table->string('ConfirmacionReservacion',1);
 
-            $table->foreign('IdTurista')->references('IdTurista')->on('Turista');
-            $table->foreign('IdPaquete')->references('IdPaquete')->on('Paquetes');
+            $table->foreign('IdTurista')->references('IdTurista')->on('turista');
+            $table->foreign('IdPaquete')->references('IdPaquete')->on('paquetes');
 
         });
     }
@@ -35,6 +35,6 @@ class CreateReservacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Reservacion');
+        Schema::dropIfExists('reservacion');
     }
 }

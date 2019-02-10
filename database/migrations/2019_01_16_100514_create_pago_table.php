@@ -13,7 +13,7 @@ class CreatePagoTable extends Migration
      */
     public function up()
     {
-        Schema::create('Pago', function (Blueprint $table) {
+        Schema::create('pago', function (Blueprint $table) {
             $table->increments('IdPago');
             $table->integer('IdTurista')->unsigned()->nullable();
             $table->integer('IdOtroTurista')->unsigned()->nullable();
@@ -22,9 +22,9 @@ class CreatePagoTable extends Migration
             $table->string('TipoPago',20)->nullable();
             $table->timestamps();
 
-            $table->foreign('IdOtroTurista')->references('IdOtroTurista')->on('OtrosTuristas')
+            $table->foreign('IdOtroTurista')->references('IdOtroTurista')->on('otrosturistas')
             ->onDelete('set null');
-            $table->foreign('IdTurista')->references('IdTurista')->on('Turista')
+            $table->foreign('IdTurista')->references('IdTurista')->on('turista')
             ->onDelete('set null');
         });
     }
@@ -36,7 +36,7 @@ class CreatePagoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Pago');
-        Schema::dropIfExists('OtrosTuristas');
+        Schema::dropIfExists('pago');
+        Schema::dropIfExists('otrosturistas');
     }
 }

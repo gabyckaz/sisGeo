@@ -20,7 +20,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [        
+    protected $fillable = [
         'name', 'IdPersona', 'email', 'password','RecibirNotificacion','EstadoUsuario', 'avatar',
     ];
 
@@ -49,46 +49,46 @@ class User extends Authenticatable
     }
 
      public function scopeNombre($query, $nombre){
-      if(trim($nombre) != ""){       
-         
+      if(trim($nombre) != ""){
+
       $query->where('name', "Like", "%$nombre%");
        }
      }
 
      public function scopeEmail($query, $email){
-        
-      if(trim($email) != ""){       
-         
+
+      if(trim($email) != ""){
+
       $query->where('email', "Like", "%$email%");
        }
      }
 
      public function scopeEstado($query, $estado){
-       
-      if(trim($estado) != ""){       
-         
+
+      if(trim($estado) != ""){
+
       $query->where('EstadoUsuario', "$estado");
        }
      }
 
      public function scopeRol($query, $rol){
     //   dd($rol);
-      if(trim($rol) != ""){       
-         
+      if(trim($rol) != ""){
+
         return $query->whereHas('roles', function($q) use ($rol) {
             $q->where('id', $rol);
             } );
-         
+
        }
      }
 
      //public function turistas(){
-       // return $this->belongsToMany('App\Turista','Acompanante')
+       // return $this->belongsToMany('App\Turista','acompanante')
          //    ->withPivot('IdTurista')
            // ->withPivot('EsFamiliar');
      // return $this->belongsToMany('App\Turista');
    // }
-  
+
 public function sendPasswordResetNotification($token)
 {
     $this->notify(new MyResetPassword($token));

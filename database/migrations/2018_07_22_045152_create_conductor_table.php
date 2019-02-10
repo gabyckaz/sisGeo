@@ -13,7 +13,7 @@ class CreateConductorTable extends Migration
      */
     public function up()
     {
-        Schema::create('Conductor', function (Blueprint $table) {
+        Schema::create('conductor', function (Blueprint $table) {
           $table->increments('IdConductor');
           $table->string('NombreConductor', 30)->unique();
         });
@@ -26,6 +26,6 @@ class CreateConductorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Conductor');
+        Schema::dropIfExists('conductor');
     }
 }

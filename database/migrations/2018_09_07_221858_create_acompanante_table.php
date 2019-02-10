@@ -13,13 +13,13 @@ class CreateAcompananteTable extends Migration
      */
     public function up()
     {
-        Schema::create('Acompanante', function (Blueprint $table) {
+        Schema::create('acompanante', function (Blueprint $table) {
             $table->increments('IdFamiliarAmigo');
             $table->integer('IdTurista')->unsigned();
             $table->integer('IdUsuario')->unsigned();
             $table->string('EsFamiliar',1);
             $table->timestamps();
-            $table->foreign('IdTurista')->references('IdTurista')->on('Turista')->onDelete('cascade');
+            $table->foreign('IdTurista')->references('IdTurista')->on('turista')->onDelete('cascade');
             $table->foreign('IdUsuario')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -31,6 +31,6 @@ class CreateAcompananteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Acompanante');
+        Schema::dropIfExists('acompanante');
     }
 }

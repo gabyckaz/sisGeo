@@ -13,7 +13,7 @@ class CreateOtroturistaTable extends Migration
      */
     public function up()
     {
-        Schema::create('OtrosTuristas', function (Blueprint $table) {
+        Schema::create('otrosturistas', function (Blueprint $table) {
             $table->increments('IdOtroTurista');
             $table->string('CodigoOtroTurista',15);
             $table->string('NumTelOtroTurista',15)->nullable();
@@ -31,6 +31,6 @@ class CreateOtroturistaTable extends Migration
      */
     public function down()
     {
-        
+
     }
 }

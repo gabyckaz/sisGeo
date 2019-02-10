@@ -37,9 +37,9 @@ class HomeController extends Controller
 
         $imagenes = ImagenPaqueteTuristico::all();
 
-        $reservaciones= DB::table('Paga')
-          ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
-          ->join('Paquetes', 'Paga.IdPaquete', '=', 'Paquetes.IdPaquete')
+        $reservaciones= DB::table('paga')
+          ->join('pago', 'paga.IdPago', '=', 'pago.IdPago')
+          ->join('paquetes', 'paga.IdPaquete', '=', 'paquetes.IdPaquete')
           ->select('Descripcion','Url','FechaTransaccion','NumeroAcompanante','FechaSalida','NAP')
           ->where([
             ['IdUsuario', '=', auth()->user()->id],

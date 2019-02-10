@@ -13,7 +13,7 @@ class AddIdscategoriasstrToTurista extends Migration
      */
     public function up()
     {
-            Schema::table('Turista', function (Blueprint $table) {
+            Schema::table('turista', function (Blueprint $table) {
            // $table->string('IdsCategoriasStr',30)->nullable();
         });
     }

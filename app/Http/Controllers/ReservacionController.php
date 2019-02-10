@@ -45,7 +45,7 @@ class ReservacionController extends Controller
       //Trae las reservaciones hechas por el turista actual y las ordena de la mas reciente a la menos reciente
       $reservaciones = Reservacion::where('IdTurista', $usuarioreservando)->orderBy('FechaReservacion','desc')->get();*/
        $sql = 'SELECT t.IdTurista
-          FROM users as u, personas as p, Turista as t
+          FROM users as u, personas as p, turista as t
           WHERE u.IdPersona = p.IdPersona AND p.IdPersona = t.IdPersona
           AND u.id = '.auth()->user()->id.';';
 
@@ -182,7 +182,7 @@ class ReservacionController extends Controller
     //    $sql1 = 'SELECT  a.IdTurista as Id,
     //       p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido,p.Genero
     //       FROM Acompanante as a, Turista as t,
-    //       personas as p,Nacionalidad as n
+    //       personas as p,nacionalidad as n
     //       WHERE a.IdTurista = t.IdTurista and
     //       t.IdPersona=p.IdPersona and t.IdNacionalidad = n.IdNacionalidad and
     //       a.IdUsuario = '.auth()->user()->id.'';
@@ -253,7 +253,7 @@ class ReservacionController extends Controller
       /*Consulta para obtener el Id turista del usuario*/
      $sqlUserTurista = 'SELECT   t.IdTurista as Id,
           p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido
-          FROM users as u, Turista as t,
+          FROM users as u, turista as t,
           personas as p
           WHERE u.IdPersona = p.IdPersona and
           t.IdPersona=p.IdPersona and
@@ -262,8 +262,8 @@ class ReservacionController extends Controller
       /*Consulta para obtener los Ids de los amigos del usuario*/
       $sqlAmigos = 'SELECT  a.IdTurista as Id,
           p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido,a.EsFamiliar as Tipo,p.Genero
-          FROM Acompanante as a, Turista as t,
-          personas as p,Nacionalidad as n
+          FROM acompanante as a, turista as t,
+          personas as p,nacionalidad as n
           WHERE a.IdTurista = t.IdTurista and
           t.IdPersona=p.IdPersona and t.IdNacionalidad = n.IdNacionalidad and
           a.IdUsuario = '.auth()->user()->id.' AND a.EsFamiliar = \'A\';';
@@ -272,8 +272,8 @@ class ReservacionController extends Controller
 
       $sqlFamilia = 'SELECT  a.IdTurista as Id,
           p.PrimerNombrePersona as Nombre,p.PrimerApellidoPersona as Apellido,a.EsFamiliar as Tipo,p.Genero
-          FROM Acompanante as a, Turista as t,
-          personas as p,Nacionalidad as n
+          FROM acompanante as a, turista as t,
+          personas as p,nacionalidad as n
           WHERE a.IdTurista = t.IdTurista and
           t.IdPersona=p.IdPersona and t.IdNacionalidad = n.IdNacionalidad and
           a.IdUsuario = '.auth()->user()->id.' AND a.EsFamiliar = \'F\';';
@@ -290,7 +290,7 @@ class ReservacionController extends Controller
       //$usuarioreservando= User::where('IdPersona','=',auth()->user()->id)->first();
 
       $sql = 'SELECT t.IdTurista
-          FROM users as u, personas as p, Turista as t
+          FROM users as u, personas as p, turista as t
           WHERE u.IdPersona = p.IdPersona AND p.IdPersona = t.IdPersona
           AND u.id = '.auth()->user()->id.';';
 
@@ -372,12 +372,12 @@ class ReservacionController extends Controller
                           //TO DO: Agregar validación que el mismo usuario inicie y termine la transacción
                           $usuario = Persona::find(auth()->user()->IdPersona);
                           //hacer update de donde el idusuario y comprobante sean igual
-                          DB::table('Pago')
+                          DB::table('pago')
                             ->where('Ern', $comprobante)
                             ->update(['Nap' => $nap,'FechaTransaccion' => $fecharespuesta,'Estado' => 1]);
 
                           //select IdPago y Url del que tiene el Ern actual
-                          $pago= DB::table('Pago')
+                          $pago= DB::table('pago')
                             ->select('IdPago','Url')
                             ->where('Ern', '=', $comprobante)
                             ->get();
@@ -602,7 +602,7 @@ class ReservacionController extends Controller
       }
 
       $sql = 'SELECT t.IdTurista
-          FROM users as u, personas as p, Turista as t
+          FROM users as u, personas as p, turista as t
           WHERE u.IdPersona = p.IdPersona AND p.IdPersona = t.IdPersona
           AND u.id = '.auth()->user()->id.';';
           $usuarioreservando = DB::select($sql);

@@ -189,27 +189,27 @@ class PaqueteController extends Controller
       $itinerario=Itinerario::all();
       $gastosextras=GastosExtras::all();
       $sql = 'SELECT IdRecomendacionesPaquete, recomendaciones_id , paquete_id
-          FROM Recomendaciones_Paquete
+          FROM recomendaciones_paquete
           WHERE paquete_id = '.$id.' ;';
           $recomendacionespaquete= DB::select($sql);
 
        $sql = 'SELECT IdIncluyePaquete, incluye_id , paquete_id
-          FROM Incluye_Paquete
+          FROM incluye_paquete
           WHERE paquete_id = '.$id.' ;';
           $incluyepaquete= DB::select($sql);
 
        $sql = 'SELECT IdCondicionesPaquete, condiciones_id , paquete_id
-           FROM Condiciones_Paquete
+           FROM condiciones_paquete
            WHERE paquete_id = '.$id.' ;';
            $condicionespaquete= DB::select($sql);
 
        $sql = 'SELECT IdItinerarioPaquete, itinerario_id , paquete_id
-              FROM Itinerario_Paquete
+              FROM itinerario_paquete
               WHERE paquete_id = '.$id.' ;';
               $itinerariopaquete= DB::select($sql);
 
         $sql = 'SELECT IdGastosExtraPaquete, gastosextras_id , paquete_id
-                FROM GastosExtras_Paquete
+                FROM gastosextras_paquete
                 WHERE paquete_id = '.$id.' ;';
                 $gastosextraspaquete= DB::select($sql);
 
@@ -411,18 +411,18 @@ class PaqueteController extends Controller
         $transportes = Transporte::all();
         $this->conductores = '';
         //Traeme los conductores de esta empresa de transporte
-        $transportesasignados = DB::table('Contrata')
-              ->join('Transporte', 'Contrata.IdTransporte', '=', 'Transporte.IdTransporte')
-              ->join('TipoTransporte', 'Transporte.IdTipoTransporte', '=', 'TipoTransporte.IdTipoTransporte')
-              ->join('EmpresaAlquilerTransporte', 'Transporte.IdEmpresaTransporte', '=', 'EmpresaAlquilerTransporte.IdEmpresaTransporte')
+        $transportesasignados = DB::table('contrata')
+              ->join('transporte', 'contrata.IdTransporte', '=', 'transporte.IdTransporte')
+              ->join('tipoTransporte', 'transporte.IdTipoTransporte', '=', 'tipoTransporte.IdTipoTransporte')
+              ->join('empresaalquilertransporte', 'transporte.IdEmpresaTransporte', '=', 'empresaalquilertransporte.IdEmpresaTransporte')
               ->select('NombreTipoTransporte','Marca','Modelo','Color','Placa_Matricula','NumeroAsientos','NombreEmpresaTransporte')
-              ->where('Contrata.IdPaquete','=',$id)
+              ->where('contrata.IdPaquete','=',$id)
               ->get();
 
-        $conductoresasignados= DB::table('Conduce')
-              ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
-              ->select('Conductor.NombreConductor')
-              ->where('Conduce.IdPaquete','=',$id)
+        $conductoresasignados= DB::table('conduce')
+              ->join('conductor', 'conduce.IdConductor', '=', 'conductor.IdConductor')
+              ->select('conductor.NombreConductor')
+              ->where('conduce.IdPaquete','=',$id)
               ->get();
 
         return view('adminPaquete.show')
@@ -438,7 +438,7 @@ class PaqueteController extends Controller
     {
       try{
         $transporte = Transporte::find($request->get('transporte'));
-        // insert into "Contrata" ("IdPaquete", "IdTransporte") values (5, 25)
+        // insert into "contrata" ("IdPaquete", "IdTransporte") values (5, 25)
         $transporte->paquetes()->attach($paquete);
 
         $paquete= Paquete::where('IdPaquete','=',$paquete)->first();
@@ -458,7 +458,7 @@ class PaqueteController extends Controller
       {
         try{
           $conductor = Conductor::find($request->get('conductor'));
-          // insert into "Conduce" ("IdPaquete", "IdConductor") values (5, 25)
+          // insert into "conduce" ("IdPaquete", "IdConductor") values (5, 25)
           $conductor->paquetescon()->attach($paquete);
 
           $paquete= Paquete::where('IdPaquete','=',$paquete)->first();
@@ -486,27 +486,27 @@ class PaqueteController extends Controller
 
 
       $sql = 'SELECT IdRecomendacionesPaquete, recomendaciones_id , paquete_id
-              FROM Recomendaciones_Paquete
+              FROM recomendaciones_paquete
               WHERE paquete_id = '.$id.' ;';
       $recomendacionespaquete= DB::select($sql);
 
       $sql = 'SELECT IdIncluyePaquete, incluye_id , paquete_id
-              FROM Incluye_Paquete
+              FROM incluye_paquete
              WHERE paquete_id = '.$id.' ;';
       $incluyepaquete= DB::select($sql);
 
       $sql = 'SELECT IdCondicionesPaquete, condiciones_id , paquete_id
-              FROM Condiciones_Paquete
+              FROM condiciones_paquete
               WHERE paquete_id = '.$id.' ;';
       $condicionespaquete= DB::select($sql);
 
       $sql = 'SELECT IdItinerarioPaquete, itinerario_id , paquete_id
-              FROM Itinerario_Paquete
+              FROM itinerario_paquete
               WHERE paquete_id = '.$id.' ;';
       $itinerariopaquete= DB::select($sql);
 
       $sql = 'SELECT IdGastosExtraPaquete, gastosextras_id , paquete_id
-              FROM GastosExtras_Paquete
+              FROM gastosextras_paquete
               WHERE paquete_id = '.$id.' ;';
       $gastosextraspaquete= DB::select($sql);
 
@@ -665,12 +665,12 @@ class PaqueteController extends Controller
           $conductor = Conductor::findOrfail($request->get('conductor'));
          // dd("punto 2");
            $sqlt = 'SELECT count(*) as cuenta
-                   FROM Contrata as cta
+                   FROM contrata as cta
                    WHERE cta.IdTransporte = '.$splitSelectTransporte[2].' and cta.IdPaquete = '.$paquete.';';
            $existeTransportePaquete = DB::select($sqlt);
           //dd(punto 3);
            $sqlc = 'SELECT count(*) as cuenta
-                    FROM Conduce as cdc
+                    FROM conduce as cdc
                     WHERE cdc.IdConductor = '.$request->conductor.' and cdc.IdPaquete = '.$paquete.';';
            $existeconductorPaquete = DB::select($sqlc);
           // dd("punto 4");
@@ -690,13 +690,13 @@ class PaqueteController extends Controller
           //dd("punto 5");
           $paquete= Paquete::findOrfail($paquete);
           $transportes = Transporte::all();
-          $this->conductores = '';//Conductor::all();
+          $this->conductores = '';//conductor::all();
           //$paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','asc')->paginate(5);
 
-         /* $consultaconductor= DB::table('Conduce')
-            ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
-            ->select('Conductor.NombreConductor')
-            ->where('Conduce.IdPaquete','=',$id)
+         /* $consultaconductor= DB::table('conduce')
+            ->join('conductor', 'conduce.IdConductor', '=', 'conductor.IdConductor')
+            ->select('conductor.NombreConductor')
+            ->where('conduce.IdPaquete','=',$id)
             ->get(); */
 
           return back()
@@ -728,13 +728,13 @@ class PaqueteController extends Controller
       $paquete = Paquete::where('IdPaquete',$id)->first();
 
       if($paquete->AprobacionPaquete === '1'){
-        DB::table('Paquetes')->where('IdPaquete', $id)->update(array('AprobacionPaquete' => '0'));
+        DB::table('paquetes')->where('IdPaquete', $id)->update(array('AprobacionPaquete' => '0'));
         return redirect('/ActualizarEstadoPaquete')
               ->with('status',"Actualizado con éxito")->with('paquetes',$paquetes);
 
       }else {
 
-        DB::table('Paquetes')->where('IdPaquete', $id)->update(array('AprobacionPaquete' => '1'));
+        DB::table('paquetes')->where('IdPaquete', $id)->update(array('AprobacionPaquete' => '1'));
         return redirect('/ActualizarEstadoPaquete')
               ->with('status',"Actualizado con éxito")->with('paquetes',$paquetes);
       }
@@ -747,7 +747,7 @@ class PaqueteController extends Controller
     {
       $paquetes = Paquete::nombre($request->get('nombre'))->orderBy('IdPaquete','desc')->paginate(10);
       $paquete = Paquete::where('IdPaquete',$id)->first();
-      DB::table('Paquetes')->where('IdPaquete', $id)->update(array('DisponibilidadPaquete' => '1'));
+      DB::table('paquetes')->where('IdPaquete', $id)->update(array('DisponibilidadPaquete' => '1'));
       try{
         $mensaje = new Mensaje();
         $mensaje->url = $id;
@@ -815,18 +815,18 @@ class PaqueteController extends Controller
       $itinerario = ItinerarioPaquete::where('paquete_id',$id)->get();
       $itinerario = $itinerario->all();
       //transporte asignado
-      $transportesasignados = DB::table('Contrata')
-            ->join('Transporte', 'Contrata.IdTransporte', '=', 'Transporte.IdTransporte')
-            ->join('TipoTransporte', 'Transporte.IdTipoTransporte', '=', 'TipoTransporte.IdTipoTransporte')
-            ->join('EmpresaAlquilerTransporte', 'Transporte.IdEmpresaTransporte', '=', 'EmpresaAlquilerTransporte.IdEmpresaTransporte')
-            ->select('NombreTipoTransporte','Marca','Modelo','Color','Placa_Matricula','NumeroAsientos','NombreEmpresaTransporte')
-            ->where('Contrata.IdPaquete','=',$id)
+      $transportesasignados = DB::table('contrata')
+            ->join('transporte', 'contrata.IdTransporte', '=', 'transporte.IdTransporte')
+            ->join('tipotransporte', 'transporte.IdTipoTransporte', '=', 'tipotransporte.IdTipoTransporte')
+            ->join('empresaalquilertransporte', 'transporte.IdEmpresaTransporte', '=', 'empresaalquilertransporte.IdEmpresaTransporte')
+            ->select('nombretipotransporte','Marca','Modelo','Color','Placa_Matricula','NumeroAsientos','NombreEmpresaTransporte')
+            ->where('contrata.IdPaquete','=',$id)
             ->get();
 
-      $conductoresasignados= DB::table('Conduce')
-            ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
-            ->select('Conductor.NombreConductor')
-            ->where('Conduce.IdPaquete','=',$id)
+      $conductoresasignados= DB::table('conduce')
+            ->join('conductor', 'conduce.IdConductor', '=', 'conductor.IdConductor')
+            ->select('conductor.NombreConductor')
+            ->where('conduce.IdPaquete','=',$id)
             ->get();
 
       //instantiate and use the dompdf class
@@ -847,12 +847,12 @@ class PaqueteController extends Controller
 
       $sql = 'SELECT e.IdEmpleadoGEO, p.PrimerNombrePersona,p.PrimerApellidoPersona,
               p.AreaTelContacto, p.TelefonoContacto, n.Nacionalidad
-            FROM Empleado as e, personas as p, Turista as t, Nacionalidad as n
+            FROM empleado as e, personas as p, turista as t, nacionalidad as n
             WHERE e.IdPersona = p.IdPersona and t.IdPersona = p.IdPersona and t.IdNacionalidad = n.IdNacionalidad ;';
         $guias = DB::select($sql);
 
          $sql = 'SELECT IdGuiaPaquete, IdEmpleadoGEO, IdPaquete
-                 FROM GuiaPaquete
+                 FROM guiapaquete
                  WHERE IdPaquete = '.$id.' ;';
           $pIdguias = DB::select($sql);
           $guiasPaquete = array();
@@ -911,19 +911,19 @@ class PaqueteController extends Controller
     public function reportepersonas($id){
 
       //Consulta de turistas que han pagado por pagadito
-      $turistas = DB::table('Paga')
-        ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
-        ->join('Turista', 'Pago.IdTurista', '=', 'Turista.IdTurista')
-        ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
+      $turistas = DB::table('paga')
+        ->join('pago', 'paga.IdPago', '=', 'pago.IdPago')
+        ->join('turista', 'pago.IdTurista', '=', 'turista.IdTurista')
+        ->join('personas', 'turista.IdPersona', '=', 'personas.IdPersona')
         ->select('IdsAcompanantes','TipoPago','PrimerNombrePersona','PrimerApellidoPersona','TelefonoContacto')
         ->where([['IdPaquete','=',$id ],
                 ['Estado','=','1']])
         ->get();
 
       //Consulta de turistas de otros metodos de pago
-      $otrosturistas = DB::table('Paga')
-        ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
-        ->join('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
+      $otrosturistas = DB::table('paga')
+        ->join('pago', 'paga.IdPago', '=', 'pago.IdPago')
+        ->join('otrosturistas', 'pago.IdOtroTurista', '=', 'otrosturistas.IdOtroTurista')
         ->select('*')
         ->where([['IdPaquete','=',$id ],
                 ['Estado','=','1']])
@@ -958,42 +958,42 @@ class PaqueteController extends Controller
       $y =explode(',',$y);
 
       //Consulta de Datos de cada turista de Pagadito
-      $personas= DB::table('TipoDocumento')
-            ->join('Turista', 'TipoDocumento.IdTurista', '=', 'Turista.IdTurista')
-            ->join('Nacionalidad', 'Turista.IdNacionalidad', '=', 'Nacionalidad.IdNacionalidad')
-            ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
+      $personas= DB::table('tipodocumento')
+            ->join('turista', 'tipodocumento.IdTurista', '=', 'turista.IdTurista')
+            ->join('nacionalidad', 'turista.IdNacionalidad', '=', 'nacionalidad.IdNacionalidad')
+            ->join('personas', 'turista.IdPersona', '=', 'personas.IdPersona')
             ->select('PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona','SegundoApellidoPersona','TelefonoContacto','NumeroDocumento','Nacionalidad')
-            ->whereIn('Turista.IdTurista', $z)
+            ->whereIn('turista.IdTurista', $z)
             ->get();
 
       //Consulta de Datos de cada turista de otros pagos
-      $otraspersonas= DB::table('Pago')
-            ->rightjoin('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
+      $otraspersonas= DB::table('pago')
+            ->rightjoin('otrosTuristas', 'pago.IdOtroTurista', '=', 'otrosturistas.IdOtroTurista')
             ->select('NumTelOtroTurista','NombreApellido','DuiOtroTurista','PasaporteOtroTurista')
-            ->whereIn('OtrosTuristas.IdOtroTurista', $y)
+            ->whereIn('otrosturistas.IdOtroTurista', $y)
             ->get();
 
       $paquete = Paquete::findOrFail($id);
 
-      $guias= DB::table('GuiaPaquete')
-            ->join('Empleado', 'GuiaPaquete.IdEmpleadoGEO', '=', 'Empleado.IdEmpleadoGEO')
-            ->join('personas', 'Empleado.IdPersona', '=', 'personas.IdPersona')
+      $guias= DB::table('guiapaquete')
+            ->join('empleado', 'guiapaquete.IdEmpleadoGEO', '=', 'empleado.IdEmpleadoGEO')
+            ->join('personas', 'empleado.IdPersona', '=', 'personas.IdPersona')
             ->select('PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona','SegundoApellidoPersona')
             ->where('IdPaquete','=', $id)
             ->get();
 
-      $transportesasignados = DB::table('Contrata')
-            ->join('Transporte', 'Contrata.IdTransporte', '=', 'Transporte.IdTransporte')
-            ->join('TipoTransporte', 'Transporte.IdTipoTransporte', '=', 'TipoTransporte.IdTipoTransporte')
-            ->join('EmpresaAlquilerTransporte', 'Transporte.IdEmpresaTransporte', '=', 'EmpresaAlquilerTransporte.IdEmpresaTransporte')
+      $transportesasignados = DB::table('contrata')
+            ->join('transporte', 'contrata.IdTransporte', '=', 'transporte.IdTransporte')
+            ->join('tipotransporte', 'transporte.IdTipoTransporte', '=', 'tipotransporte.IdTipoTransporte')
+            ->join('empresaalquilertransporte', 'transporte.IdEmpresaTransporte', '=', 'empresaalquilertransporte.IdEmpresaTransporte')
             ->select('NombreTipoTransporte','Marca','Modelo','Color','Placa_Matricula','NumeroAsientos','NombreEmpresaTransporte')
-            ->where('Contrata.IdPaquete','=',$id)
+            ->where('contrata.IdPaquete','=',$id)
             ->get();
 
-      $conductoresasignados= DB::table('Conduce')
-            ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
-            ->select('Conductor.NombreConductor')
-                  ->where('Conduce.IdPaquete','=',$id)
+      $conductoresasignados= DB::table('conduce')
+            ->join('conductor', 'conduce.IdConductor', '=', 'conductor.IdConductor')
+            ->select('conductor.NombreConductor')
+                  ->where('conduce.IdPaquete','=',$id)
                   ->get();
 
       //instantiate and use the dompdf class
@@ -1010,19 +1010,19 @@ class PaqueteController extends Controller
 
     public function listadopersonas($id){
       //Consulta de turistas que han pagado por pagadito
-      $turistas = DB::table('Paga')
-        ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
-        ->join('Turista', 'Pago.IdTurista', '=', 'Turista.IdTurista')
-        ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
+      $turistas = DB::table('paga')
+        ->join('pago', 'paga.IdPago', '=', 'pago.IdPago')
+        ->join('turista', 'pago.IdTurista', '=', 'turista.IdTurista')
+        ->join('personas', 'tutista.IdPersona', '=', 'personas.IdPersona')
         ->select('IdsAcompanantes','TipoPago','PrimerNombrePersona','PrimerApellidoPersona','TelefonoContacto')
         ->where([['IdPaquete','=',$id ],
                 ['Estado','=','1']])
         ->get();
 
       //Consulta de turistas de otros metodos de pago
-      $otrosturistas = DB::table('Paga')
-        ->join('Pago', 'Paga.IdPago', '=', 'Pago.IdPago')
-        ->join('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
+      $otrosturistas = DB::table('paga')
+        ->join('pago', 'paga.IdPago', '=', 'pago.IdPago')
+        ->join('otrosturistas', 'pago.IdOtroTurista', '=', 'otrosturistas.IdOtroTurista')
         ->select('*')
         ->where([['IdPaquete','=',$id ],
                 ['Estado','=','1']])
@@ -1057,43 +1057,43 @@ class PaqueteController extends Controller
       $y =explode(',',$y);
 
       //Consulta de Datos de cada turista de Pagadito
-      $personas= DB::table('TipoDocumento')
-            ->join('Turista', 'TipoDocumento.IdTurista', '=', 'Turista.IdTurista')
-            ->join('Nacionalidad', 'Turista.IdNacionalidad', '=', 'Nacionalidad.IdNacionalidad')
-            ->join('personas', 'Turista.IdPersona', '=', 'personas.IdPersona')
-            ->select('Turista.IdTurista','TipoDocumento.IdTurista','PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona',
+      $personas= DB::table('tipodocumento')
+            ->join('turista', 'tipodocumento.IdTurista', '=', 'turista.IdTurista')
+            ->join('nacionalidad', 'turista.IdNacionalidad', '=', 'nacionalidad.IdNacionalidad')
+            ->join('personas', 'turista.IdPersona', '=', 'personas.IdPersona')
+            ->select('turista.IdTurista','tipodocumento.IdTurista','PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona',
                      'SegundoApellidoPersona','TelefonoContacto','NumeroDocumento','Nacionalidad')
-            ->whereIn('Turista.IdTurista', $z)
+            ->whereIn('turista.IdTurista', $z)
             ->get();
 
       //Consulta de Datos de cada turista de otros pagos
-      $otraspersonas= DB::table('Pago')
-            ->rightjoin('OtrosTuristas', 'Pago.IdOtroTurista', '=', 'OtrosTuristas.IdOtroTurista')
+      $otraspersonas= DB::table('pago')
+            ->rightjoin('otrosturistas', 'pago.IdOtroTurista', '=', 'otrosturistas.IdOtroTurista')
             ->select('NumTelOtroTurista','NombreApellido','DuiOtroTurista','PasaporteOtroTurista')
-            ->whereIn('OtrosTuristas.IdOtroTurista', $y)
+            ->whereIn('otrosturistas.IdOtroTurista', $y)
             ->get();
 
       $paquete = Paquete::findOrFail($id);
 
-      $guias= DB::table('GuiaPaquete')
-            ->join('Empleado', 'GuiaPaquete.IdEmpleadoGEO', '=', 'Empleado.IdEmpleadoGEO')
-            ->join('personas', 'Empleado.IdPersona', '=', 'personas.IdPersona')
+      $guias= DB::table('guiapaquete')
+            ->join('empleado', 'guiapaquete.IdEmpleadoGEO', '=', 'empleado.IdEmpleadoGEO')
+            ->join('personas', 'empleado.IdPersona', '=', 'personas.IdPersona')
             ->select('PrimerNombrePersona','SegundoNombrePersona','PrimerApellidoPersona','SegundoApellidoPersona')
             ->where('IdPaquete','=', $id)
             ->get();
 
-      $transportesasignados = DB::table('Contrata')
-            ->join('Transporte', 'Contrata.IdTransporte', '=', 'Transporte.IdTransporte')
-            ->join('TipoTransporte', 'Transporte.IdTipoTransporte', '=', 'TipoTransporte.IdTipoTransporte')
-            ->join('EmpresaAlquilerTransporte', 'Transporte.IdEmpresaTransporte', '=', 'EmpresaAlquilerTransporte.IdEmpresaTransporte')
+      $transportesasignados = DB::table('contrata')
+            ->join('transporte', 'contrata.IdTransporte', '=', 'transporte.IdTransporte')
+            ->join('tipotransporte', 'transporte.IdTipoTransporte', '=', 'tipotransporte.IdTipoTransporte')
+            ->join('empresaalquilertransporte', 'transporte.IdEmpresaTransporte', '=', 'empresaalquilertransporte.IdEmpresaTransporte')
             ->select('NombreTipoTransporte','Marca','Modelo','Color','Placa_Matricula','NumeroAsientos','NombreEmpresaTransporte')
-            ->where('Contrata.IdPaquete','=',$id)
+            ->where('contrata.IdPaquete','=',$id)
             ->get();
 
-      $conductoresasignados= DB::table('Conduce')
-            ->join('Conductor', 'Conduce.IdConductor', '=', 'Conductor.IdConductor')
-            ->select('Conductor.NombreConductor')
-            ->where('Conduce.IdPaquete','=',$id)
+      $conductoresasignados= DB::table('conduce')
+            ->join('conductor', 'conduce.IdConductor', '=', 'conductor.IdConductor')
+            ->select('conductor.NombreConductor')
+            ->where('conduce.IdPaquete','=',$id)
             ->get();
 
     return view('adminPaquete.listadopersonas',compact('personas','otraspersonas','paquete','guias','transportesasignados','conductoresasignados'));

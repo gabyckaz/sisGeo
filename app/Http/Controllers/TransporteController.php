@@ -48,7 +48,7 @@ class TransporteController extends Controller
         'marca'=>'required|max:25',
         'modelo'=>'required|max:30',
         'color'=>'required|max:25',
-        'placa'=>'required|min:4| max:7 |unique:Transporte,Placa_Matricula',
+        'placa'=>'required|min:4| max:7 |unique:transporte,Placa_Matricula',
         'numeroasientos'=>'required|max:2',
         'ac'=>'size:2',
         'tv'=>'size:2',

@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class TipoDocumento extends Model
 {
-    protected $table = 'TipoDocumento';
+    protected $table = 'tipodocumento';
 
     protected $primaryKey = 'IdTipoDocumento';
 
-    protected $fillable = [        
+    protected $fillable = [
         'IdTurista','TipoDocumento','NumeroDocumento', 'FechaVenceDocumento',
     ];
 

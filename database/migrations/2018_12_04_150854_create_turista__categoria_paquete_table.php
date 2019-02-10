@@ -13,14 +13,14 @@ class CreateTuristaCategoriaPaqueteTable extends Migration
      */
     public function up()
     {
-        Schema::create('TuristaCategoria', function (Blueprint $table) {
+        Schema::create('turistacategoria', function (Blueprint $table) {
             $table->increments('IdTuristaCategoria');
             $table->integer('IdTurista')->unsigned();
             $table->integer('IdCategoria')->unsigned();
 
-            $table->foreign('IdTurista')->references('IdTurista')->on('Turista')
+            $table->foreign('IdTurista')->references('IdTurista')->on('turista')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('IdCategoria')->references('IdCategoria')->on('Categoria')
+            $table->foreign('IdCategoria')->references('IdCategoria')->on('categoria')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
@@ -34,6 +34,6 @@ class CreateTuristaCategoriaPaqueteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('TuristaCategoria');
+        Schema::dropIfExists('turistacategoria');
     }
 }

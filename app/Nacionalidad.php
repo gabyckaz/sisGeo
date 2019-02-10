@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Nacionalidad extends Model
 {
       //aqui se especifica el nombre de la tabla relacionada al modelo
-  protected $table = 'Nacionalidad';
+  protected $table = 'nacionalidad';
 
   //Para que no se greguen los atributos automaticos de updated_at y created_at
   //public $timestamps = false;

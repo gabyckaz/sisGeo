@@ -13,7 +13,7 @@ class AddIdnacionalidadToPagoTable extends Migration
      */
     public function up()
     {
-        Schema::table('Pago', function (Blueprint $table) {
+        Schema::table('pago', function (Blueprint $table) {
             $table->integer('IdNacionalidad')->after('IdPago')->unsigned()->nullable();
             $table->integer('IdPersona')->after('IdNacionalidad')->unsigned()->nullable();
             $table->string('Descripcion',256)->after('IdOtroTurista')->nullable();
@@ -29,8 +29,8 @@ class AddIdnacionalidadToPagoTable extends Migration
             $table->string('IdsAcompanantes',60)->after('NumeroAcompanante')->nullable();
             $table->string('IdsOtroTurista')->after('IdsAcompanantes')->nullable();
 
-            $table->foreign('IdNacionalidad')->references('IdNacionalidad')->on('Turista');
-            $table->foreign('IdPersona')->references('IdPersona')->on('Turista');
+            $table->foreign('IdNacionalidad')->references('IdNacionalidad')->on('turista');
+            $table->foreign('IdPersona')->references('IdPersona')->on('turista');
         });
     }
 
@@ -41,7 +41,7 @@ class AddIdnacionalidadToPagoTable extends Migration
      */
     public function down()
     {
-        Schema::table('Pago', function (Blueprint $table) {
+        Schema::table('pago', function (Blueprint $table) {
             $table->dropColumn('IdNacionalidad');
             $table->dropColumn('IdPersona');
             $table->dropColumn('Descripcion');

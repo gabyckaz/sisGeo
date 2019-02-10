@@ -13,7 +13,7 @@ class CreatePaqueteTable extends Migration
      */
     public function up()
     {
-         Schema::create('Paquetes', function (Blueprint $table) {
+         Schema::create('paquetes', function (Blueprint $table) {
             $table->increments('IdPaquete');
             $table->string('NombrePaquete',2000);
             $table->date('FechaSalida');
@@ -27,7 +27,7 @@ class CreatePaqueteTable extends Migration
             $table->string('AprobacionPaquete',1);
             $table->string('DisponibilidadPaquete',1);
             $table->integer('IdTuristica')->unsigned();
-            $table->foreign('IdTuristica')->references('IdRutaTuristica')->on('RutaTuristica')->onDelete('cascade');
+            $table->foreign('IdTuristica')->references('IdRutaTuristica')->on('rutaturistica')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -39,6 +39,6 @@ class CreatePaqueteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Paquete');
+        Schema::dropIfExists('paquetes');
     }
 }

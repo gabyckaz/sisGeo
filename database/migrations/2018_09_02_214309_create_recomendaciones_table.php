@@ -13,21 +13,21 @@ class CreateRecomendacionesTable extends Migration
      */
     public function up()
     {
-      Schema::create('Recomendaciones', function (Blueprint $table) {
+      Schema::create('recomendaciones', function (Blueprint $table) {
           $table->increments('IdRecomendaciones');
           $table->string('NombreRecomendaciones');
           $table->timestamps();
       });
 
       // Create table for associating gastosextras to paquete (Many-to-Many)
-      Schema::create('Recomendaciones_Paquete', function (Blueprint $table) {
+      Schema::create('recomendaciones_paquete', function (Blueprint $table) {
         $table->increments('IdRecomendacionesPaquete');
           $table->integer('recomendaciones_id')->unsigned();
           $table->integer('paquete_id')->unsigned();
 
-          $table->foreign('recomendaciones_id')->references('IdRecomendaciones')->on('Recomendaciones')
+          $table->foreign('recomendaciones_id')->references('IdRecomendaciones')->on('recomendaciones')
               ->onUpdate('cascade')->onDelete('cascade');
-          $table->foreign('paquete_id')->references('IdPaquete')->on('Paquetes')
+          $table->foreign('paquete_id')->references('IdPaquete')->on('paquetes')
               ->onUpdate('cascade')->onDelete('cascade');
 
 
@@ -41,7 +41,7 @@ class CreateRecomendacionesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Recomendaciones_Paquete');
-        Schema::dropIfExists('Recomendaciones');
+        Schema::dropIfExists('recomendaciones_paquete');
+        Schema::dropIfExists('recomendaciones');
     }
 }

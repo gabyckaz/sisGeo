@@ -48,7 +48,7 @@ class EmpresaAlquilerTransporteController extends Controller
         'nombreContacto' => 'required|max:40',
         'codigoArea' => 'required',
         'numeroTelefono'=>'required|size:8',
-        'emailEmpresa'=>'required|max:30|unique:EmpresaAlquilerTransporte,EmailEmpresaTransporte',
+        'emailEmpresa'=>'required|max:30|unique:empresaalquilertransporte,EmailEmpresaTransporte',
         'observacionesEmpresa'=>'max:255',
       ));
       //Guardar en la BD
@@ -84,7 +84,7 @@ class EmpresaAlquilerTransporteController extends Controller
     public function edit($IdEmpresaAlquilerTransporte)
     {
       $empresalquiler = EmpresaAlquilerTransporte::find($IdEmpresaAlquilerTransporte);
-      $conductores = DB::table('Conductor')
+      $conductores = DB::table('conductor')
                     ->where('IdEmpresaTransporte', '=', $IdEmpresaAlquilerTransporte)
                     ->get();
       return view('adminEmpresaTransporte.edit',compact('empresalquiler','IdEmpresaAlquilerTransporte','conductores'));
@@ -99,7 +99,7 @@ class EmpresaAlquilerTransporteController extends Controller
     {
       //validando la informacion, campo obliatorio, caracteres de max.25 digitos y campo único sin repeticiones
       $this->validate($request,array(
-        'conductor' => 'required|string|unique:Conductor,NombreConductor|max:30',
+        'conductor' => 'required|string|unique:conductor,NombreConductor|max:30',
       ));
       //Guardar en la BD
       //Relacionando campo de BD con formulario

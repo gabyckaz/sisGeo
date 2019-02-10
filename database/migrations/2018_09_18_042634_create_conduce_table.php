@@ -13,12 +13,12 @@ class CreateConduceTable extends Migration
      */
     public function up()
     {
-      Schema::create('Conduce', function (Blueprint $table) {
+      Schema::create('conduce', function (Blueprint $table) {
         $table->integer('IdPaquete')->unsigned();
         $table->integer('IdConductor')->unsigned();
         //agregando las relaciones y llaves
-        $table->foreign('IdPaquete')->references('IdPaquete')->on('Paquetes');
-        $table->foreign('IdConductor')->references('IdConductor')->on('Conductor');
+        $table->foreign('IdPaquete')->references('IdPaquete')->on('paquetes');
+        $table->foreign('IdConductor')->references('IdConductor')->on('conductor');
 
         $table->primary(['IdPaquete', 'IdConductor']);
       });
@@ -31,6 +31,6 @@ class CreateConduceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Conduce');
+        Schema::dropIfExists('conduce');
     }
 }

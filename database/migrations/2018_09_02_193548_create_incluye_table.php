@@ -14,21 +14,21 @@ class CreateIncluyeTable extends Migration
      public function up()
      {
        // Create table for storing roles
-     Schema::create('Incluye', function (Blueprint $table) {
+     Schema::create('incluye', function (Blueprint $table) {
          $table->increments('IdIncluye');
          $table->string('NombreIncluye');
          $table->timestamps();
      });
 
      // Create table for associating gastosextras to paquete (Many-to-Many)
-     Schema::create('Incluye_Paquete', function (Blueprint $table) {
+     Schema::create('incluye_paquete', function (Blueprint $table) {
        $table->increments('IdIncluyePaquete');
          $table->integer('incluye_id')->unsigned();
          $table->integer('paquete_id')->unsigned();
 
-         $table->foreign('incluye_id')->references('IdIncluye')->on('Incluye')
+         $table->foreign('incluye_id')->references('IdIncluye')->on('incluye')
              ->onUpdate('cascade')->onDelete('cascade');
-         $table->foreign('paquete_id')->references('IdPaquete')->on('Paquetes')
+         $table->foreign('paquete_id')->references('IdPaquete')->on('paquetes')
              ->onUpdate('cascade')->onDelete('cascade');
 
 
@@ -37,7 +37,7 @@ class CreateIncluyeTable extends Migration
   }
     public function down()
     {
-        Schema::dropIfExists('Incluye_Paquete');
-        Schema::dropIfExists('Incluye');
+        Schema::dropIfExists('incluye_paquete');
+        Schema::dropIfExists('incluye');
     }
 }

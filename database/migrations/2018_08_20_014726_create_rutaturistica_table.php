@@ -13,13 +13,13 @@ class CreateRutaturisticaTable extends Migration
      */
     public function up()
     {
-        Schema::create('RutaTuristica', function (Blueprint $table) {
+        Schema::create('rutaturistica', function (Blueprint $table) {
             $table->increments('IdRutaTuristica');
             $table->string('NombreRutaTuristica',60);
             $table->string('DatosGenerales',1024);
             $table->string('DescripcionRutaTuristica',1024);
             $table->integer('IdPais')->unsigned();
-            $table->foreign('IdPais')->references('IdPais')->on('Pais');
+            $table->foreign('IdPais')->references('IdPais')->on('pais');
             $table->timestamps();
 
         });
@@ -33,6 +33,6 @@ class CreateRutaturisticaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('RutaTuristica');
+        Schema::dropIfExists('rutaturistica');
     }
 }

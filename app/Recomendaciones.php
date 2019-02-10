@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Recomendaciones extends Model
 {
     //aqui se especifica el nombre de la tabla relacionada al modelo
-    protected $table = 'Recomendaciones';
+    protected $table = 'recomendaciones';
 
     //Para que no se greguen los atributos automaticos de updated_at y created_at
     public $timestamps = true;

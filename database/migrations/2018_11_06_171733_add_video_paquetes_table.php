@@ -13,7 +13,7 @@ class AddVideoPaquetesTable extends Migration
      */
     public function up()
     {
-      Schema::table('Paquetes', function (Blueprint $table) {
+      Schema::table('paquetes', function (Blueprint $table) {
            $table->string('Video')->after('Dificultad')->nullable();
            $table->string('Galeria')->after('Cupos')->nullable();
       });

@@ -44,7 +44,7 @@ class RutaTuristicaController extends Controller
         $this->validate($request,array(
             'pais'=>'required',
             'categoria'=>'required',
-            'nombrerutaturistica'=>'required|max:60|unique:RutaTuristica,NombreRutaTuristica',
+            'nombrerutaturistica'=>'required|max:60|unique:rutaturistica,NombreRutaTuristica',
             'datosgenerales'=>'required|max:1024',
             'descripcionrutaturistica'=>'required|max:1024',
         ));

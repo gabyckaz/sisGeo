@@ -43,8 +43,8 @@ class OpcionesPaqueteController extends Controller
       try{
         $this->validate($request,array(
 
-          'gastosextras'=>'required|string|unique:GastosExtras,NombreGastos',
-          'gastos'=>'required:GastosExtras,Gastos',
+          'gastosextras'=>'required|string|unique:gastosextras,NombreGastos',
+          'gastos'=>'required:gastosextras,Gastos',
         ));
 
        //Guardar en la BD
@@ -53,7 +53,7 @@ class OpcionesPaqueteController extends Controller
        $gastosextras=new GastosExtras;
        $gastosextras->NombreGastos = $request->gastosextras;
        $gastosextras->Gastos= $request->gastos;
-       
+
        $gastosextras->save();
 
        return back()->with('status',"Agregado con éxito");
@@ -72,7 +72,7 @@ class OpcionesPaqueteController extends Controller
      try{
        $this->validate($request,array(
 
-         'incluye'=>'required|string|unique:Incluye,NombreIncluye',
+         'incluye'=>'required|string|unique:incluye,NombreIncluye',
        ));
 
              $incluye=new Incluye;
@@ -88,7 +88,7 @@ class OpcionesPaqueteController extends Controller
        public function guardarrecomendaciones(Request $request){
          try{
            $this->validate($request,array(
-             'recomendaciones'=>'required|string|unique:Recomendaciones,NombreRecomendaciones',
+             'recomendaciones'=>'required|string|unique:recomendaciones,NombreRecomendaciones',
            ));
            $recomendaciones=new Recomendaciones;
            $recomendaciones->NombreRecomendaciones = $request->recomendaciones;
@@ -102,7 +102,7 @@ class OpcionesPaqueteController extends Controller
         {
           try{
             $this->validate($request,array(
-              'condiciones'=>'required|string|unique:Condiciones,NombreCondiciones',
+              'condiciones'=>'required|string|unique:condiciones,NombreCondiciones',
             ));
             $condiciones=new Condiciones;
             $condiciones->NombreCondiciones = $request->condiciones;
@@ -115,7 +115,7 @@ class OpcionesPaqueteController extends Controller
         public function guardaritinerario(Request $request){
          try{
            $this->validate($request,array(
-             'itinerario'=>'required|string|unique:Itinerario,NombreItinerario',
+             'itinerario'=>'required|string|unique:itinerario,NombreItinerario',
            ));
             $itinerario=new Itinerario;
             $itinerario->NombreItinerario = $request->itinerario;

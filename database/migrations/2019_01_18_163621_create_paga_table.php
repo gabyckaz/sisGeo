@@ -13,13 +13,13 @@ class CreatePagaTable extends Migration
      */
     public function up()
     {
-        Schema::create('Paga', function (Blueprint $table) {
+        Schema::create('paga', function (Blueprint $table) {
           $table->integer('IdPago')->unsigned();
           $table->integer('IdPaquete')->unsigned();
 
-          $table->foreign('IdPago')->references('IdPago')->on('Pago')
+          $table->foreign('IdPago')->references('IdPago')->on('pago')
               ->onUpdate('cascade')->onDelete('cascade');
-          $table->foreign('IdPaquete')->references('IdPaquete')->on('Paquetes')
+          $table->foreign('IdPaquete')->references('IdPaquete')->on('paquetes')
               ->onUpdate('cascade')->onDelete('cascade');
 
           $table->primary(['IdPago', 'IdPaquete']);
@@ -33,6 +33,6 @@ class CreatePagaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Paga');
+        Schema::dropIfExists('paga');
     }
 }

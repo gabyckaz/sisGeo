@@ -13,14 +13,14 @@ class CreateImagenpaqueteturisticoTable extends Migration
      */
     public function up()
     {
-        Schema::create('ImagenPaqueteTuristico', function (Blueprint $table) {
+        Schema::create('imagenpaqueteturistico', function (Blueprint $table) {
             $table->increments('IdImagenPaqueteTuristico');
             $table->string('Imagen1',1024);//extension:jpg, png
             $table->string('Imagen2',1024);//extension:jpg, png
             $table->string('Imagen3',1024);//extension:jpg, png
             $table->string('Imagen4',1024);
             $table->integer('id_paquete')->unsigned();
-            $table->foreign('id_paquete')->references('IdPaquete')->on('Paquetes');
+            $table->foreign('id_paquete')->references('IdPaquete')->on('paquetes');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateImagenpaqueteturisticoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ImagenPaqueteTuristico');
+        Schema::dropIfExists('imagenpaqueteturistico');
     }
 }

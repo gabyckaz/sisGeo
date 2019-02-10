@@ -21,7 +21,7 @@ class OtrosTuristasController extends Controller
     public function index()
     {
         $hoystr = Carbon::now()->format('Y-m-d');
-        $paquetes = DB::table('Paquetes')
+        $paquetes = DB::table('paquetes')
           ->select('*')
           ->orderBy('FechaSalida', 'asc')
           ->where('FechaSalida','>',$hoystr)

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Categoria extends Model
 {
     //aqui se especifica el nombre de la tabla relacionada al modelo
-    protected $table = 'Categoria';
+    protected $table = 'categoria';
 
     //Para que no se greguen los atributos automaticos de updated_at y created_at
     public $timestamps = true;

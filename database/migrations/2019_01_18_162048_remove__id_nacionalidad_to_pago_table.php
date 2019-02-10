@@ -13,7 +13,7 @@ class RemoveIdNacionalidadToPagoTable extends Migration
      */
     public function up()
     {
-        Schema::table('Pago', function (Blueprint $table) {
+        Schema::table('pago', function (Blueprint $table) {
           $table->dropForeign(['IdNacionalidad']);
           $table->dropForeign(['IdPersona']);
           $table->dropColumn(['IdNacionalidad', 'IdPersona', 'FechaPago']);
@@ -27,7 +27,7 @@ class RemoveIdNacionalidadToPagoTable extends Migration
      */
     public function down()
     {
-        Schema::table('Pago', function (Blueprint $table) {
+        Schema::table('pago', function (Blueprint $table) {
             $table->integer('IdNacionalidad')->unsigned()->nullable();
             $table->integer('IdPersona')->unsigned()->nullable();
             $table->date('FechaPago');

@@ -204,7 +204,7 @@ class AdminUsuariosController extends Controller
         $nacionalidad = nacionalidad::all();
         $sql = 'SELECT e.IdEmpleadoGEO, p.PrimerNombrePersona,p.PrimerApellidoPersona,
               p.AreaTelContacto, p.TelefonoContacto, n.Nacionalidad
-            FROM Empleado as e, personas as p, Turista as t, Nacionalidad as n
+            FROM empleado as e, personas as p, turista as t, nacionalidad as n
             WHERE e.IdPersona = p.IdPersona and t.IdPersona = p.IdPersona and t.IdNacionalidad = n.IdNacionalidad ;';
         $guias = DB::select($sql);
         $guias = $this->arrayPaginator($guias);
@@ -424,7 +424,7 @@ class AdminUsuariosController extends Controller
       $sql = 'SELECT e.IdEmpleadoGEO, e.IdPersona, p.PrimerNombrePersona, p.SegundoNombrePersona,
               p.PrimerApellidoPersona, p.SegundoApellidoPersona, p.Genero, p.AreaTelContacto,
               p.TelefonoContacto, n.Nacionalidad, t.FechaNacimiento, t.DomicilioTurista , t.IdTurista, n.IdNacionalidad
-              FROM Empleado as e , personas as p, Turista as t, Nacionalidad as n
+              FROM empleado as e , personas as p, turista as t, nacionalidad as n
               WHERE e.IdEmpleadoGEO = '.$id.' AND e.IdPersona = p.IdPersona AND p.IdPersona = t.IdPersona AND n.IdNacionalidad = t.IdNacionalidad;';
       $guia = DB::select($sql);
        $documentos="";
@@ -446,7 +446,7 @@ class AdminUsuariosController extends Controller
          }
          $idiomas = Idioma::all();
          $sql = 'SELECT IdIdiomaEmpleado, IdIdioma, IdEmpleadoGEO
-                 FROM IdiomasEmpleado
+                 FROM idiomasempleado
                  WHERE IdEmpleadoGEO = '.$id.' ;';
           $gIdiomas = DB::select($sql);
           $idiomasGuia = array();

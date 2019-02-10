@@ -13,7 +13,7 @@ class AddAsientosTransporteTable extends Migration
      */
     public function up()
     {
-      Schema::table('Transporte', function (Blueprint $table) {
+      Schema::table('transporte', function (Blueprint $table) {
            $table->string('TieneAsientos',2)->nullable();
                });
     }

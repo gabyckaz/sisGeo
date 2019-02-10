@@ -42,7 +42,7 @@ class TipoTransporteController extends Controller
       try{
         //validando la informacion, campo obliatorio, caracteres de max.25 digitos y campo único sin repeticiones
         $this->validate($request,array(
-       'tipotransporte' => 'required|string|unique:TipoTransporte,NombreTipoTransporte|max:25',
+       'tipotransporte' => 'required|string|unique:tipotransporte,NombreTipoTransporte|max:25',
         ));
        //Guardar en la BD
        //Relacionando campo de BD con formulario

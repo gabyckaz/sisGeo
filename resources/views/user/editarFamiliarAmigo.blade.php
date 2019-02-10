@@ -197,7 +197,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
                     </div>
-                  <input type="date" name="fechaVencimentoP" class="form-control pull-right" value="{{ old('fechaVencimentoP') }}">
+                  <input type="date" name="fechaVencimentoP" class="form-control pull-right" value="{{ $documento->FechaVenceDocumento }}">
                   </div>
                    @if ($errors->has('fechaVencimentoP'))
                        <span class="help-block">{{ $errors->first('fechaVencimentoP') }}</span>
