@@ -63,12 +63,12 @@
                 <label for="codigoArea">Código de país</label>
                   <div class="input-group">
                            <select class="form-control" name="codigoArea" id="codigoArea" value="{{ old('codigoArea') }}">
-                            <option value="503" >503 - El Salvador</option>
-                            <option value="501" >501 - Belice</option>
-                            <option value="502" >502 - Guatemala</option>
-                            <option value="504" >504 - Honduras</option>
-                            <option value="505" >505 - Nicaragua</option>
-                            <option value="506" >506 - Costa Rica</option>
+                            <option value="503" {{ old('codigoArea') == '503' ? 'selected' : '' }}>503 - El Salvador</option>
+                            <option value="501" {{ old('codigoArea') == '501' ? 'selected' : '' }}>501 - Belice</option>
+                            <option value="502" {{ old('codigoArea') == '502' ? 'selected' : '' }}>502 - Guatemala</option>
+                            <option value="504" {{ old('codigoArea') == '504' ? 'selected' : '' }}>504 - Honduras</option>
+                            <option value="505" {{ old('codigoArea') == '505' ? 'selected' : '' }}>505 - Nicaragua</option>
+                            <option value="506" {{ old('codigoArea') == '506' ? 'selected' : '' }}>506 - Costa Rica</option>
                           </select>
                     </div>
                 </div>

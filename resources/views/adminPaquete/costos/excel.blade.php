@@ -1,17 +1,15 @@
-@extends('master')
+<?php
+// We change the headers of the page so that the browser will know what sort of file is dealing with. Also, we will tell the browser it has to treat the file as an attachment which cannot be cached.
+header("Content-type: application/octet-stream");
+header("Content-Disposition: attachment; filename=Costos.xls");
+header("Pragma: no-cache");
+header("Expires: 0");
+?>
+@extends('reporte')
 
-@section('head')
-
-@endsection
-@section('Title')
-  <strong>Los 10 paquetes con mayores costos de transporte</strong>
-@endsection
 @section('contenido')
-
-
-<div class="row">
-  <div class="col-md-7 col-md-offset-2">
-    <a class="btn btn-info" title="Descargar como PDF" href="{{ route('adminPaquete.costos.excel')}}"><i class="fa Example of download fa-download"></i></a>
+<div class="col-md-7 col-md-offset-2">
+  <div class="row">
     <table class="table table-striped table-bordered"  style="table-layout: fixed">
       <thead>
         <tr>

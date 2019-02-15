@@ -18,8 +18,8 @@ class RutaTuristicaController extends Controller
     {
       $rutaturistica = RutaTuristica::all();
       $paises = Pais::all();
-      $categoria = Categoria::all();
-      return view('adminRutaTuristica.index',compact('rutaturistica','paises','categoria'));
+      $categorias = Categoria::all();
+      return view('adminRutaTuristica.index',compact('rutaturistica','paises','categorias'));
     }
 
     /**

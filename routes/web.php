@@ -72,6 +72,7 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::resource('adminEmpresaTransporte', 'EmpresaAlquilerTransporteController');
   //Rutas para agregar tipos de transporte y los nombres de los conductores
   Route::resource('adminTipoTransporte', 'TipoTransporteController');
+  Route::get('/eliminarTipo/{id}', ['uses' => 'TipoTransporteController@eliminar', 'as' => 'adminTipoTransporte.eliminar']);
   Route::post('/adminEmpresaTransporte/{empresalquiler}', ['as' => 'adminEmpresaTransporte.conductor.add', 'uses' =>  'EmpresaAlquilerTransporteController@guardarConductor']);//guarda conductor
   //Rutas para la administración de unidades de transporte
   Route::resource('adminTransporte', 'TransporteController');
@@ -152,6 +153,7 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   //Guardar costos
   Route::post('/PaquetesCostos/{id}', ['uses' => 'CostoAlquilerTransporteController@store', 'as' => 'adminPaquete.costos.store']);
   Route::get('/ReporteCostos', ['uses' => 'CostoAlquilerTransporteController@reporte','as' => 'adminPaquete.costos.reporte']);
+  Route::get('/CostosExcel', ['uses' => 'CostoAlquilerTransporteController@costosexcel','as' => 'adminPaquete.costos.excel']);
   Route::get('/ReportePersonas/{id}', ['uses' => 'PaqueteController@reportepersonas','as' => 'adminPaquete.reportepersonas']);
   Route::get('/ListadoPersonas/{id}', ['uses' => 'PaqueteController@listadopersonas','as' => 'adminPaquete.listadopersonas']);
   //FIN RUTAS PAQUETES

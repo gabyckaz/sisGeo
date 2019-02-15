@@ -26,7 +26,7 @@
           {{-- {!! method_field('PUT') !!} --}}
           {!! csrf_field() !!}
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                     <div class="form-group has-feedback{{ $errors->has('Nombre') ? ' has-error' : '' }}">
                        <label for="Nombre" class="control-label">Nombre*</label>
                           <div class="input-group">
@@ -40,7 +40,7 @@
                             @endif
                     </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                     <div class="form-group has-feedback{{ $errors->has('Apellido') ? ' has-error' : '' }}">
                        <label for="Nombre" class="control-label">Apellido*</label>
                           <div class="input-group">
@@ -54,14 +54,27 @@
                             @endif
                     </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
+              <label for="codigoArea">Código de país</label>
+                <div class="input-group">
+                         <select class="form-control" name="codigoArea" id="codigoArea" value="{{ old('codigoArea') }}">
+                          <option value="503" {{ old('codigoArea') == '503' ? 'selected' : '' }}>503 - El Salvador</option>
+                          <option value="501" {{ old('codigoArea') == '501' ? 'selected' : '' }}>501 - Belice</option>
+                          <option value="502" {{ old('codigoArea') == '502' ? 'selected' : '' }}>502 - Guatemala</option>
+                          <option value="504" {{ old('codigoArea') == '504' ? 'selected' : '' }}>504 - Honduras</option>
+                          <option value="505" {{ old('codigoArea') == '505' ? 'selected' : '' }}>505 - Nicaragua</option>
+                          <option value="506" {{ old('codigoArea') == '506' ? 'selected' : '' }}>506 - Costa Rica</option>
+                        </select>
+                  </div>
+                </div>
+              <div class="col-md-3">
                     <div class="form-group has-feedback{{ $errors->has('Telefono') ? ' has-error' : '' }}">
                        <label for="Nombre" class="control-label">Teléfono Contacto*</label>
                           <div class="input-group">
                             <div class="input-group-addon">
                                <i class="fa fa-phone"></i>
                             </div>
-                            <input type="text" name="Telefono" class="form-control"  id="Telefono" placeholder="50372334455" value="{{old('Telefono')}}" required>
+                            <input type="text" name="Telefono" class="form-control"  id="Telefono" placeholder="72334455" value="{{old('Telefono')}}" required>
                           </div>
                           @if ($errors->has('Telefono'))
                                <span class="help-block">{{ $errors->first('Telefono') }}</span>
@@ -70,7 +83,7 @@
               </div>
           </div>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                   <div class="form-group has-feedback{{ $errors->has('Dui') ? ' has-error' : '' }}">
                      <label for="Nombre" class="control-label">DUI</label>
                         <div class="input-group">
@@ -84,7 +97,7 @@
                           @endif
                   </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                   <div class="form-group has-feedback{{ $errors->has('pasaporte') ? ' has-error' : '' }}">
                      <label for="Pasaporte" class="control-label">Pasaporte</label>
                         <div class="input-group">
@@ -129,10 +142,10 @@
               <div class="form-group">
                 <label>Metodo de Pago</label>
                 <select name="MetodoPago" class="form-control" >
-                  <option value="Teléfono" @if (old('tipo') == "Teléfono") {{ 'selected' }} @endif >Telefono</option>
-                  <option value="Presencial" @if (old('tipo') == "Presencial") {{ 'selected' }} @endif >Persona</option>
-                  <option value="Banco" @if (old('tipo') == "Banco") {{ 'selected' }} @endif >Banco</option>
-                  <option value="PuntoExpress" @if (old('tipo') == "PuntoExpress") {{ 'selected' }} @endif >Punto Express</option>
+                  <option value="Teléfono" @if (old('MetodoPago') == "Teléfono") {{ 'selected' }} @endif >Telefono</option>
+                  <option value="Presencial" @if (old('MetodoPago') == "Presencial") {{ 'selected' }} @endif >Persona</option>
+                  <option value="Banco" @if (old('MetodoPago') == "Banco") {{ 'selected' }} @endif >Banco</option>
+                  <option value="Puntoxpress" @if (old('MetodoPago') == "Puntoxpress") {{ 'selected' }} @endif >Puntoxpress</option>
                 </select>
               </div>
             </div>
@@ -163,7 +176,7 @@
       <div class="box-footer">
         <p>¹ Es necesario respetar el patron para otros acompañantes.</p>
         <p>Ejemplo: Nombre Apellido,12345678-1,AA34567890</p>
-        <p>Si solo agrega DUI: Nombre Apellido,12345678-1b<b>,</b></p>
+        <p>Si solo agrega DUI: Nombre Apellido,12345678-1<b>,</b></p>
         <p>Si solo agrega Pasaporte: Nombre Apellido,,AA34567890</b></p>
       </div>
     </div>

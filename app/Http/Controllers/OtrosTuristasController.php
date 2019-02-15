@@ -55,7 +55,7 @@ class OtrosTuristasController extends Controller
         $this->validate($request, [
             "Nombre" => "required|alpha|min:2|max:25",
             "Apellido" => "required|alpha|min:2|max:25",
-            "Telefono" => "required|min:8|max:12",
+            "Telefono" => "required|min:8|max:10",
             "Paquete" => "required",
             "MetodoPago" => "required",
             "Costo" => "required",
@@ -92,7 +92,7 @@ class OtrosTuristasController extends Controller
         //guardo el principal y los otros
             $otroTuristaP = new OtroTurista();
             $otroTuristaP->CodigoOtroTurista = $randomString;
-            $otroTuristaP->NumTelOtroTurista = $request->Telefono;
+            $otroTuristaP->NumTelOtroTurista = $request->codigoArea.$request->Telefono;
             $otroTuristaP->NombreApellido = $request->Nombre.' '.$request->Apellido;
 
             if($request->Dui == null && $request->Pasaporte == null){
@@ -148,7 +148,7 @@ class OtrosTuristasController extends Controller
         //dd('Solo el el principal');
             $otroTuristaP = new OtroTurista();
             $otroTuristaP->CodigoOtroTurista = $randomString;
-            $otroTuristaP->NumTelOtroTurista = $request->Telefono;
+            $otroTuristaP->NumTelOtroTurista =  $request->codigoArea.$request->Telefono;
             $otroTuristaP->NombreApellido = $request->Nombre.' '.$request->Apellido;
             if($request->Dui == null && $request->Pasaporte == null){
                 return redirect()->back()->withInput()->with('falloDoc', 'Es necesario un documento');

@@ -1013,7 +1013,7 @@ class PaqueteController extends Controller
       $turistas = DB::table('paga')
         ->join('pago', 'paga.IdPago', '=', 'pago.IdPago')
         ->join('turista', 'pago.IdTurista', '=', 'turista.IdTurista')
-        ->join('personas', 'tutista.IdPersona', '=', 'personas.IdPersona')
+        ->join('personas', 'turista.IdPersona', '=', 'personas.IdPersona')
         ->select('IdsAcompanantes','TipoPago','PrimerNombrePersona','PrimerApellidoPersona','TelefonoContacto')
         ->where([['IdPaquete','=',$id ],
                 ['Estado','=','1']])
