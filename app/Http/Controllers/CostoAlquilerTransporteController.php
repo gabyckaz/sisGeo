@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Paquete;
 use App\CostoAlquilerTransporte;
 use DB;
+use Exporter;
+use Illuminate\Support\Collection;
 
 class CostoAlquilerTransporteController extends Controller
 {
@@ -74,19 +76,5 @@ class CostoAlquilerTransporteController extends Controller
       return view('adminPaquete.costos.reporte',compact('costos'));
     }
 
-    /*
-    * Método para excel de los 10 paquetes más costosos
-    *
-    */
-    public function costosexcel()
-    {
-      $costos = DB::table('costoalquilertransporte')
-            ->join('paquetes', 'costoalquilertransporte.IdPaquete', '=', 'paquetes.IdPaquete')
-            ->select('paquetes.NombrePaquete','FechaSalida', 'costoalquilertransporte.CostoAlquilerTransporte')
-            ->orderBy('CostoAlquilerTransporte', 'desc')
-            ->limit(10)
-            ->get();
-      return view('adminPaquete.costos.excel',compact('costos'));
-    }
 
 }

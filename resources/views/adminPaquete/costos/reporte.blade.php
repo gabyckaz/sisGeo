@@ -11,7 +11,6 @@
 
 <div class="row">
   <div class="col-md-7 col-md-offset-2">
-    <a class="btn btn-info" title="Descargar como PDF" href="{{ route('adminPaquete.costos.excel')}}"><i class="fa Example of download fa-download"></i></a>
     <table class="table table-striped table-bordered"  style="table-layout: fixed">
       <thead>
         <tr>

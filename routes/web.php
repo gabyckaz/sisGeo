@@ -153,11 +153,19 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   //Guardar costos
   Route::post('/PaquetesCostos/{id}', ['uses' => 'CostoAlquilerTransporteController@store', 'as' => 'adminPaquete.costos.store']);
   Route::get('/ReporteCostos', ['uses' => 'CostoAlquilerTransporteController@reporte','as' => 'adminPaquete.costos.reporte']);
-  Route::get('/CostosExcel', ['uses' => 'CostoAlquilerTransporteController@costosexcel','as' => 'adminPaquete.costos.excel']);
   Route::get('/ReportePersonas/{id}', ['uses' => 'PaqueteController@reportepersonas','as' => 'adminPaquete.reportepersonas']);
   Route::get('/ListadoPersonas/{id}', ['uses' => 'PaqueteController@listadopersonas','as' => 'adminPaquete.listadopersonas']);
   //FIN RUTAS PAQUETES
   Route::get('/graficas', 'GraficaController@index')->name('graficas'); //Graficas
+  //Reportes especificos
+  Route::get('/reportes', ['uses' => 'ReporteController@index','as' => 'reportes.index']); //Reportes
+  Route::put('/reportes', ['uses' => 'ReporteController@show', 'as' => 'reportes.show']);
+  Route::put('/reportes/paquetes', ['uses' => 'ReporteController@paquetes', 'as' => 'reportes.paquetes']);
+  Route::get('/reportes/paquetes/{fechainicio}/{fechafin}', ['uses' => 'ReporteController@paquetesexcel', 'as' => 'paquetes.excel']);
+  Route::put('/reportes/pagos', ['uses' => 'ReporteController@pagos', 'as' => 'reportes.pagos']);
+  Route::get('/reportes/pagos/{fechainicio}/{fechafin}', ['uses' => 'ReporteController@pagosexcel', 'as' => 'pagos.excel']);
+  Route::put('/reportes/usuarios', ['uses' => 'ReporteController@usuarios', 'as' => 'reportes.usuarios']);
+  Route::get('/reportes/usuarios/{fechainicio}/{fechafin}', ['uses' => 'ReporteController@usuariosexcel', 'as' => 'usuarios.excel']);
   //Aprobar paquetes
   Route::get('/ActualizarEstadoPaquete', ['uses' => 'PaqueteController@cambiarEstado', 'as' => 'adminPaquete.estado']);
   Route::put('/ActualizarEstadoPaquete/{id}', ['uses' => 'PaqueteController@cambiarEstado2', 'as' => 'adminPaquete.estado2']);

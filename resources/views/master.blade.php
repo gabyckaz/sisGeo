@@ -276,7 +276,7 @@
             <li><a href="{{ route('adminOpcionesPaquete.create')}}">
               <i class="fa fa-star"></i>
               Opciones Paquete</a></li>
-              @role('Director') 
+              @role('Director')
             <li><a href="{{ route('adminPaquete.estado')}}">
               <i class="fa fa-star"></i>
               Aprobar Paquete</a></li>
@@ -305,12 +305,17 @@
             <i class="fa fa-star"></i>
             Transporte</a></li>
         </ul>
-
     </li>
     <li class="{{ activeMenu('graficas') }}">
       <a href="{{ route('graficas') }}">
         <i class="fa fa-bar-chart"></i>
         <span>Gráficas</span>
+      </a>
+    </li>
+    <li class="{{ activeMenu('reportes.index') }}">
+      <a href="{{ route('reportes.index') }}">
+        <i class="fa fa-line-chart"></i>
+        <span>Reportes</span>
       </a>
     </li>
     @endrole
