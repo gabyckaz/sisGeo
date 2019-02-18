@@ -1,6 +1,8 @@
 @extends('reporte')
 
 @section('contenido')
+@php $numeropersonas=0; @endphp
+
 <div class="col-md-7 col-md-offset-2">
   <div class="row">
     <div class="text-center" >
@@ -52,9 +54,10 @@
     <p><strong>Listado Personas</strong></p>
 
     <div class="table-responsive">
-      <table class="table table-striped table-bordered"  style="table-layout: fixed" >
+      <table class="table table-striped table-bordered">
         <thead>
           <tr>
+            <th>#</th>
             <th class="text-center">Nombre</th>
             <th class="text-center">Telefono</th>
             <th class="text-center">DUI / Pasaporte</th>
@@ -63,7 +66,9 @@
         </thead>
         <tbody>
           @foreach($personas as $persona)
+          @php $numeropersonas++ @endphp
             <tr>
+              <td>{{$numeropersonas}}</td>
               <td style="max-width: 10px; overflow: hidden; white-space: wrap;">{{$persona->PrimerNombrePersona}} {{$persona->SegundoNombrePersona}} {{$persona->PrimerApellidoPersona}} {{$persona->SegundoApellidoPersona}}</td>
               <td style="max-width: 100px; overflow: hidden; white-space: wrap;"> {{$persona->TelefonoContacto }} </td>
               <td style="max-width: 100px; overflow: hidden; white-space: wrap;">{{$persona->NumeroDocumento }} </td>
@@ -71,7 +76,9 @@
             </tr>
           @endforeach
           @foreach($otraspersonas as $otrapersona)
+          @php $numeropersonas++ @endphp
             <tr>
+              <td>{{$numeropersonas}}</td>
               <td style="max-width: 10px; overflow: hidden; white-space: wrap;">{{$otrapersona->NombreApellido}} </td>
               <td style="max-width: 100px; overflow: hidden; white-space: wrap;"> {{$otrapersona->NumTelOtroTurista }} </td>
               <td style="max-width: 100px; overflow: hidden; white-space: wrap;">{{$otrapersona->DuiOtroTurista }} {{$otrapersona->PasaporteOtroTurista }} </td>

@@ -139,7 +139,7 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
     Route::get('/AgregarGuia/{id}', ['uses' => 'PaqueteController@agregarGuiaPaquete', 'as' => 'adminPaqueteGuia.show']);
   Route::put('/AgregarGuia/{id}', ['uses' => 'PaqueteController@guaradaActualizarGuiaPaquete', 'as' => 'adminPaquete.saveUpGuia']);
   //ELIMINAR GUIA A PAQUETE
-  Route::patch('/AgregarGuia/{id}', ['uses' => 'PaqueteController@eliminarGuiaPaquete', 'as' => 'adminPaquete.delGuia']);																													 
+  Route::patch('/AgregarGuia/{id}', ['uses' => 'PaqueteController@eliminarGuiaPaquete', 'as' => 'adminPaquete.delGuia']);
   //AGREGAR CONDUCTOR A PAQUETE
   Route::post('/MostrarPaquete/{id}', ['uses' => 'PaqueteController@asignarconductor', 'as' => 'adminPaquete.show']);
   Route::get('/ListarConductores', ['uses' => 'PaqueteController@listarConductores','as' => 'adminPaquete.listaConductores']);
@@ -155,7 +155,7 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   //Guardar costos
   Route::post('/PaquetesCostos/{id}', ['uses' => 'CostoAlquilerTransporteController@store', 'as' => 'adminPaquete.costos.store']);
   Route::get('/ReporteCostos', ['uses' => 'CostoAlquilerTransporteController@reporte','as' => 'adminPaquete.costos.reporte']);
-  Route::get('/ReportePersonas/{id}', ['uses' => 'PaqueteController@reportepersonas','as' => 'adminPaquete.reportepersonas']);
+  Route::get('/ReportePersonas/{id}/{tipo}', ['uses' => 'PaqueteController@reportepersonas','as' => 'adminPaquete.reportepersonas']);
   Route::get('/ListadoPersonas/{id}', ['uses' => 'PaqueteController@listadopersonas','as' => 'adminPaquete.listadopersonas']);
   //FIN RUTAS PAQUETES
   Route::get('/graficas', 'GraficaController@index')->name('graficas'); //Graficas
