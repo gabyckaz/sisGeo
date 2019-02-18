@@ -137,6 +137,8 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   //AGREGAR GUIA A PAQUETE
     Route::get('/AgregarGuia/{id}', ['uses' => 'PaqueteController@agregarGuiaPaquete', 'as' => 'adminPaqueteGuia.show']);
   Route::put('/AgregarGuia/{id}', ['uses' => 'PaqueteController@guaradaActualizarGuiaPaquete', 'as' => 'adminPaquete.saveUpGuia']);
+  //ELIMINAR GUIA A PAQUETE
+  Route::patch('/AgregarGuia/{id}', ['uses' => 'PaqueteController@eliminarGuiaPaquete', 'as' => 'adminPaquete.delGuia']);																													 
   //AGREGAR CONDUCTOR A PAQUETE
   Route::post('/MostrarPaquete/{id}', ['uses' => 'PaqueteController@asignarconductor', 'as' => 'adminPaquete.show']);
   Route::get('/ListarConductores', ['uses' => 'PaqueteController@listarConductores','as' => 'adminPaquete.listaConductores']);

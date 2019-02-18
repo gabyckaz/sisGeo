@@ -844,11 +844,29 @@ class PaqueteController extends Controller
     public function agregarGuiaPaquete($id){
 
       $paquete = Paquete::findOrFail($id);
+      
+      $numModificados = DB::update("UPDATE guiapaquete 
+      SET DisponiblidadGuia = ? 
+      WHERE IdPaquete IN (
+      SELECT IdPaquete
+      FROM paquetes 
+      WHERE FechaSalida < CURDATE())",["0"]);									 
 
       $sql = 'SELECT e.IdEmpleadoGEO, p.PrimerNombrePersona,p.PrimerApellidoPersona,
               p.AreaTelContacto, p.TelefonoContacto, n.Nacionalidad
-            FROM empleado as e, personas as p, turista as t, nacionalidad as n
-            WHERE e.IdPersona = p.IdPersona and t.IdPersona = p.IdPersona and t.IdNacionalidad = n.IdNacionalidad ;';
+            FROM empleado AS e, personas AS p, turista AS t, nacionalidad AS n
+            WHERE e.IdPersona = p.IdPersona AND t.IdPersona = p.IdPersona AND t.IdNacionalidad = n.IdNacionalidad AND 
+              e.IdEmpleadoGEO not IN(
+            SELECT gp.IdEmpleadoGEO
+            FROM guiapaquete AS gp
+            WHERE gp.DisponiblidadGuia = "1" AND gp.IdPaquete IN (SELECT paq.IdPaquete
+            FROM paquetes AS paq
+            WHERE  paq.FechaSalida > CURDATE() 
+            AND (DATE_FORMAT(paq.FechaSalida,"%Y-%m-%d") >= DATE_FORMAT("'.$paquete->FechaSalida.'","%Y-%m-%d") 
+            AND DATE_FORMAT(paq.FechaRegreso,"%Y-%m-%d") <= DATE_FORMAT("'.$paquete->FechaRegreso.'","%Y-%m-%d"))
+            OR (DATE_FORMAT("'.$paquete->FechaSalida.'","%Y-%m-%d") BETWEEN DATE_FORMAT(paq.FechaSalida,"%Y-%m-%d") AND DATE_FORMAT(paq.FechaRegreso,"%Y-%m-%d"))
+            OR (DATE_FORMAT("'.$paquete->FechaRegreso.'","%Y-%m-%d") BETWEEN DATE_FORMAT(paq.FechaSalida,"%Y-%m-%d") AND DATE_FORMAT(paq.FechaRegreso,"%Y-%m-%d")) 
+            ));';
         $guias = DB::select($sql);
 
          $sql = 'SELECT IdGuiaPaquete, IdEmpleadoGEO, IdPaquete
@@ -861,22 +879,34 @@ class PaqueteController extends Controller
            $guiasPaquete[] = $pIdguias[$i]->IdEmpleadoGEO;
          }
          sort($guiasPaquete);
-
-     return view('adminPaquete.agregarguia',compact('guias','paquete','guiasPaquete'));
+         $sqlG = 'SELECT gpt.IdGuiaPaquete as idgpt, pers.PrimerNombrePersona as pn, pers.SegundoNombrePersona as sn, pers.PrimerApellidoPersona as pap, pers.SegundoApellidoPersona as sap,
+          pers.AreaTelContacto as atel, pers.TelefonoContacto as tel
+          FROM guiaPaquete as gpt, empleado as empg, personas as pers
+          WHERE gpt.IdEmpleadoGEO = empg.IdEmpleadoGEO and empg.IdPersona = pers.IdPersona and gpt.IdPaquete = '.$id.' ;';
+          $pIdguias = DB::select($sqlG);							
+     return view('adminPaquete.agregarguia',compact('guias','paquete','guiasPaquete','pIdguias'));
     }
 
     public function guaradaActualizarGuiaPaquete($id, Request $request){
-        $GuiaPaqueteDel = GuiaPaquete::where('IdPaquete',$id);
-        $GuiaPaqueteDel->delete();
+       // $GuiaPaqueteDel = GuiaPaquete::where('IdPaquete',$id);
+       // $GuiaPaqueteDel->delete();
         for ($i=0; $i<count($request->guiasP);$i++){
               $guiaPaquete = new GuiaPaquete();
               $guiaPaquete->IdEmpleadoGEO = $request->guiasP[$i];
               $guiaPaquete->IdPaquete = $id;
+			  $guiaPaquete->DisponiblidadGuia = 1;								  
               $guiaPaquete->save();
           }
      return redirect()->back()->with('message', 'Actualizado con éxito');
     }
 
+      public function eliminarGuiaPaquete($id, Request $request){
+        for ($i=0; $i<count($request->IdGP);$i++){
+        $GuiaPaqueteDel = GuiaPaquete::where('IdGuiaPaquete',$request->IdGP[$i]);
+        $GuiaPaqueteDel->delete();
+      }
+     return redirect()->back()->with('message', 'Actualizado con éxito');
+    }
     public function eliminarGuia(Paquete $empleado, Request $request){
 
       try{

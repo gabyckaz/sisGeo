@@ -385,7 +385,7 @@
                         <!-- /.box-body -->
 
                          <div class="box-footer">
-                                    <button type="submit" class="btn btn-info">Actualizar</button>
+                                    <button type="submit" class="btn btn-info" @if($paquete->compara_fechas == 1 ) disabled @else '' @endif>Actualizar</button>
                                 </div>
                         </div>
                         </form>

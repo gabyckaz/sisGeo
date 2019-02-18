@@ -146,7 +146,7 @@
       </div>
       <!-- /.box-body -->
       <div class="box-footer text-center">
-        <button type="submit" class="btn btn-info">Asignar transporte</button>
+        <button type="submit" class="btn btn-info" @if($paquete->compara_fechas == 1 ) disabled @else '' @endif>Asignar transporte</button>
       </div>
     </form>
     </div>
