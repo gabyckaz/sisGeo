@@ -119,6 +119,7 @@ h4 span {
   </div>
 @endrole
   <div class="row">
+    @role('User')
       <div class="col-md-12">
     @if (count($reservaciones) == 0)
       <br>
@@ -148,6 +149,7 @@ h4 span {
       </div> -->
     @endif
   </div><!-- /.row -->
+  @endrole
   <div class="col-md-12">
     <div class="text-center">
       <img class="responsive" alt="Geoturismo banner" src="..\images\bannergeo.png">

@@ -5,16 +5,16 @@
 
 @endsection
 @section('Title')
-@role('Admin') 
+@role('Admin')
 <strong> Administracion de roles a usuario </strong>
 @endrole
 @endsection
 
 @section('contenido')
-@role('Admin') 
+@role('Admin')
 <div class="row">
   <div class="col-md-12 ">
-         
+
     <form class="form-horizontal" role="form" method="POST" action="{{route('adminUser.role.add', $usuario->id) }}" >
       {!! method_field('PUT') !!}
       {{ csrf_field()  }}
@@ -94,7 +94,7 @@
               <label class="col-md-4 control-label" for="rol">Eliminar rol</label>
               <div class="col-md-4 selectContainer">
                   <select class="form-control" name="rol">
-                    @foreach($roles as $rol)
+                    @foreach($rolesactuales as $rol)
                         <option  value="{{ $rol->id }}">{{ $rol->display_name }}</option>
                     @endforeach
                   </select>
@@ -109,14 +109,6 @@
 
         </fieldset>
         </form>
-      </div>
-      <div class="box-body">
-        @if (session('status'))
-        <div class="alert alert-success">
-          {{ session('status') }}
-        </div>
-        @endif
-        You are logged in!
       </div>
 </div>
 @endrole

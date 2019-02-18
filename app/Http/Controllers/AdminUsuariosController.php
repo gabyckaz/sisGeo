@@ -117,8 +117,13 @@ class AdminUsuariosController extends Controller
     public function edit($id)
     {
         $usuario = User::findOrFail($id);
+        $rolesactuales=  DB::table('roles')
+                ->join('role_user', 'roles.id', '=', 'role_user.role_id')
+                ->select('id','display_name')
+                ->where('role_user.user_id','=',$id)
+                ->get();
         $roles = Role::All();
-        return view("adminUser.edit",compact("usuario","roles"));//$usuario;
+        return view("adminUser.edit",compact("usuario","roles","rolesactuales"));
 
      // $var = 4;
     //  $data = DB::select('select proc_AgregarPais(?) ', [$var]  );

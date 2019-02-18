@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Paquete;
 use App\CostoAlquilerTransporte;
 use DB;
+use Exporter;
+use Illuminate\Support\Collection;
 
 class CostoAlquilerTransporteController extends Controller
 {
@@ -73,5 +75,6 @@ class CostoAlquilerTransporteController extends Controller
             ->get();
       return view('adminPaquete.costos.reporte',compact('costos'));
     }
+
 
 }
