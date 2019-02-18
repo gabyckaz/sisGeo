@@ -11,9 +11,9 @@
   <div class="col-md-10 col-md-offset-1">
     <div class="box box-warning">
       <div class="box-header">
-        <h3 class="box-title"><b>Total: {{$totalpaquetes}}</b></h3>
+        <h3 class="box-title"><b>Total: {{$totalpaquetesprog}}</b></h3>
         <div class="box-tools pull-right">
-          <a class="btn btn-success" title="Descargar como Excel" href="{{ route('paquetes.excel',[$fechainicio,$fechafin])}}">Descargar <i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
+          <a class="btn btn-success" title="Descargar como Excel" href="{{ route('paquetesprogramados.excel',[$fechainicio,$fechafin])}}">Descargar <i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
         </div>
       </div>
       <div class="box-body">
@@ -23,6 +23,8 @@
               <tr>
                 <th>#</th>
                 <th class="text-center">Nombre Paquete</th>
+                <th class="text-center">Aprobado</th>
+                <th class="text-center">Publicado</th>
                 <th class="text-center">Precio ofertado</th>
                 <th class="text-center">Cupos ofertados</th>
                 <th class="text-center">Costo total Transporte</th>
@@ -32,10 +34,22 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($paquetes as $paquete)
+              @foreach($paquetesprogramados as $paquete)
                 <tr>
                   <td>{{ $loop->iteration }}</td>
                   <td>{{$paquete->NombrePaquete}}</td>
+                  <td>@if($paquete->AprobacionPaquete==1)
+                        Sí
+                      @elseif($paquete->AprobacionPaquete==0)
+                        No
+                      @endif
+                  </td>
+                  <td>@if($paquete->DisponibilidadPaquete==1)
+                        Sí
+                      @elseif($paquete->DisponibilidadPaquete==0)
+                        No
+                      @endif
+                  </td>
                   <td>$ {{$paquete->Precio}}</td>
                   <td>{{$paquete->Cupos}}</td>
                   <td>$ {{$paquete->CostoAlquilerTransporte}}</td>

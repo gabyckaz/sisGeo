@@ -6,7 +6,6 @@
 @endsection
 
 @section('contenido')
-
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
     <div class="box box-warning">
@@ -20,7 +19,7 @@
         <div class="table-responsive">
           <table class="table table-striped table-bordered table-hover">
             <thead class="thead-dark">
-              <tr>
+              <tr><th class="text-center">#</th>
                 <th class="text-center">Paquete</th>
                 <th class="text-center">Tipo de pago</th>
                 <th class="text-center">Código Pagadito(NAP)</th>
@@ -35,6 +34,7 @@
             <tbody>
               @foreach($pagos as $pago)
                 <tr>
+                  <td>{{ $loop->iteration }}</td>
                   <td>{{$pago->Descripcion}}</td>
                   <td>{{$pago->TipoPago}}</td>
                   <td>{{$pago->NAP}}</td>

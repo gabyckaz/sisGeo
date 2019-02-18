@@ -8,6 +8,19 @@
 
 @section('contenido')
 
+@if(session('status'))
+  <br>
+    <script type="text/javascript">
+      alertify.success('<h4><i class="icon fa fa-check"></i> Alert!</h4> {{ session("status") }}');
+    </script>
+@endif
+@if(session('fallo'))
+  <br>
+  <script type="text/javascript">
+    alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
+  </script>
+@endif
+
 <div class="row">
   <div class="col-md-6">
 
@@ -38,6 +51,7 @@
               <label for="tiporeporte">Tipo de reporte</label>
               <select  class="form-control" name="tiporeporte">
                 <option value="Paquetesrealizados" {{ old('tiporeporte') == 'Paquetesrealizados' ? 'selected' : '' }}>Paquetes realizados</option>
+                <option value="Paquetesprogramados" {{ old('tiporeporte') == 'Paquetesprogramados' ? 'selected' : '' }}>Paquetes programados (a realizar)</option>
                 <option value="Pagos" {{ old('tiporeporte') == 'Pagos' ? 'selected' : '' }} >Pagos registrados</option>
                 <option value="Usuarios" {{ old('tiporeporte') == 'Usuarios' ? 'selected' : '' }}>Usuarios registrados</option>
               </select>

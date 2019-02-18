@@ -162,6 +162,8 @@ Route::group(['middleware' => ['role:Director|Agente']], function() {
   Route::put('/reportes', ['uses' => 'ReporteController@show', 'as' => 'reportes.show']);
   Route::put('/reportes/paquetes', ['uses' => 'ReporteController@paquetes', 'as' => 'reportes.paquetes']);
   Route::get('/reportes/paquetes/{fechainicio}/{fechafin}', ['uses' => 'ReporteController@paquetesexcel', 'as' => 'paquetes.excel']);
+  Route::put('/reportes/paquetesprog', ['uses' => 'ReporteController@paquetesprogramados', 'as' => 'reportes.paquetesprogramados']);
+  Route::get('/reportes/paquetesprog/{fechainicio}/{fechafin}', ['uses' => 'ReporteController@paquetesprogramadosesexcel', 'as' => 'paquetesprogramados.excel']);
   Route::put('/reportes/pagos', ['uses' => 'ReporteController@pagos', 'as' => 'reportes.pagos']);
   Route::get('/reportes/pagos/{fechainicio}/{fechafin}', ['uses' => 'ReporteController@pagosexcel', 'as' => 'pagos.excel']);
   Route::put('/reportes/usuarios', ['uses' => 'ReporteController@usuarios', 'as' => 'reportes.usuarios']);

@@ -21,6 +21,7 @@
           <table class="table table-striped table-bordered table-hover">
             <thead class="thead-dark">
               <tr>
+                <th>#</th>
                 <th class="text-center">Nombre</th>
                 <th class="text-center">Email</th>
                 <th class="text-center">Foto personalizada</th>
@@ -34,6 +35,7 @@
             <tbody>
               @foreach($usuarios as $usuario)
                 <tr>
+                  <td>{{ $loop->iteration }}</td>
                   <td>{{$usuario->PrimerNombrePersona}} {{$usuario->SegundoNombrePersona}} {{$usuario->PrimerApellidoPersona}} {{$usuario->SegundoApellidoPersona}}</td>
                   <td>{{$usuario->email}}</td>
                   <td>@if($usuario->avatar=='default.gif')
