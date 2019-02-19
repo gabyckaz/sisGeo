@@ -32,7 +32,7 @@
     <div class="list-group">
       <a title="Descargar como PDF" href="{{ route('adminRutaTuristica.reporte')}}" class="list-group-item list-group-item-action">Listado Rutas Turísticas</a>
       <a title="Descargar como PDF" href="{{ route('adminEmpresaTransporte.reporte') }}" class="list-group-item list-group-item-action">Empresas de Transporte</a>
-      <a title="Descargar como PDF" href="{{ route('adminPaquete.costos.reporte')}}" class="list-group-item list-group-item-action">Paquetes más costos</a>
+      <a title="Consultar" href="{{ route('adminPaquete.costos.reporte')}}" class="list-group-item list-group-item-action">Paquetes más costos</a>
     </div>
   </div>
   </div>

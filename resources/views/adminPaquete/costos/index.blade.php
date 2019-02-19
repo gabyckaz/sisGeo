@@ -25,7 +25,7 @@
     <div class="box box-warning">
       <div class="box-header">
         <div class="box-tools pull-right">
-          <a class="btn btn-info" title="Descargar como PDF" href="{{ route('adminPaquete.costos.reporte')}}"><i class="fa Example of download fa-download"></i></a>
+          <a class="btn btn-info" title="Consultar" href="{{ route('adminPaquete.costos.reporte')}}"><i class="fa Example of download fa-download"></i></a>
         </div>
       </div>
       <br>

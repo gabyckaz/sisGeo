@@ -2,7 +2,7 @@
 
 @section('head')
 @section('Title')
-<STRONG>Paquetes realizados desde {{ \Carbon\Carbon::parse($fechainicio)->format('d-m-Y')}} hasta {{ \Carbon\Carbon::parse($fechafin)->format('d-m-Y')}}</STRONG>
+<STRONG>Paquetes a realizar desde {{ \Carbon\Carbon::parse($fechainicio)->format('d-m-Y')}} hasta {{ \Carbon\Carbon::parse($fechafin)->format('d-m-Y')}}</STRONG>
 @endsection
 
 @section('contenido')

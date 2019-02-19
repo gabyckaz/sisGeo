@@ -13,7 +13,7 @@
   <div class="box-header">
     <div class="box-tools pull-right">
     <a href="{{route('adminPaquete.reportepersonas', [$paquete['IdPaquete'],'pdf'])}}"
-      class="btn btn-info " title="Listado de personas"> Descargar <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+      class="btn btn-info " title="Listado de personas"> Descargar <i class="fa fa-download" aria-hidden="true"></i></a>
     <a class="btn btn-success" title="Descargar como Excel" href="{{ route('adminPaquete.reportepersonas', [$paquete['IdPaquete'],'excel'])}}">Descargar <i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
     </div>
   </div>

@@ -2,7 +2,7 @@
 
 @section('head')
 @section('Title')
-<STRONG>Pagos registrados desde {{ \Carbon\Carbon::parse($fechainicio)->format('d-m-Y')}} hasta {{ \Carbon\Carbon::parse($fechafin)->format('d-m-Y')}}</STRONG>
+<STRONG>Usuarios registrados desde {{ \Carbon\Carbon::parse($fechainicio)->format('d-m-Y')}} hasta {{ \Carbon\Carbon::parse($fechafin)->format('d-m-Y')}}</STRONG>
 @endsection
 
 @section('contenido')
