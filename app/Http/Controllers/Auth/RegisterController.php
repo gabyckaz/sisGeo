@@ -49,13 +49,22 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {   
+    {
         /*
         *Validamos campos necesarios
         *
         */
+
         return Validator::make($data, [
             'name' => 'required|alpha|min:2|max:25',
+/*
+            //'SegundoNombrePersona'=>'min:2|max:25',
+            'email' => 'required|string|email|max:25|unique:users',
+            'password' => 'required|string|min:6|confirmed|max:25',
+            'PrimerApellidoPersona' => 'required|alpha|min:2|max:25',
+            //'SegundoApellidoPersona' => 'alpha|min:2|max:25',
+            'TelefonoContacto' => 'required|string|min:8|max:10',
+*/
             'SegundoNombrePersona'=>'alpha|nullable|min:2|max:25',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
@@ -105,12 +114,12 @@ class RegisterController extends Controller
            'password' => Hash::make($data['password']),
            'IdPersona' => $persona->IdPersona,
            'RecibirNotificacion' => $data['RecibirNotificacion'],
-           'EstadoUsuario' => '1', 
-         ]);     
+           'EstadoUsuario' => '1',
+         ]);
         /*
         *Agregamos el rol de usuario al nuevo usuario
         */
-        $usuario->attachRole($rol);    
+        $usuario->attachRole($rol);
         return $usuario;
     }
 }

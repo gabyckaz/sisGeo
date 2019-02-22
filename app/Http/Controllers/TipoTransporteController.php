@@ -99,6 +99,21 @@ class TipoTransporteController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+    }
+
+    public function eliminar($id){
+      try {
+        $tipotransporte=TipoTransporte::where('IdTipoTransporte',$id)->get()->first();
+        if ($tipotransporte!=null) {
+          $tipotransporte->delete();
+          return back()->with('status',"Eliminado con éxito");
+        }else {
+          return back()->with('fallo',"Error. Es parte de un transporte, no se puede eliminar");
+        }
+
+      } catch (\Exception $e) {
+          return back()->with('fallo',"Error.  Es parte de un transporte, no se puede eliminar");
+      }
     }
 }

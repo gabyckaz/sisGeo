@@ -209,20 +209,25 @@
         </div>
         <div class="row">
           <label class="col-md-12">Características</label>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label class="">
             <input class="form-group" name="ac" type="checkbox" value="si" @if( $transporte->TieneAC == 'si') checked @endif>
             <i class="fa fa-thermometer-half"></i> Aire Acondicionado</label>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label class="" >
             <input class="form-group" name="tv" type="checkbox" value="si" @if( $transporte->TieneTV == 'si') checked @endif>
             <i class="fa fa-television"></i> TV</label>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label  class=" form-group">
             <input  class="form-group" name="wifi" type="checkbox" value="si" @if( $transporte->TieneWifi == 'si') checked @endif>
             <i class="fa fa-wifi"  title="Wifi"></i> Wifi</label>
+          </div>
+          <div class="form-group col-md-3">
+            <label  class=" form-group">
+            <input  class="form-group" name="asientos" type="checkbox" value="si" @if($transporte->TieneAsientos =="si") checked @endif >
+            <i class="fa fa-user"  title="asientos"></i> Asientos Reclinables</label>
           </div>
         </div>
         <div class="row">

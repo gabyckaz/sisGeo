@@ -63,8 +63,8 @@
               <div class="form-group">
                 <label for="categoria">Categoria</label>
                 <select class="form-control" name="categoria">
-                  @foreach($categoria as $cat)
-                    <option value="{{ $cat->IdCategoria }}" {{ old('cat') == $cat->IdCategoria ? 'selected' : '' }}>{{ $cat->NombreCategoria }}</option>
+                  @foreach($categorias as $categoria)
+                    <option value="{{ $categoria->IdCategoria }}" {{ old('categoria') == $categoria->IdCategoria ? 'selected' : '' }}>{{ $categoria->NombreCategoria }}</option>
                   @endforeach
                 </select>
               </div>

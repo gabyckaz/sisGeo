@@ -6,7 +6,7 @@
 
 @section('contenido')
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-6">
     @if(session('status'))
       <br>
        <script type="text/javascript">
@@ -38,18 +38,24 @@
                 <button type="submit" class="btn btn-info center-block">Agregar</button>
               </div>
           </form>
+          <br>
             <div class="row">
               <h3 class="box-title"> </h3>
-              <table class="table table-striped table-bordered table-hover" >
+              <table class="table table-striped table-bordered table-hover" id="tablatipotransporte">
                 <thead class="thead-dark">
                   <tr>
-                  <th>Nombre</th>
+                  <th align="center">Nombre</th>
+                  <th align="center">Eliminar</th>
                   </tr>
                 </thead>
                 <tbody>
                 @foreach($tipotransporte as $tipo)
                    <tr>
                      <td>{{ $tipo->NombreTipoTransporte }}</td>
+                     <td align="center" width="100px"> <a href="{{route('adminTipoTransporte.eliminar', $tipo['IdTipoTransporte'])}}"
+                       class="btn btn-danger btn-sm"> <font color="white" size="2"> <b> X</b>
+                       </font>
+                     </a> </td>
                    </tr>
                   @endforeach
                 </tbody>

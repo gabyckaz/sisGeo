@@ -7,13 +7,15 @@
 <strong>Listado de personas a asistir a {{$paquete->NombrePaquete}} el  {{ \Carbon\Carbon::parse($paquete->FechaSalida)->format('d/m/Y')}}</strong>
 @endsection
 @section('contenido')
+@php $numeropersonas=0; @endphp
 <div class="col-md-9 col-md-offset-1">
- <div class="box box-solid">
+ <div class="box box-warning">
   <div class="box-header">
-    <!-- <h3 class="box-title"><strong><h2>ddd</h2></strong></h3> -->
-    <a href="{{route('adminPaquete.reportepersonas', $paquete['IdPaquete'])}}"
-      class="btn btn-info " title="Listado de personas"> Descargar como PDF
-    </a>
+    <div class="box-tools pull-right">
+    <a href="{{route('adminPaquete.reportepersonas', [$paquete['IdPaquete'],'pdf'])}}"
+      class="btn btn-info " title="Listado de personas"> Descargar <i class="fa fa-download" aria-hidden="true"></i></a>
+    <a class="btn btn-success" title="Descargar como Excel" href="{{ route('adminPaquete.reportepersonas', [$paquete['IdPaquete'],'excel'])}}">Descargar <i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
+    </div>
   </div>
   <div class="box-body">
     @if (count($transportesasignados) == 0)
@@ -51,9 +53,10 @@
     <p><strong>Listado Personas</strong></p>
 
     <div class="table-responsive">
-      <table class="table table-striped table-bordered"  style="table-layout: fixed" >
+      <table class="table table-striped table-bordered" >
         <thead>
           <tr>
+            <th>#</th>
             <th class="text-center">Nombre</th>
             <th class="text-center">Telefono</th>
             <th class="text-center">DUI / Pasaporte</th>
@@ -62,20 +65,23 @@
         </thead>
         <tbody>
           @foreach($personas as $key => $persona)
-
+            @php $numeropersonas++ @endphp
             <tr>
-              <td style="max-width: 10px; overflow: hidden; white-space: wrap;">{{$persona->PrimerNombrePersona}} {{$persona->SegundoNombrePersona}} {{$persona->PrimerApellidoPersona}} {{$persona->SegundoApellidoPersona}}</td>
-              <td style="max-width: 100px; overflow: hidden; white-space: wrap;"> {{$persona->TelefonoContacto }} </td>
-              <td style="max-width: 100px; overflow: hidden; white-space: wrap;">{{$persona->NumeroDocumento }} </td>
-              <td style="max-width: 100px; overflow: hidden; white-space: wrap;">{{$persona->Nacionalidad }} </td>
+              <td>{{$numeropersonas}}</td>
+              <td>{{$persona->PrimerNombrePersona}} {{$persona->SegundoNombrePersona}} {{$persona->PrimerApellidoPersona}} {{$persona->SegundoApellidoPersona}}</td>
+              <td> {{$persona->TelefonoContacto }} </td>
+              <td>{{$persona->NumeroDocumento }} </td>
+              <td>{{$persona->Nacionalidad }} </td>
             </tr>
           @endforeach
           @foreach($otraspersonas as $otrapersona)
+            @php $numeropersonas++ @endphp
             <tr>
-              <td style="max-width: 10px; overflow: hidden; white-space: wrap;">{{$otrapersona->NombreApellido}} </td>
-              <td style="max-width: 100px; overflow: hidden; white-space: wrap;"> {{$otrapersona->NumTelOtroTurista }} </td>
-              <td style="max-width: 100px; overflow: hidden; white-space: wrap;">{{$otrapersona->DuiOtroTurista }} {{$otrapersona->PasaporteOtroTurista }} </td>
-              <td style="max-width: 100px; overflow: hidden; white-space: wrap;"></td>
+              <td>{{$numeropersonas}}</td>
+              <td>{{$otrapersona->NombreApellido}} </td>
+              <td> {{$otrapersona->NumTelOtroTurista }} </td>
+              <td>{{$otrapersona->DuiOtroTurista }} {{$otrapersona->PasaporteOtroTurista }} </td>
+              <td></td>
             </tr>
           @endforeach
         </tbody>

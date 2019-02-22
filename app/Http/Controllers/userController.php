@@ -908,7 +908,12 @@ Para el del DUI el proceso que recuerdo es este:
       $suma = (9*$arrayNumeroDui[0])+(8*$arrayNumeroDui[1])+(7*$arrayNumeroDui[2])+(6*$arrayNumeroDui[3])+(5*$arrayNumeroDui[4])+(4*$arrayNumeroDui[5])+(3*$arrayNumeroDui[6])+(2*$arrayNumeroDui[7]);
       $moduloDiv = $suma%10;
       $resta = 10-$moduloDiv;
-      if($resta == 0 || $resta == $digitoVerificador || $moduloDiv == 0){
+      $resta=$resta.'';
+      $digitoVerificador=$digitoVerificador.'';
+      $moduloDiv=$moduloDiv.'';
+
+      if($resta === '0' || $resta === $digitoVerificador || $moduloDiv === '0'){
+        //  dd($resta.'-'.$moduloDiv.'-'.$digitoVerificador);
         return true;
       }
       return false;

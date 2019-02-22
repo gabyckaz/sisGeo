@@ -123,7 +123,7 @@
                   </div>
                     <div class="form-check">
                      <label class="form-check-label col-md-6">
-                     <input type="radio" class="form-check-input" name="RecibirNotificacion" value="2" {{(old('RecibirNotificacion') == '2') ? 'checked' : ''}}>No
+                     <input type="radio" class="form-check-input" name="RecibirNotificacion" value="0" {{(old('RecibirNotificacion') == '0') ? 'checked' : ''}}>No
                      </label>
                    </div>
                </div>

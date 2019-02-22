@@ -8,7 +8,7 @@
 
 @section('contenido')
 <div class="row">
-  <div class="col-md-7 col-md-offset-2"><!-- Vista create -->
+  <div class="col-md-8 col-md-offset-2"><!-- Vista create -->
     @if(session('status'))
       <br>
         <script type="text/javascript">
@@ -136,7 +136,7 @@
             </div>
             <div class="form-group col-md-3">
               <label  class=" form-group">
-              <input  class="form-group" name="asientos" type="checkbox" value="si" @if(old('wifi')=="si") checked @endif  checked >
+              <input  class="form-group" name="asientos" type="checkbox" value="si" @if(old('asientos')=="si") checked @endif  checked >
               <i class="fa fa-user"  title="asientos"></i> Asientos Reclinables</label>
             </div>
           </div>
@@ -162,7 +162,7 @@
       </div>
       </div>
   </div><!-- Fin de vista create -->
-  <div class="col-md-7  col-md-offset-2"><!-- Vista index -->
+  <div class="col-md-8  col-md-offset-2"><!-- Vista index -->
     <div class="box box-warning">
       <div class="box-header">
         <!-- <h3 class="box-title"><STRONG>Listado de unidades de transporte</STRONG></h3> -->

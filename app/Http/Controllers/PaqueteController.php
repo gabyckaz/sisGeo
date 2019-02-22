@@ -32,7 +32,8 @@ use App\Empleado;
 use App\GuiaPaquete;
 use App\Pago;
 use App\Paga;
-
+use Exporter;
+use Illuminate\Support\Collection;
 
 
 class PaqueteController extends Controller
@@ -844,28 +845,28 @@ class PaqueteController extends Controller
     public function agregarGuiaPaquete($id){
 
       $paquete = Paquete::findOrFail($id);
-      
-      $numModificados = DB::update("UPDATE guiapaquete 
-      SET DisponiblidadGuia = ? 
+
+      $numModificados = DB::update("UPDATE guiapaquete
+      SET DisponiblidadGuia = ?
       WHERE IdPaquete IN (
       SELECT IdPaquete
-      FROM paquetes 
-      WHERE FechaSalida < CURDATE())",["0"]);									 
+      FROM paquetes
+      WHERE FechaSalida < CURDATE())",["0"]);
 
       $sql = 'SELECT e.IdEmpleadoGEO, p.PrimerNombrePersona,p.PrimerApellidoPersona,
               p.AreaTelContacto, p.TelefonoContacto, n.Nacionalidad
             FROM empleado AS e, personas AS p, turista AS t, nacionalidad AS n
-            WHERE e.IdPersona = p.IdPersona AND t.IdPersona = p.IdPersona AND t.IdNacionalidad = n.IdNacionalidad AND 
+            WHERE e.IdPersona = p.IdPersona AND t.IdPersona = p.IdPersona AND t.IdNacionalidad = n.IdNacionalidad AND
               e.IdEmpleadoGEO not IN(
             SELECT gp.IdEmpleadoGEO
             FROM guiapaquete AS gp
             WHERE gp.DisponiblidadGuia = "1" AND gp.IdPaquete IN (SELECT paq.IdPaquete
             FROM paquetes AS paq
-            WHERE  paq.FechaSalida > CURDATE() 
-            AND (DATE_FORMAT(paq.FechaSalida,"%Y-%m-%d") >= DATE_FORMAT("'.$paquete->FechaSalida.'","%Y-%m-%d") 
+            WHERE  paq.FechaSalida > CURDATE()
+            AND (DATE_FORMAT(paq.FechaSalida,"%Y-%m-%d") >= DATE_FORMAT("'.$paquete->FechaSalida.'","%Y-%m-%d")
             AND DATE_FORMAT(paq.FechaRegreso,"%Y-%m-%d") <= DATE_FORMAT("'.$paquete->FechaRegreso.'","%Y-%m-%d"))
             OR (DATE_FORMAT("'.$paquete->FechaSalida.'","%Y-%m-%d") BETWEEN DATE_FORMAT(paq.FechaSalida,"%Y-%m-%d") AND DATE_FORMAT(paq.FechaRegreso,"%Y-%m-%d"))
-            OR (DATE_FORMAT("'.$paquete->FechaRegreso.'","%Y-%m-%d") BETWEEN DATE_FORMAT(paq.FechaSalida,"%Y-%m-%d") AND DATE_FORMAT(paq.FechaRegreso,"%Y-%m-%d")) 
+            OR (DATE_FORMAT("'.$paquete->FechaRegreso.'","%Y-%m-%d") BETWEEN DATE_FORMAT(paq.FechaSalida,"%Y-%m-%d") AND DATE_FORMAT(paq.FechaRegreso,"%Y-%m-%d"))
             ));';
         $guias = DB::select($sql);
 
@@ -883,7 +884,7 @@ class PaqueteController extends Controller
           pers.AreaTelContacto as atel, pers.TelefonoContacto as tel
           FROM guiaPaquete as gpt, empleado as empg, personas as pers
           WHERE gpt.IdEmpleadoGEO = empg.IdEmpleadoGEO and empg.IdPersona = pers.IdPersona and gpt.IdPaquete = '.$id.' ;';
-          $pIdguias = DB::select($sqlG);							
+          $pIdguias = DB::select($sqlG);
      return view('adminPaquete.agregarguia',compact('guias','paquete','guiasPaquete','pIdguias'));
     }
 
@@ -894,7 +895,7 @@ class PaqueteController extends Controller
               $guiaPaquete = new GuiaPaquete();
               $guiaPaquete->IdEmpleadoGEO = $request->guiasP[$i];
               $guiaPaquete->IdPaquete = $id;
-			  $guiaPaquete->DisponiblidadGuia = 1;								  
+			  $guiaPaquete->DisponiblidadGuia = 1;
               $guiaPaquete->save();
           }
      return redirect()->back()->with('message', 'Actualizado con éxito');
@@ -938,7 +939,7 @@ class PaqueteController extends Controller
     /*
     * Reporte del guía y los turistas confirmados que asistan a cierto paquete
     */
-    public function reportepersonas($id){
+    public function reportepersonas($id,$tiporeporte){
 
       //Consulta de turistas que han pagado por pagadito
       $turistas = DB::table('paga')
@@ -998,8 +999,8 @@ class PaqueteController extends Controller
 
       //Consulta de Datos de cada turista de otros pagos
       $otraspersonas= DB::table('pago')
-            ->rightjoin('otrosTuristas', 'pago.IdOtroTurista', '=', 'otrosturistas.IdOtroTurista')
-            ->select('NumTelOtroTurista','NombreApellido','DuiOtroTurista','PasaporteOtroTurista')
+            ->rightjoin('otrosturistas', 'pago.IdOtroTurista', '=', 'otrosturistas.IdOtroTurista')
+            ->select('NombreApellido','DuiOtroTurista','PasaporteOtroTurista','NumTelOtroTurista')
             ->whereIn('otrosturistas.IdOtroTurista', $y)
             ->get();
 
@@ -1023,19 +1024,50 @@ class PaqueteController extends Controller
       $conductoresasignados= DB::table('conduce')
             ->join('conductor', 'conduce.IdConductor', '=', 'conductor.IdConductor')
             ->select('conductor.NombreConductor')
-                  ->where('conduce.IdPaquete','=',$id)
-                  ->get();
+            ->where('conduce.IdPaquete','=',$id)
+            ->get();
 
-      //instantiate and use the dompdf class
-      $view=\View::make('adminPaquete.reportepersonas',compact('personas','otraspersonas','paquete','guias','transportesasignados','conductoresasignados'))->render();
-      $dompdf = new Dompdf();
-      $dompdf->loadHtml($view);
-      // Render the HTML as PDF
-      $dompdf->render();
-      $canvas = $dompdf ->get_canvas();
-      $canvas->page_text(280, 740, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
-      // Output the generated PDF to Browser
-      $dompdf->stream('Listado '.$paquete->NombrePaquete.' '.$paquete->FechaSalida.'.pdf');
+      if($tiporeporte=='pdf'){
+        //instantiate and use the dompdf class
+        $view=\View::make('adminPaquete.reportepersonas',compact('personas','otraspersonas','paquete','guias','transportesasignados','conductoresasignados'))->render();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($view);
+        // Render the HTML as PDF
+        $dompdf->render();
+        $canvas = $dompdf ->get_canvas();
+        $canvas->page_text(280, 740, "Página  {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+        // Output the generated PDF to Browser
+        $dompdf->stream('Listado '.$paquete->NombrePaquete.' '.$paquete->FechaSalida.'.pdf');
+
+      }
+
+      if($tiporeporte=='excel'){
+        //titulo de las columnas
+        $columnaspersonas = array (
+          "column_name"  => array('Primer Nombre','Segundo Nombre','Primer Apellido','Segundo Apellido','Teléfono', 'DUI / Pasaporte', 'Nacionalidad')
+        );
+        //parseando las columnas a objetos
+        $datapersonas= new collection();
+        foreach ($columnaspersonas as $columna) {
+          $datapersonas[0] = (object) $columna;
+        }
+
+        $columnasotraspersonas = array (
+          "column_name"  => array('Primer Nombre','DUI / Pasaporte', '','Teléfono')
+        );
+        //parseando las columnas a objetos
+        $dataotraspersonas= new collection();
+        foreach ($columnasotraspersonas as $columna) {
+          $dataotraspersonas[0] = (object) $columna;
+        }
+        //uniendo las columnas con la consulta
+        $data1=$dataotraspersonas->merge($otraspersonas);
+        $data2=$datapersonas->merge($personas);
+        $data=$data2->merge($data1);
+        //generando archivo excel
+        return Exporter::make('Excel')->load($data)->stream('Listado '.$paquete->NombrePaquete.' '.$paquete->FechaSalida.'.xlsx');
+      }
+
     }
 
     public function listadopersonas($id){
@@ -1043,7 +1075,7 @@ class PaqueteController extends Controller
       $turistas = DB::table('paga')
         ->join('pago', 'paga.IdPago', '=', 'pago.IdPago')
         ->join('turista', 'pago.IdTurista', '=', 'turista.IdTurista')
-        ->join('personas', 'tutista.IdPersona', '=', 'personas.IdPersona')
+        ->join('personas', 'turista.IdPersona', '=', 'personas.IdPersona')
         ->select('IdsAcompanantes','TipoPago','PrimerNombrePersona','PrimerApellidoPersona','TelefonoContacto')
         ->where([['IdPaquete','=',$id ],
                 ['Estado','=','1']])

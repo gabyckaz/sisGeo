@@ -2,8 +2,8 @@
 @extends('master')
 
 @section('head')
-@section('Title','Estadísticas')
-
+@section('Title')
+<STRONG>Estadísticas</STRONG>
 @endsection
 
 @section('contenido')

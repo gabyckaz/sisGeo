@@ -28,13 +28,13 @@ endrole -->
 <h1>Hola Mundo</h1>
 @endsection
 @section('Title')
-@role('Admin') 
+@role('Admin')
 <STRONG>Administracion de usuarios</STRONG>
 @endrole
 @endsection
 @section('contenido')
 
-@role('Admin') 
+@role('Admin')
 @if(session('status'))
   <br>
    <script type="text/javascript">
@@ -48,49 +48,7 @@ endrole -->
  alertify.error('<h4><i class="icon fa fa-ban"></i> Alert!</h4> {{session("fallo") }}');
  </script>
 @endif
-    <div class="row">
-    <div class="col-md-offset-2 col-md-7 ">
-       <form class="" action="{{ route('adminUser.index') }}" method="get" role="search">
-              <div class="row"> 
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <input type="text" name="nombre" class="form-control" placeholder="Nombre">
-                   </div>
-                </div>
-                <div class="col-md-6">
-                   <div class="form-group">
-                    <input type="text" name="email" class="form-control" placeholder="Email">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-              <div class="col-sm-6 col-md-6"> 
-              <div class="form-group">
-                <select  class="form-control" name="estado" id="estado" >
-                  <option value="">Estado</option>
-                  <option value="1">Activo</option>
-                  <option value="0">Inactivo</option>
-              </select>
-            </div>
-            </div>
-            <div class="col-sm-6 col-md-6"> 
-            <div class="form-group">
-              <select  class="form-control" name="rol" id="rol" >
-                <option value="">Rol</option>
-                <option value="2">User</option>
-                <option value="1">Admin</option>
-                <option value="3">Director</option>
-                <option value="4">Agente</option>
-              </select>
-            </div>
-            </div>
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-default col-xs-12 col-sm-3" ><span class="glyphicon glyphicon-search"></span>Buscar</button>
-            </div>
-          </form>
-        </div>
-     </div>
+
            <!-- <form action="" method="get" class="sidebar-form">
               <div class="input-group">
               <input type="text" name="nombre" class="form-control" placeholder="Nombre">
@@ -129,11 +87,12 @@ endrole -->
 <div class="row">
 <div class="col-md-7 col-md-offset-2">
 <div class="table-responsive">
+  <br>
  <table class="table table-striped table-bordered table-hover" id="tablaAdminUser">
   <thead class="thead-dark">
     <tr>
 
-    <th class="text-center">Nombre</th>{{-- @sortablelink('name', 'Nombre')</th> --}}
+    <th class="text-center">Nombre</th>
     <th class="text-center">Correo</th>
     <th class="text-center">Estado</th>
     <th class="text-center">Rol</th>
@@ -154,15 +113,15 @@ endrole -->
         {{ csrf_field()  }}
 
          @if($usuario->EstadoUsuario === '1' )
-             
+
             <div style="text-align: center;" >
              <button type="submit"  class="btn btn-info btn-sm fa fa-smile-o btn-block" title="Cambiar estado"></button>
           </div>
             @else
-              
+
             <div style="text-align: center;">
              <button type="submit" class="btn btn-danger btn-sm fa fa-frown-o btn-block" title="Cambiar estado"></button>
-           
+
           </div>
             @endif
         </form>
@@ -194,9 +153,7 @@ endrole -->
   </tbody>
 
  </table>
- <center>{!! $usuarios->appends(\Request::except('page'))->render() !!}</center>
- <!--div align="center">!! $usuarios->appends([ 'nombre' =>  $nombre,'email' =>  $email,'estado' =>  $estado ,'rol' => $rol ])->render() !!} </div>
- </div -->
+
  </div>
         <!--  $usuarios->links()}} -->
 </div>

@@ -7,6 +7,14 @@ $(document).ready(function(){
             "bInfo": false,
             "autoWidth": true,
         });
+        $('#tablatipotransporte').DataTable({
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
+            "bInfo": false,
+            "autoWidth": true,
+        });
         $('#tablaadminEmpresa').DataTable({
             "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
             "paging": true,
@@ -24,9 +32,10 @@ $(document).ready(function(){
             "autoWidth": true,
         });
         $('#tablaAdminUser').DataTable({
-            "paging": false,
-            "bpaging": false,
-            "bFilter": false,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
+            "bFilter": true,
             "bInfo": false,
             "autoWidth": true,
         });
@@ -417,7 +426,7 @@ $(document).ready(function() {
   var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.field_wrapper'); //Input field wrapper
-    var fieldHTML = '<div class="form-group"><div class="input-group"><input type="text" class="form-control" name="field_name[]" value="" placeholder="Nombre Apellido,Dui,Pasaporte"/><div class="input-group-addon"><a href="javascript:void(0);" class="remove_button" title="Remove field"><i class="fa fa-user-times"></a></div></div>'; //New input field html 
+    var fieldHTML = '<div class="form-group"><div class="input-group"><input type="text" class="form-control" name="field_name[]" value="" placeholder="Nombre Apellido,Dui,Pasaporte"/><div class="input-group-addon"><a href="javascript:void(0);" class="remove_button" title="Remove field"><i class="fa fa-user-times"></a></div></div>'; //New input field html
     var x = 1; //Initial field counter is 1
     $(addButton).click(function(){ //Once add button is clicked
         if(x < maxField){ //Check maximum number of input fields
