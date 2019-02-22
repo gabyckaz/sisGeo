@@ -211,110 +211,43 @@ class userController extends Controller
         $categorias = Categoria::all();
         $documentos = "";
         $existeTurista ="";
-        $edad = Carbon::parse($request->fechaNacimiento)->age;
-        if($edad < 18 ){
-          return redirect()->back()->withInput()->with('ErrorEdadMenor', 'Debes ser mayor de edad para poder continuar!');
-        }
-
-        if( $request->input("dui") == null && $request->input("pasaporte") == null){
-            $hola1 = "Debes introducir por lo menos un documento";
-            $this->validate($request, [
+        //dd($request);
+        $this->validate($request, [
             "PrimerNombrePersona" => "required|alpha|min:2|max:25",
+            "SegundoNombrePersona" => "alpha|nullable|min:2|max:25",
             "PrimerApellidoPersona" => "required|alpha|min:2|max:25",
-            "TelefonoContacto" => "required",
-            "fechaNacimiento" => "required",
-            "dui" => "required",
-            "pasaporte" => "required",
+            "SegundoApellidoPersona" => "alpha|nullable|min:2|max:25",
+            "TelefonoContacto" => "required|numeric",
+            "fechaNacimiento" => "required|fnic|vmedad",
             "direccion" => "required|min:10|max:100",
             "preferencias" => "required",
-            "RecibirNotificacion" => "required",
           ]);
-            return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
-        }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
-          $hola1 = "Ingresastes los dos documentos";
+        
+        if( $request->input("dui") == null && $request->input("pasaporte") == null){
+
+          return redirect()->back()->with('documento', 'Un documento es requerido')->withInput();
+       
+         }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
              $this->validate($request, [
-             "PrimerNombrePersona" => "required|alpha|min:2|max:25",
-             "PrimerApellidoPersona" => "required|alpha|min:2|max:25",
-            "TelefonoContacto" => "required",
-            "fechaNacimiento" => "required",
-             "fechaVencimientoD" => "required",
-             "fechaVencimientoP" => "required",
-             "direccion" => "required|min:10|max:100",
-             "preferencias" => "required",
-             "RecibirNotificacion" => "required",
+             "dui" => "dui",
+             "pasaporte" => "alpha_num",
+             "fechaVencimientoD" => "required|fvdp",
+             "fechaVencimientoP" => "required|fvdp",
            ]);
-            if(!$this->validaDui($request->dui)){
-            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
-           }
-           $hoystr = Carbon::now()->format('d-m-Y');
-           $hoyObj = Carbon::parse($hoystr);
-           $fechaVencimientoIngresadaD = Carbon::parse($request->fechaVencimentoD);
-           $fechaVencimientoIngresadaP = Carbon::parse($request->fechaVencimentoP);
-          if($fechaVencimientoIngresadaD <= $hoyObj ){
-            return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
-          }
-          if($fechaVencimientoIngresadaP <= $hoyObj){
-            return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
-          }
+
         }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
-           $hola1 = "Solo Ingresastes El dui";
 
            $this->validate($request, [
-              "PrimerNombrePersona" => "required|alpha|min:2|max:25",
-              "PrimerApellidoPersona" => "required|alpha|min:2|max:25",
-              "TelefonoContacto" => "required",
-              "fechaNacimiento" => "required",
-              "fechaVencimientoD" => "required",
-              "direccion" => "required|min:10|max:100",
-              "preferencias" => "required",
-              "RecibirNotificacion" => "required",
-           ]);
-           if(!$this->validaDui($request->dui)){
-            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
-           }
-           $hoystr = Carbon::now()->format('d-m-Y');
-           $hoyObj = Carbon::parse($hoystr);
-           $fechaVencimientoIngresadaD = Carbon::parse($request->fechaVencimientoD);
-
-          if($fechaVencimientoIngresadaD <= $hoyObj ){
-            return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
-          }
+              "dui" => "dui",
+             "fechaVencimientoD" => "required|fvdp",
+            ]);
 
         }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
-           $hola1 = "Solo Ingresastes El pasaporte";
+
             $this->validate($request, [
-             "PrimerNombrePersona" => "required|alpha|min:2|max:25",
-             "PrimerApellidoPersona" => "required|alpha|min:2|max:25",
-             "TelefonoContacto" => "required",
-             "fechaNacimiento" => "required",
-             "fechaVencimientoP" => "required",
-             "direccion" => "required|min:10|max:100",
-             "preferencias" => "required",
-             "RecibirNotificacion" => "required",
+            "fechaVencimientoP" => "required|fvdp",
            ]);
-           $hoystr = Carbon::now()->format('d-m-Y');
-           $hoyObj = Carbon::parse($hoystr);
-
-           $fechaVencimientoIngresadaP = Carbon::parse($request->fechaVencimentoP);
-          if($fechaVencimientoIngresadaP <= $hoyObj){
-            return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
-          }
         }
-        //1. verificar que la fecha ingresada no sea futura
-           $hoystr = Carbon::now()->format('d-m-Y');
-           $hoyObj = Carbon::parse($hoystr);
-           $fechaIngresadaObj = Carbon::parse($request->fechaNacimiento);
-
-          if($fechaIngresadaObj >= $hoyObj){
-
-            return redirect()->back()->withInput()->with('ErrorFechaNac', 'Error fecha incorrecta');
-          }
-        //2. verificar que tenga mas de 18 años a partir de fecha de nacimiento
-        $edad = Carbon::parse($request->fechaNacimiento)->age;
-        if($edad < 18 ){
-          return redirect()->back()->withInput()->with('ErrorEdadMenor', 'Debes ser mayor de edad para poder continuar!');
-        }
-
          $existeTurista ="";
          $turista = Turista::where('IdPersona',auth()->user()->IdPersona)->first();
 
@@ -631,13 +564,14 @@ class userController extends Controller
 
     public function guardarFamiliarAmigo(Request $request){
      //  $date = Carbon::createFromDate(1989, 8, 15)->age;
+      //dd($request);
           $this->validate($request, [
           "Nombre" => "required|alpha|min:3|max:25",
           "Apellido" => "required|alpha|min:3|max:25",
-          "fechaNacimiento" => "required",
+          "fechaNacimiento" => "required|fnic",
           "Direccion" => "required|min:10|max:100",
         ]);
-           $hoystr = Carbon::now()->format('d-m-Y');
+           /*$hoystr = Carbon::now()->format('d-m-Y');
            $hoyObj = Carbon::parse($hoystr);
            $fechaIngresadaObj = Carbon::parse($request->fechaNacimiento);
 
@@ -652,126 +586,36 @@ class userController extends Controller
          $fechaIngresadaObj = Carbon::parse($request->fechaNacimiento);
           if($fechaIngresadaObj >= $hoyObj ){
             return redirect()->back()->withInput()->with('ErrorFechaNac', 'Error fecha incorrecta');
-          }
+          } */
        $edad = Carbon::parse($request->fechaNacimiento)->age;
-      /* if($edad > 18 ){
-        $this->validate($request, [
-          "Nombre" => "required|alpha|min:3|max:25",
-          "Apellido" => "required|alpha|min:3|max:25",
-          "fechaNacimiento" => "required|date",
-          "Direccion" => "required|min:10|max:100",
-          "dui" => "required",
-          "pasaporte" => "required",
-        ]);
-       }*/
-      if( $edad > 18 && $request->input("dui") == null && $request->input("pasaporte") == null){
+
+      if( $edad >= 18 && $request->input("dui") == null && $request->input("pasaporte") == null){
             $hola1 = "Debes introducir por lo menos un documento";
-       if($edad >= 18 ){
-       $this->validate($request, [
-          "Nombre" => "required|alpha|min:3|max:25",
-          "Apellido" => "required|alpha|min:3|max:25",
-          "fechaNacimiento" => "required|date",
-          "Direccion" => "required|min:10|max:100",
-          "dui" => "required",
-          "pasaporte" => "required",
-        ]);
-     }else{
-      $this->validate($request, [
-          "Nombre" => "required|alpha|min:3|max:25",
-          "Apellido" => "required|alpha|min:3|max:25",
-          "fechaNacimiento" => "required|date",
-          "Direccion" => "required|min:10|max:100",
-        ]);
-     }
-
-      //return redirect()->back()->with('message', 'Necesitas Ingresar almenos un documento')->withInput();
-        }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
-          $hola1 = "Ingresastes los dos documentos";
-          if($edad >= 18 ){
-             $this->validate($request, [
-            "Nombre" => "required|alpha|min:3|max:25",
-            "Apellido" => "required|alpha|min:3|max:25",
-            "fechaNacimiento" => "required|date",
-            "Direccion" => "required|min:10|max:100",
-            "fechaVencimentoD" => "required",
-            "fechaVencimentoP" => "required",
-           ]);
-             if(!$this->validaDui($request->dui)){
-            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
-           }
-           $hoystr = Carbon::now()->format('d-m-Y');
-           $hoyObj = Carbon::parse($hoystr);
-           $fechaVencimientoIngresadaD = Carbon::parse($request->fechaVencimentoD);
-           $fechaVencimientoIngresadaP = Carbon::parse($request->fechaVencimentoP);
-          if($fechaVencimientoIngresadaD <= $hoyObj ){
-            return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
-          }
-          if($fechaVencimientoIngresadaP <= $hoyObj){
-            return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
-          }
-           }else{
-             $this->validate($request, [
-            "Nombre" => "required|alpha|min:3|max:25",
-            "Apellido" => "required|alpha|min:3|max:25",
-            "fechaNacimiento" => "required|date",
-            "Direccion" => "required|min:10|max:100",
-           ]);
-           }
-        }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
-           $hola1 = "Solo Ingresastes El dui";
-           if($edad >= 18 ){
-           $this->validate($request, [
-              "Nombre" => "required|alpha|min:3|max:25",
-              "Apellido" => "required|alpha|min:3|max:25",
-              "fechaNacimiento" => "required|date",
-              "Direccion" => "required|min:10|max:100",
-              "fechaVencimentoD" => "required",
-           ]);
-           if(!$this->validaDui($request->dui)){
-            return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
-           }
-           $hoystr = Carbon::now()->format('d-m-Y');
-           $hoyObj = Carbon::parse($hoystr);
-           $fechaVencimientoIngresadaD = Carbon::parse($request->fechaVencimentoD);
-          if($fechaVencimientoIngresadaD <= $hoyObj ){
-            return redirect()->back()->withInput()->with('ErrorFechaVenceD', 'Error fecha de vencimiento');
-          }
-
-         }else{
-          $this->validate($request, [
-              "Nombre" => "required|alpha|min:3|max:25",
-              "Apellido" => "required|alpha|min:3|max:25",
-              "fechaNacimiento" => "required|date",
-              "Direccion" => "required|min:10|max:100",
-           ]);
-         }
-        }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
-           $hola1 = "Solo Ingresastes El pasaporte";
-           if($edad >= 18 ){
+            return redirect()->back()->with('documento', 'Un documento es requerido')->withInput();
+        }
+      if($edad >= 18 && $request->input("dui") != null && $request->input("pasaporte") != null){
             $this->validate($request, [
-              "Nombre" => "required|alpha|min:3|max:25",
-              "Apellido" => "required|alpha|min:3|max:25",
-              "fechaNacimiento" => "required|date",
-              "Direccion" => "required|min:10|max:100",
-              "fechaVencimentoP" => "required",
+            "dui" => "dui",
+            "pasaporte" => "alpha_num",
+            "fechaVencimentoD" => "required|fvdp",
+            "fechaVencimentoP" => "required|fvdp",
            ]);
-           $hoystr = Carbon::now()->format('d-m-Y');
-           $hoyObj = Carbon::parse($hoystr);
-           $fechaVencimientoIngresadaP = Carbon::parse($request->fechaVencimentoP);
-          if($fechaVencimientoIngresadaP <= $hoyObj){
-            return redirect()->back()->withInput()->with('ErrorFechaVenceP', 'Error fecha de vencimiento');
-          }
-          }else{
-            $this->validate($request, [
-              "Nombre" => "required|alpha|min:3|max:25",
-              "Apellido" => "required|alpha|min:3|max:25",
-              "fechaNacimiento" => "required|date",
-              "Direccion" => "required|min:10|max:100",
-           ]);
-          }
 
         }
-      //dd("Detener Aqui");
+        if($edad >= 18 && $request->input("dui") != null && $request->input("pasaporte") == null ){
+           $this->validate($request, [
+              "dui" => "dui",
+              "fechaVencimentoD" => "required|fvdp",
+           ]);
+        }
+        if($edad >= 18 && $request->input("dui") == null && $request->input("pasaporte") != null ){
+      
+            $this->validate($request, [
+              "pasaporte" => "alpha_num",
+              "fechaVencimentoP" => "required|fvdp",
+           ]);
+        }
+    
       $persona = Persona::create([
             "PrimerNombrePersona" => $request->Nombre,
             "PrimerApellidoPersona" => $request->Apellido,
@@ -1074,5 +918,22 @@ Para el del DUI el proceso que recuerdo es este:
       }
       return false;
  }
+
+ /**
+ *Funcion para validar la edad del usuario
+ */    
+ public function validaEdad($fecha){
+       $hoystr = Carbon::now()->format('d-m-Y');
+       $hoyObj = Carbon::parse($hoystr);
+       $fechaIngresada = Carbon::parse($fecha);
+       $fechaIngresadaStr = $fechaIngresada->format('d-m-Y');
+       $fechaIngresadaObj = Carbon::parse($fechaIngresadaStr);
+
+      if( $fechaIngresadaObj >= $hoyObj ){
+        return true;
+      }
+      return false;
+    }
+
 
 }

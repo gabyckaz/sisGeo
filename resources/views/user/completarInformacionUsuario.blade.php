@@ -45,7 +45,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                    <input type="text" name="PrimerNombrePersona" class="form-control" id="input2" value="{{ $usuario->persona->PrimerNombrePersona }}" placeholder="Primer Nombre">
+                    <input type="text" name="PrimerNombrePersona" class="form-control" id="input2" value="{{ old('PrimerNombrePersona',$usuario->persona->PrimerNombrePersona) }}" placeholder="Primer Nombre">
                    </div>
                 @if ($errors->has('PrimerNombrePersona'))
                   <span class="help-block">{{ $errors->first('PrimerNombrePersona') }}</span>
@@ -53,15 +53,19 @@
             </div>
           </div>
           <div class="col-md-3">
-            <div class="form-group">
+            <div class="form-group has-feedback{{ $errors->has('SegundoNombrePersona') ? ' has-error' : '' }}">
                   <label for="input3" class="control-label">Segundo nombre</label>
                    <div class="input-group">
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                      <input type="text" name="SegundoNombrePersona" class="form-control"  id="input3" value="{{ $usuario->persona->SegundoNombrePersona }}" placeholder="josé">
+                      <input type="text" name="SegundoNombrePersona" class="form-control"  id="input3" value="{{ old('SegundoNombrePersona', $usuario->persona->SegundoNombrePersona) }}" placeholder="josé">
                    </div>
+                   @if ($errors->has('SegundoNombrePersona'))
+                    <span class="help-block">{{ $errors->first('SegundoNombrePersona') }}</span>
+                  @endif
                 </div>
+
           </div>
           <div class="col-md-3">
              <div class="form-group has-feedback{{ $errors->has('PrimerApellidoPersona') ? ' has-error' : '' }}" >
@@ -70,22 +74,26 @@
                         <div class="input-group-addon">
                          <i class="fa fa-user"></i>
                         </div>
-                       <input type="text" name="PrimerApellidoPersona" class="form-control"  id="input4" value="{{ $usuario->persona->PrimerApellidoPersona }}"  placeholder="Primer Apellido">
+                       <input type="text" name="PrimerApellidoPersona" class="form-control"  id="input4" value="{{ old('PrimerApellidoPersona',$usuario->persona->PrimerApellidoPersona) }}"  placeholder="Primer Apellido">
                       </div>
+                       @if ($errors->has('PrimerApellidoPersona'))
+                        <span class="help-block">{{ $errors->first('PrimerApellidoPersona') }}</span>
+                      @endif
                   </div>
-                  @if ($errors->has('PrimerApellidoPersona'))
-                    <span class="help-block">{{ $errors->first('PrimerApellidoPersona') }}</span>
-                  @endif
+                 
           </div>
           <div class="col-md-3">
-            <div class="form-group">
+            <div class="form-group has-feedback{{ $errors->has('SegundoApellidoPersona') ? ' has-error' : '' }}">
                   <label for="input5" class="control-label">Segundo apellido</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                           <i class="fa fa-user"></i>
                         </div>
-                        <input type="text" name="SegundoApellidoPersona" class="form-control"  id="input5" value="{{ $usuario->persona->SegundoApellidoPersona }}" id="input6" placeholder="Pérez">
+                        <input type="text" name="SegundoApellidoPersona" class="form-control"  id="input5" value="{{ old('SegundoApellidoPersona',$usuario->persona->SegundoApellidoPersona) }}" id="input6" placeholder="Pérez">
                     </div>
+                    @if ($errors->has('SegundoApellidoPersona'))
+                    <span class="help-block">{{ $errors->first('SegundoApellidoPersona') }}</span>
+                  @endif
                 </div>
           </div>
         </div>
@@ -150,7 +158,8 @@
                  </div>
              </div>
              <div class="col-md-3">
-               <div class="form-group has-feedback{{ session()->has('ErrorFechaVenceD')  ? ' has-error' : '' }}">
+               <div class="form-group has-feedback{{ ($errors->has('fechaVencimientoD') || session()->has('ErrorFechaVenceD') || session()->has('ErrorFechaVenceD') ) ? ' has-error' : '' }}">
+
                 <label for="inputEmail3" class="control-label">Fecha de vencimiento de DUI</label>
                  <div class="input-group date ">
                     <div class="input-group-addon">
@@ -178,15 +187,18 @@
              </div>
              @else
               <div class="col-md-3">
-                 <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('Errordui') ) ? ' has-error' : '' }}">
+                 <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('documento') ) ? ' has-error' : '' }}">
                    <label for="dui" class="control-label">DUI</label>
                     <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" id="dui" placeholder="11111111-1">
                      @if ($errors->has('dui'))
-                       <span class="help-block">Un documento es requerido</span>
+                       <span class="help-block">{{ $errors->first('dui') }}</span>
                      @endif
                      @if(session()->has('Errordui'))
                      <span class="help-block">{{ session()->get('Errordui') }}</span>
                      @endif
+                     @if(session()->has('documento') )
+                        <span class="help-block">Un documento es requerido</span>
+                      @endif
                  </div>
              </div>
              <div class="col-md-3">
@@ -284,10 +296,13 @@
              </div>
               @else
                 <div class="col-md-3">
-                  <div class="form-group has-feedback{{ $errors->has('pasaporte') ? ' has-error' : '' }}">
+                  <div class="form-group has-feedback{{( $errors->has('pasaporte') || session()->has('documento')) ? ' has-error' : '' }}">
                       <label for="pasaporte" class="control-label">Pasaporte</label>
                         <input  type="text" name="pasaporte" value="{{ old('pasaporte')}}" class="form-control" id="pasaporte" placeholder="1111111111">
                       @if ($errors->has('pasaporte'))
+                        <span class="help-block">Un documentoXX es requerido</span>
+                      @endif
+                      @if(session()->has('documento') )
                         <span class="help-block">Un documento es requerido</span>
                       @endif
                   </div>
@@ -328,23 +343,28 @@
               <div class="form-group">
                 <label>Código de área </label>
                 <select name="AreaTelContacto" class="form-control" >
-                  <option value="503" {{ $usuario->persona->AreaTelContacto == "503"  ? 'selected' : '' }}>503 - El Salvador</option>
-                  <option value="501" {{ $usuario->persona->AreaTelContacto == "501"  ? 'selected' : '' }}>501 - Belize</option>
-                  <option value="502" {{ $usuario->persona->AreaTelContacto == "502"  ? 'selected' : '' }}>502 - Guatemala</option>
-                  <option value="504" {{ $usuario->persona->AreaTelContacto == "504"  ? 'selected' : '' }}>504 - Honduras</option>
-                  <option value="505" {{ $usuario->persona->AreaTelContacto == "505"  ? 'selected' : '' }}>505 - Nicaragua</option>
-                  <option value="506" {{ $usuario->persona->AreaTelContacto == "506"  ? 'selected' : '' }}>506 - Costa Rica</option>
-                  <option value="507" {{ $usuario->persona->AreaTelContacto == "507"  ? 'selected' : '' }}>507 - Panamá</option>
+                  <option value="503" {{ old('AreaTelContacto',$usuario->persona->AreaTelContacto) == "503"  ? 'selected' : '' }}>503 - El Salvador</option>
+                  <option value="501" {{ old('AreaTelContacto',$usuario->persona->AreaTelContacto) == "501"  ? 'selected' : '' }}>501 - Belize</option>
+                  <option value="502" {{ old('AreaTelContacto',$usuario->persona->AreaTelContacto) == "502"  ? 'selected' : '' }}>502 - Guatemala</option>
+                  <option value="504" {{ old('AreaTelContacto',$usuario->persona->AreaTelContacto) == "504"  ? 'selected' : '' }}>504 - Honduras</option>
+                  <option value="505" {{ old('AreaTelContacto',$usuario->persona->AreaTelContacto) == "505"  ? 'selected' : '' }}>505 - Nicaragua</option>
+                  <option value="506" {{ old('AreaTelContacto',$usuario->persona->AreaTelContacto) == "506"  ? 'selected' : '' }}>506 - Costa Rica</option>
+                  <option value="507" {{ old('AreaTelContacto',$usuario->persona->AreaTelContacto) == "507"  ? 'selected' : '' }}>507 - Panamá</option>
                 </select>
               </div>
              </div>
              <div class="col-md-4">
+                <div class="form-group has-feedback{{ $errors->has('TelefonoContacto') ? ' has-error' : '' }}">
                   <label for="telefono" class="control-label">Teléfono*</label>
                   <div class="input-group">
                    <div class="input-group-addon">
                        <i class="fa fa-phone"></i>
                    </div>
-                    <input type="text" name="TelefonoContacto" class="form-control"  id="telefono" value="{{ $usuario->persona->TelefonoContacto }}" placeholder="22223333">
+                    <input type="text" name="TelefonoContacto" class="form-control"  id="telefono" value="{{ old('TelefonoContacto',$usuario->persona->TelefonoContacto) }}" placeholder="22223333">
+                </div>
+                 @if ($errors->has('TelefonoContacto'))
+                  <span class="help-block">{{ $errors->first('TelefonoContacto') }}</span>
+                @endif
                 </div>
              </div>
         </div>

@@ -60,15 +60,15 @@
                                 <button type="submit" class="btn btn-success btn-block btn-flat">
                                     <strong>{{ __('Iniciar sesión') }}</strong>
                                 </button>
-
-
-                            </div>
-                        </div>
-                        <center><a style="text" class="btn btn-link" href="{{ route('password.request') }}">
+                                <center><a style="text" class="btn btn-link" href="{{ route('password.request') }}">
                                     <strong>{{ __('Olvidé mi contraseña') }}</strong>
+                                </a>||<a style="text" class="btn btn-link" href="{{ route('register') }}">
+                                    <strong>{{ __('Usuario no registrado') }}</strong>
                                 </a></center>
+                            </div>
+                        </div>            
                     </form>
-                </div>
+                </div>      
             </div>
         </div>
     </div>

@@ -181,7 +181,7 @@
                         @endif
                     @endforeach
                   @else
-                  <input type="text" name="pasaporte" class="form-control" id="pasaporte" value="{{ $documento->TipoDocumento }}">
+                  <input type="text" name="pasaporte" class="form-control" id="pasaporte" value="{{ old('pasaporte') }}">
                   @endif
                     @if ($errors->has('pasaporte'))
                        <span class="help-block">Un documento es requerido</span>
@@ -197,7 +197,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
                     </div>
-                  <input type="date" name="fechaVencimentoP" class="form-control pull-right" value="{{ $documento->FechaVenceDocumento }}">
+                  <input type="date" name="fechaVencimentoP" class="form-control pull-right" value="{{ old('fechaVencimentoP') }}">
                   </div>
                    @if ($errors->has('fechaVencimentoP'))
                        <span class="help-block">{{ $errors->first('fechaVencimentoP') }}</span>
