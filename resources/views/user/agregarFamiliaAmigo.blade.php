@@ -15,16 +15,17 @@
             </script>
       @endif
    <div class="col-md-8 col-md-offset-2">
-     @if($errors->first('Nombre') ||
-         $errors->first('Apellido') ||
-         $errors->first('fechaNacimiento') ||
+     @if($errors->has('Nombre') ||
+         $errors->has('Apellido') ||
+         $errors->has('fechaNacimiento') ||
          $errors->has('pasaporte') ||
          $errors->has('dui') ||
          $errors->has('fechaVencimentoD') ||
-         $errors->first('fechaVencimentoP') ||
-         $errors->first('Direccion') ||
+         $errors->has('fechaVencimentoP') ||
+         $errors->has('Direccion') ||
          session()->has('ErrorFechaNac') ||
          session()->has('Errordui') ||
+         session()->has('documento') ||
          session()->has('ErrorFechaVenceD') ||
          session()->has('ErrorFechaVenceP')
 
@@ -110,7 +111,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
                     </div>
-                  <input type="date" name="fechaNacimiento" class="form-control pull-right" value="{{ old('fechaNacimiento') }}" required>
+                  <input type="date" name="fechaNacimiento" class="form-control pull-righ" value="{{ old('fechaNacimiento') }}" required>
                   </div>
                   @if ($errors->has('fechaNacimiento'))
                        <span class="help-block">{{ $errors->first('fechaNacimiento') }}</span>
@@ -136,15 +137,19 @@
        <hr>
       <div class="row">
         <div class="col-md-4 col-md-offset-1">
-          <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('Errordui') ) ? ' has-error' : '' }}">
+          <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('Errordui') ||
+          session()->has('documento') ) ? ' has-error' : '' }}">
               <label for="dui" class="control-label">DUI</label>
                 <div class="">
                   <input type="text" name="dui" class="form-control" id="dui" value="{{ old('dui') }}" placeholder="11111111-1">
                    @if ($errors->has('dui'))
-                       <span class="help-block">Un documento es requerido</span>
+                       <span class="help-block">{{ $errors->first('dui') }}</span>
                   @endif
                   @if(session()->has('Errordui'))
                      <span class="help-block">{{ session()->get('Errordui') }}</span>
+                     @endif 
+                  @if(session()->has('documento'))
+                     <span class="help-block">{{ session()->get('documento') }}</span>
                      @endif
                 </div>
            </div>
@@ -153,11 +158,15 @@
           <center>ó</center>
         </div>
         <div class="col-md-4">
-           <div class="form-group has-feedback{{ $errors->has('pasaporte') ? ' has-error' : '' }}">
+           <div class="form-group has-feedback{{ ( $errors->has('pasaporte') ||
+          session()->has('documento') ) ? ' has-error' : '' }}">
               <label for="pasaporte" class="control-label">Pasaporte</label>
                 <div class="">
                   <input type="text" name="pasaporte" class="form-control" id="pasaporte" placeholder="BB11111111" value="{{ old('pasaporte') }}">
                     @if ($errors->has('pasaporte'))
+                       <span class="help-block">Un documento es requerido</span>
+                    @endif
+                    @if(session()->has('documento'))
                        <span class="help-block">Un documento es requerido</span>
                     @endif
                 </div>

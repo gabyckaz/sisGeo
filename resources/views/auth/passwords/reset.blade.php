@@ -8,10 +8,11 @@
 </div>
 @endif
 
-<div class="login-box-body">
-  <p class="login-box-msg"><strong>Recuperar Contraseña</strong></p>
-
-  <form action="{{ route('password.request') }}" method="POST">
+<div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-success text-white" style="text-align: center; font-weight: bold;">Recuperar Contraseña</div>
+        <div class="card-body">
+            <form action="{{ route('password.request') }}" method="POST">
     {{ csrf_field() }}
     <input type="hidden" name="token" value="{{ $token }}">
     <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -34,12 +35,15 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <button type="submit" class="btn btn-primary btn-block btn-flat"><strong>Recuperar Contraseña</strong></button>
+        <button type="submit" class="btn btn-success text-white btn-block btn-flat"><strong>Recuperar Contraseña</strong></button>
       </div>
       <!-- /.col -->
     </div>
   </form>
-</div>
+         </div>
+      </div>
+</div> 
+
 <!-- /.form-box -->
 </div>
 @endsection
