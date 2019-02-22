@@ -614,7 +614,16 @@ class userController extends Controller
          $familiaAmigos = DB::select($sql);
 
         $familiaAmigos = $this->arrayPaginator($familiaAmigos);
-        return view('user.agregarFamiliaAmigo', compact('nacionalidad','familiaAmigos','idTuristaUsuario'));
+
+        $direccion = DB::table('users')
+              ->join('personas','users.IdPersona','=','personas.IdPersona')
+              ->join('turista','personas.IdPersona','=','turista.IdPersona')
+              ->select('DomicilioTurista')
+              ->where('id',auth()->user()->id)
+              ->get();
+        $direccionjson = json_encode($direccion);
+
+        return view('user.agregarFamiliaAmigo', compact('nacionalidad','familiaAmigos','idTuristaUsuario','direccionjson'));
 
     }
 
@@ -830,7 +839,7 @@ class userController extends Controller
           'EsFamiliar' => $request->tipo,
          ]);
 
-      return redirect()->route('user.agregar.familiarAmigo')->with('message',' Agregado con éxito');
+      return redirect()->route('user.agregar.familiarAmigo')->withInput()->with('message',' Agregado con éxito');
     }
 
    public function editarInformacionFamiliarAmigo($idTurista){

@@ -24,7 +24,10 @@ class OtrosTuristasController extends Controller
         $paquetes = DB::table('paquetes')
           ->select('*')
           ->orderBy('FechaSalida', 'asc')
-          ->where('FechaSalida','>',$hoystr)
+          ->where([
+            ['FechaSalida','>',$hoystr],
+            ['DisponibilidadPaquete','1']
+          ])
           ->get();
         return view('adminOtrosTuristas.index', compact('paquetes'));
     }
