@@ -45,7 +45,7 @@
                     <div class="input-group-addon">
                        <i class="fa fa-user"></i>
                     </div>
-                    <input type="text" name="PrimerNombrePersona" class="form-control" id="input2" value="{{ old('PrimerNombrePersona',$usuario->persona->PrimerNombrePersona) }}" placeholder="Primer Nombre">
+                    <input type="text" name="PrimerNombrePersona" class="form-control" id="input2" value="{{ old('PrimerNombrePersona',$usuario->persona->PrimerNombrePersona) }}" placeholder="Primer Nombre" required>
                    </div>
                 @if ($errors->has('PrimerNombrePersona'))
                   <span class="help-block">{{ $errors->first('PrimerNombrePersona') }}</span>
@@ -74,7 +74,7 @@
                         <div class="input-group-addon">
                          <i class="fa fa-user"></i>
                         </div>
-                       <input type="text" name="PrimerApellidoPersona" class="form-control"  id="input4" value="{{ old('PrimerApellidoPersona',$usuario->persona->PrimerApellidoPersona) }}"  placeholder="Primer Apellido">
+                       <input type="text" name="PrimerApellidoPersona" class="form-control"  id="input4" value="{{ old('PrimerApellidoPersona',$usuario->persona->PrimerApellidoPersona) }}"  placeholder="Primer Apellido" required>
                       </div>
                        @if ($errors->has('PrimerApellidoPersona'))
                         <span class="help-block">{{ $errors->first('PrimerApellidoPersona') }}</span>
@@ -128,7 +128,7 @@
                         <div class="input-group-addon">
                            <i class="fa fa-calendar"></i>
                         </div>
-                      <input  id="fechaNacimiento" type="date" name="fechaNacimiento" value="{{ old('fechaNacimiento')}}" class="form-control" >
+                      <input  id="fechaNacimiento" type="date" name="fechaNacimiento" value="{{ old('fechaNacimiento')}}" class="form-control" required>
                       </div>
                       @if ($errors->has('fechaNacimiento'))
                        <span class="help-block">{{ $errors->first('fechaNacimiento') }}</span>
@@ -360,7 +360,7 @@
                    <div class="input-group-addon">
                        <i class="fa fa-phone"></i>
                    </div>
-                    <input type="text" name="TelefonoContacto" class="form-control"  id="telefono" value="{{ old('TelefonoContacto',$usuario->persona->TelefonoContacto) }}" placeholder="22223333">
+                    <input type="text" name="TelefonoContacto" class="form-control"  id="telefono" value="{{ old('TelefonoContacto',$usuario->persona->TelefonoContacto) }}" placeholder="22223333" required>
                 </div>
                  @if ($errors->has('TelefonoContacto'))
                   <span class="help-block">{{ $errors->first('TelefonoContacto') }}</span>
@@ -376,7 +376,7 @@
                      <span class="users-list-date" style=" font-size: 11pt">En caso que varias personas se encuentren en el mismo sector que usted se haría una parada cerca para recogerlos</span>
                      <div class="input-group">
                        <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-                       <textarea   class="form-control" name="direccion" maxlength="100" placeholder="Ej. El salvador San Salvador Col. Escalon #34" >{{ old('direccion',$turista->DomicilioTurista) }}</textarea>
+                       <textarea   class="form-control" name="direccion" maxlength="100" placeholder="Ej. El salvador San Salvador Col. Escalon #34" required>{{ old('direccion',$turista->DomicilioTurista) }}</textarea>
                      </div>
                 @if ($errors->has('direccion'))
                   <span class="help-block">{{ $errors->first('direccion') }}</span>
@@ -389,7 +389,7 @@
                      <span class="users-list-date" style=" font-size: 11pt">Con el fin de estar preparados en alguna emergencia y tomar medidas preventivas. Ej: Asma, hipertensión, etc.</span>
                      <div class="input-group">
                       <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-                        <textarea   class="form-control" name="psalud" maxlength="256" placeholder="Problemas de salud..." >{{ $turista->Problemas_Salud }}</textarea>
+                        <textarea   class="form-control" name="psalud" maxlength="256" placeholder="Problemas de salud..." required>{{ $turista->Problemas_Salud }}</textarea>
                       </div>
                   </div>
           </div>
@@ -400,7 +400,7 @@
                 <span class="users-list-date" style=" font-size: 11pt">En caso que varias personas se encuentren en el mismo sector que usted se haría una parada cerca para recogerlos</span>
                 <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-sticky-note"></span></span>
-                <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Ej. El salvador San Salvador Col. Escalon #34" >{{ old('direccion') }}</textarea>
+                <textarea  class="form-control" name="direccion" maxlength="100" placeholder="Ej. El salvador San Salvador Col. Escalon #34" required>{{ old('direccion') }}</textarea>
                </div>
               @if ($errors->has('direccion'))
                   <span class="help-block">{{ $errors->first('direccion') }}</span>
@@ -447,7 +447,7 @@
             <div class="col-xs-12 col-md-6">
             <div class="form-group has-feedback{{ $errors->has('preferencias') ? ' has-error' : '' }}">
                 <label name="preferencias" for="itinerario">Preferencias (elegir al menos 1) *</label>
-                  <select class="form-control select2" multiple="multiple" name="preferencias[]" id="preferencias[]" >
+                  <select class="form-control select2" multiple="multiple" name="preferencias[]" id="preferencias[]" required>
                   @foreach ($categorias as $cat)
                   <option value="{{$cat->IdCategoria }}" {{ (collect(old('preferencias', $misPreferencias))->contains($cat->IdCategoria)) ? 'selected':'' }} >{{$cat->NombreCategoria}}</option>
                   @endforeach
