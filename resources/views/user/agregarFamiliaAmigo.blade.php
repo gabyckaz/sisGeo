@@ -46,6 +46,7 @@
       {!! method_field('PUT') !!}
       {!! csrf_field() !!}
       <div class="row">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <div class="col-md-4">
           <div class="form-group">
             <label for="tipo" class="control-label">Tipo*</label>
@@ -304,4 +305,13 @@
   </div>
 </div>
 @endif
+<script type="text/javascript">
+  $(document).ready(function(){
+      $('#tipo').on('change',function(){
+        var optionText = $("#tipo option:selected").text();
+        var direccion = <?php echo $direccionjson; ?>
+        $("#Direccion").val(direccion[0]['DomicilioTurista']);
+      });
+  });
+</script>
 @endsection

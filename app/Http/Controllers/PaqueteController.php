@@ -103,7 +103,7 @@ class PaqueteController extends Controller
           $paquete->Galeria=$request->galeria;
           $paquete->Dificultad=$request->dificultad;
           $paquete->AprobacionPaquete="0";
-          $paquete->DisponibilidadPaquete="1";
+          $paquete->DisponibilidadPaquete="0";
           $paquete->save();
 
           $archivo1=$request->file('imagen1');
@@ -565,7 +565,7 @@ class PaqueteController extends Controller
           $paquete->Galeria=$request->galeria;
           $paquete->Dificultad=$request->dificultad;
           $paquete->AprobacionPaquete= "0";
-          $paquete->DisponibilidadPaquete= "1";
+          $paquete->DisponibilidadPaquete= "0";
           $paquete->save();
 
           $archivo1=$request->file('imagen1');
