@@ -414,7 +414,7 @@ class PaqueteController extends Controller
         //Traeme los conductores de esta empresa de transporte
         $transportesasignados = DB::table('contrata')
               ->join('transporte', 'contrata.IdTransporte', '=', 'transporte.IdTransporte')
-              ->join('tipoTransporte', 'transporte.IdTipoTransporte', '=', 'tipoTransporte.IdTipoTransporte')
+              ->join('tipotransporte', 'transporte.IdTipoTransporte', '=', 'tipotransporte.IdTipoTransporte')
               ->join('empresaalquilertransporte', 'transporte.IdEmpresaTransporte', '=', 'empresaalquilertransporte.IdEmpresaTransporte')
               ->select('NombreTipoTransporte','Marca','Modelo','Color','Placa_Matricula','NumeroAsientos','NombreEmpresaTransporte')
               ->where('contrata.IdPaquete','=',$id)

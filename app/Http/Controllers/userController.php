@@ -217,16 +217,16 @@ class userController extends Controller
             "SegundoNombrePersona" => "alpha|nullable|min:2|max:25",
             "PrimerApellidoPersona" => "required|alpha|min:2|max:25",
             "SegundoApellidoPersona" => "alpha|nullable|min:2|max:25",
-            "TelefonoContacto" => "required|numeric",
+            "TelefonoContacto" => "required|max:10",
             "fechaNacimiento" => "required|fnic|vmedad",
             "direccion" => "required|min:10|max:100",
             "preferencias" => "required",
           ]);
-        
+
         if( $request->input("dui") == null && $request->input("pasaporte") == null){
 
           return redirect()->back()->with('documento', 'Un documento es requerido')->withInput();
-       
+
          }elseif($request->input("dui") != null && $request->input("pasaporte") != null){
              $this->validate($request, [
              "dui" => "dui",
@@ -618,13 +618,13 @@ class userController extends Controller
            ]);
         }
         if($edad >= 18 && $request->input("dui") == null && $request->input("pasaporte") != null ){
-      
+
             $this->validate($request, [
               "pasaporte" => "alpha_num",
               "fechaVencimentoP" => "required|fvdp",
            ]);
         }
-    
+
       $persona = Persona::create([
             "PrimerNombrePersona" => $request->Nombre,
             "PrimerApellidoPersona" => $request->Apellido,
@@ -930,7 +930,7 @@ Para el del DUI el proceso que recuerdo es este:
 
  /**
  *Funcion para validar la edad del usuario
- */    
+ */
  public function validaEdad($fecha){
        $hoystr = Carbon::now()->format('d-m-Y');
        $hoyObj = Carbon::parse($hoystr);

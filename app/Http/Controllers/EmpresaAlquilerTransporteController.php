@@ -47,7 +47,7 @@ class EmpresaAlquilerTransporteController extends Controller
         'nombreEmpresa' => 'required|max:80',
         'nombreContacto' => 'required|max:40',
         'codigoArea' => 'required',
-        'numeroTelefono'=>'required|size:8',
+        'numeroTelefono'=>'required|max:9',
         'emailEmpresa'=>'required|max:30|unique:empresaalquilertransporte,EmailEmpresaTransporte',
         'observacionesEmpresa'=>'max:255',
       ));
@@ -124,7 +124,7 @@ class EmpresaAlquilerTransporteController extends Controller
       $this->validate($request,array(
         'nombreempresa' => 'required|max:80',
         'nombrecontacto' => 'required|max:40',
-        'numerotelefono'=>'required|size:8',
+        'numerotelefono'=>'required|max:9',
         'emailempresa'=>'required|max:30',
         'observacionesempresa'=>'max:255',
       ));

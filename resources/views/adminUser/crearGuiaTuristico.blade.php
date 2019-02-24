@@ -175,7 +175,7 @@
                    <div class="input-group-addon">
                        <i class="fa fa-phone"></i>
                    </div>
-                    <input type="number" name="TelefonoContacto" class="form-control"  id="telefono" value="{{ old('TelefonoContacto')}}" placeholder="22223333">
+                    <input type="text" maxlength="10" name="TelefonoContacto" class="form-control" onkeypress="return filterInt(event,this);" id="telefono" value="{{ old('TelefonoContacto')}}" placeholder="22223333">
                 </div> @if ($errors->has('TelefonoContacto'))
             <span class="help-block">{{ $errors->first('TelefonoContacto') }}</span>
             @endif
@@ -198,7 +198,7 @@
           <div class="col-xs-6 col-md-6">
           <div class="form-group has-feedback{{ $errors->has('idiomasGuia') ? ' has-error' : '' }}">
               <label name="idiomasGuia" for="idioma">Idiomas(elegir al menos 1) *</label>
-                <select class="form-control select2" multiple="multiple" name="idiomasGuia[]" id="idiomasGuia"  data-placeholder="Select a State" style="width: 100%;">
+                <select class="form-control select2" multiple="multiple" name="idiomasGuia[]" id="idiomasGuia"  style="width: 100%;">
                 @foreach ($idiomas as $idioma)
                 <option value="{{$idioma->IdIdioma }}" {{ (collect(old('idiomasGuia'))->contains($idioma->IdIdioma)) ? 'selected':'' }} >{{$idioma->Idioma}}</option>
                 @endforeach
@@ -322,4 +322,52 @@
                 </div>
               </div>
             </div>
+
+            <script type="text/javascript">
+              function filterInt(evt,input){
+                // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
+                var key = window.Event ? evt.which : evt.keyCode;
+                var chark = String.fromCharCode(key);
+                var tempValue = input.value+chark;
+                if(key >= 48 && key <= 57){
+                    if(filter(tempValue)=== false){
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }else{
+                      if(key == 8 || key == 13 || key == 0) {
+                          return true;
+                      }else if(key == 46){
+                            if(filterN(tempValue)=== false){
+                                return false;
+                            }else{
+                                return true;
+                            }
+                      }else{
+                          return false;
+                      }
+                }
+            };
+            function filterN(__val__){
+                var preg = /^[0-9]+$/;//[0-9]/;//^([0-9]/)$/;//patron =/[0-9]/;
+                if(preg.test(__val__) === true){
+                    return true;
+                }else{
+                   return false;
+                }
+
+            };
+            function numeros(e){
+               var tecla = e.keyCode;
+
+                if (tecla==8 || tecla==9 || tecla==13){
+                    return true;
+                }
+
+                var patron =/[0-9]/;
+                var tecla_final = String.fromCharCode(tecla);
+                return patron.test(tecla_final);
+            }
+            </script>
 @endsection

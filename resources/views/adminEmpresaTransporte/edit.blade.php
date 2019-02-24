@@ -55,7 +55,7 @@
                 <label for="numerotelefono">Teléfono de contacto </label>
                 <div class="input-group">
                   <span class="input-group-addon"><span class="fa fa-phone"></span></span>
-                  <input id="numerotelefono" title="No. Teléfono" value="{{ $empresalquiler->NumeroTelefonoContacto }}" placeholder="{{ $empresalquiler->NumeroTelefonoContacto }}" type="number" min="00000000" max="99999999" class="form-control" name="numerotelefono"  required>
+                  <input id="numerotelefono" type="text" onkeypress="return filterInt(event,this);" maxlength="9" title="No. Teléfono" value="{{ $empresalquiler->NumeroTelefonoContacto }}" placeholder="{{ $empresalquiler->NumeroTelefonoContacto }}" type="number" min="00000000" max="99999999" class="form-control" name="numerotelefono"  required>
                 </div>
                 @if ($errors->has('numerotelefono'))
                   <span class="help-block">{{ $errors->first('numerotelefono') }}</span>
@@ -143,4 +143,53 @@
   </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function filterInt(evt,input){
+    // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
+    var key = window.Event ? evt.which : evt.keyCode;
+    var chark = String.fromCharCode(key);
+    var tempValue = input.value+chark;
+    if(key >= 48 && key <= 57){
+        if(filter(tempValue)=== false){
+            return false;
+        }else{
+            return true;
+        }
+    }else{
+          if(key == 8 || key == 13 || key == 0) {
+              return true;
+          }else if(key == 46){
+                if(filterN(tempValue)=== false){
+                    return false;
+                }else{
+                    return true;
+                }
+          }else{
+              return false;
+          }
+    }
+};
+function filterN(__val__){
+    var preg = /^[0-9]+$/;//[0-9]/;//^([0-9]/)$/;//patron =/[0-9]/;
+    if(preg.test(__val__) === true){
+        return true;
+    }else{
+       return false;
+    }
+
+};
+function numeros(e){
+   var tecla = e.keyCode;
+
+    if (tecla==8 || tecla==9 || tecla==13){
+        return true;
+    }
+
+    var patron =/[0-9]/;
+    var tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+</script>
+
 @endsection

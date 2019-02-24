@@ -99,7 +99,7 @@
               <label for="placa">Placa</label>
               <div class="input-group">
               <span class="input-group-addon">#</span></span>
-              <input id="placa" type="text" class="form-control" name="placa" placeholder="Ej: B776123" size="7" required>
+              <input id="placa" type="text" maxlength="7" class="form-control" name="placa" placeholder="Ej: B776123" size="7" required>
             </div>
               @if ($errors->has('placa'))
               <span class="help-block">{{ $errors->first('placa') }}</span>

@@ -74,7 +74,7 @@
                             <div class="input-group-addon">
                                <i class="fa fa-phone"></i>
                             </div>
-                            <input type="text" name="Telefono" onkeypress="return filterInt(event,this);" class="form-control"  id="Telefono" placeholder="72334455" value="{{old('Telefono')}}" required>
+                            <input type="text" name="Telefono" maxlength="10" onkeypress="return filterInt(event,this);" class="form-control"  id="Telefono" placeholder="72334455" value="{{old('Telefono')}}" required>
                           </div>
                           @if ($errors->has('Telefono'))
                                <span class="help-block">{{ $errors->first('Telefono') }}</span>

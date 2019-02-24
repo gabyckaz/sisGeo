@@ -92,7 +92,7 @@
               <div class="form-group row">
                 <label for="TelefonoContacto" class="col-md-4 col-form-label text-md-right">{{ __('Telefono') }} *</label>
                   <div class="col-md-6">
-                    <input id="TelefonoContacto" type="text" onkeypress="return filterInt(event,this);" class="form-control" name="TelefonoContacto" value="{{ old('TelefonoContacto') }}" required autofocus >
+                    <input type="text" maxlength="10" class="form-control{{ $errors->has('TelefonoContacto') ? ' is-invalid' : '' }}" onkeypress="return filterInt(event,this);" name="TelefonoContacto" value="{{ old('TelefonoContacto') }}" required autofocus >
                         @if ($errors->has('TelefonoContacto'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('TelefonoContacto') }}</strong>

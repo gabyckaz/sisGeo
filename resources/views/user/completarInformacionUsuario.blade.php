@@ -80,7 +80,7 @@
                         <span class="help-block">{{ $errors->first('PrimerApellidoPersona') }}</span>
                       @endif
                   </div>
-                 
+
           </div>
           <div class="col-md-3">
             <div class="form-group has-feedback{{ $errors->has('SegundoApellidoPersona') ? ' has-error' : '' }}">
@@ -360,7 +360,7 @@
                    <div class="input-group-addon">
                        <i class="fa fa-phone"></i>
                    </div>
-                    <input type="text" name="TelefonoContacto" class="form-control"  id="telefono" value="{{ old('TelefonoContacto',$usuario->persona->TelefonoContacto) }}" placeholder="22223333" required>
+                    <input type="text" maxlength="10" name="TelefonoContacto" class="form-control{{ $errors->has('TelefonoContacto') ? ' is-invalid' : '' }}" onkeypress="return filterInt(event,this);" id="telefono" value="{{ old('TelefonoContacto',$usuario->persona->TelefonoContacto) }}" placeholder="22223333" required>
                 </div>
                  @if ($errors->has('TelefonoContacto'))
                   <span class="help-block">{{ $errors->first('TelefonoContacto') }}</span>
@@ -473,4 +473,51 @@
         </div>
 </div>
 
+<script type="text/javascript">
+  function filterInt(evt,input){
+    // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
+    var key = window.Event ? evt.which : evt.keyCode;
+    var chark = String.fromCharCode(key);
+    var tempValue = input.value+chark;
+    if(key >= 48 && key <= 57){
+        if(filter(tempValue)=== false){
+            return false;
+        }else{
+            return true;
+        }
+    }else{
+          if(key == 8 || key == 13 || key == 0) {
+              return true;
+          }else if(key == 46){
+                if(filterN(tempValue)=== false){
+                    return false;
+                }else{
+                    return true;
+                }
+          }else{
+              return false;
+          }
+    }
+};
+function filterN(__val__){
+    var preg = /^[0-9]+$/;//[0-9]/;//^([0-9]/)$/;//patron =/[0-9]/;
+    if(preg.test(__val__) === true){
+        return true;
+    }else{
+       return false;
+    }
+
+};
+function numeros(e){
+   var tecla = e.keyCode;
+
+    if (tecla==8 || tecla==9 || tecla==13){
+        return true;
+    }
+
+    var patron =/[0-9]/;
+    var tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+</script>
 @endsection

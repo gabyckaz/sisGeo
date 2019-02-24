@@ -57,20 +57,12 @@ class RegisterController extends Controller
 
         return Validator::make($data, [
             'name' => 'required|alpha|min:2|max:25',
-/*
-            //'SegundoNombrePersona'=>'min:2|max:25',
-            'email' => 'required|string|email|max:25|unique:users',
-            'password' => 'required|string|min:6|confirmed|max:25',
-            'PrimerApellidoPersona' => 'required|alpha|min:2|max:25',
-            //'SegundoApellidoPersona' => 'alpha|min:2|max:25',
-            'TelefonoContacto' => 'required|string|min:8|max:10',
-*/
             'SegundoNombrePersona'=>'alpha|nullable|min:2|max:25',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'PrimerApellidoPersona' => 'required|alpha|min:2|max:25',
-            'SegundoApellidoPersona' => 'alpha|nullable|min:2|max:25',  
-            'TelefonoContacto' => 'required|numeric|integer',
+            'SegundoApellidoPersona' => 'alpha|nullable|min:2|max:25',
+            'TelefonoContacto' => 'required|max:10',
             'RecibirNotificacion' => 'required',
             'Genero' => 'required',
         ]);
