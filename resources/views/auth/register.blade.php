@@ -22,7 +22,7 @@
               </div>
 
               <div class="form-group row">
-                <label for="SegundoNombrePersona" class="col-md-4 col-form-label text-md-right">{{ __('Segundo Nombre') }}</label>
+                <label for="SegundoNombrePersona" pattern="[A-Za-z]{3}" class="col-md-4 col-form-label text-md-right">{{ __('Segundo Nombre') }}</label>
                 <div class="col-md-6">
                     <input id="SegundoNombrePersona" type="text" class="form-control{{ $errors->has('SegundoNombrePersona') ? ' is-invalid' : '' }}" name="SegundoNombrePersona" value="{{ old('SegundoNombrePersona') }}" >
                     @if ($errors->has('SegundoNombrePersona'))
