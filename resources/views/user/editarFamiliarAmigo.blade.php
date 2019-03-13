@@ -132,7 +132,7 @@
                            @endif
                        @endforeach
                    @else
-                   <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" id="dui" >
+                   <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" data-mask="00000000-0" >
                    @endif
 
                    @if ($errors->has('dui'))
@@ -181,7 +181,7 @@
                         @endif
                     @endforeach
                   @else
-                  <input type="text" name="pasaporte" class="form-control" id="pasaporte" value="{{ old('pasaporte') }}">
+                  <input type="text" name="pasaporte" class="form-control" data-mask="AA0000000" value="{{ old('pasaporte') }}">
                   @endif
                     @if ($errors->has('pasaporte'))
                        <span class="help-block">Un documento es requerido</span>

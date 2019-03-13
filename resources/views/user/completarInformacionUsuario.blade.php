@@ -153,7 +153,7 @@
                            @endif
                        @endforeach
                        @else
-                       <input type="text" name="dui" class="form-control" id="dui" >
+                       <input type="text" name="dui" class="form-control" data-mask="00000000-0" >
                        @endif
                  </div>
              </div>
@@ -189,7 +189,7 @@
               <div class="col-md-3">
                  <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('documento') ) ? ' has-error' : '' }}">
                    <label for="dui" class="control-label">DUI</label>
-                    <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" id="dui" placeholder="11111111-1">
+                    <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" data-mask="00000000-0" placeholder="11111111-1">
                      @if ($errors->has('dui'))
                        <span class="help-block">{{ $errors->first('dui') }}</span>
                      @endif
@@ -262,7 +262,7 @@
                            @endif
                        @endforeach
                    @else
-                      <input  type="text" name="pasaporte" class="form-control" value="{{ old('pasaporte')}}" id="pasaporte" placeholder="Pasaporte">
+                      <input  type="text" name="pasaporte" class="form-control" value="{{ old('pasaporte')}}" data-mask="AA0000000" placeholder="Pasaporte">
                    @endif
                     </div>
                  </div>
@@ -298,9 +298,9 @@
                 <div class="col-md-3">
                   <div class="form-group has-feedback{{( $errors->has('pasaporte') || session()->has('documento')) ? ' has-error' : '' }}">
                       <label for="pasaporte" class="control-label">Pasaporte</label>
-                        <input  type="text" name="pasaporte" value="{{ old('pasaporte')}}" class="form-control" id="pasaporte" placeholder="1111111111">
+                        <input  type="text" name="pasaporte" value="{{ old('pasaporte')}}" class="form-control" data-mask="AA0000000" placeholder="AA1111111">
                       @if ($errors->has('pasaporte'))
-                        <span class="help-block">Un documentoXX es requerido</span>
+                        <span class="help-block">Un documento es requerido</span>
                       @endif
                       @if(session()->has('documento') )
                         <span class="help-block">Un documento es requerido</span>

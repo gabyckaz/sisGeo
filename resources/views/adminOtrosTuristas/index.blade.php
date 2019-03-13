@@ -87,7 +87,7 @@
                   <div class="form-group has-feedback{{ $errors->has('Dui') ? ' has-error' : '' }}">
                      <label for="Nombre" class="control-label">DUI</label>
                         <div class="input-group">
-                          <input type="text" name="Dui" class="form-control"  id="dui" placeholder="DUI" value="{{old('Dui')}}" >
+                          <input type="text" name="Dui" class="form-control"  data-mask="00000000-0" placeholder="11111111-1" value="{{old('Dui')}}" >
                         </div>
                         @if ($errors->has('Dui'))
                              <span class="help-block">{{ $errors->first('Dui') }}</span>
@@ -101,7 +101,7 @@
                   <div class="form-group has-feedback{{ $errors->has('pasaporte') ? ' has-error' : '' }}">
                      <label for="Pasaporte" class="control-label">Pasaporte</label>
                         <div class="input-group">
-                          <input type="text" name="pasaporte" class="form-control"  id="pasaporte" placeholder="Pasaporte" value="{{old('pasaporte')}}" >
+                          <input type="text" name="pasaporte" class="form-control"  data-mask="AA0000000" placeholder="Pasaporte" value="{{old('pasaporte')}}" >
                         </div>
                         @if ($errors->has('pasaporte'))
                              <span class="help-block">{{ $errors->first('pasaporte') }}</span>

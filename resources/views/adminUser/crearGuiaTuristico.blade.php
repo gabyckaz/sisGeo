@@ -215,7 +215,7 @@
         <div class="col-md-3 col-md-offset-2">
           <div class="form-group has-feedback{{ ( $errors->has('dui') || session()->has('Errordui') ) ? ' has-error' : '' }}">
               <label for="dui" class="control-label">DUI</label>
-                  <input type="text" name="dui" class="form-control" id="dui" placeholder="11111111-1" value="{{ old('dui') }}">
+                  <input type="text" name="dui" class="form-control" data-mask="00000000-0" placeholder="11111111-1" value="{{ old('dui') }}">
                    @if ($errors->has('dui'))
                        <span class="help-block">Un documento es requerido</span>
                   @endif
@@ -249,7 +249,7 @@
            <div class="form-group has-feedback{{ $errors->has('pasaporte') ? ' has-error' : '' }}">
               <label for="pasaporte" class="control-label">Pasaporte</label>
                 <div class="">
-                  <input type="text" name="pasaporte" class="form-control" id="pasaporte" placeholder="BB1111111" value="{{ old('pasaporte') }}">
+                  <input type="text" name="pasaporte" class="form-control" data-mask="AA0000000" placeholder="BB1111111" value="{{ old('pasaporte') }}">
                     @if ($errors->has('pasaporte'))
                        <span class="help-block">Un documento es requerido</span>
                     @endif

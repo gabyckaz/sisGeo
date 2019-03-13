@@ -455,6 +455,8 @@
 <!-- Para mascaras-->
 <script src="{{ asset('adminLte/input-mask/jquery.inputmask.js') }}"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+
 <script src="{{ asset('adminLte/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
 <script src="{{ asset('adminLte/input-mask/jquery.inputmask.extensions.js') }}"></script>
 
