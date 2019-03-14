@@ -446,8 +446,9 @@
           <div class="row">
             <div class="col-xs-12 col-md-6">
             <div class="form-group has-feedback{{ $errors->has('preferencias') ? ' has-error' : '' }}">
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
                 <label name="preferencias" for="itinerario">Preferencias (elegir al menos 1) *</label>
-                  <select class="form-control select2" multiple="multiple" name="preferencias[]" id="preferencias[]" required>
+                  <select class="form-control select2" multiple="multiple" name="preferencias[]" id="preferencias" required>
                   @foreach ($categorias as $cat)
                   <option value="{{$cat->IdCategoria }}" {{ (collect(old('preferencias', $misPreferencias))->contains($cat->IdCategoria)) ? 'selected':'' }} >{{$cat->NombreCategoria}}</option>
                   @endforeach
@@ -456,10 +457,12 @@
                   <span class="help-block">{{ $errors->first('preferencias') }}</span>
                 @endif
              </div>
+             <input type="checkbox" id="checkbox" >Seleccionar todos</input>
             </div>
           </div>
 
          <div class="row">
+            <br>
             <div class="col-md-12">
               <button type="submit" class="btn btn-info  col-xs-12 col-sm-2 center-block"><STRONG>Actualizar</STRONG></button>
             </div>
@@ -519,5 +522,18 @@ function numeros(e){
     var tecla_final = String.fromCharCode(tecla);
     return patron.test(tecla_final);
 }
+
+$(document).ready(function() {
+    $("#checkbox").click(function(){
+      if($("#checkbox").is(':checked') ){ //select all
+        $("#preferencias").find('option').prop("selected",true);
+        $("#preferencias").trigger('change');
+      } else { //deselect all
+        $("#preferencias").find('option').prop("selected",false);
+        $("#preferencias").trigger('change');
+      }
+  });
+});
+
 </script>
 @endsection

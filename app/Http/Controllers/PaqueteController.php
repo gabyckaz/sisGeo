@@ -820,7 +820,7 @@ class PaqueteController extends Controller
             ->join('transporte', 'contrata.IdTransporte', '=', 'transporte.IdTransporte')
             ->join('tipotransporte', 'transporte.IdTipoTransporte', '=', 'tipotransporte.IdTipoTransporte')
             ->join('empresaalquilertransporte', 'transporte.IdEmpresaTransporte', '=', 'empresaalquilertransporte.IdEmpresaTransporte')
-            ->select('nombretipotransporte','Marca','Modelo','Color','Placa_Matricula','NumeroAsientos','NombreEmpresaTransporte')
+            ->select('NombreTipoTransporte','Marca','Modelo','Color','Placa_Matricula','NumeroAsientos','NombreEmpresaTransporte')
             ->where('contrata.IdPaquete','=',$id)
             ->get();
 

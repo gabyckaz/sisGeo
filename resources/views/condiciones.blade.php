@@ -30,13 +30,13 @@
           <li>Geoturismo no se hace responsable por atrasos, huelgas, temblores, huracanes ó alguna otra situación inesperada.</li>
           <li>Geoturismo no se hace responsable por accidentes ó lesiones en los pasajeros.</li>
           <li>Geoturismo no se hace responsable por pérdidas, daños ó alguna otra situación irregular que le pueda suceder a las pertenencias de los pasajero.</li>
-          <li>La empresa excluira a toda persona que interrumpa o ponga en riesgo la integridad física y psicológica de nuestros turistas o de nuestro equipo de trabajo.</li>
+          <li>La empresa excluirá a toda persona que interrumpa o ponga en riesgo la integridad física y psicológica de nuestros turistas o de nuestro equipo de trabajo.</li>
           <li>Viaje Garantizado con cupo de 10 Pax.</li>
-          <li>Si el turista no se presenta el día y hora indicada de la actividad no habra devolucion alguna.</li>
+          <li>Si el turista no se presenta el día y hora indicada de la actividad no habrá devolucion alguna.</li>
           <li>Si nos vemos obligados a cancelar una actividad por algún imprevisto, seremos responsables de reintegrar lo abonado a su totalidad.</li>
-          <li>La empresa no se hara responsable por daños físicos, accidentes que estén fuera de nuestro alcance.</li>
-          <li>Nuestra empresa no se hace responsable por problemas legales en la frontera con alguno de los turistas en ser caso así no se hara ningún tipo de devolución.</li>
-          <li>Si nuestros clientes reservan y por algún problema o circunstancia no asisten el día del tours tendrán la opciones de devolver el 50% siempre y cuando se notifique 2 dias antes del viaje, de lo contrario no se realizara devoluciones de ningun tipo.</li>
+          <li>La empresa no se hará responsable por daños físicos, accidentes que estén fuera de nuestro alcance.</li>
+          <li>Nuestra empresa no se hace responsable por problemas legales en la frontera con alguno de los turistas en ser caso así no se hará ningún tipo de devolución.</li>
+          <li>Si nuestros clientes reservan y por algún problema o circunstancia no asisten el día del tours tendrán la opciones de devolver el 50% siempre y cuando se notifique 2 dias antes del viaje, de lo contrario no se realizarán devoluciones de ningún tipo.</li>
         </ol>
     </div>
 </div>

@@ -148,7 +148,7 @@
                   @endif
                   @if(session()->has('Errordui'))
                      <span class="help-block">{{ session()->get('Errordui') }}</span>
-                     @endif 
+                     @endif
                   @if(session()->has('documento'))
                      <span class="help-block">{{ session()->get('documento') }}</span>
                      @endif
@@ -309,7 +309,7 @@
   $(document).ready(function(){
       $('#tipo').on('change',function(){
         var optionText = $("#tipo option:selected").text();
-        var direccion = <?php echo $direccionjson; ?>
+        var direccion = <?php echo $direccionjson; ?>;
         $("#Direccion").val(direccion[0]['DomicilioTurista']);
       });
   });
