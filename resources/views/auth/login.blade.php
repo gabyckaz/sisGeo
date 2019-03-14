@@ -62,13 +62,13 @@
                                 </button>
                                 <center><a style="text" class="btn btn-link" href="{{ route('password.request') }}">
                                     <strong>{{ __('Olvidé mi contraseña') }}</strong>
-                                </a>||<a style="text" class="btn btn-link" href="{{ route('register') }}">
-                                    <strong>{{ __('Usuario no registrado') }}</strong>
+                                </a>||<a style="text" class="btn btn-link" href="{{ route('register') }}" title="Registrarse">
+                                    <strong>{{ __('No tengo cuenta') }}</strong>
                                 </a></center>
                             </div>
-                        </div>            
+                        </div>
                     </form>
-                </div>      
+                </div>
             </div>
         </div>
     </div>

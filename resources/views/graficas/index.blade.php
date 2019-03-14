@@ -152,7 +152,7 @@ function imprSelec(grafica_generos)
     var data = google.visualization.arrayToDataTable(paquetes);
     var options = {
       chart: {
-        title: 'Excursiones realizados',
+        title: 'Viajes realizados',
         subtitle: 'Número de paquetes realizados',
       },
       bars: 'vertical',

@@ -42,7 +42,7 @@ class CategoriaController extends Controller
       try{
         $this->validate($request,array(
 
-          'categoria'=>'required|string|unique:Categoria,NombreCategoria',
+          'categoria'=>'required|string|unique:categoria,NombreCategoria',
         ));
 
        //Guardar en la BD
