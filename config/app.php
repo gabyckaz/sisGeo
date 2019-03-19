@@ -166,6 +166,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         BackupManager\Laravel\Laravel55ServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
+        Fedeisas\LaravelMailCssInliner\LaravelMailCssInlinerServiceProvider::class,
     ],
 
     /*
