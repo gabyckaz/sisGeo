@@ -11,6 +11,7 @@
         "consoletvs/charts": "6.*",
         "cyber-duck/laravel-excel": "^1.2",
         "dompdf/dompdf": "^0.8.2",
+        "fedeisas/laravel-mail-css-inliner": "^2.2",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.4",
         "kyslik/column-sortable": "^5.6",
