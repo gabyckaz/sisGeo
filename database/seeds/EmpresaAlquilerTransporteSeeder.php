@@ -15,14 +15,14 @@ class EmpresaAlquilerTransporteSeeder extends Seeder
         'IdEmpresaTransporte'=>1,
         'NombreEmpresaTransporte'=>'AyC Alquileres',
         'NombreContacto'=>'Armando Cáceres',
-        'NumeroTelefonoContacto'=>'22554488',
+        'NumeroTelefonoContacto'=>'50322554488',
         'EmailEmpresaTransporte'=>'ayc@alquileres.com'
       ]);
       Empresa::create([
         'IdEmpresaTransporte'=>2,
         'NombreEmpresaTransporte'=>'Transportes La Luna',
         'NombreContacto'=>'Mariana Luna',
-        'NumeroTelefonoContacto'=>'25489632',
+        'NumeroTelefonoContacto'=>'50225489632',
         'EmailEmpresaTransporte'=>'transportesluna@gmail.com',
         'ObservacionesEmpresaTransporte'=>'Siempre son puntuales',
       ]);
@@ -30,7 +30,7 @@ class EmpresaAlquilerTransporteSeeder extends Seeder
         'IdEmpresaTransporte'=>3,
         'NombreEmpresaTransporte'=>'Viajes TXD',
         'NombreContacto'=>'Daniel Torres',
-        'NumeroTelefonoContacto'=>'26558841',
+        'NumeroTelefonoContacto'=>'50326558841',
         'EmailEmpresaTransporte'=>'danielt@viajestdx.com',
         'ObservacionesEmpresaTransporte'=>'Ninguna',
       ]);

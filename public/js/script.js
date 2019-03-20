@@ -47,7 +47,7 @@ $(document).ready(function(){
             "autoWidth": true,
         });
         $('#tablaAdminPaquetes').DataTable({
-            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "lengthMenu": [[10, 15, -1], [10, 15, "Todos"]],
             "paging": true,
             "bpaging": true,
             "bFilter": true,
@@ -112,9 +112,9 @@ $(document).ready(function(){
             "autoWidth": true,
         });
          $('#tblAgregarGuia').DataTable({
-            //"lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
-            //"paging": true,
-            //"bpaging": true,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+            "paging": true,
+            "bpaging": true,
             "bFilter": true,
             "bInfo": false,
             "autoWidth": true,

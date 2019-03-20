@@ -17,7 +17,7 @@ class CreateEmpresaAlquilerTransporteTable extends Migration
           $table->increments('IdEmpresaTransporte');
           $table->string('NombreEmpresaTransporte',80);
           $table->string('NombreContacto',40);
-          $table->string('NumeroTelefonoContacto',12);
+          $table->string('NumeroTelefonoContacto',13);
           $table->string('EmailEmpresaTransporte',30)->unique();
           $table->string('ObservacionesEmpresaTransporte',256)->nullable();
       });

@@ -46,6 +46,7 @@ class GraficaController extends Controller
      }
 
      //Paquetes realizados en 2018
+     $q=date('Y-m-d',strtotime(date('Y-01-01')));
      $paquetes = DB::table('paquetes')
        ->select(
           DB::raw('EXTRACT(MONTH FROM FechaSalida) as mes'),
@@ -56,8 +57,13 @@ class GraficaController extends Controller
           DB::raw('EXTRACT(MONTH FROM FechaSalida)')
          )
        ->where(
-         DB::raw('EXTRACT(YEAR FROM FechaSalida)'), '=', 2018)
+          DB::raw('EXTRACT(YEAR FROM FechaSalida)'), '=', 2018)
        ->get();
+
+      // $sql='select EXTRACT(MONTH FROM FechaSalida) as mes, COUNT(EXTRACT(MONTH FROM FechaSalida)) as number from paquetes where FechaSalida > DATE_FORMAT(CURDATE(), "%Y-01-01")and FechaSalida < CURDATE()
+      //  group by EXTRACT(MONTH FROM FechaSalida);';
+      // $paquetes = DB::select($sql);
+
      $paquetesarray[] = ['Mes', 'Excursiones'];
 
      //Cambiando el numero del mes por el nombre en español, ej: 1 -> Enero
@@ -93,7 +99,11 @@ class GraficaController extends Controller
           DB::raw('EXTRACT(MONTH FROM paquetes.FechaSalida) as mes'),
           DB::raw('SUM(CostoAlquilerTransporte) as number')
           )
-        ->groupBy(DB::raw('EXTRACT(MONTH FROM FechaSalida)'))
+        ->groupBy(
+          DB::raw('EXTRACT(MONTH FROM FechaSalida)')
+          )
+        ->where(
+           DB::raw('EXTRACT(YEAR FROM FechaSalida)'), '=', 2018)  
         ->get();
       $costosarray[] = ['Meses', 'En dólares ($)'];
       foreach($costos as $key => $value)
