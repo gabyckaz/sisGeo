@@ -316,8 +316,6 @@
                              @endforeach
                           </tbody>
                       </table>
-                      <center>{{ $guias->links() }} </center>
-
                   </div>
                 </div>
               </div>

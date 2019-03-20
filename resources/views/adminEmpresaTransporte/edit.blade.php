@@ -55,7 +55,7 @@
                 <label for="numerotelefono">Teléfono de contacto </label>
                 <div class="input-group">
                   <span class="input-group-addon"><span class="fa fa-phone"></span></span>
-                  <input id="numerotelefono" type="text" onkeypress="return filterInt(event,this);" maxlength="9" title="No. Teléfono" value="{{ $empresalquiler->NumeroTelefonoContacto }}" placeholder="{{ $empresalquiler->NumeroTelefonoContacto }}" type="number" min="00000000" max="99999999" class="form-control" name="numerotelefono"  required>
+                  <input id="numerotelefono" type="text" onkeypress="return filterInt(event,this);" maxlength="13" title="No. Teléfono" value="{{ $empresalquiler->NumeroTelefonoContacto }}" placeholder="{{ $empresalquiler->NumeroTelefonoContacto }}" type="number" min="00000000" max="99999999" class="form-control" name="numerotelefono"  required>
                 </div>
                 @if ($errors->has('numerotelefono'))
                   <span class="help-block">{{ $errors->first('numerotelefono') }}</span>
