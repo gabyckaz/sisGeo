@@ -31,6 +31,9 @@
     		      {!! csrf_field() !!}
 
         <div class="col-md-7 col-md-offset-2">
+            <div class="panel panel-success">
+              <div class="panel-heading"><STRONG>MENSAJE</STRONG></div>
+              <div class="panel-body">
           <div class="row">
               <div class="col-md-12">
                   <div class="form-group has-feedback{{ $errors->has('de') ? ' has-error' : '' }}">
@@ -64,6 +67,8 @@
                 <center><button type="submit" class="btn btn-info "><STRONG>Actualizar</STRONG></button></center>
               </div>
           </div>
+          </div>
+     </div>
         </div>
       </form>
      </div>
