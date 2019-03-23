@@ -33,7 +33,7 @@ class HomeController extends Controller
     public function index()
     {
       try{
-        $paquetes=Paquete::where('DisponibilidadPaquete','=','1')->where('FechaSalida','>',Carbon::now()->format('Y-m-d'))->paginate(6);
+        $paquetes=Paquete::where('DisponibilidadPaquete','=','1')->where('FechaSalida','>',Carbon::now()->format('Y-m-d'))->orderBy('FechaSalida','asc')->paginate(6);
 
         $imagenes = ImagenPaqueteTuristico::all();
 
