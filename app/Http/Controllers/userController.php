@@ -546,7 +546,7 @@ class userController extends Controller
           u.id = '.auth()->user()->id.')';
          $familiaAmigos = DB::select($sql);
 
-        $familiaAmigos = $this->arrayPaginator($familiaAmigos);
+      //  $familiaAmigos = $this->arrayPaginator($familiaAmigos);
 
         $direccion = DB::table('users')
               ->join('personas','users.IdPersona','=','personas.IdPersona')
