@@ -577,7 +577,7 @@ class userController extends Controller
           $this->validate($request, [
           "Nombre" => "required|alpha|min:3|max:25",
           "Apellido" => "required|alpha|min:3|max:25",
-          "fechaNacimiento" => "required|fnic",
+          "fechaNacimiento" => "required|fnic|size:10",
           "Direccion" => "required|min:10|max:100",
         ]);
            /*$hoystr = Carbon::now()->format('d-m-Y');
@@ -726,6 +726,7 @@ class userController extends Controller
 
 
    public function guardarInformacionFamiliarAmigoEditado(Request $request){
+     dd('you');
      $this->validate($request, [
              "Nombre" => "required|alpha|min:3|max:25",
              "Apellido" => "required|alpha|min:3|max:25",

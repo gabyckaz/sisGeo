@@ -882,7 +882,7 @@ class PaqueteController extends Controller
          sort($guiasPaquete);
          $sqlG = 'SELECT gpt.IdGuiaPaquete as idgpt, pers.PrimerNombrePersona as pn, pers.SegundoNombrePersona as sn, pers.PrimerApellidoPersona as pap, pers.SegundoApellidoPersona as sap,
           pers.AreaTelContacto as atel, pers.TelefonoContacto as tel
-          FROM guiaPaquete as gpt, empleado as empg, personas as pers
+          FROM guiapaquete as gpt, empleado as empg, personas as pers
           WHERE gpt.IdEmpleadoGEO = empg.IdEmpleadoGEO and empg.IdPersona = pers.IdPersona and gpt.IdPaquete = '.$id.' ;';
           $pIdguias = DB::select($sqlG);
      return view('adminPaquete.agregarguia',compact('guias','paquete','guiasPaquete','pIdguias'));
