@@ -253,7 +253,7 @@
           </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                      <table class="table table-striped table-bordered table-hover" id="tblAgregarFamiliarAmigo" >
+            <table class="table table-striped table-bordered table-hover" id="tblAgregarFamiliarAmigo" >
                         <thead class="thead-dark">
                          <th>Tipo</th>
                          <th>Nombre</th>
@@ -292,7 +292,7 @@
                             @endforeach
                           </tbody>
                       </table>
-                      <center>{{ $familiaAmigos->links() }}</center>
+                      {{-- <center>{{ $familiaAmigos->links() }}</center> --}}
 
                   </div>
                 </div>
