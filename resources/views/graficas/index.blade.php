@@ -275,7 +275,7 @@ function imprSelec(grafica_generos)
   </div>
   <div class="col-md-6">
     <div id="grafica_categorias" style="width: 640px; height: 400px;"></div>
-    <a href="javascript:imprSelec('grafica_generos')"><i class="fa Example of download fa-download"></i> Imprimir gráfica</a>
+    <a href="javascript:imprSelec('grafica_categorias')"><i class="fa Example of download fa-download"></i> Imprimir gráfica</a>
     <div id='grafica_categorias_png'></div>
   </div>
 </div>

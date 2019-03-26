@@ -175,7 +175,7 @@ class PaqueteController extends Controller
     }
     public function show()
     {
-      $paquetes=Paquete::where('DisponibilidadPaquete','=','1')->where('FechaSalida','>',Carbon::now()->format('Y-m-d'))->paginate(6);
+      $paquetes=Paquete::where('DisponibilidadPaquete','=','1')->where('FechaSalida','>',Carbon::now()->format('Y-m-d'))->orderBy('FechaSalida','asc')->paginate(6);
       $imagenes = ImagenPaqueteTuristico::all();
       return view('welcome')->with('imagenes',$imagenes)->with('paquetes',$paquetes);
     }
