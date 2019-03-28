@@ -132,7 +132,7 @@
                            @endif
                        @endforeach
                    @else
-                   <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" data-mask="00000000-0" >
+                   <input type="text" name="dui" value="{{ old('dui')}}" class="form-control" data-mask="00000000-0" placeholder="01111111-1" >
                    @endif
 
                    @if ($errors->has('dui'))
@@ -142,8 +142,8 @@
            </div>
         </div>
         <div class="col-md-3">
-           <div class="form-group has-feedback{{ $errors->has('fechaVencimentoD') ? ' has-error' : '' }}">
-            <label for="fechaVencimentoD" class="control-label">Fecha de vencimiento</label>
+           <div class="form-group has-feedback{{ $errors->has('fechaVencimientoD') ? ' has-error' : '' }}">
+            <label for="fechaVencimientoD" class="control-label">Fecha de vencimiento</label>
                <div class="">
                  <div class="input-group date ">
                     <div class="input-group-addon">
@@ -152,16 +152,16 @@
                    @if( ($documentos == 'duiPasaporte') || ($documentos == 'dui') )
                      @foreach($turista->documentos as $documento)
                            @if($documento->TipoDocumento == "DUI")
-                      <input type="date" name="fechaVencimentoD" class="form-control pull-right" value="{{ old('fechaVencimentoD',$documento->FechaVenceDocumento) }}" >
+                      <input type="date" name="fechaVencimientoD" class="form-control pull-right" value="{{ $documento->FechaVenceDocumento}}">
                          @break
                            @endif
                      @endforeach
                    @else
-                    <input type="date" name="fechaVencimentoD" class="form-control pull-right" value="{{ old('fechaVencimentoD') }}" >
+                    <input type="date" name="fechaVencimientoD" class="form-control pull-right" value="{{ old('fechaVencimientoD') }}" >
                    @endif
                   </div>
-                  @if ($errors->has('fechaVencimentoD'))
-                       <span class="help-block">{{ $errors->first('fechaVencimentoD') }}</span>
+                  @if ($errors->has('fechaVencimientoD'))
+                       <span class="help-block">{{ $errors->first('fechaVencimientoD') }}</span>
                   @endif
                 </div>
           </div>
@@ -175,8 +175,8 @@
                 <div class="">
                   @if( ($documentos == 'duiPasaporte') || ($documentos == 'pasaporte') )
                    @foreach($turista->documentos as $documento)
-                           @if($documento->TipoDocumento == "Pasaporte")
-                  <input type="text" name="pasaporte" class="form-control" id="pasaporte" placeholder="Pasaporte" value="{{ $documento->NumeroDocumento }}" readonly>
+                        @if($documento->TipoDocumento == "Pasaporte")
+                           <input type="text" name="pasaporte" class="form-control"  value="{{$documento->NumeroDocumento}}" readonly>
                         @break
                         @endif
                     @endforeach
@@ -190,17 +190,26 @@
             </div>
         </div>
           <div class="col-md-3">
-           <div class="form-group has-feedback{{ $errors->has('fechaVencimentoP') ? ' has-error' : '' }}">
-            <label for="fechaVencimentoP" class="control-label">Fecha de vencimiento</label>
+           <div class="form-group has-feedback{{ $errors->has('fechaVencimientoP') ? ' has-error' : '' }}">
+            <label for="fechaVencimientoP" class="control-label">Fecha de vencimiento</label>
                <div class="">
                  <div class="input-group date ">
                     <div class="input-group-addon">
                        <i class="fa fa-calendar"></i>
                     </div>
-                  <input type="date" name="fechaVencimentoP" class="form-control pull-right" value="{{ old('fechaVencimentoP') }}">
+                    @if( ($documentos == 'duiPasaporte') || ($documentos == 'pasaporte') )
+                     @foreach($turista->documentos as $documento)
+                          @if($documento->TipoDocumento == "Pasaporte")
+                            <input type="date" name="fechaVencimientoP" class="form-control pull-right" value="{{$documento->FechaVenceDocumento}}">
+                          @break
+                          @endif
+                      @endforeach
+                    @else
+                      <input type="date" name="fechaVencimientoP" class="form-control pull-right">
+                    @endif
                   </div>
-                   @if ($errors->has('fechaVencimentoP'))
-                       <span class="help-block">{{ $errors->first('fechaVencimentoP') }}</span>
+                   @if ($errors->has('fechaVencimientoP'))
+                       <span class="help-block">{{ $errors->first('fechaVencimientoP') }}</span>
                     @endif
                 </div>
           </div>

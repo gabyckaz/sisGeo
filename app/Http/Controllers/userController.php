@@ -726,32 +726,13 @@ class userController extends Controller
 
 
    public function guardarInformacionFamiliarAmigoEditado(Request $request){
-     dd('you');
+
      $this->validate($request, [
              "Nombre" => "required|alpha|min:3|max:25",
              "Apellido" => "required|alpha|min:3|max:25",
              "Direccion" => "required|min:10|max:100",
            ]);
-     //Opcion numero 2
-       /*$hoystr = Carbon::now()->format('d-m-Y');
-       $hoyObj = Carbon::parse($hoystr);
-       $fechaIngresadaObj = Carbon::parse($request->fechaVencimentoD);
-
-      if($hoyObj > $fechaIngresadaObj){
-
-        return redirect()->back()->withInput()->with('error', 'Fecha de vencimiento incorrecta');
-      }
-
-       $lengthOfAd = $hoyObj->diffInDays($fechaIngresadaObj);
-       dd($lengthOfAd); */
-
        $edad = Carbon::parse($request->fechaNacimiento)->age;
-
-/*          $this->validate($request, [
-              "Nombre" => "required|alpha|min:3|max:25",
-              "Apellido" => "required|alpha|min:3|max:25",
-              "Direccion" => "required|min:10|max:100",
-        ]);*/
         if($request->input("dui") != null && $request->input("pasaporte") != null){
           $hola1 = "Ingresastes los dos documentos";
           if($edad >= 18){
@@ -759,8 +740,8 @@ class userController extends Controller
              "Nombre" => "required|alpha|min:3|max:25",
              "Apellido" => "required|alpha|min:3|max:25",
              "Direccion" => "required|min:10|max:100",
-             "fechaVencimentoD" => "required",
-             "fechaVencimentoP" => "required",
+             "fechaVencimientoD" => "required",
+             "fechaVencimientoP" => "required",
            ]);
              if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
@@ -772,14 +753,14 @@ class userController extends Controller
               "Direccion" => "required|min:10|max:100",
         ]);
            }
-        }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){
+        }elseif($request->input("dui") != null && $request->input("pasaporte") == null ){dd('entra2');
            $hola1 = "Solo Ingresastes El dui";
            if($edad >= 18){
            $this->validate($request, [
               "Nombre" => "required|alpha|min:3|max:25",
               "Apellido" => "required|alpha|min:3|max:25",
               "Direccion" => "required|min:10|max:100",
-              "fechaVencimentoD" => "required",
+              "fechaVencimientoD" => "required",
            ]);
            if(!$this->validaDui($request->dui)){
             return redirect()->back()->withInput()->with('Errordui', 'Numero de dui Incorrecto');
@@ -791,14 +772,14 @@ class userController extends Controller
               "Direccion" => "required|min:10|max:100",
         ]);
          }
-        }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){
+       }elseif($request->input("dui") == null && $request->input("pasaporte") != null ){dd('entra3');
            $hola1 = "Solo Ingresastes El pasaporte";
             if($edad >= 18){
             $this->validate($request, [
              "Nombre" => "required|alpha|min:3|max:25",
              "Apellido" => "required|alpha|min:3|max:25",
              "Direccion" => "required|min:10|max:100",
-             "fechaVencimentoP" => "required",
+             "fechaVencimientoP" => "required",
            ]);
           }else{
             $this->validate($request, [
@@ -817,7 +798,6 @@ class userController extends Controller
           $persona->save();
 
         //Actualizo al turista
-
         //$t->CategoriaTurista = $request->;
           $turista->DomicilioTurista = $request->Direccion;
           $turista->Problemas_Salud = $request->psalud;
@@ -834,8 +814,9 @@ class userController extends Controller
                 "NumeroDocumento" => $request->dui,
                 "FechaVenceDocumento" => $request->fechaVencimientoD,
              ]);
+            $dui->save();
             }else{
-            $dui->FechaVenceDocumento = $request->fechaVencimientoD;
+             $dui->FechaVenceDocumento = $request->fechaVencimientoD;
             $dui->save();
             }
          }

@@ -174,6 +174,7 @@
         </form>
       </div>
       <div class="box-footer">
+        <p>Si es menor de edad en viajes nacionales, agregar DUI de adulto responsable</p>
         <p>¹ Es necesario respetar el patron para otros acompañantes.</p>
         <p>Ejemplo: Nombre Apellido,12345678-1,AA34567890</p>
         <p>Si solo agrega DUI: Nombre Apellido,12345678-1<b>,</b></p>
